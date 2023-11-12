@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg
+  version="1.1"
+  xmlns="http://www.w3.org/2000/svg"
+  xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="325pt"
+  height="300pt"
+  viewBox="0 0 325 300"
+>
+
+  <!-- <path style=" stroke:none;fill-rule:nonzero;fill:rgb(79.6%,23.5%,20%);fill-opacity:1;" d="M 150.898438 225 C 150.898438 266.421875 117.320312 300 75.898438 300 C 34.476562 300 0.898438 266.421875 0.898438 225 C 0.898438 183.578125 34.476562 150 75.898438 150 C 117.320312 150 150.898438 183.578125 150.898438 225 "/> -->
+  <!-- <path style=" stroke:none;fill-rule:nonzero;fill:rgb(22%,59.6%,14.9%);fill-opacity:1;" d="M 237.5 75 C 237.5 116.421875 203.921875 150 162.5 150 C 121.078125 150 87.5 116.421875 87.5 75 C 87.5 33.578125 121.078125 0 162.5 0 C 203.921875 0 237.5 33.578125 237.5 75 "/> -->
+  <!-- <path style=" stroke:none;fill-rule:nonzero;fill:rgb(58.4%,34.5%,69.8%);fill-opacity:1;" d="M 324.101562 225 C 324.101562 266.421875 290.523438 300 249.101562 300 C 207.679688 300 174.101562 266.421875 174.101562 225 C 174.101562 183.578125 207.679688 150 249.101562 150 C 290.523438 150 324.101562 183.578125 324.101562 225 "/> -->
+
+  <!-- <circle cx="75.78341013824885" cy="225" r="75" fill="#CB3C33"/> -->
+  <!-- <circle cx="162.5"             cy="75"  r="75" fill="#389826"/> -->
+  <!-- <circle cx="248.72235"         cy="225" r="75" fill="#9558B2"/> -->
+
+  <!-- Circle -->
+  <circle cx="75.78341013824885" cy="225" r="52" fill="#D9726D" stroke="#CB3C33" stroke-width="9"/>
+  <circle cx="162.5"             cy="75"  r="52" fill="#53CE3B" stroke="#389826" stroke-width="9"/>
+  <circle cx="248.72235"         cy="225" r="52" fill="#B48CC9" stroke="#9558B2" stroke-width="9"/>
+
+  <!-- Defs -->
+  <defs>
+    <marker id="arrow" markerWidth="4" markerHeight="4" refX="0" refY="2.0" orient="auto">
+      <polygon points="0,0 0,4 4,2.0" fill="#24292E"/>
+    </marker>
+  </defs>
+
+  <!-- Arrow -->
+  <path d="M162.5,75 L89.29673747026254,201.62501370229597" stroke="#24292E" stroke-width="9" stroke-linecap="round"  marker-end="url(#arrow)"/>
+  <path d="M248.72235,225 L154.97279580774133,170.73868212980278" stroke="#24292E" stroke-width="9" stroke-linecap="round"  marker-end="url(#arrow)"/>
+
+</svg>

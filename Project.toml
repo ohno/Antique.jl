@@ -1,0 +1,18 @@
+name = "Antiq"
+uuid = "be6e5d0e-34a5-4c8f-af83-e1b5389203d8"
+authors = ["Shuhei Ohno"]
+version = "1.0.0-DEV"
+
+[deps]
+Revise = "295af30f-e4ad-537b-8983-00126c2a3abe"
+SpecialFunctions = "276daf66-3868-5448-9aa4-cd146d93841b"
+Weave = "44d3d7a6-8a23-5bf8-98c5-b353f8df5ec9"
+
+[compat]
+julia = "1.1"
+
+[extras]
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[targets]
+test = ["Test"]

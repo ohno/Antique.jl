@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Infinite Potential Well · Antiq.jl</title><script data-outdated-warner src="assets/warner.js"></script><link rel="canonical" href="https://ohno.github.io/Antiq.jl/InfinitePotentialWell.html"/><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.045/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.24/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="assets/documenter.js"></script><script src="siteinfo.js"></script><script src="../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><a class="docs-logo" href="index.html"><img src="assets/logo.svg" alt="Antiq.jl logo"/></a><div class="docs-package-name"><span class="docs-autofit"><a href="index.html">Antiq.jl</a></span></div><form class="docs-search" action="search.html"><input class="docs-search-query" id="documenter-search-query" name="q" type="text" placeholder="Search docs"/></form><ul class="docs-menu"><li><a class="tocitem" href="index.html">Home</a></li><li class="is-active"><a class="tocitem" href="InfinitePotentialWell.html">Infinite Potential Well</a><ul class="internal"><li><a class="tocitem" href="#Definitions"><span>Definitions</span></a></li><li><a class="tocitem" href="#Usage"><span>Usage</span></a></li><li><a class="tocitem" href="#Examples"><span>Examples</span></a></li><li><a class="tocitem" href="#Tests"><span>Tests</span></a></li></ul></li><li><a class="tocitem" href="HarmonicOscillator.html">Harmonic Oscillator</a></li><li><a class="tocitem" href="MorsePotential.html">Morse Potential</a></li><li><a class="tocitem" href="HydrogenAtom.html">Hydrogen Atom</a></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><nav class="breadcrumb"><ul class="is-hidden-mobile"><li class="is-active"><a href="InfinitePotentialWell.html">Infinite Potential Well</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href="InfinitePotentialWell.html">Infinite Potential Well</a></li></ul></nav><div class="docs-right"><a class="docs-edit-link" href="https://github.com/ohno/Antiq.jl/blob/main/docs/src/InfinitePotentialWell.md#" title="Edit on GitHub"><span class="docs-icon fab"></span><span class="docs-label is-hidden-touch">Edit on GitHub</span></a><a class="docs-settings-button fas fa-cog" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-sidebar-button fa fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a></div></header><article class="content" id="documenter-page"><h1 id="Infinite-PotentialWell"><a class="docs-heading-anchor" href="#Infinite-PotentialWell">Infinite PotentialWell</a><a id="Infinite-PotentialWell-1"></a><a class="docs-heading-anchor-permalink" href="#Infinite-PotentialWell" title="Permalink"></a></h1><h2 id="Definitions"><a class="docs-heading-anchor" href="#Definitions">Definitions</a><a id="Definitions-1"></a><a class="docs-heading-anchor-permalink" href="#Definitions" title="Permalink"></a></h2><article class="docstring"><header><a class="docstring-binding" id="Antiq.InfinitePotentialWell" href="#Antiq.InfinitePotentialWell"><code>Antiq.InfinitePotentialWell</code></a> — <span class="docstring-category">Module</span></header><section><div><p><strong>Infinite Potential Well (Particle in a box)</strong></p><p><strong>Schrödinger Equation</strong></p><p class="math-container">\[  \psi(x) = E \psi(x)\]</p><p><strong>Hamiltonian</strong></p><p class="math-container">\[   \frac{\hbar^2}{2m} \frac{\mathrm{d}^2}{\mathrm{d}x ^2} + V(x)\]</p><p><strong>Potential</strong></p><p><code>V(x; L=L)</code></p><p class="math-container">\[  V(x) =
+  \left\{
+    \begin{array}{ll}
+    \infty &amp; x \lt 0, L \lt x \\
+    0      &amp; 0 \leq x \leq L
+    \end{array}
+  \right.\]</p><p><strong>Eigen Values</strong></p><p><code>E(; n=0, L=L, m=m, ℏ=ℏ)</code></p><p class="math-container">\[  {\hbar^2 n^2 \pi^2}{2 m L^2}\]</p><p><strong>Eigen Functions</strong></p><p><code>ψ(x; n=0, L=L)</code></p><p class="math-container">\[   \psi_n(x) = \sqrt{\frac{2}{L}} \sin \frac{n\pi x}{L}\]</p><p><strong>Proofs</strong></p><ul><li><a href="https://ja.wolframalpha.com/input?i2d=true&amp;i=D%5B%5C%2840%29Sqrt%5BDivide%5B2%2Ca%5D%5Dsin%5C%2840%29Divide%5Bn%CF%80x%2Ca%5D%5C%2841%29%5C%2841%29%2C%7Bx%2C2%7D%5D">Eigen Functions &amp; Eigen Values</a></li><li><a href="https://ja.wolframalpha.com/input?i=Integrate%5B%28%28Sqrt%5B2%2Fa%5Dsin%28%CF%80x%2Fa%29%29%29%5E2%2C+%7Bx%2C0%2Ca%7D%5D">Normalization</a></li></ul></div><a class="docs-sourcelink" target="_blank" href="https://github.com/ohno/Antiq.jl/blob/847b919fbcc93dc30f211382712af698a66d2ec8/src/InfinitePotentialWell.jl#L1-L41">source</a></section></article><h2 id="Usage"><a class="docs-heading-anchor" href="#Usage">Usage</a><a id="Usage-1"></a><a class="docs-heading-anchor-permalink" href="#Usage" title="Permalink"></a></h2><p><a href="index.html#Install">Install Antiq.jl</a> the first time. Run following command before use.</p><pre><code class="language-julia hljs">julia&gt; using Antiq</code></pre><p>The module name is <code>InfinitePotentialWell</code> or <code>IPW</code>. For example, the energy function is called as:</p><pre><code class="language-julia hljs">julia&gt; IPW.E(n=1)
+4.934802200544679
+
+julia&gt; IPW.E(n=2)
+19.739208802178716</code></pre><p>where, the default values of the parameters are follows:</p><pre><code class="language-julia hljs">julia&gt; IPW.L
+1.0
+
+julia&gt; IPW.m
+1.0
+
+julia&gt; IPW.ℏ
+1.0</code></pre><p>Parameters can be specified by named variables:</p><pre><code class="language-julia hljs">julia&gt; IPW.E(n=1, L=2)
+1.2337005501361697
+
+julia&gt; IPW.E(n=2, L=2)
+4.934802200544679</code></pre><h2 id="Examples"><a class="docs-heading-anchor" href="#Examples">Examples</a><a id="Examples-1"></a><a class="docs-heading-anchor-permalink" href="#Examples" title="Permalink"></a></h2><p>Wave functions:</p><pre><code class="language-julia hljs">using Plots
+plot(xlim=(0,1), xlabel=&quot;x&quot;, ylabel=&quot;ψ(x)&quot;)
+plot!(x -&gt; IPW.ψ(x, n=1), label=&quot;n=1&quot;, lw=2)
+plot!(x -&gt; IPW.ψ(x, n=2), label=&quot;n=2&quot;, lw=2)
+plot!(x -&gt; IPW.ψ(x, n=3), label=&quot;n=3&quot;, lw=2)
+plot!(x -&gt; IPW.ψ(x, n=4), label=&quot;n=4&quot;, lw=2)
+plot!(x -&gt; IPW.ψ(x, n=5), label=&quot;n=5&quot;, lw=2)</code></pre><p><img src="figures/InfinitePotentialWell_5_1.png" alt/></p><p>Potential curve, Energy levels, Wave functions:</p><pre><code class="language-julia hljs">L = 1
+using Plots
+plot(xlim=(-0.5,1.5), ylim=(-5,140), xlabel=&quot;\$x\$&quot;, ylabel=&quot;\$V(x),~E_n,~\\psi_n(x)\\times5+E_n\$&quot;, size=(480,400), dpi=400)
+for n in 1:5
+  # energy
+  plot!([0,L], fill(IPW.E(n=n,L=L),2), lc=:black, lw=2, label=&quot;&quot;)
+  # wave function
+  plot!(0:0.01:L, x-&gt;IPW.E(n=n,L=L)+5*IPW.ψ(x,n=n,L=L), lc=n, lw=2, label=&quot;&quot;)
+end
+# potential
+plot!([0,0,L,L], [140,0,0,140], lc=:black, lw=2, label=&quot;&quot;)</code></pre><p><img src="figures/InfinitePotentialWell_6_1.png" alt/></p><h2 id="Tests"><a class="docs-heading-anchor" href="#Tests">Tests</a><a id="Tests-1"></a><a class="docs-heading-anchor-permalink" href="#Tests" title="Permalink"></a></h2><h3 id="Normalization-and-Orthogonality-of-\\psi_n(x)"><a class="docs-heading-anchor" href="#Normalization-and-Orthogonality-of-\\psi_n(x)">Normalization &amp; Orthogonality of <span>$\psi_n(x)$</span></a><a id="Normalization-and-Orthogonality-of-\\psi_n(x)-1"></a><a class="docs-heading-anchor-permalink" href="#Normalization-and-Orthogonality-of-\\psi_n(x)" title="Permalink"></a></h3><p class="math-container">\[\int_{0}^{L} \psi_i^\ast(x) \psi_j(x) ~\mathrm{d}x = \delta_{ij}\]</p><pre><code class="nohighlight hljs">  i	  j	numerical         	analytical        	|error|
+  1	  1	1.0000000000000002	1.0000000000000000	0.0000000000000222%	✔
+  1	  2	0.0000000000000000	0.0000000000000000	0.0000000000000000%	✔
+  1	  3	-0.0000000000000001	0.0000000000000000	0.0000000000000000%	✔
+  1	  4	0.0000000000000000	0.0000000000000000	0.0000000000000000%	✔
+  1	  5	0.0000000000000000	0.0000000000000000	0.0000000000000000%	✔
+  1	  6	-0.0000000000000000	0.0000000000000000	0.0000000000000000%	✔
+  1	  7	-0.0000000000000001	0.0000000000000000	0.0000000000000000%	✔
+  1	  8	-0.0000000000000001	0.0000000000000000	0.0000000000000000%	✔
+  1	  9	-0.0000000000000000	0.0000000000000000	0.0000000000000000%	✔
+  1	 10	0.0000000000000001	0.0000000000000000	0.0000000000000000%	✔
+  2	  1	0.0000000000000000	0.0000000000000000	0.0000000000000000%	✔
+  2	  2	1.0000000000000000	1.0000000000000000	0.0000000000000000%	✔
+  2	  3	-0.0000000000000000	0.0000000000000000	0.0000000000000000%	✔
+  2	  4	0.0000000000000000	0.0000000000000000	0.0000000000000000%	✔
+  2	  5	-0.0000000000000000	0.0000000000000000	0.0000000000000000%	✔
+  2	  6	0.0000000000000000	0.0000000000000000	0.0000000000000000%	✔
+  2	  7	0.0000000000000000	0.0000000000000000	0.0000000000000000%	✔
+  2	  8	0.0000000000000000	0.0000000000000000	0.0000000000000000%	✔
+  2	  9	-0.0000000000000001	0.0000000000000000	0.0000000000000000%	✔
+  2	 10	0.0000000000000000	0.0000000000000000	0.0000000000000000%	✔
+  3	  1	-0.0000000000000001	0.0000000000000000	0.0000000000000000%	✔
+  3	  2	-0.0000000000000000	0.0000000000000000	0.0000000000000000%	✔
+  3	  3	1.0000000000000002	1.0000000000000000	0.0000000000000222%	✔
+  3	  4	-0.0000000000000001	0.0000000000000000	0.0000000000000000%	✔
+  3	  5	-0.0000000000000001	0.0000000000000000	0.0000000000000000%	✔
+  3	  6	-0.0000000000000000	0.0000000000000000	0.0000000000000000%	✔
+  3	  7	0.0000000000000000	0.0000000000000000	0.0000000000000000%	✔
+  3	  8	0.0000000000000000	0.0000000000000000	0.0000000000000000%	✔
+  3	  9	-0.0000000000000000	0.0000000000000000	0.0000000000000000%	✔
+  3	 10	0.0000000000000000	0.0000000000000000	0.0000000000000000%	✔
+  4	  1	0.0000000000000000	0.0000000000000000	0.0000000000000000%	✔
+  4	  2	0.0000000000000000	0.0000000000000000	0.0000000000000000%	✔
+  4	  3	-0.0000000000000001	0.0000000000000000	0.0000000000000000%	✔
+  4	  4	1.0000000000000000	1.0000000000000000	0.0000000000000000%	✔
+  4	  5	-0.0000000000000000	0.0000000000000000	0.0000000000000000%	✔
+  4	  6	-0.0000000000000000	0.0000000000000000	0.0000000000000000%	✔
+  4	  7	0.0000000000000001	0.0000000000000000	0.0000000000000000%	✔
+  4	  8	0.0000000000000000	0.0000000000000000	0.0000000000000000%	✔
+  4	  9	-0.0000000000000001	0.0000000000000000	0.0000000000000000%	✔
+  4	 10	0.0000000000000000	0.0000000000000000	0.0000000000000000%	✔
+  5	  1	0.0000000000000000	0.0000000000000000	0.0000000000000000%	✔
+  5	  2	-0.0000000000000000	0.0000000000000000	0.0000000000000000%	✔
+  5	  3	-0.0000000000000001	0.0000000000000000	0.0000000000000000%	✔
+  5	  4	-0.0000000000000000	0.0000000000000000	0.0000000000000000%	✔
+  5	  5	1.0000000000000002	1.0000000000000000	0.0000000000000222%	✔
+  5	  6	0.0000000000000000	0.0000000000000000	0.0000000000000000%	✔
+  5	  7	-0.0000000000000001	0.0000000000000000	0.0000000000000000%	✔
+  5	  8	0.0000000000000000	0.0000000000000000	0.0000000000000000%	✔
+  5	  9	0.0000000000000000	0.0000000000000000	0.0000000000000000%	✔
+  5	 10	0.0000000000000000	0.0000000000000000	0.0000000000000000%	✔
+  6	  1	-0.0000000000000000	0.0000000000000000	0.0000000000000000%	✔
+  6	  2	0.0000000000000000	0.0000000000000000	0.0000000000000000%	✔
+  6	  3	-0.0000000000000000	0.0000000000000000	0.0000000000000000%	✔
+  6	  4	-0.0000000000000000	0.0000000000000000	0.0000000000000000%	✔
+  6	  5	0.0000000000000000	0.0000000000000000	0.0000000000000000%	✔
+  6	  6	1.0000000000000000	1.0000000000000000	0.0000000000000000%	✔
+  6	  7	-0.0000000000000000	0.0000000000000000	0.0000000000000000%	✔
+  6	  8	-0.0000000000000000	0.0000000000000000	0.0000000000000000%	✔
+  6	  9	0.0000000000000000	0.0000000000000000	0.0000000000000000%	✔
+  6	 10	-0.0000000000000000	0.0000000000000000	0.0000000000000000%	✔
+  7	  1	-0.0000000000000001	0.0000000000000000	0.0000000000000000%	✔
+  7	  2	0.0000000000000000	0.0000000000000000	0.0000000000000000%	✔
+  7	  3	0.0000000000000000	0.0000000000000000	0.0000000000000000%	✔
+  7	  4	0.0000000000000001	0.0000000000000000	0.0000000000000000%	✔
+  7	  5	-0.0000000000000001	0.0000000000000000	0.0000000000000000%	✔
+  7	  6	-0.0000000000000000	0.0000000000000000	0.0000000000000000%	✔
+  7	  7	0.9999999999999998	1.0000000000000000	0.0000000000000222%	✔
+  7	  8	-0.0000000000000001	0.0000000000000000	0.0000000000000000%	✔
+  7	  9	-0.0000000000000001	0.0000000000000000	0.0000000000000000%	✔
+  7	 10	-0.0000000000000000	0.0000000000000000	0.0000000000000000%	✔
+  8	  1	-0.0000000000000001	0.0000000000000000	0.0000000000000000%	✔
+  8	  2	0.0000000000000000	0.0000000000000000	0.0000000000000000%	✔
+  8	  3	0.0000000000000000	0.0000000000000000	0.0000000000000000%	✔
+  8	  4	0.0000000000000000	0.0000000000000000	0.0000000000000000%	✔
+  8	  5	0.0000000000000000	0.0000000000000000	0.0000000000000000%	✔
+  8	  6	-0.0000000000000000	0.0000000000000000	0.0000000000000000%	✔
+  8	  7	-0.0000000000000001	0.0000000000000000	0.0000000000000000%	✔
+  8	  8	1.0000000000000007	1.0000000000000000	0.0000000000000666%	✔
+  8	  9	-0.0000000000000001	0.0000000000000000	0.0000000000000000%	✔
+  8	 10	0.0000000000000000	0.0000000000000000	0.0000000000000000%	✔
+  9	  1	-0.0000000000000000	0.0000000000000000	0.0000000000000000%	✔
+  9	  2	-0.0000000000000001	0.0000000000000000	0.0000000000000000%	✔
+  9	  3	-0.0000000000000000	0.0000000000000000	0.0000000000000000%	✔
+  9	  4	-0.0000000000000001	0.0000000000000000	0.0000000000000000%	✔
+  9	  5	0.0000000000000000	0.0000000000000000	0.0000000000000000%	✔
+  9	  6	0.0000000000000000	0.0000000000000000	0.0000000000000000%	✔
+  9	  7	-0.0000000000000001	0.0000000000000000	0.0000000000000000%	✔
+  9	  8	-0.0000000000000001	0.0000000000000000	0.0000000000000000%	✔
+  9	  9	1.0000000000000000	1.0000000000000000	0.0000000000000000%	✔
+  9	 10	0.0000000000000001	0.0000000000000000	0.0000000000000000%	✔
+ 10	  1	0.0000000000000001	0.0000000000000000	0.0000000000000000%	✔
+ 10	  2	0.0000000000000000	0.0000000000000000	0.0000000000000000%	✔
+ 10	  3	0.0000000000000000	0.0000000000000000	0.0000000000000000%	✔
+ 10	  4	0.0000000000000000	0.0000000000000000	0.0000000000000000%	✔
+ 10	  5	0.0000000000000000	0.0000000000000000	0.0000000000000000%	✔
+ 10	  6	-0.0000000000000000	0.0000000000000000	0.0000000000000000%	✔
+ 10	  7	-0.0000000000000000	0.0000000000000000	0.0000000000000000%	✔
+ 10	  8	0.0000000000000000	0.0000000000000000	0.0000000000000000%	✔
+ 10	  9	0.0000000000000001	0.0000000000000000	0.0000000000000000%	✔
+ 10	 10	1.0000000000000002	1.0000000000000000	0.0000000000000222%	✔
+Test Summary:            | Pass  Total  Time
+&lt;ψᵢ|ψⱼ&gt; = ∫ψₙ*ψₙdx = δᵢⱼ |  100    100  1.8s</code></pre><h3 id="Eigen-Values"><a class="docs-heading-anchor" href="#Eigen-Values">Eigen Values</a><a id="Eigen-Values-1"></a><a class="docs-heading-anchor-permalink" href="#Eigen-Values" title="Permalink"></a></h3><p class="math-container">\[  \begin{aligned}
+    E_n
+    &amp;=      \int_0^L \psi^\ast_n(x) \hat{H} \psi_n(x) ~\mathrm{d}x \\
+    &amp;=      \int_0^L \psi^\ast_n(x) \left[ \hat{V} + \hat{T} \right] \psi(x) ~\mathrm{d}x \\
+    &amp;=      \int_0^L \psi^\ast_n(x) \left[ 0 - \frac{\hbar^2}{2m} \frac{\mathrm{d}^{2}}{\mathrm{d} x^{2}} \right] \psi(x) ~\mathrm{d}x \\
+    &amp;\simeq \int_0^L \psi^\ast_n(x) \left[ -\frac{\hbar^2}{2m} \frac{\psi(x+\Delta x) - 2\psi(x) + \psi(x-\Delta x)}{\Delta x^{2}} \right] ~\mathrm{d}x.
+  \end{aligned}\]</p><p>Where, the difference formula for the 2nd-order derivative:</p><p class="math-container">\[\begin{aligned}
+  % 2\psi(x)
+  % + \frac{\mathrm{d}^{2} \psi(x)}{\mathrm{d} x^{2}} \Delta x^{2}
+  % + O\left(\Delta x^{4}\right)
+  % &amp;=
+  % \psi(x+\Delta x)
+  % + \psi(x-\Delta x)
+  % \\
+  % \frac{\mathrm{d}^{2} \psi(x)}{\mathrm{d} x^{2}} \Delta x^{2}
+  % &amp;=
+  % \psi(x+\Delta x)
+  % - 2\psi(x)
+  % + \psi(x-\Delta x)
+  % - O\left(\Delta x^{4}\right)
+  % \\
+  % \frac{\mathrm{d}^{2} \psi(x)}{\mathrm{d} x^{2}}
+  % &amp;=
+  % \frac{\psi(x+\Delta x) - 2\psi(x) + \psi(x-\Delta x)}{\Delta x^{2}}
+  % - \frac{O\left(\Delta x^{4}\right)}{\Delta x^{2}}
+  % \\
+  \frac{\mathrm{d}^{2} \psi(x)}{\mathrm{d} x^{2}}
+  &amp;=
+  \frac{\psi(x+\Delta x) - 2\psi(x) + \psi(x-\Delta x)}{\Delta x^{2}}
+  + O\left(\Delta x^{2}\right)
+\end{aligned}\]</p><p>are given by the sum of 2 Taylor series:</p><p class="math-container">\[\begin{aligned}
+\psi(x+\Delta x)
+&amp;= \psi(x)
++ \frac{\mathrm{d} \psi(x)}{\mathrm{d} x} \Delta x
++ \frac{1}{2!} \frac{\mathrm{d}^{2} \psi(x)}{\mathrm{d} x^{2}} \Delta x^{2}
++ \frac{1}{3!} \frac{\mathrm{d}^{3} \psi(x)}{\mathrm{d} x^{3}} \Delta x^{3}
++ O\left(\Delta x^{4}\right),
+\\
+\psi(x-\Delta x)
+&amp;= \psi(x)
+- \frac{\mathrm{d} \psi(x)}{\mathrm{d} x} \Delta x
++ \frac{1}{2!} \frac{\mathrm{d}^{2} \psi(x)}{\mathrm{d} x^{2}} \Delta x^{2}
+- \frac{1}{3!} \frac{\mathrm{d}^{3} \psi(x)}{\mathrm{d} x^{3}} \Delta x^{3}
++ O\left(\Delta x^{4}\right).
+\end{aligned}\]</p><pre><code class="nohighlight hljs">  L    m    ℏ   n  numerical     	analytical    	|error|
+0.1  0.1  0.1   1  49.348021579139	49.348022005447	0.000000863880%	✔
+0.1  0.1  0.1   2  197.392081461942	197.392088021787	0.000003323256%	✔
+0.1  0.1  0.1   3  444.132165131018	444.132198049021	0.000007411758%	✔
+0.1  0.1  0.1   4  789.568248175979	789.568352087149	0.000013160503%	✔
+0.1  0.1  0.1   5  1233.700296336187	1233.700550136170	0.000020572252%	✔
+0.1  0.1  0.1   6  1776.528266243334	1776.528792196084	0.000029605642%	✔
+0.1  0.1  0.1   7  2418.052103857080	2418.053078266893	0.000040297288%	✔
+0.1  0.1  0.1   8  3158.271745875927	3158.273408348594	0.000052638656%	✔
+0.1  0.1  0.1   9  3997.187119264267	3997.189782441189	0.000066626232%	✔
+0.1  0.1  0.1  10  4934.798141994514	4934.802200544678	0.000082243421%	✔
+0.1  0.1  1.0   1  4934.802157913905	4934.802200544678	0.000000863880%	✔
+0.1  0.1  1.0   2  19739.208146194214	19739.208802178713	0.000003323256%	✔
+0.1  0.1  1.0   3  44413.216513101754	44413.219804902103	0.000007411758%	✔
+0.1  0.1  1.0   4  78956.824817597895	78956.835208714852	0.000013160503%	✔
+0.1  0.1  1.0   5  123370.029633618717	123370.055013616948	0.000020572252%	✔
+0.1  0.1  1.0   6  177652.826624333364	177652.879219608410	0.000029605642%	✔
+0.1  0.1  1.0   7  241805.210385707964	241805.307826689212	0.000040297288%	✔
+0.1  0.1  1.0   8  315827.174587592541	315827.340834859409	0.000052638656%	✔
+0.1  0.1  1.0   9  399718.711926426622	399718.978244118916	0.000066626232%	✔
+0.1  0.1  1.0  10  493479.814199451241	493480.220054467791	0.000082243421%	✔
+0.1  1.0  0.1   1  4.934802157914	4.934802200545	0.000000863880%	✔
+0.1  1.0  0.1   2  19.739208146194	19.739208802179	0.000003323256%	✔
+0.1  1.0  0.1   3  44.413216513102	44.413219804902	0.000007411758%	✔
+0.1  1.0  0.1   4  78.956824817598	78.956835208715	0.000013160503%	✔
+0.1  1.0  0.1   5  123.370029633619	123.370055013617	0.000020572252%	✔
+0.1  1.0  0.1   6  177.652826624333	177.652879219608	0.000029605642%	✔
+0.1  1.0  0.1   7  241.805210385708	241.805307826689	0.000040297288%	✔
+0.1  1.0  0.1   8  315.827174587593	315.827340834859	0.000052638656%	✔
+0.1  1.0  0.1   9  399.718711926427	399.718978244119	0.000066626232%	✔
+0.1  1.0  0.1  10  493.479814199451	493.480220054468	0.000082243421%	✔
+0.1  1.0  1.0   1  493.480215791390	493.480220054468	0.000000863880%	✔
+0.1  1.0  1.0   2  1973.920814619422	1973.920880217871	0.000003323256%	✔
+0.1  1.0  1.0   3  4441.321651310176	4441.321980490210	0.000007411758%	✔
+0.1  1.0  1.0   4  7895.682481759791	7895.683520871485	0.000013160503%	✔
+0.1  1.0  1.0   5  12337.002963361872	12337.005501361695	0.000020572252%	✔
+0.1  1.0  1.0   6  17765.282662433339	17765.287921960840	0.000029605642%	✔
+0.1  1.0  1.0   7  24180.521038570794	24180.530782668924	0.000040297288%	✔
+0.1  1.0  1.0   8  31582.717458759253	31582.734083485939	0.000052638656%	✔
+0.1  1.0  1.0   9  39971.871192642662	39971.897824411892	0.000066626232%	✔
+0.1  1.0  1.0  10  49347.981419945128	49348.022005446779	0.000082243421%	✔
+1.0  0.1  0.1   1  0.493480215948	0.493480220054	0.000000832112%	✔
+1.0  0.1  0.1   2  1.973920815419	1.973920880218	0.000003282767%	✔
+1.0  0.1  0.1   3  4.441321651944	4.441321980490	0.000007397478%	✔
+1.0  0.1  0.1   4  7.895682481265	7.895683520871	0.000013166775%	✔
+1.0  0.1  0.1   5  12.337002965030	12.337005501362	0.000020558729%	✔
+1.0  0.1  0.1   6  17.765282661715	17.765287921961	0.000029609687%	✔
+1.0  0.1  0.1   7  24.180521036064	24.180530782669	0.000040307654%	✔
+1.0  0.1  0.1   8  31.582717460023	31.582734083486	0.000052634655%	✔
+1.0  0.1  0.1   9  39.971871195191	39.971897824412	0.000066619856%	✔
+1.0  0.1  0.1  10  49.347981417827	49.348022005447	0.000082247714%	✔
+1.0  0.1  1.0   1  49.348021594816	49.348022005447	0.000000832112%	✔
+1.0  0.1  1.0   2  197.392081541864	197.392088021787	0.000003282767%	✔
+1.0  0.1  1.0   3  444.132165194438	444.132198049021	0.000007397478%	✔
+1.0  0.1  1.0   4  789.568248126463	789.568352087149	0.000013166775%	✔
+1.0  0.1  1.0   5  1233.700296503016	1233.700550136170	0.000020558729%	✔
+1.0  0.1  1.0   6  1776.528266171473	1776.528792196084	0.000029609687%	✔
+1.0  0.1  1.0   7  2418.052103606433	2418.053078266892	0.000040307654%	✔
+1.0  0.1  1.0   8  3158.271746002275	3158.273408348594	0.000052634655%	✔
+1.0  0.1  1.0   9  3997.187119519121	3997.189782441190	0.000066619856%	✔
+1.0  0.1  1.0  10  4934.798141782662	4934.802200544679	0.000082247714%	✔
+1.0  1.0  0.1   1  0.049348021595	0.049348022005	0.000000832112%	✔
+1.0  1.0  0.1   2  0.197392081542	0.197392088022	0.000003282767%	✔
+1.0  1.0  0.1   3  0.444132165194	0.444132198049	0.000007397478%	✔
+1.0  1.0  0.1   4  0.789568248126	0.789568352087	0.000013166775%	✔
+1.0  1.0  0.1   5  1.233700296503	1.233700550136	0.000020558729%	✔
+1.0  1.0  0.1   6  1.776528266171	1.776528792196	0.000029609687%	✔
+1.0  1.0  0.1   7  2.418052103606	2.418053078267	0.000040307654%	✔
+1.0  1.0  0.1   8  3.158271746002	3.158273408349	0.000052634655%	✔
+1.0  1.0  0.1   9  3.997187119519	3.997189782441	0.000066619856%	✔
+1.0  1.0  0.1  10  4.934798141783	4.934802200545	0.000082247714%	✔
+1.0  1.0  1.0   1  4.934802159482	4.934802200545	0.000000832112%	✔
+1.0  1.0  1.0   2  19.739208154186	19.739208802179	0.000003282767%	✔
+1.0  1.0  1.0   3  44.413216519444	44.413219804902	0.000007397478%	✔
+1.0  1.0  1.0   4  78.956824812646	78.956835208715	0.000013166775%	✔
+1.0  1.0  1.0   5  123.370029650302	123.370055013617	0.000020558729%	✔
+1.0  1.0  1.0   6  177.652826617147	177.652879219608	0.000029609687%	✔
+1.0  1.0  1.0   7  241.805210360643	241.805307826689	0.000040307654%	✔
+1.0  1.0  1.0   8  315.827174600228	315.827340834859	0.000052634655%	✔
+1.0  1.0  1.0   9  399.718711951912	399.718978244119	0.000066619856%	✔
+1.0  1.0  1.0  10  493.479814178266	493.480220054468	0.000082247714%	✔
+Test Summary:               | Pass  Total  Time
+&lt;ψₙ|H|ψₙ&gt;  = ∫ψₙ*Tψₙdx = Eₙ |   80     80  0.7s</code></pre><h3 id="Expected-Value-of-x"><a class="docs-heading-anchor" href="#Expected-Value-of-x">Expected Value of <span>$x$</span></a><a id="Expected-Value-of-x-1"></a><a class="docs-heading-anchor-permalink" href="#Expected-Value-of-x" title="Permalink"></a></h3><p class="math-container">\[\langle x \rangle_{n=1}
+= \int_{0}^{L} \psi_1^\ast(x) \hat{x} \psi_1(x) ~\mathrm{d}x
+= \frac{2(2a)^2}{\pi^3} \left( \frac{\pi^3}{6} - \frac{\pi}{4} \right)\]</p><p>for only <span>$n=1$</span>.</p><p>Reference:</p><ul><li><a href="https://phys.libretexts.org/Bookshelves/Modern_Physics/Book%3A_Spiral_Modern_Physics_(D&#39;Alessandris)/6%3A_The_Schrodinger_Equation/6.4%3A_Expectation_Values_Observables_and_Uncertainty">LibreTexts PHYSICS, 6.4: Expectation Values, Observables, and Uncertainty</a></li></ul><pre><code class="nohighlight hljs">   L	  n	numerical         	analytical        	|error|
+0.1	  1	0.0500000000000000	0.0500000000000000	0.0000000000000278%	✔
+0.5	  1	0.2500000000000000	0.2500000000000000	0.0000000000000000%	✔
+1.0	  1	0.5000000000000002	0.5000000000000000	0.0000000000000444%	✔
+7.0	  1	3.5000000000000000	3.5000000000000000	0.0000000000000000%	✔
+Test Summary:    | Pass  Total  Time
+&lt;ψₙ|x|ψₙ&gt;  = L/2 |    4      4  0.4s</code></pre><h3 id="Expected-Value-of-x2"><a class="docs-heading-anchor" href="#Expected-Value-of-x2">Expected Value of <span>$x^2$</span></a><a id="Expected-Value-of-x2-1"></a><a class="docs-heading-anchor-permalink" href="#Expected-Value-of-x2" title="Permalink"></a></h3><p class="math-container">\[\langle x^2 \rangle_{n=1}
+= \int_{0}^{L} \psi_1^\ast(x) \hat{x}^2 \psi_1(x) ~\mathrm{d}x
+= \frac{2(2a)^2}{\pi^3} \left( \frac{\pi^3}{6} - \frac{\pi}{4} \right)\]</p><p>Reference:</p><ul><li><a href="https://phys.libretexts.org/Bookshelves/Modern_Physics/Book%3A_Spiral_Modern_Physics_(D&#39;Alessandris)/6%3A_The_Schrodinger_Equation/6.4%3A_Expectation_Values_Observables_and_Uncertainty">LibreTexts PHYSICS, 6.4: Expectation Values, Observables, and Uncertainty</a></li></ul><pre><code class="nohighlight hljs">   L	  n	numerical         	analytical        	|error|
+0.1	  1	0.0028267274151216	0.0028267274151216	0.0000000000000460%	✔
+0.5	  1	0.0706681853780411	0.0706681853780411	0.0000000000000000%	✔
+1.0	  1	0.2826727415121645	0.2826727415121645	0.0000000000000196%	✔
+7.0	  1	13.8509643340960604	13.8509643340960569	0.0000000000000256%	✔
+Test Summary:                 | Pass  Total  Time
+&lt;ψₙ|x²|ψₙ&gt; = 2L²/π³(π³/6-π/4) |    4      4  0.4s</code></pre><h3 id="Expected-Value-of-p"><a class="docs-heading-anchor" href="#Expected-Value-of-p">Expected Value of <span>$p$</span></a><a id="Expected-Value-of-p-1"></a><a class="docs-heading-anchor-permalink" href="#Expected-Value-of-p" title="Permalink"></a></h3><p class="math-container">\[\langle p \rangle_{n=1}
+= \int_{0}^{L} \psi_1^\ast(x) \hat{p} \psi_1(x) ~\mathrm{d}x
+= 0\]</p><p>Reference:</p><ul><li><a href="https://phys.libretexts.org/Bookshelves/Modern_Physics/Book%3A_Spiral_Modern_Physics_(D&#39;Alessandris)/6%3A_The_Schrodinger_Equation/6.4%3A_Expectation_Values_Observables_and_Uncertainty">LibreTexts PHYSICS, 6.4: Expectation Values, Observables, and Uncertainty</a></li></ul><hr/><p class="math-container">\[  \begin{aligned}
+    \langle p \rangle_{n=1}
+    &amp;= \int_0^L \psi^\ast_n(x) \hat{p} \psi_n(x) ~\mathrm{d}x \\
+    &amp;= \int_0^L \psi^\ast_n(x) \left[ -i\hbar\frac{\mathrm{d}}{\mathrm{d} x} \right] \psi(x) ~\mathrm{d}x \\
+    &amp;\simeq \int_0^L \psi^\ast_n(x) \left[ -i\hbar \frac{\psi(x+\Delta x) - \psi(x-\Delta x)}{2\Delta x} \right] ~\mathrm{d}x.
+  \end{aligned}\]</p><p>Where, the difference formula for the 2nd-order derivative:</p><p class="math-container">\[\begin{aligned}
+  % 2\frac{\mathrm{d} \psi(x)}{\mathrm{d}x} \Delta x
+  % + O\left(\Delta x^{3}\right)
+  % &amp;= 
+  % \psi(x+\Delta x)
+  % - \psi(x-\Delta x)
+  % \\
+  % 2\frac{\mathrm{d} \psi(x)}{\mathrm{d}x} \Delta x
+  % &amp;= 
+  % \psi(x+\Delta x)
+  % - \psi(x-\Delta x)
+  % - O\left(\Delta x^{3}\right)
+  % \\
+  % \frac{\mathrm{d} \psi(x)}{\mathrm{d}x}
+  % &amp;= 
+  % \frac{\psi(x+\Delta x)- \psi(x-\Delta x)}{2\Delta x}
+  % - \frac{O\left(\Delta x^{3}\right)}{2\Delta x}
+  % \\
+  \frac{\mathrm{d} \psi(x)}{\mathrm{d}x}
+  &amp;= 
+  \frac{\psi(x+\Delta x)- \psi(x-\Delta x)}{2\Delta x}
+  + O\left(\Delta x^{2}\right),
+\end{aligned}\]</p><p>are given by the sum of 2 Taylor series:</p><p class="math-container">\[\begin{aligned}
+  \psi(x+\Delta x)
+  &amp;=
+  \psi(x)
+  + \frac{\mathrm{d} \psi(x)}{\mathrm{d}x} \Delta x
+  + \frac{1}{2!} \frac{\mathrm{d}^{2} \psi(x)}{\mathrm{d}x^{2}} \Delta x^{2}
+  + O\left(\Delta x^{3}\right),
+  \\
+  \psi(x-\Delta x)
+  &amp;=
+  \psi(x)
+  - \frac{\mathrm{d} \psi(x)}{\mathrm{d}x} \Delta x
+  + \frac{1}{2!} \frac{\mathrm{d}^{2} \psi(x)}{\mathrm{d}x^{2}} \Delta x^{2}
+  + O\left(\Delta x^{3}\right).
+\end{aligned}\]</p><pre><code class="nohighlight hljs">   L	  n	numerical         	analytical        	|error|
+0.1	  1	0.0000000000033684	0.0000000000000000	0.0000000000000000%	✔
+0.5	  1	0.0000000000002308	0.0000000000000000	0.0000000000000000%	✔
+1.0	  1	0.0000000000001066	0.0000000000000000	0.0000000000000000%	✔
+7.0	  1	0.0000000000000252	0.0000000000000000	0.0000000000000000%	✔
+Test Summary:                      | Pass  Total  Time
+&lt;ψₙ|p|ψₙ&gt;  = ∫ψₙ*(-iℏd/dx)ψₙdx = 0 |    4      4  0.5s</code></pre><h3 id="Expected-Value-of-p2"><a class="docs-heading-anchor" href="#Expected-Value-of-p2">Expected Value of <span>$p^2$</span></a><a id="Expected-Value-of-p2-1"></a><a class="docs-heading-anchor-permalink" href="#Expected-Value-of-p2" title="Permalink"></a></h3><p class="math-container">\[\langle p^2 \rangle
+= \int_{0}^{L} \psi_1^\ast(x) \hat{p}^2 \psi_1(x) ~\mathrm{d}x
+= \frac{\pi^2\hbar^2}{L^2}\]</p><p>Reference:</p><ul><li><a href="https://phys.libretexts.org/Bookshelves/Modern_Physics/Book%3A_Spiral_Modern_Physics_(D&#39;Alessandris)/6%3A_The_Schrodinger_Equation/6.4%3A_Expectation_Values_Observables_and_Uncertainty">LibreTexts PHYSICS, 6.4: Expectation Values, Observables, and Uncertainty</a></li></ul><hr/><p class="math-container">\[  \begin{aligned}
+    \langle p^2 \rangle
+    &amp;= \int_0^L \psi^\ast_n(x) \hat{p} \psi_n(x) ~\mathrm{d}x \\
+    &amp;= \int_0^L \psi^\ast_n(x) \left[ -\hbar^2\frac{\mathrm{d}^2}{{\mathrm{d}x}^2} \right] \psi(x) ~\mathrm{d}x \\
+    &amp;\simeq \int_0^L \psi^\ast_n(x) \left[ -\hbar^2 \frac{\psi(x+\Delta x) - 2\psi(x) + \psi(x-\Delta x)}{\Delta x^{2}} \right] ~\mathrm{d}x.
+  \end{aligned}\]</p><p>Where, the difference formula for the 2nd-order derivative:</p><p class="math-container">\[\begin{aligned}
+  % 2\psi(x)
+  % + \frac{\mathrm{d}^{2} \psi(x)}{\mathrm{d} x^{2}} \Delta x^{2}
+  % + O\left(\Delta x^{4}\right)
+  % &amp;=
+  % \psi(x+\Delta x)
+  % + \psi(x-\Delta x)
+  % \\
+  % \frac{\mathrm{d}^{2} \psi(x)}{\mathrm{d} x^{2}} \Delta x^{2}
+  % &amp;=
+  % \psi(x+\Delta x)
+  % - 2\psi(x)
+  % + \psi(x-\Delta x)
+  % - O\left(\Delta x^{4}\right)
+  % \\
+  % \frac{\mathrm{d}^{2} \psi(x)}{\mathrm{d} x^{2}}
+  % &amp;=
+  % \frac{\psi(x+\Delta x) - 2\psi(x) + \psi(x-\Delta x)}{\Delta x^{2}}
+  % - \frac{O\left(\Delta x^{4}\right)}{\Delta x^{2}}
+  % \\
+  \frac{\mathrm{d}^{2} \psi(x)}{\mathrm{d} x^{2}}
+  &amp;=
+  \frac{\psi(x+\Delta x) - 2\psi(x) + \psi(x-\Delta x)}{\Delta x^{2}}
+  + O\left(\Delta x^{2}\right)
+\end{aligned}\]</p><p>are given by the sum of 2 Taylor series:</p><p class="math-container">\[\begin{aligned}
+\psi(x+\Delta x)
+&amp;= \psi(x)
++ \frac{\mathrm{d} \psi(x)}{\mathrm{d} x} \Delta x
++ \frac{1}{2!} \frac{\mathrm{d}^{2} \psi(x)}{\mathrm{d} x^{2}} \Delta x^{2}
++ \frac{1}{3!} \frac{\mathrm{d}^{3} \psi(x)}{\mathrm{d} x^{3}} \Delta x^{3}
++ O\left(\Delta x^{4}\right),
+\\
+\psi(x-\Delta x)
+&amp;= \psi(x)
+- \frac{\mathrm{d} \psi(x)}{\mathrm{d} x} \Delta x
++ \frac{1}{2!} \frac{\mathrm{d}^{2} \psi(x)}{\mathrm{d} x^{2}} \Delta x^{2}
+- \frac{1}{3!} \frac{\mathrm{d}^{3} \psi(x)}{\mathrm{d} x^{3}} \Delta x^{3}
++ O\left(\Delta x^{4}\right).
+\end{aligned}\]</p><pre><code class="nohighlight hljs">   L	  n	numerical         	analytical        	|error|
+0.1	  1	986.9604315827808705	986.9604401089355861	0.0000008638800877%	✔
+0.5	  1	39.4784172741947543	39.4784176043574320	0.0000008363118323%	✔
+1.0	  1	9.8696043189632228	9.8696044010893580	0.0000008321117229%	✔
+7.0	  1	0.2014204963826796	0.2014204979814155	0.0000007937304979%	✔
+Test Summary:                              | Pass  Total  Time
+&lt;ψₙ|p²|ψₙ&gt; = ∫ψₙ*(-ℏ²d²/dx²)ψₙdx = π²ℏ²/L² |    4      4  0.3s</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="index.html">« Home</a><a class="docs-footer-nextpage" href="HarmonicOscillator.html">Harmonic Oscillator »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.24 on <span class="colophon-date" title="Sunday 12 November 2023 15:53">Sunday 12 November 2023</span>. Using Julia version 1.8.3.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>

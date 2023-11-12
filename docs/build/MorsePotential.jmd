@@ -1,0 +1,83 @@
+```@meta
+CurrentModule = Antiq
+```
+
+# Morse Potential
+
+## Definitions
+
+```@autodocs
+Modules = [MorsePotential]
+```
+
+## Usage
+
+[Install Antiq.jl](index.html#Install) the first time. Run following command before use.
+
+```julia; term = true; cache = true
+using Antiq
+```
+
+The module name is `MorsePotential` or `MP`. For example, the energy function is called as:
+
+```julia; term = true
+MP.E(n=0)
+MP.E(n=1)
+```
+
+where, the default values of the parameters are follows:
+
+```julia; term = true
+MP.rₑ
+MP.Dₑ
+MP.k
+MP.µ
+MP.ℏ
+```
+
+Parameters can be specified by named variables:
+
+```julia; term = true
+MP.E(n=0, k=2)
+MP.E(n=1, k=2)
+```
+
+## Examples
+
+Wave functions:
+
+```julia
+using Plots
+plot(xlim=(0,5), xlabel="x", ylabel="ψ(x)")
+plot!(x -> MP.ψ(x, n=0), label="n=0", lw=2)
+plot!(x -> MP.ψ(x, n=1), label="n=1", lw=2)
+plot!(x -> MP.ψ(x, n=2), label="n=2", lw=2)
+plot!(x -> MP.ψ(x, n=3), label="n=3", lw=2)
+plot!(x -> MP.ψ(x, n=4), label="n=4", lw=2)
+plot!(x -> MP.ψ(x, n=5), label="n=5", lw=2)
+```
+
+Potential curve, Energy levels, Comparison with harmonic oscillator:
+
+```julia
+using Plots
+plot(xlims=(0.1,9.1), ylims=(-0.11,0.01), xlabel="\$r\$", ylabel="\$V(r), E_n\$", size=(480,400), dpi=400)
+for n in 0:MP.nₘₐₓ()
+  # energy
+  EM = MP.E(n=n)
+  EH = HO.E(n=n,k=MP.k,m=MP.μ) - MP.Dₑ
+  plot!(0.1:0.01:15, r -> EH > HO.V(r-MP.rₑ,k=MP.k,m=MP.μ) - MP.Dₑ ? EH : NaN, lc="#BC1C5F", lw=1, label="")
+  plot!(0.1:0.01:15, r -> EM > MP.V(r) ? EM : NaN, lc="#578FC7", lw=1, label="")
+end
+# potential
+plot!(0.1:0.01:15, r -> HO.V(r-MP.rₑ,k=MP.k,m=MP.μ) - MP.Dₑ, lc="#BC1C5F", lw=2, label="")
+plot!(0.1:0.01:15, r -> MP.V(r), lc="#578FC7", lw=2, label="")
+```
+
+where, the potential of harmonic oscillator is defined as $V(r) \simeq \frac{1}{2} k (r - r_\mathrm{e})^2 + V_0$.
+
+## Tests
+
+```julia; line_width = 500
+include("../../test/MorsePotential.jl")
+```
