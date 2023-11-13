@@ -13,7 +13,7 @@ MP = antiq(:MorsePotential)
 
 
 println(raw"""
-#### Associated Legendre Polynomials $P_n^m(x)$s
+#### Associated Legendre Polynomials $P_n^m(x)$
 
 ```math
   \begin{aligned}

@@ -55,25 +55,25 @@ julia> He.E(n=1)
 ```@raw html
 <div class="catalog">
   <div class="item">
-    <a target="_blank" href="./InfinitePotentialWell.html">
+    <a target="_blank" href="./InfinitePotentialWell">
       <img src="assets/fig/InfinitePotentialWell_6_1.png" alt="InfinitePotentialWell"/>
     </a>
     <code>InfinitePotentialWell</code>
   </div>
   <div class="item">
-    <a target="_blank" href="./HarmonicOscillator.html">
+    <a target="_blank" href="./HarmonicOscillator">
       <img src="assets/fig/HarmonicOscillator_6_1.png" alt="HarmonicOscillator"/>
     </a>
     <code>HarmonicOscillator</code>
   </div>
   <div class="item">
-    <a target="_blank" href="./MorsePotential.html">
+    <a target="_blank" href="./MorsePotential">
       <img src="assets/fig/MorsePotential_6_1.png" alt="MorsePotential"/>
     </a>
     <code>MorsePotential</code>
   </div>
   <div class="item">
-    <a target="_blank" href="./HydrogenAtom.html">
+    <a target="_blank" href="./HydrogenAtom">
       <img src="assets/fig/HydrogenAtom_5_1.png" alt="HydrogenAtom"/>
     </a>
     <code>HydrogenAtom</code>
