@@ -4,7 +4,7 @@ CurrentModule = Antiq
 
 # Antiq
 
-**An**aly**ti**cal soulutions of Schrödinger e**q**uations named by [@KB-satou](https://github.com/KB-satou) and [@ultimatile](https://github.com/ultimatile)
+**An**aly**ti**cal soulutions of Schrödinger e**q**uations, named by [@KB-satou](https://github.com/KB-satou) and [@ultimatile](https://github.com/ultimatile)
 
 Self-contained, Well-Tested, Well-Documented Functions for Quantum Mechanical Models
 
