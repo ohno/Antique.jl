@@ -6,13 +6,14 @@ using QuadGK
 using Symbolics
 using Latexify
 using LaTeXStrings
+HO = antiq(:HarmonicOscillator, k=1.0, m=1.0, ℏ=1.0)
 
 
 # Hₙ(x) = (-1)ⁿ exp(x²) dⁿ/dxⁿ　exp(-x²) = ...
 
 
 println(raw"""
-### Hermite Polynomials $H_n(x)$
+#### Hermite Polynomials $H_n(x)$
 
 ```math
   \begin{aligned}
@@ -62,7 +63,7 @@ println("""```
 
 
 println(raw"""
-### Normalization & Orthogonality of $H_n(x)$
+#### Normalization & Orthogonality of $H_n(x)$
 
 ```math
 \int_{-\infty}^\infty H_j(x) H_i(x) \mathrm{e}^{-x^2} \mathrm{d}x = \sqrt{\pi} 2^j j! \delta_{ij}
@@ -92,7 +93,7 @@ println("""```
 
 
 println(raw"""
-### Normalization & Orthogonality of $\psi_n(x)$
+#### Normalization & Orthogonality of $\psi_n(x)$
 
 ```math
 \int \psi_i^\ast(x) \psi_j(x) \mathrm{d}x = \delta_{ij}
@@ -122,7 +123,7 @@ println("""```
 
 
 println(raw"""
-### Virial Theorem
+#### Virial Theorem
 
 The virial theorem $\langle T \rangle = \langle V \rangle$ and the definition of Hamiltonian $\langle H \rangle = \langle T \rangle + \langle V \rangle$ derive $\langle H \rangle = 2 \langle V \rangle = 2 \langle T \rangle$.
 
@@ -154,7 +155,7 @@ println("""```
 
 
 println(raw"""
-### Eigen Values
+#### Eigen Values
 
 ```math
   \begin{aligned}

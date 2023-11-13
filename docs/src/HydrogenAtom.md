@@ -4,15 +4,154 @@ CurrentModule = Antiq
 
 # Hydrogen Atom
 
+The hydrogen atom is the simplest 2-body Coulomb system.
+
 ## Definitions
 
-```@autodocs
-Modules = [HydrogenAtom]
+``Z`` is the atomic number.
+
+#### Schrödinger Equation
+```math
+  \hat{H} \psi(\pmb{r}) = E \psi(\pmb{r})
 ```
+
+#### Hamiltonian
+```math
+  \hat{H} = - \frac{\hbar^2}{2\mu} \frac{\mathrm{d}^2}{\mathrm{d}r ^2} + V(r).
+```
+Where, $\mu=\left(\frac{1}{m_\mathrm{e}}+\frac{1}{m_\mathrm{p}}\right)^{-1}$ is the reduced mass of electron $\mathrm{e}$ and proton $\mathrm{p}$. $\mu = m_\mathrm{e}$ holds in the limit $m_\mathrm{p}\rightarrow\infty$. 
+
+#### Potential
+`V(r; Z=Z, a₀=a₀)`
+```math
+  \begin{aligned}
+  V(r)
+  &= - \frac{Ze^2}{4\pi\varepsilon_0 r} 
+  &= - \frac{e^2}{4\pi\varepsilon_0 a_0} \frac{Z}{r/a_0}
+  &= - \frac{Z}{r/a_0} E_\mathrm{h}
+  \end{aligned}
+```
+
+#### Eigen Values
+`E(; n=1, Z=Z, Eₕ=Eₕ)`
+```math
+  E_n = -\frac{m_\mathrm{e} e^4 Z^2}{2n^2(4\pi\varepsilon_0)^2\hbar^2} = -\frac{Z^2}{2n^2} E_\mathrm{h}
+```
+Where, ``E_\mathrm{h}`` is the Hartree energy, one of atomic unit. About atomic units, see section 3.9.2 of the [IUPAC GreenBook](https://iupac.org/what-we-do/books/greenbook/). In other units, ``E_\mathrm{h} = 27.211~386~245~988(53)~\mathrm{eV}`` from [here](https://physics.nist.gov/cgi-bin/cuu/Value?hrev).
+
+#### Eigen Functions
+`ψ(r, θ, φ; n=1, l=0, m=0, Z=Z, a₀=a₀)`
+```math
+  \psi_{nlm}(\pmb{r}) = R_{nl}(r) Y_{lm}(\theta,\varphi)
+```
+
+#### Radial Functions
+`R(r; n=1, l=0, Z=Z, a₀=a₀)`
+```math
+    R_{nl}(r) = -\sqrt{\frac{(n-l-1)!}{2n(n+l)!} \left(\frac{2Z}{n a_0}\right)^3} \left(\frac{2Zr}{n a_0}\right)^l \exp \left(-\frac{Zr}{n a_0}\right) L_{n+l}^{2l+1} \left(\frac{2Zr}{n a_0}\right)
+```
+Where, Laguerre polynomials are defined as ``L_n(x) = \frac{1}{n!} \mathrm{e}^x \frac{\mathrm{d}^n}{\mathrm{d}x ^n} \left( \mathrm{e}^{-x} x^n \right)``, and associated Laguerre polynomials are defined as ``L_n^{k}(x) = \frac{\mathrm{d}^k}{\mathrm{d}x^k} L_n(x)``. Note that, replace ``2n(n+l)!`` with ``2n[(n+l)!]^3`` if Laguerre polynomials are defined as ``L_n(x) = \mathrm{e}^x \frac{\mathrm{d}^n}{\mathrm{d}x ^n} \left( \mathrm{e}^{-x} x^n \right)``.
+
+#### Associated Laguerre Polynomials
+`L(x; n=0, k=0)`
+
+Rodrigues' formula & closed-form:
+```math
+  \begin{aligned}
+  L_n^{k}(x)
+    &= \frac{\mathrm{d}^k}{\mathrm{d}x^k} L_n(x) \\
+    &= \frac{\mathrm{d}^k}{\mathrm{d}x^k} \frac{1}{n!} \mathrm{e}^x \frac{\mathrm{d}^n}{\mathrm{d}x ^n} \left( \mathrm{e}^{-x} x^n \right) \\
+    &= \sum_{m=0}^{n-k} (-1)^{m+k} \frac{n!}{m!(m+k)!(n-m-k)!} x^m \\
+    &= (-1)^k L_{n-k}^{(k)}(x)
+  \end{aligned}
+```
+
+Where, Laguerre polynomials are defined as ``L_n(x)=\frac{1}{n!}\mathrm{e}^x \frac{\mathrm{d}^n}{\mathrm{d}x ^n} \left( \mathrm{e}^{-x} x^n \right)``.
+
+Examples:
+```math
+  \begin{aligned}
+    L_0^0(x) &= 1, \\
+    L_1^0(x) &= 1 - x, \\
+    L_1^1(x) &= 1, \\
+    L_2^0(x) &= 1 - 2 x + 1/2 x^2, \\
+    L_2^1(x) &= 2 - x, \\
+    L_2^2(x) &= 1, \\
+    L_3^0(x) &= 1 - 3 x + 3/2 x^2 - 1/6 x^3, \\
+    L_3^1(x) &= 3 - 3 x + 1/2 x^2, \\
+    L_3^2(x) &= 3 - x, \\
+    L_3^3(x) &= 1, \\
+    L_4^0(x) &= 1 - 4 x + 3 x^2 - 2/3 x^3 + 5/12 x^4, \\
+    L_4^1(x) &= 4 - 6 x + 2 x^2 - 1/6 x^3, \\
+    L_4^2(x) &= 6 - 4 x + 1/2 x^2, \\
+    L_4^3(x) &= 4 - x, \\
+    L_4^4(x) &= 1, \\
+    \vdots.
+  \end{aligned}
+```
+
+#### Spherical Harmonics
+`Y(θ, φ; l=0, m=0)`
+```math
+    Y_{lm}(\theta,\varphi) = (-1)^{\frac{|m|+m}{2}} \sqrt{\frac{2l+1}{4\pi} \frac{(l-|m|)!}{(l+|m|)!}} P_l^{|m|} (\cos\theta) \mathrm{e}^{im\varphi}
+```
+Note that some variants are connected by 
+```math
+i^{|m|+m} \sqrt{\frac{(l-|m|)!}{(l+|m|)!}} P_l^{|m|} = (-1)^{\frac{|m|+m}{2}} \sqrt{\frac{(l-|m|)!}{(l+|m|)!}} P_l^{|m|} = (-1)^m \sqrt{\frac{(l-m)!}{(l+m)!}} P_l^{m}.
+```
+
+#### Associated Legendre Polynomials
+`P(x; n=0, m=0)`
+
+Rodrigues' formula & closed-form:
+```math
+  \begin{aligned}
+    P_n^m(x)
+    &= \left( 1-x^2 \right)^{m/2} \frac{\mathrm{d}^m}{\mathrm{d}x^m} P_n(x) \\
+    &= \left( 1-x^2 \right)^{m/2} \frac{\mathrm{d}^m}{\mathrm{d}x^m} \frac{1}{2^n n!} \frac{\mathrm{d}^n}{\mathrm{d}x ^n} \left[ \left( x^2-1 \right)^n \right] \\
+    &= \frac{1}{2^n} (1-x^2)^{m/2} \sum_{j=0}^{\left\lfloor\frac{n-m}{2}\right\rfloor} (-1)^j \frac{(2n-2j)!}{j! (n-j)! (n-2j-m)!} x^{(n-2j-m)}.
+  \end{aligned}
+```
+
+Where, Legendre polynomials are defined as ``P_n(x) = \frac{1}{2^n n!} \frac{\mathrm{d}^n}{\mathrm{d}x ^n} \left[ \left( x^2-1 \right)^n \right]``. Note that ``P_l^{-m} = (-1)^m \frac{(l-m)!}{(l+m)!} P_l^m`` for ``m<0``. (It is not compatible with ``P_k^m(t) = (-1)^m\left( 1-t^2 \right)^{m/2} \frac{\mathrm{d}^m P_k(t)}{\mathrm{d}t^m}`` caused by ``(-1)^m``.) The specific formulae are given below.
+
+Examples:
+```math
+  \begin{aligned}
+    P_{0}^{0}(x) &= 1, \\
+    P_{1}^{0}(x) &= x, \\
+    P_{1}^{1}(x) &= \left(+1\right)\sqrt{1-x^2}, \\
+    P_{2}^{0}(x) &= -1/2 + 3/2 x^{2}, \\
+    P_{2}^{1}(x) &= \left(-3 x\right)\sqrt{1-x^2}, \\
+    P_{2}^{2}(x) &= 3 - 6 x, \\
+    P_{3}^{0}(x) &= -3/2 x + 5/2 x^{3}, \\
+    P_{3}^{1}(x) &= \left(3/2 - 15/2 x^{2}\right)\sqrt{1-x^2}, \\
+    P_{3}^{2}(x) &= 15 x - 30 x^{2}, \\
+    P_{3}^{3}(x) &= \left(15 - 30 x\right)\sqrt{1-x^2}, \\
+    P_{4}^{0}(x) &= 3/8 - 15/4 x^{2} + 35/8 x^{4}, \\
+    P_{4}^{1}(x) &= \left(- 15/2 x + 35/2 x^{3}\right)\sqrt{1-x^2}, \\
+    P_{4}^{2}(x) &= -15/2 + 15 x + 105/2 x^{2} - 105 x^{3}, \\
+    P_{4}^{3}(x) &= \left(105 x - 210 x^{2}\right)\sqrt{1-x^2}, \\
+    P_{4}^{4}(x) &= 105 - 420 x + 420 x^{2}, \\
+    & \vdots.
+  \end{aligned}
+```
+
+#### References
+- cpprefjp, [legendre](https://cpprefjp.github.io/reference/cmath/legendre.html), [assoc_legendre](https://cpprefjp.github.io/reference/cmath/assoc_legendre.html), [laguerre](https://cpprefjp.github.io/reference/cmath/laguerre.html), [assoc_laguerre](https://cpprefjp.github.io/reference/cmath/assoc_laguerre.html)
+- The Digital Library of Mathematical Functions (DLMF), [18.3 Table1](https://dlmf.nist.gov/18.3#T1), [18.5 Table1](https://dlmf.nist.gov/18.5#T1), [18.5.16](https://dlmf.nist.gov/18.5#E16), [18.3 Table1](https://dlmf.nist.gov/18.3#T1), [18.5 Table1](https://dlmf.nist.gov/18.5#T1), [18.5.17](https://dlmf.nist.gov/18.5#E17), [18.3 Table1](https://dlmf.nist.gov/18.3#T1), [18.5 Table1](https://dlmf.nist.gov/18.5#T1), [18.5.12](https://dlmf.nist.gov/18.5#E12)
+- L. D. Landau, E. M. Lifshitz, Quantum Mechanics (Pergamon Press, 1965), [p.598 (c.1)](https://archive.org/details/ost-physics-landaulifshitz-quantummechanics/page/n611/mode/2up), [p.598 (c.4)](https://archive.org/details/ost-physics-landaulifshitz-quantummechanics/page/n611/mode/2up), [p.603 (d.13)](https://archive.org/details/ost-physics-landaulifshitz-quantummechanics/page/n615/mode/2up), [p.603 (d.13)](https://archive.org/details/ost-physics-landaulifshitz-quantummechanics/page/n615/mode/2up)
+- L. I. Schiff, Quantum Mechanics (McGraw-Hill Book Company, 1968), [p.79 (14.12)](https://archive.org/details/ost-physics-schiff-quantummechanics/page/n95/mode/1up), [p.93 (16.19)](https://archive.org/details/ost-physics-schiff-quantummechanics/page/n109/mode/1up)
+- A. Messiah, Quanfum Mechanics (Dover Publications, 1999), [p.493 (B.72)](https://archive.org/details/quantummechanics0000mess/page/491/mode/1up), [p.494 Table](https://archive.org/details/quantummechanics0000mess/page/494/mode/1up), [p.493 (B.72)](https://archive.org/details/quantummechanics0000mess/page/491/mode/1up), [p.483 (B.12)](https://archive.org/details/quantummechanics0000mess/page/483/mode/1up), [p.483 (B.12)](https://archive.org/details/quantummechanics0000mess/page/483/mode/1up)
+- W. Greiner, Quantum Mechanics: An Introduction Third Edition (Springer, 1994), [p.83 (4)](https://archive.org/details/quantummechanics0001grei_u4x0/page/83/mode/1up), [p.83 (5)](https://archive.org/details/quantummechanics0001grei_u4x0/page/83/mode/1up), [p.149 (21)](https://archive.org/details/quantummechanics0001grei_u4x0/page/149/mode/1up)
+- D. J. Griffiths, Introduction to Quantum Mechanics (Prentice Hall, 1995), [p.126 (4.28)](https://archive.org/details/griffiths-introduction-to-quantum-mechanics/page/126/mode/1up), [p.96 Table3.1](https://archive.org/details/griffiths-introduction-to-quantum-mechanics/page/95/mode/1up), [p.126 (4.27)](https://archive.org/details/griffiths-introduction-to-quantum-mechanics/page/126/mode/1up), [p.139 (4.88)](https://archive.org/details/griffiths-introduction-to-quantum-mechanics/page/139/mode/1up), [p.140 Table4.4](https://archive.org/details/griffiths-introduction-to-quantum-mechanics/page/140/mode/1up), [p.139 (4.87)](https://archive.org/details/griffiths-introduction-to-quantum-mechanics/page/139/mode/1up), [p.140 Table4.5](https://archive.org/details/griffiths-introduction-to-quantum-mechanics/page/140/mode/1up)
+- D. A. McQuarrie, J. D. Simon, Physical Chemistry: A Molecular Approach (University Science Books, 1997), [p.195 Table6.1](https://archive.org/details/McQuarrieSimonPhysicalChemistrySolutions/McQuarrie_Simon_Physical_Chemistry1997/page/n218/mode/1up), [p.196 (6.26)](https://archive.org/details/McQuarrieSimonPhysicalChemistrySolutions/McQuarrie_Simon_Physical_Chemistry1997/page/n219/mode/1up), [p.196 Table6.2](https://archive.org/details/McQuarrieSimonPhysicalChemistrySolutions/McQuarrie_Simon_Physical_Chemistry1997/page/n220/mode/1up), [p.207 Table6.4](https://archive.org/details/McQuarrieSimonPhysicalChemistrySolutions/McQuarrie_Simon_Physical_Chemistry1997/page/n230/mode/1up)
+- P. W. Atkins, J. De Paula, Atkins' Physical Chemistry, 8th edition (W. H. Freeman, 2008), [p.234](https://archive.org/details/atkinsphysicalch00pwat/page/324/mode/2up?q=Laguerre)
+- [J. J. Sakurai, J. Napolitano, Modern Quantum Mechanics Third Edition (Cambridge University Press, 2021)](https://doi.org/10.1017/9781108587280), p.245 Problem 3.30.b, 
 
 ## Usage
 
-[Install Antiq.jl](index.html#Install) the first time. Run following command before use.
+[Install Antiq.jl](@ref Install) the first time. Run following command before use.
 
 ```julia
 julia> using Antiq
@@ -20,52 +159,49 @@ julia> using Antiq
 
 
 
-The module name is `MorsePotential` or `MP`. For example, the energy function is called as:
+The model name is `HydrogenAtom`.
 
 ```julia
-julia> HA.E(n=1)
--0.5
-
-julia> HA.E(n=2)
--0.125
+H = antiq(:HydrogenAtom, Z=1, Eₕ=1.0, a₀=1.0, mₑ=1.0, ℏ=1.0)
 ```
 
 
 
-where, the default values of the parameters are follows:
+
+You can check the values of the parameters using the following commands.
 
 ```julia
-julia> HA.Z
+julia> H.Z
 1
 
-julia> HA.ℏ
-1
+julia> H.ℏ
+1.0
 
-julia> HA.Eₕ
-1
+julia> H.Eₕ
+1.0
 
-julia> HA.a₀
-1
+julia> H.a₀
+1.0
 
-julia> HA.mₑ
-1
-```
-
-
-
-Parameters can be specified by named variables:
-
-```julia
-julia> HA.E(n=1, Z=1)
--0.5
-
-julia> HA.E(n=1, Z=2)
--2.0
+julia> H.mₑ
+1.0
 ```
 
 
 
 ## Examples
+
+Eigen values:
+
+```julia
+julia> H.E(n=1)
+-0.5
+
+julia> H.E(n=2)
+-0.125
+```
+
+
 
 Radial functions:
 
@@ -73,20 +209,22 @@ Radial functions:
 using Plots
 plot(xlabel="\$r~/~a_0\$", ylabel="\$r^2|R_{nl}(r)|^2~/~a_0^{-1}\$", ylims=(-0.01,0.55), xticks=0:1:20, size=(480,400), dpi=400)
 for n in 1:3
-    for l in 0:n-1
-        plot!(0:0.1:20, r->r^2*HA.R(r,n=n,l=l)^2, label="", lc=n, lw=2, ls=[:solid,:dash,:dot,:dashdot,:dashdotdot][l+1])
-    end
+  for l in 0:n-1
+    plot!(0:0.01:20, r->r^2*H.R(r,n=n,l=l)^2, lc=n, lw=2, ls=[:solid,:dash,:dot,:dashdot,:dashdotdot][l+1], label="\$n = $n, l=$l\$")
+  end
 end
 plot!()
 ```
 
-![](figures/HydrogenAtom_5_1.png)
+![](./assets/fig//HydrogenAtom_5_1.png)
 
 
 
-## Tests
+## Testing
 
-### Associated Legendre Polynomials $P_n^m(x)$s
+Unit testing and Integration testing were done using computer algebra system ([Symbolics.jl](https://symbolics.juliasymbolics.org/stable/)) and numerical integration ([QuadGK.jl](https://juliamath.github.io/QuadGK.jl/stable/)).
+
+#### Associated Legendre Polynomials $P_n^m(x)$s
 
 ```math
   \begin{aligned}
@@ -249,10 +387,10 @@ plot!()
 
 ```
 Test Summary:                                                   | Pass  Total   Time
-Pₙᵐ(x) = √(1-x²)ᵐ dᵐ/dxᵐ Pₙ(x); Pₙ(x) = 1/(2ⁿn!) dⁿ/dxⁿ (x²-1)ⁿ |   15     15  13.6s
+Pₙᵐ(x) = √(1-x²)ᵐ dᵐ/dxᵐ Pₙ(x); Pₙ(x) = 1/(2ⁿn!) dⁿ/dxⁿ (x²-1)ⁿ |   15     15  13.2s
 ```
 
-### Normalization & Orthogonality of $P_n^m(x)$
+#### Normalization & Orthogonality of $P_n^m(x)$
 
 ```math
 \int_{-1}^{1} P_i^m(x) P_j^m(x) \mathrm{d}x = \frac{2(j+m)!}{(2j+1)(j-m)!} \delta_{ij}
@@ -615,10 +753,10 @@ Pₙᵐ(x) = √(1-x²)ᵐ dᵐ/dxᵐ Pₙ(x); Pₙ(x) = 1/(2ⁿn!) dⁿ/dxⁿ (
   5	  9	  8	-0.0000000013969839	0.0000000000000000	0.0000000000000000%	✔
   5	  9	  9	382360926.3157894611358643	382360926.3157894611358643	0.0000000000000000%	✔
 Test Summary:                              | Pass  Total  Time
-∫Pᵢᵐ(x)Pⱼᵐ(x)dx = 2(j+m)!/(2j+1)(j-m)! δᵢⱼ |  355    355  0.8s
+∫Pᵢᵐ(x)Pⱼᵐ(x)dx = 2(j+m)!/(2j+1)(j-m)! δᵢⱼ |  355    355  0.7s
 ```
 
-### Normalization & Orthogonality of $Y_{lm}(\theta,\varphi)$
+#### Normalization & Orthogonality of $Y_{lm}(\theta,\varphi)$
 
 ```math
 \int_0^{2\pi}
@@ -711,10 +849,10 @@ Y_{lm}(\theta,\varphi)^* Y_{l'm'}(\theta,\varphi) \sin(\theta)
   2  2  2  1	0.0000000000000000	0.0000000000000000	0.0000000000000000%	✔
   2  2  2  2	1.0000000000000002	1.0000000000000000	0.0000000000000222%	✔
 Test Summary:                              | Pass  Total  Time
-∫Yₗ₁ₘ₁(θ,φ)Yₗ₂ₘ₂(θ,φ)sinθdθdφ = δₗ₁ₗ₂δₘ₁ₘ₂ |   81     81  2.2s
+∫Yₗ₁ₘ₁(θ,φ)Yₗ₂ₘ₂(θ,φ)sinθdθdφ = δₗ₁ₗ₂δₘ₁ₘ₂ |   81     81  2.1s
 ```
 
-### Associated Laguerre Polynomials $L_n^{k}(x)$
+#### Associated Laguerre Polynomials $L_n^{k}(x)$
 
 ```math
   \begin{aligned}
@@ -893,10 +1031,10 @@ Test Summary:                              | Pass  Total  Time
 
 ```
 Test Summary:                                          | Pass  Total  Time
-Lₙᵏ(x) = dᵏ/dxᵏ Lₙ(x); Lₙ(x) = 1/(n!) eˣ dⁿ/dxⁿ e⁻ˣ xⁿ |   15     15  4.5s
+Lₙᵏ(x) = dᵏ/dxᵏ Lₙ(x); Lₙ(x) = 1/(n!) eˣ dⁿ/dxⁿ e⁻ˣ xⁿ |   15     15  4.3s
 ```
 
-### Normalization & Orthogonality of $L_n^{k}(x)$
+#### Normalization & Orthogonality of $L_n^{k}(x)$
 
 ```math
 \int_{0}^{\infty} \mathrm{e}^{-x} x^k L_i^k(x) L_j^k(x) \mathrm{d}x = \frac{i!}{(i-k)!} \delta_{ij}
@@ -1110,10 +1248,10 @@ Replace $n+k$ with $n$ for [the definition of Wolfram MathWorld](https://mathwor
   7	  7	  6	5039.9999999999854481	5040.0000000000000000	0.0000000000002887%	✔
   7	  7	  7	5040.0000000000000000	5040.0000000000000000	0.0000000000000000%	✔
 Test Summary:                                 | Pass  Total  Time
-∫exp(-x)xᵏLᵢᵏ(x)Lⱼᵏ(x)dx = (2i+k)!/(i+k)! δᵢⱼ |  204    204  0.7s
+∫exp(-x)xᵏLᵢᵏ(x)Lⱼᵏ(x)dx = (2i+k)!/(i+k)! δᵢⱼ |  204    204  0.5s
 ```
 
-### Normalization of $R_{nl}(r)$
+#### Normalization of $R_{nl}(r)$
 
 ```math
 \int |R_{nl}(r)|^2 r^2 \mathrm{d}r = 1
@@ -1166,10 +1304,10 @@ Test Summary:                                 | Pass  Total  Time
   9	  7	1.0000000000000007	1.0000000000000000	0.0000000000000666%	✔
   9	  8	0.9999999999999994	1.0000000000000000	0.0000000000000555%	✔
 Test Summary:               | Pass  Total  Time
-∫|Rₙₗ(r)|²r²dr = δₙ₁ₙ₂δₗ₁ₗ₂ |   45     45  0.3s
+∫|Rₙₗ(r)|²r²dr = δₙ₁ₙ₂δₗ₁ₗ₂ |   45     45  0.4s
 ```
 
-### Expected Value of $r$
+#### Expected Value of $r$
 
 ```math
 \langle r \rangle
@@ -1230,10 +1368,10 @@ Reference:
   9	  7	93.5000000000000000	93.5000000000000000	0.0000000000000000%	✔
   9	  8	85.4999999999999716	85.5000000000000000	0.0000000000000332%	✔
 Test Summary:                                                    | Pass  Total  Time
-∫r|Rₙₗ(r)|²r²dr = (a₀×mₑ/μ)/2Z × [3n²-l(l+1)]; 1/μ = 1/mₑ + 1/mₚ |   45     45  0.4s
+∫r|Rₙₗ(r)|²r²dr = (a₀×mₑ/μ)/2Z × [3n²-l(l+1)]; 1/μ = 1/mₑ + 1/mₚ |   45     45  0.3s
 ```
 
-### Expected Value of $r^2$
+#### Expected Value of $r^2$
 
 ```math
 \langle r^2 \rangle
@@ -1297,7 +1435,7 @@ Test Summary:                                                            | Pass 
 ∫r²|Rₙₗ(r)|²r²dr = (a₀×mₑ/μ)²/2Z² × n²[5n²+1-3l(l+1)]; 1/μ = 1/mₑ + 1/mₚ |   45     45  0.3s
 ```
 
-### Virial Theorem
+#### Virial Theorem
 
 The virial theorem $2\langle T \rangle + \langle V \rangle = 0$ and the definition of Hamiltonian $\langle H \rangle = \langle T \rangle + \langle V \rangle$ derive $\langle H \rangle = \frac{1}{2} \langle V \rangle$ and $\langle H \rangle = -\langle T \rangle$.
 
@@ -1317,10 +1455,10 @@ The virial theorem $2\langle T \rangle + \langle V \rangle = 0$ and the definiti
   9	-0.0123456790123456	-0.0123456790123457	0.0000000000002389%	✔
  10	-0.0100000000000004	-0.0100000000000000	0.0000000000036256%	✔
 Test Summary:      | Pass  Total  Time
-<ψₙ|V|ψₙ> / 2 = Eₙ |   10     10  0.6s
+<ψₙ|V|ψₙ> / 2 = Eₙ |   10     10  0.5s
 ```
 
-### Normalization & Orthogonality of $\psi_n(r,\theta,\varphi)$
+#### Normalization & Orthogonality of $\psi_n(r,\theta,\varphi)$
 
 ```math
 \int \psi_i^\ast(r,\theta,\varphi) \psi_j(r,\theta,\varphi) r^2 \mathrm{d}r \mathrm{d}\theta \mathrm{d}\varphi = \delta_{ij}
@@ -1524,5 +1662,5 @@ Test Summary:      | Pass  Total  Time
   3	  3	  2	  2	  2	  1	0.0000000000000000	0.0000000000000000	0.0000000000000000%	✔
   3	  3	  2	  2	  2	  2	1.0003006285656155	1.0000000000000000	0.0300628565615524%	✔
 Test Summary:                       | Pass  Total   Time
-<ψₙ₁ₗ₁ₘ₁|ψₙ₂ₗ₂ₘ₂> = δₙ₁ₙ₂δₗ₁ₗ₂δₘ₁ₘ₂ |  196    196  21.2s
+<ψₙ₁ₗ₁ₘ₁|ψₙ₂ₗ₂ₘ₂> = δₙ₁ₙ₂δₗ₁ₗ₂δₘ₁ₘ₂ |  196    196  20.3s
 ```

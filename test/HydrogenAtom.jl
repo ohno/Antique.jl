@@ -6,13 +6,14 @@ using QuadGK
 using Symbolics
 using Latexify
 using LaTeXStrings
-
+HA = antiq(:HydrogenAtom, Z=1, Eₕ=1.0, a₀=1.0, mₑ=1.0, ℏ=1.0)
+MP = antiq(:MorsePotential)
 
 # Pₙᵐ(x) = √(1-x²)ᵐ dᵐ/dxᵐ Pₙ(x); Pₙ(x) = 1/(2ⁿn!) dⁿ/dxⁿ (x²-1)ⁿ
 
 
 println(raw"""
-### Associated Legendre Polynomials $P_n^m(x)$s
+#### Associated Legendre Polynomials $P_n^m(x)$s
 
 ```math
   \begin{aligned}
@@ -66,7 +67,7 @@ println("""```
 
 
 println(raw"""
-### Normalization & Orthogonality of $P_n^m(x)$
+#### Normalization & Orthogonality of $P_n^m(x)$
 
 ```math
 \int_{-1}^{1} P_i^m(x) P_j^m(x) \mathrm{d}x = \frac{2(j+m)!}{(2j+1)(j-m)!} \delta_{ij}
@@ -97,7 +98,7 @@ println("""```
 
 
 println(raw"""
-### Normalization & Orthogonality of $Y_{lm}(\theta,\varphi)$
+#### Normalization & Orthogonality of $Y_{lm}(\theta,\varphi)$
 
 ```math
 \int_0^{2\pi}
@@ -140,7 +141,7 @@ println("""```
 
 
 println(raw"""
-### Associated Laguerre Polynomials $L_n^{k}(x)$
+#### Associated Laguerre Polynomials $L_n^{k}(x)$
 
 ```math
   \begin{aligned}
@@ -168,7 +169,7 @@ println(raw"""
     # closed-form
     eq1 = latexify(e, env=:raw)
     eq2 = latexify(HA.L(x, n=n, k=k), env=:raw)
-    eq3 = latexify((-1)^k * MorsePotential.Lαint(x, n=n-k, α=k), env=:raw)
+    eq3 = latexify((-1)^k * MP.Lαint(x, n=n-k, α=k), env=:raw)
     # judge
     acceptance = (eq1 == eq2) && (eq1 == eq3)
     println("``n=$n, k=$k:`` ", acceptance ? "✔" : "✗")
@@ -197,7 +198,7 @@ println("""```
 
 
 println(raw"""
-### Normalization & Orthogonality of $L_n^{k}(x)$
+#### Normalization & Orthogonality of $L_n^{k}(x)$
 
 ```math
 \int_{0}^{\infty} \mathrm{e}^{-x} x^k L_i^k(x) L_j^k(x) \mathrm{d}x = \frac{i!}{(i-k)!} \delta_{ij}
@@ -230,7 +231,7 @@ println("""```
 
 
 println(raw"""
-### Normalization of $R_{nl}(r)$
+#### Normalization of $R_{nl}(r)$
 
 ```math
 \int |R_{nl}(r)|^2 r^2 \mathrm{d}r = 1
@@ -259,7 +260,7 @@ println("""```
 
 
 println(raw"""
-### Expected Value of $r$
+#### Expected Value of $r$
 
 ```math
 \langle r \rangle
@@ -296,7 +297,7 @@ println("""```
 
 
 println(raw"""
-### Expected Value of $r^2$
+#### Expected Value of $r^2$
 
 ```math
 \langle r^2 \rangle
@@ -333,7 +334,7 @@ println("""```
 
 
 println(raw"""
-### Virial Theorem
+#### Virial Theorem
 
 The virial theorem $2\langle T \rangle + \langle V \rangle = 0$ and the definition of Hamiltonian $\langle H \rangle = \langle T \rangle + \langle V \rangle$ derive $\langle H \rangle = \frac{1}{2} \langle V \rangle$ and $\langle H \rangle = -\langle T \rangle$.
 
@@ -362,7 +363,7 @@ println("""```
 
 
 println(raw"""
-### Normalization & Orthogonality of $\psi_n(r,\theta,\varphi)$
+#### Normalization & Orthogonality of $\psi_n(r,\theta,\varphi)$
 
 ```math
 \int \psi_i^\ast(r,\theta,\varphi) \psi_j(r,\theta,\varphi) r^2 \mathrm{d}r \mathrm{d}\theta \mathrm{d}\varphi = \delta_{ij}

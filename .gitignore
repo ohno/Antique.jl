@@ -2,8 +2,12 @@
 *.jl.cov
 *.jl.mem
 /docs/Manifest.toml
-# /docs/build/
+/docs/build/
 
 # Jupyter Notebook
+.ipynb_checkpoints
+.ipynb_checkpoints/
+.ipynb_checkpoints/*
 */.ipynb_checkpoints
+*/.ipynb_checkpoints/
 */.ipynb_checkpoints/*

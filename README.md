@@ -7,15 +7,15 @@
 
 **An**aly**ti**cal soulutions of Schrödinger e**q**uations named by [@KB-satou](https://github.com/KB-satou) and [@ultimatile](https://github.com/ultimatile)
 
-Self-contained, Well-Tested, Well-Documented Functions of Quantum Mechanical Models
+Self-contained, Well-Tested, Well-Documented Functions for Quantum Mechanical Models
 
-## Supported Systems
+## Supported Models
 
 - Infinite Potential Well (Particle in a box)
 - Harmonic Oscillator
 - Morse Potential
 - Hydrogen Atom $^\infty\mathrm{H}$ ($m_\mathrm{p}\rightarrow\infty$)
 
-## Future works
+## Future Works
 
-https://en.wikipedia.org/wiki/List_of_quantum-mechanical_systems_with_analytical_solutions
+[List of quantum-mechanical systems with analytical solutions](https://en.wikipedia.org/wiki/List_of_quantum-mechanical_systems_with_analytical_solutions)

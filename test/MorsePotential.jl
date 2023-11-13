@@ -6,13 +6,14 @@ using QuadGK
 using Symbolics
 using Latexify
 using LaTeXStrings
+MP = antiq(:MorsePotential)
 
 
 # Lₙ⁽ᵅ⁾(x) = x⁻ᵅeˣ/n! dⁿ/dxⁿ xⁿ⁺ᵅe⁻ˣ
 
 
 println(raw"""
-### Generalized Laguerre Polynomials $L_n^{(\alpha)}(x)$
+#### Generalized Laguerre Polynomials $L_n^{(\alpha)}(x)$
 
 ```math
   \begin{aligned}
@@ -64,7 +65,7 @@ println("""```
 
 
 println(raw"""
-### Normalization & Orthogonality of $L_n^{(\alpha)}(x)$
+#### Normalization & Orthogonality of $L_n^{(\alpha)}(x)$
 
 ```math
 \int_0^\infty L_i^{(\alpha)}(x) L_j^{(\alpha)}(x) x^\alpha \mathrm{e}^{-x} \mathrm{d}x = \frac{\Gamma(n+\alpha+1)}{n!} \delta_{ij}
@@ -97,7 +98,7 @@ println("""```
 
 
 println(raw"""
-### Normalization & Orthogonality of $\psi_n(r)$
+#### Normalization & Orthogonality of $\psi_n(r)$
 
 ```math
 \int_0^\infty \psi_i^\ast(r) \psi_j(r) \mathrm{d}r = \delta_{ij}
@@ -127,7 +128,7 @@ println("""```
 
 
 println(raw"""
-### Eigen Values
+#### Eigen Values
 
 ```math
   \begin{aligned}

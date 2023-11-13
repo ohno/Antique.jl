@@ -1,0 +1,115 @@
+```@meta
+CurrentModule = Antiq
+```
+
+# Infinite Potential Well (Particle in a Box)
+
+The infinite potential well (particle in a box) is the simplest model for quantum mechanical system.
+
+## Definitions
+
+``L`` is the length of the 1D-box, ``m`` is the mass of particle.
+
+#### Schrödinger Equation
+```math
+  \psi(x) = E \psi(x)
+```
+
+#### Hamiltonian
+```math
+  \frac{\hbar^2}{2m} \frac{\mathrm{d}^2}{\mathrm{d}x ^2} + V(x)
+```
+
+#### Potential
+`V(x; L=L)`
+```math
+  V(x) =
+  \left\{
+    \begin{array}{ll}
+    \infty & x \lt 0, L \lt x \\
+    0      & 0 \leq x \leq L
+    \end{array}
+  \right.
+```
+
+#### Eigen Values
+`E(; n=0, L=L, m=m, ℏ=ℏ)`
+```math
+  E_n = \frac{\hbar^2 n^2 \pi^2}{2 m L^2}
+```
+
+#### Eigen Functions
+`ψ(x; n=0, L=L)`
+```math
+   \psi_n(x) = \sqrt{\frac{2}{L}} \sin \frac{n\pi x}{L}
+```
+
+#### Proofs
+- [Eigen Functions & Eigen Values](https://ja.wolframalpha.com/input?i2d=true&i=D%5B%5C%2840%29Sqrt%5BDivide%5B2%2Ca%5D%5Dsin%5C%2840%29Divide%5Bn%CF%80x%2Ca%5D%5C%2841%29%5C%2841%29%2C%7Bx%2C2%7D%5D)
+- [Normalization](https://ja.wolframalpha.com/input?i=Integrate%5B%28%28Sqrt%5B2%2Fa%5Dsin%28%CF%80x%2Fa%29%29%29%5E2%2C+%7Bx%2C0%2Ca%7D%5D)
+
+## Usage
+
+[Install Antiq.jl](@ref Install) the first time. Run following command before use.
+
+```julia; term = true; cache = true
+using Antiq
+```
+
+The model name is `InfinitePotentialWell`.
+
+```julia; cache = true; results = "hidden"
+IPW = antiq(:InfinitePotentialWell, L=1.0, m=1.0, ℏ=1.0)
+```
+
+You can check the values of the parameters using the following commands.
+
+```julia; term = true
+IPW.L
+IPW.m
+IPW.ℏ
+```
+
+## Examples
+
+Eigen values:
+```julia; term = true
+IPW.E(n=1)
+IPW.E(n=2)
+```
+
+Wave functions:
+
+```julia
+using Plots
+plot(xlim=(0,1), xlabel="x", ylabel="ψ(x)")
+plot!(x -> IPW.ψ(x, n=1), label="n=1", lw=2)
+plot!(x -> IPW.ψ(x, n=2), label="n=2", lw=2)
+plot!(x -> IPW.ψ(x, n=3), label="n=3", lw=2)
+plot!(x -> IPW.ψ(x, n=4), label="n=4", lw=2)
+plot!(x -> IPW.ψ(x, n=5), label="n=5", lw=2)
+```
+
+Potential curve, Energy levels, Wave functions:
+
+```julia
+L = 1
+using Plots
+plot(xlim=(-0.5,1.5), ylim=(-5,140), xlabel="\$x\$", ylabel="\$V(x),~E_n,~\\psi_n(x)\\times5+E_n\$", size=(480,400), dpi=400)
+for n in 1:5
+  # energy
+  plot!([0,L], fill(IPW.E(n=n,L=L),2), lc=:black, lw=2, label="")
+  # wave function
+  plot!(0:0.01:L, x->IPW.E(n=n,L=L)+5*IPW.ψ(x,n=n,L=L), lc=n, lw=2, label="")
+end
+# potential
+plot!([0,0,L,L], [140,0,0,140], lc=:black, lw=2, label="")
+```
+
+## Testing
+
+Unit testing and Integration testing were done using numerical integration ([QuadGK.jl](https://juliamath.github.io/QuadGK.jl/stable/)).
+
+```julia; line_width = 500
+include("../../../test/InfinitePotentialWell.jl")
+```

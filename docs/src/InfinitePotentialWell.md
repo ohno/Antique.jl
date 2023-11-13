@@ -2,17 +2,55 @@
 CurrentModule = Antiq
 ```
 
-# Infinite PotentialWell
+# Infinite Potential Well (Particle in a Box)
+
+The infinite potential well (particle in a box) is the simplest model for quantum mechanical system.
 
 ## Definitions
 
-```@autodocs
-Modules = [InfinitePotentialWell]
+``L`` is the length of the 1D-box, ``m`` is the mass of particle.
+
+#### Schrödinger Equation
+```math
+  \psi(x) = E \psi(x)
 ```
+
+#### Hamiltonian
+```math
+  \frac{\hbar^2}{2m} \frac{\mathrm{d}^2}{\mathrm{d}x ^2} + V(x)
+```
+
+#### Potential
+`V(x; L=L)`
+```math
+  V(x) =
+  \left\{
+    \begin{array}{ll}
+    \infty & x \lt 0, L \lt x \\
+    0      & 0 \leq x \leq L
+    \end{array}
+  \right.
+```
+
+#### Eigen Values
+`E(; n=0, L=L, m=m, ℏ=ℏ)`
+```math
+  E_n = \frac{\hbar^2 n^2 \pi^2}{2 m L^2}
+```
+
+#### Eigen Functions
+`ψ(x; n=0, L=L)`
+```math
+   \psi_n(x) = \sqrt{\frac{2}{L}} \sin \frac{n\pi x}{L}
+```
+
+#### Proofs
+- [Eigen Functions & Eigen Values](https://ja.wolframalpha.com/input?i2d=true&i=D%5B%5C%2840%29Sqrt%5BDivide%5B2%2Ca%5D%5Dsin%5C%2840%29Divide%5Bn%CF%80x%2Ca%5D%5C%2841%29%5C%2841%29%2C%7Bx%2C2%7D%5D)
+- [Normalization](https://ja.wolframalpha.com/input?i=Integrate%5B%28%28Sqrt%5B2%2Fa%5Dsin%28%CF%80x%2Fa%29%29%29%5E2%2C+%7Bx%2C0%2Ca%7D%5D)
 
 ## Usage
 
-[Install Antiq.jl](index.html#Install) the first time. Run following command before use.
+[Install Antiq.jl](@ref Install) the first time. Run following command before use.
 
 ```julia
 julia> using Antiq
@@ -20,19 +58,16 @@ julia> using Antiq
 
 
 
-The module name is `InfinitePotentialWell` or `IPW`. For example, the energy function is called as:
+The model name is `InfinitePotentialWell`.
 
 ```julia
-julia> IPW.E(n=1)
-4.934802200544679
-
-julia> IPW.E(n=2)
-19.739208802178716
+IPW = antiq(:InfinitePotentialWell, L=1.0, m=1.0, ℏ=1.0)
 ```
 
 
 
-where, the default values of the parameters are follows:
+
+You can check the values of the parameters using the following commands.
 
 ```julia
 julia> IPW.L
@@ -47,19 +82,18 @@ julia> IPW.ℏ
 
 
 
-Parameters can be specified by named variables:
+## Examples
 
+Eigen values:
 ```julia
-julia> IPW.E(n=1, L=2)
-1.2337005501361697
-
-julia> IPW.E(n=2, L=2)
+julia> IPW.E(n=1)
 4.934802200544679
+
+julia> IPW.E(n=2)
+19.739208802178716
 ```
 
 
-
-## Examples
 
 Wave functions:
 
@@ -73,7 +107,7 @@ plot!(x -> IPW.ψ(x, n=4), label="n=4", lw=2)
 plot!(x -> IPW.ψ(x, n=5), label="n=5", lw=2)
 ```
 
-![](figures/InfinitePotentialWell_5_1.png)
+![](./assets/fig//InfinitePotentialWell_5_1.png)
 
 
 
@@ -93,13 +127,15 @@ end
 plot!([0,0,L,L], [140,0,0,140], lc=:black, lw=2, label="")
 ```
 
-![](figures/InfinitePotentialWell_6_1.png)
+![](./assets/fig//InfinitePotentialWell_6_1.png)
 
 
 
-## Tests
+## Testing
 
-### Normalization & Orthogonality of $\psi_n(x)$
+Unit testing and Integration testing were done using numerical integration ([QuadGK.jl](https://juliamath.github.io/QuadGK.jl/stable/)).
+
+#### Normalization & Orthogonality of $\psi_n(x)$
 
 ```math
 \int_{0}^{L} \psi_i^\ast(x) \psi_j(x) ~\mathrm{d}x = \delta_{ij}
@@ -208,10 +244,10 @@ plot!([0,0,L,L], [140,0,0,140], lc=:black, lw=2, label="")
  10	  9	0.0000000000000001	0.0000000000000000	0.0000000000000000%	✔
  10	 10	1.0000000000000002	1.0000000000000000	0.0000000000000222%	✔
 Test Summary:            | Pass  Total  Time
-<ψᵢ|ψⱼ> = ∫ψₙ*ψₙdx = δᵢⱼ |  100    100  1.8s
+<ψᵢ|ψⱼ> = ∫ψₙ*ψₙdx = δᵢⱼ |  100    100  1.7s
 ```
 
-### Eigen Values
+#### Eigen Values
 
 ```math
   \begin{aligned}
@@ -355,9 +391,9 @@ are given by the sum of 2 Taylor series:
 1.0  1.0  1.0   9  399.718711951912	399.718978244119	0.000066619856%	✔
 1.0  1.0  1.0  10  493.479814178266	493.480220054468	0.000082247714%	✔
 Test Summary:               | Pass  Total  Time
-<ψₙ|H|ψₙ>  = ∫ψₙ*Tψₙdx = Eₙ |   80     80  0.7s
+<ψₙ|H|ψₙ>  = ∫ψₙ*Tψₙdx = Eₙ |   80     80  0.6s
 ```
-### Expected Value of $x$
+#### Expected Value of $x$
 
 ```math
 \langle x \rangle_{n=1}
@@ -375,9 +411,9 @@ Reference:
 1.0	  1	0.5000000000000002	0.5000000000000000	0.0000000000000444%	✔
 7.0	  1	3.5000000000000000	3.5000000000000000	0.0000000000000000%	✔
 Test Summary:    | Pass  Total  Time
-<ψₙ|x|ψₙ>  = L/2 |    4      4  0.4s
+<ψₙ|x|ψₙ>  = L/2 |    4      4  0.3s
 ```
-### Expected Value of $x^2$
+#### Expected Value of $x^2$
 
 ```math
 \langle x^2 \rangle_{n=1}
@@ -394,10 +430,10 @@ Reference:
 1.0	  1	0.2826727415121645	0.2826727415121645	0.0000000000000196%	✔
 7.0	  1	13.8509643340960604	13.8509643340960569	0.0000000000000256%	✔
 Test Summary:                 | Pass  Total  Time
-<ψₙ|x²|ψₙ> = 2L²/π³(π³/6-π/4) |    4      4  0.4s
+<ψₙ|x²|ψₙ> = 2L²/π³(π³/6-π/4) |    4      4  0.3s
 ```
 
-### Expected Value of $p$
+#### Expected Value of $p$
 ```math
 \langle p \rangle_{n=1}
 = \int_{0}^{L} \psi_1^\ast(x) \hat{p} \psi_1(x) ~\mathrm{d}x
@@ -474,7 +510,7 @@ are given by the sum of 2 Taylor series:
 Test Summary:                      | Pass  Total  Time
 <ψₙ|p|ψₙ>  = ∫ψₙ*(-iℏd/dx)ψₙdx = 0 |    4      4  0.5s
 ```
-### Expected Value of $p^2$
+#### Expected Value of $p^2$
 
 ```math
 \langle p^2 \rangle
@@ -552,5 +588,5 @@ are given by the sum of 2 Taylor series:
 1.0	  1	9.8696043189632228	9.8696044010893580	0.0000008321117229%	✔
 7.0	  1	0.2014204963826796	0.2014204979814155	0.0000007937304979%	✔
 Test Summary:                              | Pass  Total  Time
-<ψₙ|p²|ψₙ> = ∫ψₙ*(-ℏ²d²/dx²)ψₙdx = π²ℏ²/L² |    4      4  0.3s
+<ψₙ|p²|ψₙ> = ∫ψₙ*(-ℏ²d²/dx²)ψₙdx = π²ℏ²/L² |    4      4  0.2s
 ```

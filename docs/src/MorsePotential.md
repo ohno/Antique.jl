@@ -4,15 +4,83 @@ CurrentModule = Antiq
 
 # Morse Potential
 
+The Morse potential is a model for inter-nuclear anharmonic vibration in a diatomic molecule.
+
 ## Definitions
 
-```@autodocs
-Modules = [MorsePotential]
+``\xi := 2\lambda\mathrm{e}^{-a(r-r_e)}``, ``\omega := \sqrt{k/µ}``, ``k := 2D_\mathrm{e}a^2``, ``\lambda := \frac{\sqrt{2mD_\mathrm{e}}}{a\hbar}``, ``\chi := \frac{\hbar\omega}{4D_\mathrm{e}}``, ``N_n := \sqrt{\frac{n!(2\lambda-2n-1)a}{\Gamma(2\lambda-n)}}``, ``L_n^{(\alpha)}(x) := \frac{x^{-\alpha} \mathrm{e}^x}{n !} \frac{\mathrm{d}^n}{\mathrm{d} x^n}\left(\mathrm{e}^{-x} x^{n+\alpha}\right)`` are used.
+
+#### Schrödinger Equation
+```math
+  \hat{H}\psi(r) = E \psi(r)
 ```
+
+#### Hamiltonian
+```math
+  \hat{H} = - \frac{\hbar^2}{2\mu} \frac{\mathrm{d}^2}{\mathrm{d}r ^2} + V(r)
+```
+
+#### Potential
+`V(r; rₑ=rₑ, Dₑ=Dₑ, k=k, a=sqrt(k/(2*Dₑ)))`
+```math
+  V(r) = D_\mathrm{e} \left( \mathrm{e}^{-2a(r-r_e)} - 2\mathrm{e}^{-a(r-r_e)} \right)
+```
+
+#### Eigen Values
+`E(n; rₑ=rₑ, Dₑ=Dₑ, k=k, a=sqrt(k/(2*Dₑ)), µ=µ, ω=sqrt(k/µ), χ=ℏ*ω/(4*Dₑ), ℏ=ℏ)`
+```math
+  E_n = - D_\mathrm{e} + \hbar \omega \left( n + \frac{1}{2} \right) - \chi \hbar \omega \left( n + \frac{1}{2} \right)^2
+```
+
+#### Eigen Functions
+`ψ(n, r; rₑ=rₑ, Dₑ=Dₑ, k=k, a=sqrt(k/(2*Dₑ)), µ=µ, ω=sqrt(k/µ), χ=ℏ*ω/(4*Dₑ), ℏ=ℏ)`
+```math
+  \psi_n(r) = N_n z^{\lambda-n-1/2} \mathrm{e}^{-z/2} L_n^{(2\lambda-2n-1)}(\xi)
+```
+
+#### Generalized Laguerre Polynomials
+`L(x; n=0, α=0)`
+
+Rodrigues' formula & closed-form:
+```math
+  \begin{aligned}
+    L_n^{(\alpha)}(x)
+    &= \frac{x^{-\alpha}e^x}{n!} \frac{d^n}{dx^n}\left(x^{n+\alpha}e^{-x}\right) \\
+    &= \sum_{k=0}^n(-1)^k \left(\begin{array}{l} n+\alpha \\ n-k \end{array}\right) \frac{x^k}{k !} \\
+    &= \sum_{k=0}^n(-1)^k \frac{\Gamma(\alpha+n+1)}{\Gamma(\alpha+k+1)\Gamma(n-k+1)} \frac{x^k}{k !}.
+  \end{aligned}
+```
+Examples:
+```math
+  \begin{aligned}
+    L_0^{(0)}(x) &= 1, \\
+    L_1^{(0)}(x) &= 1 - x, \\
+    L_1^{(1)}(x) &= 2 - x, \\
+    L_2^{(0)}(x) &= 1 - 2 x + 1/2 x^{2}, \\
+    L_2^{(1)}(x) &= 3 - 3 x + 1/2 x^{2}, \\
+    L_2^{(2)}(x) &= 6 - 4 x + 1/2 x^{2}, \\
+    L_3^{(0)}(x) &= 1 - 3 x + 3/2 x^{2} - 1/6 x^{3}, \\
+    L_3^{(1)}(x) &= 4 - 6 x + 2 x^{2} - 1/6 x^{3}, \\
+    L_3^{(2)}(x) &= 10 - 10 x + 5/2 x^{2} - 1/6 x^{3}, \\
+    L_3^{(3)}(x) &= 20 - 15 x + 3 x^{2} - 1/6 x^{3}, \\
+    L_4^{(0)}(x) &= 1 - 4 x + 3 x^{2} - 2/3 x^{3} + 1/24 x^{4}, \\
+    L_4^{(1)}(x) &= 5 - 10 x + 5 x^{2} - 5/6 x^{3} + 1/24 x^{4}, \\
+    L_4^{(2)}(x) &= 15 - 20 x + 15/2 x^{2} - 1 x^{3} + 1/24 x^{4}, \\
+    L_4^{(3)}(x) &= 35 - 35 x + 21/2 x^{2} - 7/6 x^{3} + 1/24 x^{4}, \\
+    L_4^{(4)}(x) &= 70 - 56 x + 14 x^{2} - 4/3 x^{3} + 1/24 x^{4}, \\
+    \vdots
+  \end{aligned}
+```
+
+#### References
+- [P. M. Morse, Phys. Rev. 34, 57 (1929)](https://doi.org/10.1103/PhysRev.34.57)
+- [J. P. Dahl, M. Springborg, J. Chem. Phys. 88, 4535 (1988). (62), (63)](https://doi.org/10.1063/1.453761)
+- [W. K. Shao, Y. He, J. Pan, J. Nonlinear Sci. Appl., 9, 5, 3388 (2016). (1.6)](http://dx.doi.org/10.22436/jnsa.009.05.124) 
+- The Digital Library of Mathematical Functions (DLMF) [18.3 Table1](https://dlmf.nist.gov/18.3#T1), [18.5 Table1](https://dlmf.nist.gov/18.5#T1), [18.5.12](https://dlmf.nist.gov/18.5#E12)
 
 ## Usage
 
-[Install Antiq.jl](index.html#Install) the first time. Run following command before use.
+[Install Antiq.jl](@ref Install) the first time. Run following command before use.
 
 ```julia
 julia> using Antiq
@@ -20,19 +88,16 @@ julia> using Antiq
 
 
 
-The module name is `MorsePotential` or `MP`. For example, the energy function is called as:
+The model name is `MorsePotential`.
 
 ```julia
-julia> MP.E(n=0)
--0.09741377794418261
-
-julia> MP.E(n=1)
--0.08738092406760907
+MP = antiq(:MorsePotential)
 ```
 
 
 
-where, the default values of the parameters are follows:
+
+You can check the values of the parameters using the following commands.
 
 ```julia
 julia> MP.rₑ
@@ -53,19 +118,19 @@ julia> MP.ℏ
 
 
 
-Parameters can be specified by named variables:
+## Examples
+
+Eigen values:
 
 ```julia
-julia> MP.E(n=0, k=2)
--0.0806241798965137
+julia> MP.E(n=0)
+-0.09741377794418261
 
-julia> MP.E(n=1, k=2)
--0.04456285293524765
+julia> MP.E(n=1)
+-0.08738092406760907
 ```
 
 
-
-## Examples
 
 Wave functions:
 
@@ -80,36 +145,39 @@ plot!(x -> MP.ψ(x, n=4), label="n=4", lw=2)
 plot!(x -> MP.ψ(x, n=5), label="n=5", lw=2)
 ```
 
-![](figures/MorsePotential_5_1.png)
+![](./assets/fig//MorsePotential_5_1.png)
 
 
 
 Potential curve, Energy levels, Comparison with harmonic oscillator:
 
 ```julia
+HO = antiq(:HarmonicOscillator, k=MP.k, m=MP.μ)
 using Plots
-plot(xlims=(0.1,9.1), ylims=(-0.11,0.01), xlabel="\$r\$", ylabel="\$V(r), E_n\$", size=(480,400), dpi=400)
+plot(xlims=(0.1,9.1), ylims=(-0.11,0.01), xlabel="\$r\$", ylabel="\$V(r), E_n\$", legend=:bottomright, size=(480,400), dpi=400)
 for n in 0:MP.nₘₐₓ()
   # energy
   EM = MP.E(n=n)
-  EH = HO.E(n=n,k=MP.k,m=MP.μ) - MP.Dₑ
-  plot!(0.1:0.01:15, r -> EH > HO.V(r-MP.rₑ,k=MP.k,m=MP.μ) - MP.Dₑ ? EH : NaN, lc="#BC1C5F", lw=1, label="")
+  EH = HO.E(n=n) - MP.Dₑ
+  plot!(0.1:0.01:15, r -> EH > HO.V(r-MP.rₑ) - MP.Dₑ ? EH : NaN, lc="#BC1C5F", lw=1, label="")
   plot!(0.1:0.01:15, r -> EM > MP.V(r) ? EM : NaN, lc="#578FC7", lw=1, label="")
 end
 # potential
-plot!(0.1:0.01:15, r -> HO.V(r-MP.rₑ,k=MP.k,m=MP.μ) - MP.Dₑ, lc="#BC1C5F", lw=2, label="")
-plot!(0.1:0.01:15, r -> MP.V(r), lc="#578FC7", lw=2, label="")
+plot!(0.1:0.01:15, r -> HO.V(r-MP.rₑ) - MP.Dₑ, lc="#BC1C5F", lw=2, label="Morse Potential")
+plot!(0.1:0.01:15, r -> MP.V(r), lc="#578FC7", lw=2, label="Harmonic Oscillator")
 ```
 
-![](figures/MorsePotential_6_1.png)
+![](./assets/fig//MorsePotential_6_1.png)
 
 
 
 where, the potential of harmonic oscillator is defined as $V(r) \simeq \frac{1}{2} k (r - r_\mathrm{e})^2 + V_0$.
 
-## Tests
+## Testing
 
-### Generalized Laguerre Polynomials $L_n^{(\alpha)}(x)$
+Unit testing and Integration testing were done using computer algebra system ([Symbolics.jl](https://symbolics.juliasymbolics.org/stable/)) and numerical integration ([QuadGK.jl](https://juliamath.github.io/QuadGK.jl/stable/)).
+
+#### Generalized Laguerre Polynomials $L_n^{(\alpha)}(x)$
 
 ```math
   \begin{aligned}
@@ -271,10 +339,10 @@ where, the potential of harmonic oscillator is defined as $V(r) \simeq \frac{1}{
 
 ```
 Test Summary:                      | Pass  Total  Time
-Lₙ⁽ᵅ⁾(x) = x⁻ᵅeˣ/n! dⁿ/dxⁿ xⁿ⁺ᵅe⁻ˣ |   15     15  6.6s
+Lₙ⁽ᵅ⁾(x) = x⁻ᵅeˣ/n! dⁿ/dxⁿ xⁿ⁺ᵅe⁻ˣ |   15     15  5.7s
 ```
 
-### Normalization & Orthogonality of $L_n^{(\alpha)}(x)$
+#### Normalization & Orthogonality of $L_n^{(\alpha)}(x)$
 
 ```math
 \int_0^\infty L_i^{(\alpha)}(x) L_j^{(\alpha)}(x) x^\alpha \mathrm{e}^{-x} \mathrm{d}x = \frac{\Gamma(n+\alpha+1)}{n!} \delta_{ij}
@@ -683,10 +751,10 @@ Lₙ⁽ᵅ⁾(x) = x⁻ᵅeˣ/n! dⁿ/dxⁿ xⁿ⁺ᵅe⁻ˣ |   15     15  6.6s
 7.0	  9	  8	0.0000000000000000	0.0000000000000000	0.0000000000000000%	✔
 7.0	  9	  9	329312283.3492959141731262	329312283.3492959141731262	0.0000000000000000%	✔
 Test Summary:                               | Pass  Total  Time
-∫Lᵢ⁽ᵅ⁾Lⱼ⁽ᵅ⁾(x)xᵅexp(-x)dx = Γ(i+α+1)/i! δᵢⱼ |  400    400  0.2s
+∫Lᵢ⁽ᵅ⁾Lⱼ⁽ᵅ⁾(x)xᵅexp(-x)dx = Γ(i+α+1)/i! δᵢⱼ |  400    400  0.1s
 ```
 
-### Normalization & Orthogonality of $\psi_n(r)$
+#### Normalization & Orthogonality of $\psi_n(r)$
 
 ```math
 \int_0^\infty \psi_i^\ast(r) \psi_j(r) \mathrm{d}r = \delta_{ij}
@@ -795,10 +863,10 @@ Test Summary:                               | Pass  Total  Time
   9	  8	0.0000000000003093	0.0000000000000000	0.0000000000000000%	✔
   9	  9	1.0000000000154354	1.0000000000000000	0.0000000015435431%	✔
 Test Summary: | Pass  Total  Time
-<ψᵢ|ψⱼ> = δᵢⱼ |  100    100  1.1s
+<ψᵢ|ψⱼ> = δᵢⱼ |  100    100  1.2s
 ```
 
-### Eigen Values
+#### Eigen Values
 
 ```math
   \begin{aligned}
@@ -903,5 +971,5 @@ are given by the sum of 2 Taylor series:
 0.10273	  8	-0.0324138862460414	-0.0324138756621953	0.0000326522081163%	✔
 0.10273	  9	-0.0267420183757886	-0.0267418585657935	0.0005976024244662%	✔
 Test Summary:              | Pass  Total  Time
-<ψₙ|H|ψₙ> = ∫ψₙ*Hψₙdx = Eₙ |   40     40  3.0s
+<ψₙ|H|ψₙ> = ∫ψₙ*Hψₙdx = Eₙ |   40     40  2.5s
 ```

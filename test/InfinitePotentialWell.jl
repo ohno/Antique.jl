@@ -3,13 +3,14 @@ using Test
 using Printf
 using Markdown
 using QuadGK
+IPW = antiq(:InfinitePotentialWell, L=1.0, m=1.0, ℏ=1.0)
 
 
 # <ψᵢ|ψⱼ> = ∫ψₙ*ψₙdx = δᵢⱼ
 
 
 println(raw"""
-### Normalization & Orthogonality of $\psi_n(x)$
+#### Normalization & Orthogonality of $\psi_n(x)$
 
 ```math
 \int_{0}^{L} \psi_i^\ast(x) \psi_j(x) ~\mathrm{d}x = \delta_{ij}
@@ -45,7 +46,7 @@ println("""```
 
 
 println(raw"""
-### Eigen Values
+#### Eigen Values
 
 ```math
   \begin{aligned}
@@ -134,7 +135,7 @@ println("""```""")
 
 
 println(raw"""
-### Expected Value of $x$
+#### Expected Value of $x$
 
 ```math
 \langle x \rangle_{n=1}
@@ -168,7 +169,7 @@ println("""```""")
 
 
 println(raw"""
-### Expected Value of $x^2$
+#### Expected Value of $x^2$
 
 ```math
 \langle x^2 \rangle_{n=1}
@@ -202,7 +203,7 @@ println("""```""")
 
 println(raw"""
 
-### Expected Value of $p$
+#### Expected Value of $p$
 ```math
 \langle p \rangle_{n=1}
 = \int_{0}^{L} \psi_1^\ast(x) \hat{p} \psi_1(x) ~\mathrm{d}x
@@ -294,7 +295,7 @@ println("""```""")
 
 
 println(raw"""
-### Expected Value of $p^2$
+#### Expected Value of $p^2$
 
 ```math
 \langle p^2 \rangle
