@@ -12,12 +12,12 @@ The infinite potential well (particle in a box) is the simplest model for quantu
 
 #### Schrödinger Equation
 ```math
-  \psi(x) = E \psi(x)
+  \hat{H} \psi(x) = E \psi(x)
 ```
 
 #### Hamiltonian
 ```math
-  \frac{\hbar^2}{2m} \frac{\mathrm{d}^2}{\mathrm{d}x ^2} + V(x)
+  \hat{H} = \frac{\hbar^2}{2m} \frac{\mathrm{d}^2}{\mathrm{d}x ^2} + V(x)
 ```
 
 #### Potential
