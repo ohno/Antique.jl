@@ -138,8 +138,8 @@ for n in 0:MP.nₘₐₓ()
   plot!(0.1:0.01:15, r -> EM > MP.V(r) ? EM : NaN, lc="#578FC7", lw=1, label="")
 end
 # potential
-plot!(0.1:0.01:15, r -> HO.V(r-MP.rₑ) - MP.Dₑ, lc="#BC1C5F", lw=2, label="Morse Potential")
-plot!(0.1:0.01:15, r -> MP.V(r), lc="#578FC7", lw=2, label="Harmonic Oscillator")
+plot!(0.1:0.01:15, r -> HO.V(r-MP.rₑ) - MP.Dₑ, lc="#BC1C5F", lw=2, label="Harmonic Oscillator")
+plot!(0.1:0.01:15, r -> MP.V(r), lc="#578FC7", lw=2, label="Morse Potential")
 ```
 
 where, the potential of harmonic oscillator is defined as $V(r) \simeq \frac{1}{2} k (r - r_\mathrm{e})^2 + V_0$.

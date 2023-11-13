@@ -163,8 +163,8 @@ for n in 0:MP.nₘₐₓ()
   plot!(0.1:0.01:15, r -> EM > MP.V(r) ? EM : NaN, lc="#578FC7", lw=1, label="")
 end
 # potential
-plot!(0.1:0.01:15, r -> HO.V(r-MP.rₑ) - MP.Dₑ, lc="#BC1C5F", lw=2, label="Morse Potential")
-plot!(0.1:0.01:15, r -> MP.V(r), lc="#578FC7", lw=2, label="Harmonic Oscillator")
+plot!(0.1:0.01:15, r -> HO.V(r-MP.rₑ) - MP.Dₑ, lc="#BC1C5F", lw=2, label="Harmonic Oscillator")
+plot!(0.1:0.01:15, r -> MP.V(r), lc="#578FC7", lw=2, label="Morse Potential")
 ```
 
 ![](./assets/fig//MorsePotential_6_1.png)
@@ -339,7 +339,7 @@ Unit testing and Integration testing were done using computer algebra system ([S
 
 ```
 Test Summary:                      | Pass  Total  Time
-Lₙ⁽ᵅ⁾(x) = x⁻ᵅeˣ/n! dⁿ/dxⁿ xⁿ⁺ᵅe⁻ˣ |   15     15  5.7s
+Lₙ⁽ᵅ⁾(x) = x⁻ᵅeˣ/n! dⁿ/dxⁿ xⁿ⁺ᵅe⁻ˣ |   15     15  6.4s
 ```
 
 #### Normalization & Orthogonality of $L_n^{(\alpha)}(x)$
@@ -971,5 +971,5 @@ are given by the sum of 2 Taylor series:
 0.10273	  8	-0.0324138862460414	-0.0324138756621953	0.0000326522081163%	✔
 0.10273	  9	-0.0267420183757886	-0.0267418585657935	0.0005976024244662%	✔
 Test Summary:              | Pass  Total  Time
-<ψₙ|H|ψₙ> = ∫ψₙ*Hψₙdx = Eₙ |   40     40  2.5s
+<ψₙ|H|ψₙ> = ∫ψₙ*Hψₙdx = Eₙ |   40     40  2.8s
 ```
