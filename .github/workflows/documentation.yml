@@ -1,6 +1,16 @@
-# https://documenter.juliadocs.org/stable/man/hosting/#GitHub-Actions
-
 name: Documentation
+on:
+  push:
+    branches:
+      - main
+    tags: ['*']
+  pull_request:
+concurrency:
+  # Skip intermediate builds: always.
+  # Cancel intermediate builds: only if it is a pull request build.
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ startsWith(github.ref, 'refs/pull/') }}
+jobs:
   docs:
     name: Documentation
     runs-on: ubuntu-latest
