@@ -48,26 +48,19 @@ The infinite potential well (particle in a box) is the simplest model for quantu
 - [Eigen Functions & Eigen Values](https://ja.wolframalpha.com/input?i2d=true&i=D%5B%5C%2840%29Sqrt%5BDivide%5B2%2Ca%5D%5Dsin%5C%2840%29Divide%5Bn%CF%80x%2Ca%5D%5C%2841%29%5C%2841%29%2C%7Bx%2C2%7D%5D)
 - [Normalization](https://ja.wolframalpha.com/input?i=Integrate%5B%28%28Sqrt%5B2%2Fa%5Dsin%28%CF%80x%2Fa%29%29%29%5E2%2C+%7Bx%2C0%2Ca%7D%5D)
 
-## Usage
+## Usage & Examples
 
-[Install Antiq.jl](@ref Install) the first time. Run following command before use.
-
-```julia
-julia> using Antiq
-```
-
-
-
-The model name is `InfinitePotentialWell`.
+[Install Antiq.jl](@ref Install) for the first run and run `using Antiq` before each use. The function `antiq(model, parameters...)` returns a module that has `E()`, `ψ(x)`, `V(x)` and some other functions. In this system, the model name is specified by `:InfinitePotentialWell` and several parameters `L`, `m` and `ℏ` are set as optional arguments.
 
 ```julia
+using Antiq
 IPW = antiq(:InfinitePotentialWell, L=1.0, m=1.0, ℏ=1.0)
 ```
 
 
 
 
-You can check the values of the parameters using the following commands.
+Parameters:
 
 ```julia
 julia> IPW.L
@@ -82,9 +75,8 @@ julia> IPW.ℏ
 
 
 
-## Examples
-
 Eigen values:
+
 ```julia
 julia> IPW.E(n=1)
 4.934802200544679
@@ -107,11 +99,11 @@ plot!(x -> IPW.ψ(x, n=4), label="n=4", lw=2)
 plot!(x -> IPW.ψ(x, n=5), label="n=5", lw=2)
 ```
 
-![](./assets/fig//InfinitePotentialWell_5_1.png)
+![](./assets/fig//InfinitePotentialWell_4_1.png)
 
 
 
-Potential curve, Energy levels, Wave functions:
+Potential energy curve, Energy levels, Wave functions:
 
 ```julia
 L = 1
@@ -127,7 +119,7 @@ end
 plot!([0,0,L,L], [140,0,0,140], lc=:black, lw=2, label="")
 ```
 
-![](./assets/fig//InfinitePotentialWell_6_1.png)
+![](./assets/fig//InfinitePotentialWell_5_1.png)
 
 
 
@@ -244,7 +236,7 @@ Unit testing and Integration testing were done using numerical integration ([Qua
  10	  9	0.0000000000000001	0.0000000000000000	0.0000000000000000%	✔
  10	 10	1.0000000000000002	1.0000000000000000	0.0000000000000222%	✔
 Test Summary:            | Pass  Total  Time
-<ψᵢ|ψⱼ> = ∫ψₙ*ψₙdx = δᵢⱼ |  100    100  1.7s
+<ψᵢ|ψⱼ> = ∫ψₙ*ψₙdx = δᵢⱼ |  100    100  1.9s
 ```
 
 #### Eigen Values
@@ -391,7 +383,7 @@ are given by the sum of 2 Taylor series:
 1.0  1.0  1.0   9  399.718711951912	399.718978244119	0.000066619856%	✔
 1.0  1.0  1.0  10  493.479814178266	493.480220054468	0.000082247714%	✔
 Test Summary:               | Pass  Total  Time
-<ψₙ|H|ψₙ>  = ∫ψₙ*Tψₙdx = Eₙ |   80     80  0.6s
+<ψₙ|H|ψₙ>  = ∫ψₙ*Tψₙdx = Eₙ |   80     80  0.8s
 ```
 #### Expected Value of $x$
 
@@ -411,7 +403,7 @@ Reference:
 1.0	  1	0.5000000000000002	0.5000000000000000	0.0000000000000444%	✔
 7.0	  1	3.5000000000000000	3.5000000000000000	0.0000000000000000%	✔
 Test Summary:    | Pass  Total  Time
-<ψₙ|x|ψₙ>  = L/2 |    4      4  0.3s
+<ψₙ|x|ψₙ>  = L/2 |    4      4  0.4s
 ```
 #### Expected Value of $x^2$
 
@@ -588,5 +580,5 @@ are given by the sum of 2 Taylor series:
 1.0	  1	9.8696043189632228	9.8696044010893580	0.0000008321117229%	✔
 7.0	  1	0.2014204963826796	0.2014204979814155	0.0000007937304979%	✔
 Test Summary:                              | Pass  Total  Time
-<ψₙ|p²|ψₙ> = ∫ψₙ*(-ℏ²d²/dx²)ψₙdx = π²ℏ²/L² |    4      4  0.2s
+<ψₙ|p²|ψₙ> = ∫ψₙ*(-ℏ²d²/dx²)ψₙdx = π²ℏ²/L² |    4      4  0.3s
 ```

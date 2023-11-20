@@ -48,21 +48,16 @@ The infinite potential well (particle in a box) is the simplest model for quantu
 - [Eigen Functions & Eigen Values](https://ja.wolframalpha.com/input?i2d=true&i=D%5B%5C%2840%29Sqrt%5BDivide%5B2%2Ca%5D%5Dsin%5C%2840%29Divide%5Bn%CF%80x%2Ca%5D%5C%2841%29%5C%2841%29%2C%7Bx%2C2%7D%5D)
 - [Normalization](https://ja.wolframalpha.com/input?i=Integrate%5B%28%28Sqrt%5B2%2Fa%5Dsin%28%CF%80x%2Fa%29%29%29%5E2%2C+%7Bx%2C0%2Ca%7D%5D)
 
-## Usage
+## Usage & Examples
 
-[Install Antiq.jl](@ref Install) the first time. Run following command before use.
+[Install Antiq.jl](@ref Install) for the first run and run `using Antiq` before each use. The function `antiq(model, parameters...)` returns a module that has `E()`, `ψ(x)`, `V(x)` and some other functions. In this system, the model name is specified by `:InfinitePotentialWell` and several parameters `L`, `m` and `ℏ` are set as optional arguments.
 
-```julia; term = true; cache = true
+```julia; cache = :all; results = "hidden"
 using Antiq
-```
-
-The model name is `InfinitePotentialWell`.
-
-```julia; cache = true; results = "hidden"
 IPW = antiq(:InfinitePotentialWell, L=1.0, m=1.0, ℏ=1.0)
 ```
 
-You can check the values of the parameters using the following commands.
+Parameters:
 
 ```julia; term = true
 IPW.L
@@ -70,9 +65,8 @@ IPW.m
 IPW.ℏ
 ```
 
-## Examples
-
 Eigen values:
+
 ```julia; term = true
 IPW.E(n=1)
 IPW.E(n=2)
@@ -90,7 +84,7 @@ plot!(x -> IPW.ψ(x, n=4), label="n=4", lw=2)
 plot!(x -> IPW.ψ(x, n=5), label="n=5", lw=2)
 ```
 
-Potential curve, Energy levels, Wave functions:
+Potential energy curve, Energy levels, Wave functions:
 
 ```julia
 L = 1

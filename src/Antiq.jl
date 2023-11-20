@@ -1,11 +1,11 @@
 module Antiq
 
-  export antiq #, InfinitePotentialWell, HarmonicOscillator, MorsePotential, HydrogenAtom
+  export antiq, InfinitePotentialWell, HarmonicOscillator, MorsePotential, HydrogenAtom
 
-  # include("./InfinitePotentialWell.jl")
-  # include("./HarmonicOscillator.jl")
-  # include("./MorsePotential.jl")
-  # include("./HydrogenAtom.jl")
+  include("./InfinitePotentialWell.jl")
+  include("./HarmonicOscillator.jl")
+  include("./MorsePotential.jl")
+  include("./HydrogenAtom.jl")
 
   function save(path, text)
     mkpath(dirname(path))

@@ -86,26 +86,19 @@ Examples:
 - P. W. Atkins, J. De Paula, Atkins' Physical Chemistry, 8th edition (W. H. Freeman, 2008)                [p.293 Table 9.1](https://archive.org/details/atkinsphysicalch00pwat/page/292/mode/2up)
 - J. J. Sakurai, J. Napolitano, Modern Quantum Mechanics Third Edition (Cambridge University Press, 2021) [p.524 (B.29)](https://doi.org/10.1017/9781108587280)
 
-## Usage
+## Usage & Examples
 
-[Install Antiq.jl](@ref Install) the first time. Run following command before use.
-
-```julia
-julia> using Antiq
-```
-
-
-
-The model name is `HarmonicOscillator`.
+[Install Antiq.jl](@ref Install) for the first run and run `using Antiq` before each use. The function `antiq(model, parameters...)` returns a module that has `E()`, `ψ(x)`, `V(x)` and some other functions. In this system, the model name is specified by `:HarmonicOscillator` and several parameters `k`, `m` and `ℏ` are set as optional arguments.
 
 ```julia
+using Antiq
 HO = antiq(:HarmonicOscillator, k=1.0, m=1.0, ℏ=1.0)
 ```
 
 
 
 
-You can check the values of the parameters using the following commands.
+Parameters:
 
 ```julia
 julia> HO.k
@@ -120,8 +113,6 @@ julia> HO.ℏ
 
 
 
-## Examples
-
 Eigen values:
 
 ```julia
@@ -131,6 +122,17 @@ julia> HO.E(n=0)
 julia> HO.E(n=1)
 1.5
 ```
+
+
+
+Potential energy curve:
+
+```julia
+using Plots
+plot(-5:0.1:5, x -> HO.V(x), lw=2, label="", xlabel="x", ylabel="V(x)")
+```
+
+![](./assets/fig//HarmonicOscillator_4_1.png)
 
 
 
@@ -150,7 +152,7 @@ plot!(x -> HO.ψ(x, n=4), label="n=4", lw=2)
 
 
 
-Potential curve, Energy levels, Wave functions:
+Potential energy curve, Energy levels, Wave functions:
 
 ```julia
 using Plots
@@ -286,7 +288,7 @@ Unit testing and Integration testing were done using computer algebra system ([S
 
 ```
 Test Summary:                               | Pass  Total   Time
-Hₙ(x) = (-1)ⁿ exp(x²) dⁿ/dxⁿ　exp(-x²) = ... |   10     10  25.6s
+Hₙ(x) = (-1)ⁿ exp(x²) dⁿ/dxⁿ　exp(-x²) = ... |   10     10  28.0s
 ```
 
 #### Normalization & Orthogonality of $H_n(x)$
@@ -398,7 +400,7 @@ Hₙ(x) = (-1)ⁿ exp(x²) dⁿ/dxⁿ　exp(-x²) = ... |   10     10  25.6s
   9	  8	0.0000000016298145	0.0000000000000000	0.0000000000000000%	✔
   9	  9	329312283.3492956757545471	329312283.3492959141731262	0.0000000000000724%	✔
 Test Summary:                     | Pass  Total  Time
-∫Hⱼ(x)Hᵢ(x)exp(-x²)dx = √π2ʲj!δᵢⱼ |  100    100  0.7s
+∫Hⱼ(x)Hᵢ(x)exp(-x²)dx = √π2ʲj!δᵢⱼ |  100    100  0.8s
 ```
 
 #### Normalization & Orthogonality of $\psi_n(x)$
@@ -510,7 +512,7 @@ Test Summary:                     | Pass  Total  Time
   9	  8	-0.0000000000000000	0.0000000000000000	0.0000000000000000%	✔
   9	  9	0.9999999999999998	1.0000000000000000	0.0000000000000222%	✔
 Test Summary: | Pass  Total  Time
-<ψᵢ|ψⱼ> = δᵢⱼ |  100    100  0.5s
+<ψᵢ|ψⱼ> = δᵢⱼ |  100    100  0.6s
 ```
 
 #### Virial Theorem
@@ -564,7 +566,7 @@ The virial theorem $\langle T \rangle = \langle V \rangle$ and the definition of
 5.0	  8	8.4999999999999929	8.5000000000000000	0.0000000000000836%	✔
 5.0	  9	9.5000000000000000	9.5000000000000000	0.0000000000000000%	✔
 Test Summary:      | Pass  Total  Time
-2 × <ψₙ|V|ψₙ> = Eₙ |   40     40  0.4s
+2 × <ψₙ|V|ψₙ> = Eₙ |   40     40  0.5s
 ```
 
 #### Eigen Values

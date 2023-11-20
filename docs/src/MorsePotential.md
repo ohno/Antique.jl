@@ -78,26 +78,19 @@ Examples:
 - [W. K. Shao, Y. He, J. Pan, J. Nonlinear Sci. Appl., 9, 5, 3388 (2016). (1.6)](http://dx.doi.org/10.22436/jnsa.009.05.124) 
 - The Digital Library of Mathematical Functions (DLMF) [18.3 Table1](https://dlmf.nist.gov/18.3#T1), [18.5 Table1](https://dlmf.nist.gov/18.5#T1), [18.5.12](https://dlmf.nist.gov/18.5#E12)
 
-## Usage
+## Usage & Examples
 
-[Install Antiq.jl](@ref Install) the first time. Run following command before use.
-
-```julia
-julia> using Antiq
-```
-
-
-
-The model name is `MorsePotential`.
+[Install Antiq.jl](@ref Install) for the first run and run `using Antiq` before each use. The function `antiq(model, parameters...)` returns a module that has `E()`, `ψ(r)`, `V(r)` and some other functions. In this system, the model name is specified by `:MorsePotential` and several parameters `rₑ`, `Dₑ`, `k`, `µ` and `ℏ` are set as optional arguments.
 
 ```julia
+using Antiq
 MP = antiq(:MorsePotential)
 ```
 
 
 
 
-You can check the values of the parameters using the following commands.
+Parameters (for H₂⁺):
 
 ```julia
 julia> MP.rₑ
@@ -118,8 +111,6 @@ julia> MP.ℏ
 
 
 
-## Examples
-
 Eigen values:
 
 ```julia
@@ -129,6 +120,17 @@ julia> MP.E(n=0)
 julia> MP.E(n=1)
 -0.08738092406760907
 ```
+
+
+
+Potential energy curve:
+
+```julia
+using Plots
+plot(0.1:0.01:15, r -> MP.V(r), lw=2, label="", xlims=(0.1,9.1), ylims=(-0.11,0.01), xlabel="r", ylabel="V(r)")
+```
+
+![](./assets/fig//MorsePotential_4_1.png)
 
 
 
@@ -149,9 +151,10 @@ plot!(x -> MP.ψ(x, n=5), label="n=5", lw=2)
 
 
 
-Potential curve, Energy levels, Comparison with harmonic oscillator:
+Potential energy curve, Energy levels, Comparison with harmonic oscillator:
 
 ```julia
+MP = antiq(:MorsePotential)
 HO = antiq(:HarmonicOscillator, k=MP.k, m=MP.μ)
 using Plots
 plot(xlims=(0.1,9.1), ylims=(-0.11,0.01), xlabel="\$r\$", ylabel="\$V(r), E_n\$", legend=:bottomright, size=(480,400), dpi=400)
@@ -339,7 +342,7 @@ Unit testing and Integration testing were done using computer algebra system ([S
 
 ```
 Test Summary:                      | Pass  Total  Time
-Lₙ⁽ᵅ⁾(x) = x⁻ᵅeˣ/n! dⁿ/dxⁿ xⁿ⁺ᵅe⁻ˣ |   15     15  6.4s
+Lₙ⁽ᵅ⁾(x) = x⁻ᵅeˣ/n! dⁿ/dxⁿ xⁿ⁺ᵅe⁻ˣ |   15     15  5.9s
 ```
 
 #### Normalization & Orthogonality of $L_n^{(\alpha)}(x)$
@@ -971,5 +974,5 @@ are given by the sum of 2 Taylor series:
 0.10273	  8	-0.0324138862460414	-0.0324138756621953	0.0000326522081163%	✔
 0.10273	  9	-0.0267420183757886	-0.0267418585657935	0.0005976024244662%	✔
 Test Summary:              | Pass  Total  Time
-<ψₙ|H|ψₙ> = ∫ψₙ*Hψₙdx = Eₙ |   40     40  2.8s
+<ψₙ|H|ψₙ> = ∫ψₙ*Hψₙdx = Eₙ |   40     40  2.7s
 ```

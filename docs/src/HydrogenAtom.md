@@ -149,47 +149,38 @@ Examples:
 - P. W. Atkins, J. De Paula, Atkins' Physical Chemistry, 8th edition (W. H. Freeman, 2008), [p.234](https://archive.org/details/atkinsphysicalch00pwat/page/324/mode/2up?q=Laguerre)
 - [J. J. Sakurai, J. Napolitano, Modern Quantum Mechanics Third Edition (Cambridge University Press, 2021)](https://doi.org/10.1017/9781108587280), p.245 Problem 3.30.b, 
 
-## Usage
+## Usage & Examples
 
-[Install Antiq.jl](@ref Install) the first time. Run following command before use.
-
-```julia
-julia> using Antiq
-```
-
-
-
-The model name is `HydrogenAtom`.
+[Install Antiq.jl](@ref Install) for the first run and run `using Antiq` before each use. The function `antiq(model, parameters...)` returns a module that has `E()`, `ψ(r)`, `V(r)` and some other functions. In this system, the model name is specified by `:HydrogenAtom` and several parameters `Z`, `Eₕ`, `mₑ`, `a₀` and `ℏ` are set as optional arguments.
 
 ```julia
+using Antiq
 H = antiq(:HydrogenAtom, Z=1, Eₕ=1.0, a₀=1.0, mₑ=1.0, ℏ=1.0)
 ```
 
 
 
 
-You can check the values of the parameters using the following commands.
+Parameters:
 
 ```julia
 julia> H.Z
 1
 
-julia> H.ℏ
+julia> H.Eₕ
 1.0
 
-julia> H.Eₕ
+julia> H.mₑ
 1.0
 
 julia> H.a₀
 1.0
 
-julia> H.mₑ
+julia> H.ℏ
 1.0
 ```
 
 
-
-## Examples
 
 Eigen values:
 
@@ -200,6 +191,88 @@ julia> H.E(n=1)
 julia> H.E(n=2)
 -0.125
 ```
+
+
+
+Wave length ($n=2\rightarrow1$, the first line of the Lyman series):
+
+```julia
+Eₕ2nm⁻¹ = 2.1947463136320e-2 # https://physics.nist.gov/cgi-bin/cuu/CCValue?hrminv
+println("ΔE = ", H.E(n=2) - H.E(n=1), " Eₕ")
+println("λ  = ", ((H.E(n=2)-H.E(n=1))*Eₕ2nm⁻¹)^-1, " nm")
+```
+
+```
+ΔE = 0.375 Eₕ
+λ  = 121.50227341098497 nm
+```
+
+
+
+
+
+Hyperfine Splitting:
+
+```julia
+# constants: https://doi.org/10.1103/RevModPhys.93.025010
+e  = 1.602176634e-19    # C      https://physics.nist.gov/cgi-bin/cuu/Value?e
+h  = 6.62607015e-34     # J Hz-1 https://physics.nist.gov/cgi-bin/cuu/Value?h
+c  = 299792458          # m s-1  https://physics.nist.gov/cgi-bin/cuu/Value?c
+a0 = 5.29177210903e-11  # m      https://physics.nist.gov/cgi-bin/cuu/Value?bohrrada0
+µ0 = 1.25663706212e-6   # N A-2  https://physics.nist.gov/cgi-bin/cuu/Value?mu0
+µB = 9.2740100783e-24   # J T-1  https://physics.nist.gov/cgi-bin/cuu/Value?mub
+µN = 5.0507837461e-27   # J T-1  https://physics.nist.gov/cgi-bin/cuu/Value?mun
+ge = 2.00231930436256   #        https://physics.nist.gov/cgi-bin/cuu/Value?gem
+gp = 5.5856946893       #        https://physics.nist.gov/cgi-bin/cuu/Value?gp
+
+# calculation: https://doi.org/10.1119/1.12733
+δ = abs(H.ψ(0,0,0))^2
+ΔE = 2 / 3 * µ0 * µN * µB * gp * ge * δ * a0^(-3)
+println("1/π    = ", 1/π)
+println("<δ(r)> = ", δ, " a₀⁻³")
+println("<δ(r)> = ", δ * a0^(-3), " m⁻³")
+println("ΔE = ", ΔE, " J")
+println("ν = ΔE/h = ", ΔE / h * 1e-6, " MHz")
+println("λ = hc/ΔE = ", h*c/ΔE*100, " cm")
+```
+
+```
+1/π    = 0.3183098861837907
+<δ(r)> = 0.3183098861837908 a₀⁻³
+<δ(r)> = 2.1480615849063944e30 m⁻³
+ΔE = 9.427622831641132e-25 J
+ν = ΔE/h = 1422.8075794882932 MHz
+λ = hc/ΔE = 21.070485027063118 cm
+```
+
+
+
+
+
+Potential energy curve:
+
+```julia
+using Plots
+plot(xlims=(0.0,15.0), ylims=(-0.6,0.05), xlabel="\$r~/~a_0\$", ylabel="\$V(r)/E_\\mathrm{h},~E_n/E_\\mathrm{h}\$", legend=:bottomright, size=(480,400), dpi=400)
+plot!(0.1:0.01:15, r -> H.V(r), lc=:black, lw=2, label="") # potential
+```
+
+![](./assets/fig//HydrogenAtom_6_1.png)
+
+
+
+Potential energy curve, Energy levels:
+
+```julia
+using Plots
+plot(xlims=(0.0,15.0), ylims=(-0.6,0.05), xlabel="\$r~/~a_0\$", ylabel="\$V(r)/E_\\mathrm{h}\$", legend=:bottomright, size=(480,400), dpi=400)
+for n in 0:10
+  plot!(0.0:0.01:15, r -> H.E(n=n) > H.V(r) ? H.E(n=n) : NaN, lc=n, lw=1, label="") # energy level
+end
+plot!(0.1:0.01:15, r -> H.V(r), lc=:black, lw=2, label="") # potential
+```
+
+![](./assets/fig//HydrogenAtom_7_1.png)
 
 
 
@@ -216,7 +289,7 @@ end
 plot!()
 ```
 
-![](./assets/fig//HydrogenAtom_5_1.png)
+![](./assets/fig//HydrogenAtom_8_1.png)
 
 
 
@@ -224,7 +297,7 @@ plot!()
 
 Unit testing and Integration testing were done using computer algebra system ([Symbolics.jl](https://symbolics.juliasymbolics.org/stable/)) and numerical integration ([QuadGK.jl](https://juliamath.github.io/QuadGK.jl/stable/)).
 
-#### Associated Legendre Polynomials $P_n^m(x)$s
+#### Associated Legendre Polynomials $P_n^m(x)$
 
 ```math
   \begin{aligned}
@@ -387,7 +460,7 @@ Unit testing and Integration testing were done using computer algebra system ([S
 
 ```
 Test Summary:                                                   | Pass  Total   Time
-Pₙᵐ(x) = √(1-x²)ᵐ dᵐ/dxᵐ Pₙ(x); Pₙ(x) = 1/(2ⁿn!) dⁿ/dxⁿ (x²-1)ⁿ |   15     15  13.2s
+Pₙᵐ(x) = √(1-x²)ᵐ dᵐ/dxᵐ Pₙ(x); Pₙ(x) = 1/(2ⁿn!) dⁿ/dxⁿ (x²-1)ⁿ |   15     15  12.3s
 ```
 
 #### Normalization & Orthogonality of $P_n^m(x)$
@@ -753,7 +826,7 @@ Pₙᵐ(x) = √(1-x²)ᵐ dᵐ/dxᵐ Pₙ(x); Pₙ(x) = 1/(2ⁿn!) dⁿ/dxⁿ (
   5	  9	  8	-0.0000000013969839	0.0000000000000000	0.0000000000000000%	✔
   5	  9	  9	382360926.3157894611358643	382360926.3157894611358643	0.0000000000000000%	✔
 Test Summary:                              | Pass  Total  Time
-∫Pᵢᵐ(x)Pⱼᵐ(x)dx = 2(j+m)!/(2j+1)(j-m)! δᵢⱼ |  355    355  0.7s
+∫Pᵢᵐ(x)Pⱼᵐ(x)dx = 2(j+m)!/(2j+1)(j-m)! δᵢⱼ |  355    355  0.8s
 ```
 
 #### Normalization & Orthogonality of $Y_{lm}(\theta,\varphi)$
@@ -1031,7 +1104,7 @@ Test Summary:                              | Pass  Total  Time
 
 ```
 Test Summary:                                          | Pass  Total  Time
-Lₙᵏ(x) = dᵏ/dxᵏ Lₙ(x); Lₙ(x) = 1/(n!) eˣ dⁿ/dxⁿ e⁻ˣ xⁿ |   15     15  4.3s
+Lₙᵏ(x) = dᵏ/dxᵏ Lₙ(x); Lₙ(x) = 1/(n!) eˣ dⁿ/dxⁿ e⁻ˣ xⁿ |   15     15  4.2s
 ```
 
 #### Normalization & Orthogonality of $L_n^{k}(x)$
@@ -1248,7 +1321,7 @@ Replace $n+k$ with $n$ for [the definition of Wolfram MathWorld](https://mathwor
   7	  7	  6	5039.9999999999854481	5040.0000000000000000	0.0000000000002887%	✔
   7	  7	  7	5040.0000000000000000	5040.0000000000000000	0.0000000000000000%	✔
 Test Summary:                                 | Pass  Total  Time
-∫exp(-x)xᵏLᵢᵏ(x)Lⱼᵏ(x)dx = (2i+k)!/(i+k)! δᵢⱼ |  204    204  0.5s
+∫exp(-x)xᵏLᵢᵏ(x)Lⱼᵏ(x)dx = (2i+k)!/(i+k)! δᵢⱼ |  204    204  0.6s
 ```
 
 #### Normalization of $R_{nl}(r)$
@@ -1368,7 +1441,7 @@ Reference:
   9	  7	93.5000000000000000	93.5000000000000000	0.0000000000000000%	✔
   9	  8	85.4999999999999716	85.5000000000000000	0.0000000000000332%	✔
 Test Summary:                                                    | Pass  Total  Time
-∫r|Rₙₗ(r)|²r²dr = (a₀×mₑ/μ)/2Z × [3n²-l(l+1)]; 1/μ = 1/mₑ + 1/mₚ |   45     45  0.3s
+∫r|Rₙₗ(r)|²r²dr = (a₀×mₑ/μ)/2Z × [3n²-l(l+1)]; 1/μ = 1/mₑ + 1/mₚ |   45     45  0.4s
 ```
 
 #### Expected Value of $r^2$
@@ -1662,5 +1735,5 @@ Test Summary:      | Pass  Total  Time
   3	  3	  2	  2	  2	  1	0.0000000000000000	0.0000000000000000	0.0000000000000000%	✔
   3	  3	  2	  2	  2	  2	1.0003006285656155	1.0000000000000000	0.0300628565615524%	✔
 Test Summary:                       | Pass  Total   Time
-<ψₙ₁ₗ₁ₘ₁|ψₙ₂ₗ₂ₘ₂> = δₙ₁ₙ₂δₗ₁ₗ₂δₘ₁ₘ₂ |  196    196  20.3s
+<ψₙ₁ₗ₁ₘ₁|ψₙ₂ₗ₂ₘ₂> = δₙ₁ₙ₂δₗ₁ₗ₂δₘ₁ₘ₂ |  196    196  19.4s
 ```

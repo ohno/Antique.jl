@@ -1,5 +1,8 @@
 module MorsePotential
 
+    # Packages
+    using SpecialFunctions
+
     # Default
     # F. M. Fernández, J. Garcia, ChemistrySelect, 6, 9527−9534(2021)
     # https://doi.org/10.1002/slct.202102509
@@ -10,9 +13,6 @@ module MorsePotential
     k = 2*((-1.1026342144949464615+1/2.00) - Vₑ) / (2.00 - rₑ)^2 # change here!
     µ = 1/(1/1836.15267343 + 1/1836.15267343) # change here!
     ℏ = 1.0 # change here!
-
-    # Packages
-    using SpecialFunctions
 
     # Potential
     V(r; rₑ=rₑ, Dₑ=Dₑ, k=k, a=sqrt(k/(2*Dₑ))) = Dₑ*( exp(-2*a*(r-rₑ)) -2*exp(-a*(r-rₑ)) )

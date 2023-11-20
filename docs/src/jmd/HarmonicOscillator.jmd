@@ -86,21 +86,16 @@ Examples:
 - P. W. Atkins, J. De Paula, Atkins' Physical Chemistry, 8th edition (W. H. Freeman, 2008)                [p.293 Table 9.1](https://archive.org/details/atkinsphysicalch00pwat/page/292/mode/2up)
 - J. J. Sakurai, J. Napolitano, Modern Quantum Mechanics Third Edition (Cambridge University Press, 2021) [p.524 (B.29)](https://doi.org/10.1017/9781108587280)
 
-## Usage
+## Usage & Examples
 
-[Install Antiq.jl](@ref Install) the first time. Run following command before use.
+[Install Antiq.jl](@ref Install) for the first run and run `using Antiq` before each use. The function `antiq(model, parameters...)` returns a module that has `E()`, `ψ(x)`, `V(x)` and some other functions. In this system, the model name is specified by `:HarmonicOscillator` and several parameters `k`, `m` and `ℏ` are set as optional arguments.
 
-```julia; term = true; cache = true
+```julia; cache = :all; results = "hidden"
 using Antiq
-```
-
-The model name is `HarmonicOscillator`.
-
-```julia; cache = true; results = "hidden"
 HO = antiq(:HarmonicOscillator, k=1.0, m=1.0, ℏ=1.0)
 ```
 
-You can check the values of the parameters using the following commands.
+Parameters:
 
 ```julia; term = true
 HO.k
@@ -108,13 +103,18 @@ HO.m
 HO.ℏ
 ```
 
-## Examples
-
 Eigen values:
 
 ```julia; term = true
 HO.E(n=0)
 HO.E(n=1)
+```
+
+Potential energy curve:
+
+```julia
+using Plots
+plot(-5:0.1:5, x -> HO.V(x), lw=2, label="", xlabel="x", ylabel="V(x)")
 ```
 
 Wave functions:
@@ -129,7 +129,7 @@ plot!(x -> HO.ψ(x, n=3), label="n=3", lw=2)
 plot!(x -> HO.ψ(x, n=4), label="n=4", lw=2)
 ```
 
-Potential curve, Energy levels, Wave functions:
+Potential energy curve, Energy levels, Wave functions:
 
 ```julia
 using Plots
