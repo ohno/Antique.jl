@@ -2,15 +2,13 @@
 CurrentModule = Antiq
 ```
 
-# Antiq
-
-**An**aly**ti**cal soulutions of Schrödinger e**q**uations, named by [@KB-satou](https://github.com/KB-satou) and [@ultimatile](https://github.com/ultimatile)
+# Antiq.jl
 
 Self-contained, Well-Tested, Well-Documented Functions for Quantum Mechanical Models
 
 ## Install
 
-To add this package, run the following code in your Jupyter Notebook:
+To install this package, run the following code in your Jupyter Notebook:
 
 ```julia
 using Pkg
@@ -26,7 +24,7 @@ add https://github.com/ohno/Antiq.jl.git
 
 ## Usage
 
-To use this package, run the following code in your Jupyter Notebook or code:
+To use this package, run the following code before each use:
 
 ```julia
 using Antiq
@@ -84,3 +82,9 @@ julia> He.E(n=1)
 ## Future Works
 
 [List of quantum-mechanical systems with analytical solutions](https://en.wikipedia.org/wiki/List_of_quantum-mechanical_systems_with_analytical_solutions)
+
+## Acknowledgment
+
+This package was named by [@KB-satou](https://github.com/KB-satou) and [@ultimatile](https://github.com/ultimatile):
+
+**An**aly**ti**cal soulutions of Schrödinger e**q**uations.
