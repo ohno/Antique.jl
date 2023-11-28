@@ -5,21 +5,4 @@
 [![Build Status](https://github.com/ohno/Antiq.jl/actions/workflows/CI.yml/badge.svg?branch=main)](https://github.com/ohno/Antiq.jl/actions/workflows/CI.yml?query=branch%3Amain)
 [![Coverage](https://codecov.io/gh/ohno/Antiq.jl/branch/main/graph/badge.svg)](https://codecov.io/gh/ohno/Antiq.jl)
 
-Self-contained, Well-Tested, Well-Documented Functions for Quantum Mechanical Models
-
-## Supported Models
-
-- Infinite Potential Well (Particle in a box)
-- Harmonic Oscillator
-- Morse Potential
-- Hydrogen Atom $^\infty\mathrm{H}$ ($m_\mathrm{p}\rightarrow\infty$)
-
-## Future Works
-
-[List of quantum-mechanical systems with analytical solutions](https://en.wikipedia.org/wiki/List_of_quantum-mechanical_systems_with_analytical_solutions)
-
-## Acknowledgment
-
-This package was named by [@KB-satou](https://github.com/KB-satou) and [@ultimatile](https://github.com/ultimatile):
-
-**An**aly**ti**cal soulutions of Schrödinger e**q**uations.
+Please see [here](https://ohno.github.io/Antiq.jl/dev/HydrogenAtom/).

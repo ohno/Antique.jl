@@ -174,8 +174,11 @@ plot!(x -> HO.V(x), lc=:black, lw=2, label="")
 
 ## Testing
 
-Unit testing and Integration testing were done using computer algebra system ([Symbolics.jl](https://symbolics.juliasymbolics.org/stable/)) and numerical integration ([QuadGK.jl](https://juliamath.github.io/QuadGK.jl/stable/)).
+Unit testing and Integration testing were done using computer algebra system ([Symbolics.jl](https://symbolics.juliasymbolics.org/stable/)) and numerical integration ([QuadGK.jl](https://juliamath.github.io/QuadGK.jl/stable/)). The test script is [here](https://github.com/ohno/Antiq.jl/blob/main/test/HarmonicOscillator.jl).
 
+```julia
+include("../../../test/HarmonicOscillator.jl")
+```
 #### Hermite Polynomials $H_n(x)$
 
 ```math
@@ -288,7 +291,7 @@ Unit testing and Integration testing were done using computer algebra system ([S
 
 ```
 Test Summary:                               | Pass  Total   Time
-Hₙ(x) = (-1)ⁿ exp(x²) dⁿ/dxⁿ　exp(-x²) = ... |   10     10  28.0s
+Hₙ(x) = (-1)ⁿ exp(x²) dⁿ/dxⁿ　exp(-x²) = ... |   10     10  34.9s
 ```
 
 #### Normalization & Orthogonality of $H_n(x)$
@@ -400,7 +403,7 @@ Hₙ(x) = (-1)ⁿ exp(x²) dⁿ/dxⁿ　exp(-x²) = ... |   10     10  28.0s
   9	  8	0.0000000016298145	0.0000000000000000	0.0000000000000000%	✔
   9	  9	329312283.3492956757545471	329312283.3492959141731262	0.0000000000000724%	✔
 Test Summary:                     | Pass  Total  Time
-∫Hⱼ(x)Hᵢ(x)exp(-x²)dx = √π2ʲj!δᵢⱼ |  100    100  0.8s
+∫Hⱼ(x)Hᵢ(x)exp(-x²)dx = √π2ʲj!δᵢⱼ |  100    100  1.0s
 ```
 
 #### Normalization & Orthogonality of $\psi_n(x)$
@@ -512,7 +515,7 @@ Test Summary:                     | Pass  Total  Time
   9	  8	-0.0000000000000000	0.0000000000000000	0.0000000000000000%	✔
   9	  9	0.9999999999999998	1.0000000000000000	0.0000000000000222%	✔
 Test Summary: | Pass  Total  Time
-<ψᵢ|ψⱼ> = δᵢⱼ |  100    100  0.6s
+<ψᵢ|ψⱼ> = δᵢⱼ |  100    100  0.7s
 ```
 
 #### Virial Theorem
@@ -566,7 +569,7 @@ The virial theorem $\langle T \rangle = \langle V \rangle$ and the definition of
 5.0	  8	8.4999999999999929	8.5000000000000000	0.0000000000000836%	✔
 5.0	  9	9.5000000000000000	9.5000000000000000	0.0000000000000000%	✔
 Test Summary:      | Pass  Total  Time
-2 × <ψₙ|V|ψₙ> = Eₙ |   40     40  0.5s
+2 × <ψₙ|V|ψₙ> = Eₙ |   40     40  0.6s
 ```
 
 #### Eigen Values
@@ -674,5 +677,6 @@ are given by the sum of 2 Taylor series:
 5.0	  8	19.0065551524155296	19.0065778087482116	0.0001192025882298%	✔
 5.0	  9	21.2426175047498660	21.2426457862480049	0.0001331354786194%	✔
 Test Summary:              | Pass  Total  Time
-∫ψₙ*Hψₙdx = <ψₙ|H|ψₙ> = Eₙ |   40     40  0.5s
+∫ψₙ*Hψₙdx = <ψₙ|H|ψₙ> = Eₙ |   40     40  0.6s
+
 ```

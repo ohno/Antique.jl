@@ -125,8 +125,11 @@ plot!([0,0,L,L], [140,0,0,140], lc=:black, lw=2, label="")
 
 ## Testing
 
-Unit testing and Integration testing were done using numerical integration ([QuadGK.jl](https://juliamath.github.io/QuadGK.jl/stable/)).
+Unit testing and Integration testing were done using numerical integration ([QuadGK.jl](https://juliamath.github.io/QuadGK.jl/stable/)). The test script is [here](https://github.com/ohno/Antiq.jl/blob/main/test/InfinitePotentialWell.jl).
 
+```julia
+include("../../../test/InfinitePotentialWell.jl")
+```
 #### Normalization & Orthogonality of $\psi_n(x)$
 
 ```math
@@ -236,7 +239,7 @@ Unit testing and Integration testing were done using numerical integration ([Qua
  10	  9	0.0000000000000001	0.0000000000000000	0.0000000000000000%	✔
  10	 10	1.0000000000000002	1.0000000000000000	0.0000000000000222%	✔
 Test Summary:            | Pass  Total  Time
-<ψᵢ|ψⱼ> = ∫ψₙ*ψₙdx = δᵢⱼ |  100    100  1.9s
+<ψᵢ|ψⱼ> = ∫ψₙ*ψₙdx = δᵢⱼ |  100    100  2.3s
 ```
 
 #### Eigen Values
@@ -383,7 +386,7 @@ are given by the sum of 2 Taylor series:
 1.0  1.0  1.0   9  399.718711951912	399.718978244119	0.000066619856%	✔
 1.0  1.0  1.0  10  493.479814178266	493.480220054468	0.000082247714%	✔
 Test Summary:               | Pass  Total  Time
-<ψₙ|H|ψₙ>  = ∫ψₙ*Tψₙdx = Eₙ |   80     80  0.8s
+<ψₙ|H|ψₙ>  = ∫ψₙ*Tψₙdx = Eₙ |   80     80  0.9s
 ```
 #### Expected Value of $x$
 
@@ -422,7 +425,7 @@ Reference:
 1.0	  1	0.2826727415121645	0.2826727415121645	0.0000000000000196%	✔
 7.0	  1	13.8509643340960604	13.8509643340960569	0.0000000000000256%	✔
 Test Summary:                 | Pass  Total  Time
-<ψₙ|x²|ψₙ> = 2L²/π³(π³/6-π/4) |    4      4  0.3s
+<ψₙ|x²|ψₙ> = 2L²/π³(π³/6-π/4) |    4      4  0.4s
 ```
 
 #### Expected Value of $p$
@@ -500,7 +503,7 @@ are given by the sum of 2 Taylor series:
 1.0	  1	0.0000000000001066	0.0000000000000000	0.0000000000000000%	✔
 7.0	  1	0.0000000000000252	0.0000000000000000	0.0000000000000000%	✔
 Test Summary:                      | Pass  Total  Time
-<ψₙ|p|ψₙ>  = ∫ψₙ*(-iℏd/dx)ψₙdx = 0 |    4      4  0.5s
+<ψₙ|p|ψₙ>  = ∫ψₙ*(-iℏd/dx)ψₙdx = 0 |    4      4  0.7s
 ```
 #### Expected Value of $p^2$
 
@@ -580,5 +583,6 @@ are given by the sum of 2 Taylor series:
 1.0	  1	9.8696043189632228	9.8696044010893580	0.0000008321117229%	✔
 7.0	  1	0.2014204963826796	0.2014204979814155	0.0000007937304979%	✔
 Test Summary:                              | Pass  Total  Time
-<ψₙ|p²|ψₙ> = ∫ψₙ*(-ℏ²d²/dx²)ψₙdx = π²ℏ²/L² |    4      4  0.3s
+<ψₙ|p²|ψₙ> = ∫ψₙ*(-ℏ²d²/dx²)ψₙdx = π²ℏ²/L² |    4      4  0.4s
+
 ```

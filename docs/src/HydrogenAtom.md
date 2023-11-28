@@ -295,8 +295,11 @@ plot!()
 
 ## Testing
 
-Unit testing and Integration testing were done using computer algebra system ([Symbolics.jl](https://symbolics.juliasymbolics.org/stable/)) and numerical integration ([QuadGK.jl](https://juliamath.github.io/QuadGK.jl/stable/)).
+Unit testing and Integration testing were done using computer algebra system ([Symbolics.jl](https://symbolics.juliasymbolics.org/stable/)) and numerical integration ([QuadGK.jl](https://juliamath.github.io/QuadGK.jl/stable/)). The test script is [here](https://github.com/ohno/Antiq.jl/blob/main/test/HydrogenAtom.jl).
 
+```julia
+include("../../../test/HydrogenAtom.jl")
+```
 #### Associated Legendre Polynomials $P_n^m(x)$
 
 ```math
@@ -460,7 +463,7 @@ Unit testing and Integration testing were done using computer algebra system ([S
 
 ```
 Test Summary:                                                   | Pass  Total   Time
-Pₙᵐ(x) = √(1-x²)ᵐ dᵐ/dxᵐ Pₙ(x); Pₙ(x) = 1/(2ⁿn!) dⁿ/dxⁿ (x²-1)ⁿ |   15     15  12.3s
+Pₙᵐ(x) = √(1-x²)ᵐ dᵐ/dxᵐ Pₙ(x); Pₙ(x) = 1/(2ⁿn!) dⁿ/dxⁿ (x²-1)ⁿ |   15     15  17.3s
 ```
 
 #### Normalization & Orthogonality of $P_n^m(x)$
@@ -826,7 +829,7 @@ Pₙᵐ(x) = √(1-x²)ᵐ dᵐ/dxᵐ Pₙ(x); Pₙ(x) = 1/(2ⁿn!) dⁿ/dxⁿ (
   5	  9	  8	-0.0000000013969839	0.0000000000000000	0.0000000000000000%	✔
   5	  9	  9	382360926.3157894611358643	382360926.3157894611358643	0.0000000000000000%	✔
 Test Summary:                              | Pass  Total  Time
-∫Pᵢᵐ(x)Pⱼᵐ(x)dx = 2(j+m)!/(2j+1)(j-m)! δᵢⱼ |  355    355  0.8s
+∫Pᵢᵐ(x)Pⱼᵐ(x)dx = 2(j+m)!/(2j+1)(j-m)! δᵢⱼ |  355    355  1.0s
 ```
 
 #### Normalization & Orthogonality of $Y_{lm}(\theta,\varphi)$
@@ -922,7 +925,7 @@ Y_{lm}(\theta,\varphi)^* Y_{l'm'}(\theta,\varphi) \sin(\theta)
   2  2  2  1	0.0000000000000000	0.0000000000000000	0.0000000000000000%	✔
   2  2  2  2	1.0000000000000002	1.0000000000000000	0.0000000000000222%	✔
 Test Summary:                              | Pass  Total  Time
-∫Yₗ₁ₘ₁(θ,φ)Yₗ₂ₘ₂(θ,φ)sinθdθdφ = δₗ₁ₗ₂δₘ₁ₘ₂ |   81     81  2.1s
+∫Yₗ₁ₘ₁(θ,φ)Yₗ₂ₘ₂(θ,φ)sinθdθdφ = δₗ₁ₗ₂δₘ₁ₘ₂ |   81     81  2.8s
 ```
 
 #### Associated Laguerre Polynomials $L_n^{k}(x)$
@@ -1104,7 +1107,7 @@ Test Summary:                              | Pass  Total  Time
 
 ```
 Test Summary:                                          | Pass  Total  Time
-Lₙᵏ(x) = dᵏ/dxᵏ Lₙ(x); Lₙ(x) = 1/(n!) eˣ dⁿ/dxⁿ e⁻ˣ xⁿ |   15     15  4.2s
+Lₙᵏ(x) = dᵏ/dxᵏ Lₙ(x); Lₙ(x) = 1/(n!) eˣ dⁿ/dxⁿ e⁻ˣ xⁿ |   15     15  5.8s
 ```
 
 #### Normalization & Orthogonality of $L_n^{k}(x)$
@@ -1321,7 +1324,7 @@ Replace $n+k$ with $n$ for [the definition of Wolfram MathWorld](https://mathwor
   7	  7	  6	5039.9999999999854481	5040.0000000000000000	0.0000000000002887%	✔
   7	  7	  7	5040.0000000000000000	5040.0000000000000000	0.0000000000000000%	✔
 Test Summary:                                 | Pass  Total  Time
-∫exp(-x)xᵏLᵢᵏ(x)Lⱼᵏ(x)dx = (2i+k)!/(i+k)! δᵢⱼ |  204    204  0.6s
+∫exp(-x)xᵏLᵢᵏ(x)Lⱼᵏ(x)dx = (2i+k)!/(i+k)! δᵢⱼ |  204    204  0.7s
 ```
 
 #### Normalization of $R_{nl}(r)$
@@ -1377,7 +1380,7 @@ Test Summary:                                 | Pass  Total  Time
   9	  7	1.0000000000000007	1.0000000000000000	0.0000000000000666%	✔
   9	  8	0.9999999999999994	1.0000000000000000	0.0000000000000555%	✔
 Test Summary:               | Pass  Total  Time
-∫|Rₙₗ(r)|²r²dr = δₙ₁ₙ₂δₗ₁ₗ₂ |   45     45  0.4s
+∫|Rₙₗ(r)|²r²dr = δₙ₁ₙ₂δₗ₁ₗ₂ |   45     45  0.6s
 ```
 
 #### Expected Value of $r$
@@ -1505,7 +1508,7 @@ Reference:
   9	  7	9638.9999999999909051	9639.0000000000000000	0.0000000000000944%	✔
   9	  8	7694.9999999999981810	7695.0000000000000000	0.0000000000000236%	✔
 Test Summary:                                                            | Pass  Total  Time
-∫r²|Rₙₗ(r)|²r²dr = (a₀×mₑ/μ)²/2Z² × n²[5n²+1-3l(l+1)]; 1/μ = 1/mₑ + 1/mₚ |   45     45  0.3s
+∫r²|Rₙₗ(r)|²r²dr = (a₀×mₑ/μ)²/2Z² × n²[5n²+1-3l(l+1)]; 1/μ = 1/mₑ + 1/mₚ |   45     45  0.5s
 ```
 
 #### Virial Theorem
@@ -1528,7 +1531,7 @@ The virial theorem $2\langle T \rangle + \langle V \rangle = 0$ and the definiti
   9	-0.0123456790123456	-0.0123456790123457	0.0000000000002389%	✔
  10	-0.0100000000000004	-0.0100000000000000	0.0000000000036256%	✔
 Test Summary:      | Pass  Total  Time
-<ψₙ|V|ψₙ> / 2 = Eₙ |   10     10  0.5s
+<ψₙ|V|ψₙ> / 2 = Eₙ |   10     10  0.8s
 ```
 
 #### Normalization & Orthogonality of $\psi_n(r,\theta,\varphi)$
@@ -1735,5 +1738,6 @@ Test Summary:      | Pass  Total  Time
   3	  3	  2	  2	  2	  1	0.0000000000000000	0.0000000000000000	0.0000000000000000%	✔
   3	  3	  2	  2	  2	  2	1.0003006285656155	1.0000000000000000	0.0300628565615524%	✔
 Test Summary:                       | Pass  Total   Time
-<ψₙ₁ₗ₁ₘ₁|ψₙ₂ₗ₂ₘ₂> = δₙ₁ₙ₂δₗ₁ₗ₂δₘ₁ₘ₂ |  196    196  19.4s
+<ψₙ₁ₗ₁ₘ₁|ψₙ₂ₗ₂ₘ₂> = δₙ₁ₙ₂δₗ₁ₗ₂δₘ₁ₘ₂ |  196    196  27.4s
+
 ```

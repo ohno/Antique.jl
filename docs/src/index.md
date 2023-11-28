@@ -43,8 +43,8 @@ julia> H.E(n=1)
 
 The energy of $1S$ state in helium atom:
 ```
-julia> He = antiq(:HydrogenAtom, Z=2)
-julia> He.E(n=1)
+julia> He⁺ = antiq(:HydrogenAtom, Z=2)
+julia> He⁺.E(n=1)
 -2.0
 ```
 

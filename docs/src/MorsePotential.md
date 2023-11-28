@@ -178,8 +178,11 @@ where, the potential of harmonic oscillator is defined as $V(r) \simeq \frac{1}{
 
 ## Testing
 
-Unit testing and Integration testing were done using computer algebra system ([Symbolics.jl](https://symbolics.juliasymbolics.org/stable/)) and numerical integration ([QuadGK.jl](https://juliamath.github.io/QuadGK.jl/stable/)).
+Unit testing and Integration testing were done using computer algebra system ([Symbolics.jl](https://symbolics.juliasymbolics.org/stable/)) and numerical integration ([QuadGK.jl](https://juliamath.github.io/QuadGK.jl/stable/)). The test script is [here](https://github.com/ohno/Antiq.jl/blob/main/test/MorsePotential.jl).
 
+```julia
+include("../../../test/MorsePotential.jl")
+```
 #### Generalized Laguerre Polynomials $L_n^{(\alpha)}(x)$
 
 ```math
@@ -342,7 +345,7 @@ Unit testing and Integration testing were done using computer algebra system ([S
 
 ```
 Test Summary:                      | Pass  Total  Time
-Lₙ⁽ᵅ⁾(x) = x⁻ᵅeˣ/n! dⁿ/dxⁿ xⁿ⁺ᵅe⁻ˣ |   15     15  5.9s
+Lₙ⁽ᵅ⁾(x) = x⁻ᵅeˣ/n! dⁿ/dxⁿ xⁿ⁺ᵅe⁻ˣ |   15     15  7.8s
 ```
 
 #### Normalization & Orthogonality of $L_n^{(\alpha)}(x)$
@@ -754,7 +757,7 @@ Lₙ⁽ᵅ⁾(x) = x⁻ᵅeˣ/n! dⁿ/dxⁿ xⁿ⁺ᵅe⁻ˣ |   15     15  5.9s
 7.0	  9	  8	0.0000000000000000	0.0000000000000000	0.0000000000000000%	✔
 7.0	  9	  9	329312283.3492959141731262	329312283.3492959141731262	0.0000000000000000%	✔
 Test Summary:                               | Pass  Total  Time
-∫Lᵢ⁽ᵅ⁾Lⱼ⁽ᵅ⁾(x)xᵅexp(-x)dx = Γ(i+α+1)/i! δᵢⱼ |  400    400  0.1s
+∫Lᵢ⁽ᵅ⁾Lⱼ⁽ᵅ⁾(x)xᵅexp(-x)dx = Γ(i+α+1)/i! δᵢⱼ |  400    400  0.2s
 ```
 
 #### Normalization & Orthogonality of $\psi_n(r)$
@@ -866,7 +869,7 @@ Test Summary:                               | Pass  Total  Time
   9	  8	0.0000000000003093	0.0000000000000000	0.0000000000000000%	✔
   9	  9	1.0000000000154354	1.0000000000000000	0.0000000015435431%	✔
 Test Summary: | Pass  Total  Time
-<ψᵢ|ψⱼ> = δᵢⱼ |  100    100  1.2s
+<ψᵢ|ψⱼ> = δᵢⱼ |  100    100  1.7s
 ```
 
 #### Eigen Values
@@ -974,5 +977,6 @@ are given by the sum of 2 Taylor series:
 0.10273	  8	-0.0324138862460414	-0.0324138756621953	0.0000326522081163%	✔
 0.10273	  9	-0.0267420183757886	-0.0267418585657935	0.0005976024244662%	✔
 Test Summary:              | Pass  Total  Time
-<ψₙ|H|ψₙ> = ∫ψₙ*Hψₙdx = Eₙ |   40     40  2.7s
+<ψₙ|H|ψₙ> = ∫ψₙ*Hψₙdx = Eₙ |   40     40  3.7s
+
 ```
