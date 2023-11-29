@@ -15,7 +15,7 @@ module MorsePotential
     ℏ = 1.0 # change here!
 
     # Potential
-    V(r; rₑ=rₑ, Dₑ=Dₑ, k=k, a=sqrt(k/(2*Dₑ))) = Dₑ*( exp(-2*a*(r-rₑ)) -2*exp(-a*(r-rₑ)) )
+    V(r; rₑ=rₑ, Dₑ=Dₑ, k=k, a=sqrt(k/(2*Dₑ))) = r<0 ? throw(DomainError(r, "r=$r is out of the domain (0≦r)")) : Dₑ*( exp(-2*a*(r-rₑ)) -2*exp(-a*(r-rₑ)) )
 
     # Energy
     E(; n=0, rₑ=rₑ, Dₑ=Dₑ, k=k, a=sqrt(k/(2*Dₑ)), µ=µ, ω=sqrt(k/µ), χ=ℏ*ω/(4*Dₑ), ℏ=ℏ) = - Dₑ + ℏ*ω*(n+1/2) - χ*ℏ*ω*(n+1/2)^2
@@ -25,6 +25,9 @@ module MorsePotential
 
     # Wave Function
     function ψ(r; n=0, rₑ=rₑ, Dₑ=Dₑ, k=k, a=sqrt(k/(2*Dₑ)), µ=µ, ω=sqrt(k/µ), χ=ℏ*ω/(4*Dₑ), ℏ=ℏ)
+        if r<0
+            throw(DomainError(r, "r=$r is out of the domain (0≦r)"))
+        end
         λ = sqrt(2*µ*Dₑ) / (a*ℏ)
         ξ = 2*λ*exp(-a*(r-rₑ))
         s  = 2*λ - 2*n - 1

@@ -8,7 +8,7 @@ module HydrogenAtom
     mₑ = 1.0 # change here!
 
     # Potential
-    V(r; Z=Z, a₀=a₀) = -Z/abs(r/a₀)
+    V(r; Z=Z, a₀=a₀) =  r<0 ? throw(DomainError(r, "r=$r is out of the domain (0≦r)")) : -Z/abs(r/a₀)
 
     # Energy
     E(; n=1, Z=Z, Eₕ=Eₕ) = -Z^2/(2*n^2) * Eₕ
@@ -18,6 +18,9 @@ module HydrogenAtom
 
     # Radial Function
     function R(r; n=1, l=0, Z=Z, a₀=a₀)
+        if r<0
+            throw(DomainError(r, "r=$r is out of the domain (0≦r)"))
+        end
         ρ = 2*Z*abs(r)/(n*a₀)
         N = -sqrt( factorial(n-l-1)/(2*n*factorial(n+l)) * (2*Z/(n*a₀))^3 )
         return N*ρ^l * exp(-ρ/2) * L(ρ, n=n+l, k=2*l+1)
