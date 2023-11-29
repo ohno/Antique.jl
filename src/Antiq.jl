@@ -35,7 +35,7 @@ module Antiq
   function antiq(model; parameters...)
     # check existence of model
     if model ∉ models
-      throw(ErrorException("\`:$(model)\` is not in the supported models $(models)."))
+      throw(ErrorException("\`:$(model)\` is not in the list of supported models $(models)."))
     end
     # load source code file
     if Sys.iswindows()

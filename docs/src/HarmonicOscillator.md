@@ -193,7 +193,7 @@ include("../../../test/HarmonicOscillator.jl")
 ```math
 \begin{aligned}
   H_{0}(x)
-   = e^{x^{2}} e^{ - x^{2}}
+   = e^{ - x^{2}} e^{x^{2}}
   &= 1 \\
   &= 1
 \end{aligned}
@@ -213,7 +213,7 @@ include("../../../test/HarmonicOscillator.jl")
 ```math
 \begin{aligned}
   H_{2}(x)
-   = e^{x^{2}} \frac{\mathrm{d}^{2} e^{ - x^{2}}}{\mathrm{d}x^{2}}
+   = e^{x^{2}} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d} e^{ - x^{2}}}{\mathrm{d}x}
   &= -2 + 4 x^{2} \\
   &= -2 + 4 x^{2}
 \end{aligned}
@@ -223,9 +223,9 @@ include("../../../test/HarmonicOscillator.jl")
 ```math
 \begin{aligned}
   H_{3}(x)
-   =  - e^{x^{2}} \frac{\mathrm{d}^{3} e^{ - x^{2}}}{\mathrm{d}x^{3}}
-  &= 8 x^{3} - 12 x \\
-  &= 8 x^{3} - 12 x
+   =  - \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d} e^{ - x^{2}}}{\mathrm{d}x} e^{x^{2}}
+  &=  - 12 x + 8 x^{3} \\
+  &=  - 12 x + 8 x^{3}
 \end{aligned}
 ```
 
@@ -233,7 +233,7 @@ include("../../../test/HarmonicOscillator.jl")
 ```math
 \begin{aligned}
   H_{4}(x)
-   = e^{x^{2}} \frac{\mathrm{d}^{4} e^{ - x^{2}}}{\mathrm{d}x^{4}}
+   = e^{x^{2}} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d} e^{ - x^{2}}}{\mathrm{d}x}
   &= 12 - 48 x^{2} + 16 x^{4} \\
   &= 12 - 48 x^{2} + 16 x^{4}
 \end{aligned}
@@ -243,9 +243,9 @@ include("../../../test/HarmonicOscillator.jl")
 ```math
 \begin{aligned}
   H_{5}(x)
-   =  - e^{x^{2}} \frac{\mathrm{d}^{5} e^{ - x^{2}}}{\mathrm{d}x^{5}}
-  &= 32 x^{5} + 120 x - 160 x^{3} \\
-  &= 32 x^{5} + 120 x - 160 x^{3}
+   =  - \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d} e^{ - x^{2}}}{\mathrm{d}x} e^{x^{2}}
+  &= 120 x - 160 x^{3} + 32 x^{5} \\
+  &= 120 x - 160 x^{3} + 32 x^{5}
 \end{aligned}
 ```
 
@@ -253,9 +253,9 @@ include("../../../test/HarmonicOscillator.jl")
 ```math
 \begin{aligned}
   H_{6}(x)
-   = e^{x^{2}} \frac{\mathrm{d}^{6} e^{ - x^{2}}}{\mathrm{d}x^{6}}
-  &= -120 + 720 x^{2} + 64 x^{6} - 480 x^{4} \\
-  &= -120 + 720 x^{2} + 64 x^{6} - 480 x^{4}
+   = e^{x^{2}} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d} e^{ - x^{2}}}{\mathrm{d}x}
+  &= -120 + 720 x^{2} - 480 x^{4} + 64 x^{6} \\
+  &= -120 + 720 x^{2} - 480 x^{4} + 64 x^{6}
 \end{aligned}
 ```
 
@@ -263,9 +263,9 @@ include("../../../test/HarmonicOscillator.jl")
 ```math
 \begin{aligned}
   H_{7}(x)
-   =  - e^{x^{2}} \frac{\mathrm{d}^{7} e^{ - x^{2}}}{\mathrm{d}x^{7}}
-  &= 128 x^{7} - 1344 x^{5} - 1680 x + 3360 x^{3} \\
-  &= 128 x^{7} - 1344 x^{5} - 1680 x + 3360 x^{3}
+   =  - e^{x^{2}} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d} e^{ - x^{2}}}{\mathrm{d}x}
+  &=  - 1680 x + 3360 x^{3} - 1344 x^{5} + 128 x^{7} \\
+  &=  - 1680 x + 3360 x^{3} - 1344 x^{5} + 128 x^{7}
 \end{aligned}
 ```
 
@@ -273,9 +273,9 @@ include("../../../test/HarmonicOscillator.jl")
 ```math
 \begin{aligned}
   H_{8}(x)
-   = e^{x^{2}} \frac{\mathrm{d}^{8} e^{ - x^{2}}}{\mathrm{d}x^{8}}
-  &= 1680 - 13440 x^{2} - 3584 x^{6} + 13440 x^{4} + 256 x^{8} \\
-  &= 1680 - 13440 x^{2} - 3584 x^{6} + 13440 x^{4} + 256 x^{8}
+   = e^{x^{2}} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d} e^{ - x^{2}}}{\mathrm{d}x}
+  &= 1680 - 13440 x^{2} + 13440 x^{4} - 3584 x^{6} + 256 x^{8} \\
+  &= 1680 - 13440 x^{2} + 13440 x^{4} - 3584 x^{6} + 256 x^{8}
 \end{aligned}
 ```
 
@@ -283,15 +283,15 @@ include("../../../test/HarmonicOscillator.jl")
 ```math
 \begin{aligned}
   H_{9}(x)
-   =  - e^{x^{2}} \frac{\mathrm{d}^{9} e^{ - x^{2}}}{\mathrm{d}x^{9}}
-  &= 512 x^{9} - 9216 x^{7} + 30240 x + 48384 x^{5} - 80640 x^{3} \\
-  &= 512 x^{9} - 9216 x^{7} + 30240 x + 48384 x^{5} - 80640 x^{3}
+   =  - e^{x^{2}} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d} e^{ - x^{2}}}{\mathrm{d}x}
+  &= 30240 x - 80640 x^{3} + 48384 x^{5} - 9216 x^{7} + 512 x^{9} \\
+  &= 30240 x - 80640 x^{3} + 48384 x^{5} - 9216 x^{7} + 512 x^{9}
 \end{aligned}
 ```
 
 ```
 Test Summary:                               | Pass  Total   Time
-Hₙ(x) = (-1)ⁿ exp(x²) dⁿ/dxⁿ　exp(-x²) = ... |   10     10  34.9s
+Hₙ(x) = (-1)ⁿ exp(x²) dⁿ/dxⁿ exp(-x²) = ... |   10     10  35.0s
 ```
 
 #### Normalization & Orthogonality of $H_n(x)$
@@ -403,7 +403,7 @@ Hₙ(x) = (-1)ⁿ exp(x²) dⁿ/dxⁿ　exp(-x²) = ... |   10     10  34.9s
   9	  8	0.0000000016298145	0.0000000000000000	0.0000000000000000%	✔
   9	  9	329312283.3492956757545471	329312283.3492959141731262	0.0000000000000724%	✔
 Test Summary:                     | Pass  Total  Time
-∫Hⱼ(x)Hᵢ(x)exp(-x²)dx = √π2ʲj!δᵢⱼ |  100    100  1.0s
+∫Hⱼ(x)Hᵢ(x)exp(-x²)dx = √π2ʲj!δᵢⱼ |  100    100  1.2s
 ```
 
 #### Normalization & Orthogonality of $\psi_n(x)$
@@ -515,7 +515,7 @@ Test Summary:                     | Pass  Total  Time
   9	  8	-0.0000000000000000	0.0000000000000000	0.0000000000000000%	✔
   9	  9	0.9999999999999998	1.0000000000000000	0.0000000000000222%	✔
 Test Summary: | Pass  Total  Time
-<ψᵢ|ψⱼ> = δᵢⱼ |  100    100  0.7s
+<ψᵢ|ψⱼ> = δᵢⱼ |  100    100  1.2s
 ```
 
 #### Virial Theorem
@@ -569,7 +569,7 @@ The virial theorem $\langle T \rangle = \langle V \rangle$ and the definition of
 5.0	  8	8.4999999999999929	8.5000000000000000	0.0000000000000836%	✔
 5.0	  9	9.5000000000000000	9.5000000000000000	0.0000000000000000%	✔
 Test Summary:      | Pass  Total  Time
-2 × <ψₙ|V|ψₙ> = Eₙ |   40     40  0.6s
+2 × <ψₙ|V|ψₙ> = Eₙ |   40     40  1.0s
 ```
 
 #### Eigen Values
@@ -677,6 +677,6 @@ are given by the sum of 2 Taylor series:
 5.0	  8	19.0065551524155296	19.0065778087482116	0.0001192025882298%	✔
 5.0	  9	21.2426175047498660	21.2426457862480049	0.0001331354786194%	✔
 Test Summary:              | Pass  Total  Time
-∫ψₙ*Hψₙdx = <ψₙ|H|ψₙ> = Eₙ |   40     40  0.6s
+∫ψₙ*Hψₙdx = <ψₙ|H|ψₙ> = Eₙ |   40     40  1.4s
 
 ```

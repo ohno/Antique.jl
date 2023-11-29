@@ -24,7 +24,7 @@ println(raw"""
 ```
 """)
 
-@testset "Hₙ(x) = (-1)ⁿ exp(x²) dⁿ/dxⁿ　exp(-x²) = ..." begin
+@testset "Hₙ(x) = (-1)ⁿ exp(x²) dⁿ/dxⁿ exp(-x²) = ..." begin
   for n in 0:9
     # Rodrigues' formula
     @variables x
@@ -36,7 +36,7 @@ println(raw"""
     e = simplify(d, expand=true)        # simplify
     # closed-form
     eq1 = latexify(e, env=:raw)
-    eq2 = latexify(HO.H(x, n=n), env=:raw)
+    eq2 = latexify(simplify(HO.H(x, n=n), expand=true), env=:raw)
     # judge
     acceptance = (eq1 == eq2)
     println("``n=$n:`` ", acceptance ? "✔" : "✗")

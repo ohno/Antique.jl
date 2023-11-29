@@ -19,6 +19,6 @@ module HarmonicOscillator
     end
 
     # Hermite polynomials
-    H(x; n=0) = factorial(n) * sum(m -> (-1)^m // (factorial(m)  * factorial(n-2*m)) * (2*x)^(n-2*m), 0:Int(floor(n/2)))
+    H(x; n=0) = factorial(n) * sum(i -> (-1)^i // (factorial(i)  * factorial(n-2*i)) * (2*x)^(n-2*i), 0:Int(floor(n/2)))
 
 end
