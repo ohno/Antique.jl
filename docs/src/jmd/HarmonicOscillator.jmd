@@ -133,7 +133,7 @@ Potential energy curve, Energy levels, Wave functions:
 
 ```julia
 using Plots
-plot(xlim=(-5.5,5.5), ylim=(-0.2,5.4), xlabel="\$x\$", ylabel="\$V(x),~E_n,~\\psi_n(x)\\times0.5+E_n\$", size=(480,400), dpi=400)
+plot(xlim=(-5.5,5.5), ylim=(-0.2,5.4), xlabel="\$x\$", ylabel="\$V(x),~E_n,~\\psi_n(x)\\times0.5+E_n\$", size=(480,400), dpi=300)
 for n in 0:4
   # energy
   hline!([HO.E(n=n)], lc=:black, ls=:dash, label="")

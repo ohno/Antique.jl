@@ -108,7 +108,7 @@ Potential energy curve, Energy levels, Wave functions:
 ```julia
 L = 1
 using Plots
-plot(xlim=(-0.5,1.5), ylim=(-5,140), xlabel="\$x\$", ylabel="\$V(x),~E_n,~\\psi_n(x)\\times5+E_n\$", size=(480,400), dpi=400)
+plot(xlim=(-0.5,1.5), ylim=(-5,140), xlabel="\$x\$", ylabel="\$V(x),~E_n,~\\psi_n(x)\\times5+E_n\$", size=(480,400), dpi=300)
 for n in 1:5
   # energy
   plot!([0,L], fill(IPW.E(n=n,L=L),2), lc=:black, lw=2, label="")
@@ -239,7 +239,7 @@ include("../../../test/InfinitePotentialWell.jl")
  10	  9	0.0000000000000001	0.0000000000000000	0.0000000000000000%	✔
  10	 10	1.0000000000000002	1.0000000000000000	0.0000000000000222%	✔
 Test Summary:            | Pass  Total  Time
-<ψᵢ|ψⱼ> = ∫ψₙ*ψₙdx = δᵢⱼ |  100    100  1.5s
+<ψᵢ|ψⱼ> = ∫ψₙ*ψₙdx = δᵢⱼ |  100    100  2.3s
 ```
 
 #### Eigen Values
@@ -386,7 +386,7 @@ are given by the sum of 2 Taylor series:
 1.0  1.0  1.0   9  399.718711951912	399.718978244119	0.000066619856%	✔
 1.0  1.0  1.0  10  493.479814178266	493.480220054468	0.000082247714%	✔
 Test Summary:               | Pass  Total  Time
-<ψₙ|H|ψₙ>  = ∫ψₙ*Tψₙdx = Eₙ |   80     80  1.2s
+<ψₙ|H|ψₙ>  = ∫ψₙ*Tψₙdx = Eₙ |   80     80  0.9s
 ```
 #### Expected Value of $x$
 
@@ -406,7 +406,7 @@ Reference:
 1.0	  1	0.5000000000000002	0.5000000000000000	0.0000000000000444%	✔
 7.0	  1	3.5000000000000000	3.5000000000000000	0.0000000000000000%	✔
 Test Summary:    | Pass  Total  Time
-<ψₙ|x|ψₙ>  = L/2 |    4      4  0.7s
+<ψₙ|x|ψₙ>  = L/2 |    4      4  0.5s
 ```
 #### Expected Value of $x^2$
 
@@ -503,7 +503,7 @@ are given by the sum of 2 Taylor series:
 1.0	  1	0.0000000000001066	0.0000000000000000	0.0000000000000000%	✔
 7.0	  1	0.0000000000000252	0.0000000000000000	0.0000000000000000%	✔
 Test Summary:                      | Pass  Total  Time
-<ψₙ|p|ψₙ>  = ∫ψₙ*(-iℏd/dx)ψₙdx = 0 |    4      4  0.9s
+<ψₙ|p|ψₙ>  = ∫ψₙ*(-iℏd/dx)ψₙdx = 0 |    4      4  0.7s
 ```
 #### Expected Value of $p^2$
 
@@ -583,6 +583,6 @@ are given by the sum of 2 Taylor series:
 1.0	  1	9.8696043189632228	9.8696044010893580	0.0000008321117229%	✔
 7.0	  1	0.2014204963826796	0.2014204979814155	0.0000007937304979%	✔
 Test Summary:                              | Pass  Total  Time
-<ψₙ|p²|ψₙ> = ∫ψₙ*(-ℏ²d²/dx²)ψₙdx = π²ℏ²/L² |    4      4  0.4s
+<ψₙ|p²|ψₙ> = ∫ψₙ*(-ℏ²d²/dx²)ψₙdx = π²ℏ²/L² |    4      4  0.5s
 
 ```

@@ -89,7 +89,7 @@ Potential energy curve, Energy levels, Wave functions:
 ```julia
 L = 1
 using Plots
-plot(xlim=(-0.5,1.5), ylim=(-5,140), xlabel="\$x\$", ylabel="\$V(x),~E_n,~\\psi_n(x)\\times5+E_n\$", size=(480,400), dpi=400)
+plot(xlim=(-0.5,1.5), ylim=(-5,140), xlabel="\$x\$", ylabel="\$V(x),~E_n,~\\psi_n(x)\\times5+E_n\$", size=(480,400), dpi=300)
 for n in 1:5
   # energy
   plot!([0,L], fill(IPW.E(n=n,L=L),2), lc=:black, lw=2, label="")

@@ -130,7 +130,7 @@ Potential energy curve, Energy levels, Comparison with harmonic oscillator:
 MP = antiq(:MorsePotential)
 HO = antiq(:HarmonicOscillator, k=MP.k, m=MP.μ)
 using Plots
-plot(xlims=(0.1,9.1), ylims=(-0.11,0.01), xlabel="\$r\$", ylabel="\$V(r), E_n\$", legend=:bottomright, size=(480,400), dpi=400)
+plot(xlims=(0.1,9.1), ylims=(-0.11,0.01), xlabel="\$r\$", ylabel="\$V(r), E_n\$", legend=:bottomright, size=(480,400), dpi=300)
 for n in 0:MP.nₘₐₓ()
   # energy
   EM = MP.E(n=n)
