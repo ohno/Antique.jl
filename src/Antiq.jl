@@ -1,12 +1,21 @@
 module Antiq
 
-  export antiq, InfinitePotentialWell, HarmonicOscillator, MorsePotential, HydrogenAtom
+  export antiq
 
-  include("./InfinitePotentialWell.jl")
-  include("./HarmonicOscillator.jl")
-  include("./MorsePotential.jl")
-  include("./HydrogenAtom.jl")
+  # Update this list when you add a model.
+  models = [
+    :InfinitePotentialWell,
+    :HarmonicOscillator,
+    :MorsePotential,
+    :HydrogenAtom,
+  ]
 
+  # include statements
+  for model in models
+    include("./$(model).jl")
+  end
+
+  # I/O function
   function save(path, text)
     mkpath(dirname(path))
     file = open(path, "w")
@@ -14,6 +23,7 @@ module Antiq
     close(file)
   end
 
+  # I/O function
   function load(path)
     file = open(path, "r")
     text = Base.read(file, String)
@@ -21,7 +31,12 @@ module Antiq
     return text
   end
 
+  # main functions
   function antiq(model; parameters...)
+    # check existence of model
+    if model ∉ models
+      throw(ErrorException("\`:$(model)\` is not in the supported models $(models)."))
+    end
     # load source code file
     if Sys.iswindows()
       source = load("$(dirname(@__FILE__()))\\\\$(model).jl")
