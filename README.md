@@ -4,4 +4,55 @@
 [![Stable](https://img.shields.io/badge/docs-stable-blue.svg)](https://ohno.github.io/Antiq.jl/stable/)
 [![Dev](https://img.shields.io/badge/docs-dev-blue.svg)](https://ohno.github.io/Antiq.jl/dev/)
 
-Please see [here](https://ohno.github.io/Antiq.jl/dev/HydrogenAtom/).
+Self-contained, Well-Tested, Well-Documented Functions for Quantum Mechanical Models
+
+## Install
+
+To install this package, run the following code in your Jupyter Notebook:
+
+```julia
+using Pkg; Pkg.add(path="https://github.com/ohno/Antiq.jl.git")
+```
+
+## Usage
+
+To use this package, run the following code before each use:
+
+```julia
+using Antiq
+```
+
+The function `antiq(model, parameters...)` returns a module. Each module has `E()`, `ψ(x)` and some other functions.
+
+## Examples
+
+The energy of $1S$ state in hydrogen atom:
+```julia
+julia> H = antiq(:HydrogenAtom, Z=1)
+julia> H.E(n=1)
+-0.5
+```
+
+The energy of $1S$ state in helium atom:
+```
+julia> He⁺ = antiq(:HydrogenAtom, Z=2)
+julia> He⁺.E(n=1)
+-2.0
+```
+
+## Supported Models
+
+- [`InfinitePotentialWell`](https://ohno.github.io/Antiq.jl/dev/InfinitePotentialWell/)
+- [`HarmonicOscillator`](https://ohno.github.io/Antiq.jl/dev/HarmonicOscillator/)
+- [`MorsePotential`](https://ohno.github.io/Antiq.jl/dev/MorsePotential/)
+- [`HydrogenAtom`](https://ohno.github.io/Antiq.jl/dev/HydrogenAtom/) 
+
+## Future Works
+
+[List of quantum-mechanical systems with analytical solutions](https://en.wikipedia.org/wiki/List_of_quantum-mechanical_systems_with_analytical_solutions)
+
+## Acknowledgment
+
+This package was named by [@KB-satou](https://github.com/KB-satou) and [@ultimatile](https://github.com/ultimatile):
+
+**An**aly**ti**cal soulutions of Schrödinger e**q**uations.
