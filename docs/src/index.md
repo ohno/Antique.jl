@@ -11,15 +11,7 @@ Self-contained, Well-Tested, Well-Documented Functions for Quantum Mechanical Mo
 To install this package, run the following code in your Jupyter Notebook:
 
 ```julia
-using Pkg
-Pkg.add(path="https://github.com/ohno/Antiq.jl.git")
-```
-
-or use `add` upon REPL(Package mode):
-
-```julia
-]
-add https://github.com/ohno/Antiq.jl.git
+using Pkg; Pkg.add(path="https://github.com/ohno/Antiq.jl.git")
 ```
 
 ## Usage
