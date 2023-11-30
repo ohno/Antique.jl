@@ -42,10 +42,10 @@ julia> He⁺.E(n=1)
 
 ## Supported Models
 
-- [Infinite Potential Well](https://ohno.github.io/Antiq.jl/dev/InfinitePotentialWell/) `InfinitePotentialWell`
-- [Harmonic Oscillator](https://ohno.github.io/Antiq.jl/dev/HarmonicOscillator/) `HarmonicOscillator`
-- [Morse Potential](https://ohno.github.io/Antiq.jl/dev/MorsePotential/) `MorsePotential`
-- [Hydrogen Atom](https://ohno.github.io/Antiq.jl/dev/HydrogenAtom/) `HydrogenAtom`
+- [Infinite Potential Well](https://ohno.github.io/Antiq.jl/dev/InfinitePotentialWell/) `:InfinitePotentialWell`
+- [Harmonic Oscillator](https://ohno.github.io/Antiq.jl/dev/HarmonicOscillator/) `:HarmonicOscillator`
+- [Morse Potential](https://ohno.github.io/Antiq.jl/dev/MorsePotential/) `:MorsePotential`
+- [Hydrogen Atom](https://ohno.github.io/Antiq.jl/dev/HydrogenAtom/) `:HydrogenAtom`
 
 ## Future Works
 
