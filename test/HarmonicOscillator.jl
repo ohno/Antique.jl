@@ -28,19 +28,19 @@ println(raw"""
   for n in 0:9
     # Rodrigues' formula
     @variables x
-    D = n==0 ? x->x : Differential(x)^n # dⁿ/dxⁿ
-    a = (-1)^n * exp(x^2)               # left
-    b = exp(-x^2)                       # right
-    c = a * D(b)                        # Rodrigues' formula
-    d = expand_derivatives(c)           # expand dⁿ/dxⁿ
-    e = simplify(d, expand=true)        # simplify
-    # closed-form
+    D = n==0 ? x->x : Differential(x)^n     # dⁿ/dxⁿ
+    a = (-1)^n * exp(x^2)                   # left
+    b = exp(-x^2)                           # right
+    c = a * D(b)                            # Rodrigues' formula
+    d = expand_derivatives(c)               # expand dⁿ/dxⁿ
+    e = simplify(d, expand=true)            # simplify
+    f = simplify(HO.H(x, n=n), expand=true) # closed-form
+    # latexify
     eq1 = latexify(e, env=:raw)
-    eq2 = latexify(simplify(HO.H(x, n=n), expand=true), env=:raw)
+    eq2 = latexify(f, env=:raw)
     # judge
-    acceptance = (eq1 == eq2)
+    acceptance = isequal(e, f)
     println("``n=$n:`` ", acceptance ? "✔" : "✗")
-    @test acceptance
     # show LaTeX
     println("""```math
     \\begin{aligned}
@@ -51,6 +51,8 @@ println(raw"""
     \\end{aligned}
     ```
     """)
+    # result
+    @test acceptance
   end
   println("```")
 end

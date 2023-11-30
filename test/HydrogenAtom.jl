@@ -30,20 +30,20 @@ println(raw"""
   for m in 0:n
       # Rodrigues' formula
       @variables x
-      Dn = n==0 ? x->x : Differential(x)^n # dⁿ/dxⁿ
-      Dm = m==0 ? x->x : Differential(x)^m # dᵐ/dxᵐ
-      a = 1 // (2^n * factorial(n))        # left
-      b = (x^2 - 1)^n                      # right
-      c = (1 - x^2)^(m//2) * Dm(a * Dn(b)) # Rodrigues' formula
-      d = expand_derivatives(c)            # expand dⁿ/dxⁿ and dᵐ/dxᵐ
-      e = simplify(d, expand=true)         # simplify
-      # closed-form
+      Dn = n==0 ? x->x : Differential(x)^n         # dⁿ/dxⁿ
+      Dm = m==0 ? x->x : Differential(x)^m         # dᵐ/dxᵐ
+      a = 1 // (2^n * factorial(n))                # left
+      b = (x^2 - 1)^n                              # right
+      c = (1 - x^2)^(m//2) * Dm(a * Dn(b))         # Rodrigues' formula
+      d = expand_derivatives(c)                    # expand dⁿ/dxⁿ and dᵐ/dxᵐ
+      e = simplify(d, expand=true)                 # simplify
+      f = simplify(HA.P(x, n=n, m=m), expand=true) # closed-form
+      # latexify
       eq1 = latexify(e, env=:raw)
-      eq2 = latexify(simplify(HA.P(x, n=n, m=m), expand=true), env=:raw)
+      eq2 = latexify(f, env=:raw)
       # judge
-      acceptance = eq1 == eq2
+      acceptance = isequal(e, f)
       println("``n=$n, m=$m:`` ", acceptance ? "✔" : "✗")
-      @test acceptance
       # show LaTeX
       println("""```math
       \\begin{aligned}
@@ -54,6 +54,8 @@ println(raw"""
       \\end{aligned}
       ```
       """)
+      # result
+      @test acceptance
   end
   end
   println("```")
@@ -159,21 +161,22 @@ println(raw"""
   for k in 0:n
     # Rodriguesの公式の展開
     @variables x
-    Dn = n==0 ? x->x : Differential(x)^n # dⁿ/dxⁿ
-    Dk = k==0 ? x->x : Differential(x)^k # dᵐ/dxᵐ
-    a = exp(x) / factorial(n)            # left
-    b = exp(-x) * x^n                    # right
-    c = Dk(a * Dn(b))                    # Rodrigues' formula
-    d = expand_derivatives(c)            # expand dⁿ/dxⁿ and dᵐ/dxᵐ
-    e = simplify(d, expand=true)         # simplify
-    # closed-form
+    Dn = n==0 ? x->x : Differential(x)^n                        # dⁿ/dxⁿ
+    Dk = k==0 ? x->x : Differential(x)^k                        # dᵐ/dxᵐ
+    a = exp(x) / factorial(n)                                   # left
+    b = exp(-x) * x^n                                           # right
+    c = Dk(a * Dn(b))                                           # Rodrigues' formula
+    d = expand_derivatives(c)                                   # expand dⁿ/dxⁿ and dᵐ/dxᵐ
+    e = simplify(d, expand=true)                                # simplify
+    f = simplify(HA.L(x, n=n, k=k), expand=true)                # closed-form
+    g = simplify((-1)^k * MP.Lαint(x, n=n-k, α=k), expand=true) # closed-form
+    # latexify
     eq1 = latexify(e, env=:raw)
-    eq2 = latexify(HA.L(x, n=n, k=k), env=:raw)
-    eq3 = latexify((-1)^k * MP.Lαint(x, n=n-k, α=k), env=:raw)
+    eq2 = latexify(f, env=:raw)
+    eq3 = latexify(g, env=:raw)
     # judge
-    acceptance = (eq1 == eq2) && (eq1 == eq3)
+    acceptance = isequal(e, f) && isequal(e, g)
     println("``n=$n, k=$k:`` ", acceptance ? "✔" : "✗")
-    @test acceptance
     # show LaTeX
     println("""```math
     \\begin{aligned}
@@ -185,6 +188,8 @@ println(raw"""
     \\end{aligned}
     ```
     """)
+    # result
+    @test acceptance
   end
   end
   println("```")

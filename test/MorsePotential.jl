@@ -29,19 +29,19 @@ println(raw"""
   for α in 0:n
     # Rodriguesの公式の展開
     @variables x
-    D = n==0 ? x->x : Differential(x)^n # dⁿ/dxⁿ
-    a = exp(x) * x^(-α) / factorial(n)  # left
-    b = exp(-x) * x^(n+α)               # right
-    c = a * D(b)                        # Rodrigues' formula
-    d = expand_derivatives(c)           # expand dⁿ/dxⁿ
-    e = simplify(d, expand=true)        # simplify
-    # closed-form
+    D = n==0 ? x->x : Differential(x)^n              # dⁿ/dxⁿ
+    a = exp(x) * x^(-α) / factorial(n)               # left
+    b = exp(-x) * x^(n+α)                            # right
+    c = a * D(b)                                     # Rodrigues' formula
+    d = expand_derivatives(c)                        # expand dⁿ/dxⁿ
+    e = simplify(d, expand=true)                     # simplify
+    f = simplify(MP.Lαint(x, n=n, α=α), expand=true) # closed-form
+    # latexify
     eq1 = latexify(e, env=:raw)
-    eq2 = latexify(MP.Lαint(x, n=n, α=α), env=:raw)
+    eq2 = latexify(f, env=:raw)
     # judge
-    acceptance = (eq1 == eq2)
+    acceptance = isequal(e, f)
     println("``n=$n, α=$α:`` ", acceptance ? "✔" : "✗")
-    @test acceptance
     # show LaTeX
     println("""```math
     \\begin{aligned}
@@ -52,6 +52,8 @@ println(raw"""
     \\end{aligned}
     ```
     """)
+    # result
+    @test acceptance
   end
   end
   println("```")
