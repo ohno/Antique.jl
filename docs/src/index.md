@@ -77,6 +77,4 @@ julia> He⁺.E(n=1)
 
 ## Acknowledgment
 
-This package was named by [@KB-satou](https://github.com/KB-satou) and [@ultimatile](https://github.com/ultimatile):
-
-**An**aly**ti**cal soulutions of Schrödinger e**q**uations.
+~~This package was named by [@KB-satou](https://github.com/KB-satou) and [@ultimatile](https://github.com/ultimatile): **An**aly**ti**cal soulutions of Schrödinger e**q**uations.~~
