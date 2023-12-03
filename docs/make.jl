@@ -1,16 +1,16 @@
-using Antiq
+using AnalyticalSolutions
 using Documenter
 
-DocMeta.setdocmeta!(Antiq, :DocTestSetup, :(using Antiq); recursive=true)
+DocMeta.setdocmeta!(AnalyticalSolutions, :DocTestSetup, :(using AnalyticalSolutions); recursive=true)
 
 makedocs(;
-  modules=[Antiq],
+  modules=[AnalyticalSolutions],
   authors="Shuhei Ohno",
-  repo="https://github.com/ohno/Antiq.jl/blob/{commit}{path}#{line}",
-  sitename="Antiq.jl",
+  repo="https://github.com/ohno/AnalyticalSolutions.jl/blob/{commit}{path}#{line}",
+  sitename="AnalyticalSolutions.jl",
   format=Documenter.HTML(;
     prettyurls=get(ENV, "CI", "false") == "true",
-    canonical="https://ohno.github.io/Antiq.jl",
+    canonical="https://ohno.github.io/AnalyticalSolutions.jl",
     edit_link="main",
     assets=String[
       "./assets/logo.ico",
@@ -27,6 +27,6 @@ makedocs(;
 )
 
 deploydocs(;
-  repo="github.com/ohno/Antiq.jl",
+  repo="github.com/ohno/AnalyticalSolutions.jl",
   devbranch="main",
 )

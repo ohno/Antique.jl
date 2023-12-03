@@ -1,9 +1,9 @@
-using Antiq
+using AnalyticalSolutions
 using Weave
 
-for file in Antiq.models # [:InfinitePotentialWell]
+for file in AnalyticalSolutions.models # [:InfinitePotentialWell]
   weave("./src/jmd/$file.jmd", doctype="github", out_path="./src/", fig_path="./assets/fig/")
-  text = Antiq.load("./src/$file.md")
+  text = AnalyticalSolutions.load("./src/$file.md")
   # remove ```  after include(...s)
   for m in eachmatch(r"\n```julia\n.*?jl\"\)\n```[.\n]*?```", text)
     @show m.match
@@ -16,5 +16,5 @@ for file in Antiq.models # [:InfinitePotentialWell]
     @show m.offset
     text = replace(text, m.match => "\n```\n")
   end
-  Antiq.save("./src/$file.md", text)
+  AnalyticalSolutions.save("./src/$file.md", text)
 end

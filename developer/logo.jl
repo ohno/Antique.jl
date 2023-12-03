@@ -5,7 +5,7 @@
 
 using Pkg
 Pkg.activate("./")
-using Antiq
+using AnalyticalSolutions
 
 function XY2path(X,Y)
     X = 252 / (maximum(X) - minimum(X)) * (X .- minimum(X)) .+ 50
@@ -17,7 +17,7 @@ function XY2path(X,Y)
     return path
 end
 
-HA = antiq(:HydrogenAtom, Z=1, Eₕ=1.0, a₀=1.0, mₑ=1.0, ℏ=1.0)
+HA = solution(:HydrogenAtom, Z=1, Eₕ=1.0, a₀=1.0, mₑ=1.0, ℏ=1.0)
 paths = Dict()
 X = 0.0:0.01:8
 Y1 = X .^2 .* HA.R.(X,n=1) .^2

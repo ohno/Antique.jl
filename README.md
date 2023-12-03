@@ -1,8 +1,8 @@
-# Antiq.jl
+# AnalyticalSolutions.jl
 
-[![Build Status](https://github.com/ohno/Antiq.jl/actions/workflows/CI.yml/badge.svg?branch=main)](https://github.com/ohno/Antiq.jl/actions/workflows/CI.yml?query=branch%3Amain) 
-[![Stable](https://img.shields.io/badge/docs-stable-blue.svg)](https://ohno.github.io/Antiq.jl/stable/)
-[![Dev](https://img.shields.io/badge/docs-dev-blue.svg)](https://ohno.github.io/Antiq.jl/dev/)
+[![Build Status](https://github.com/ohno/AnalyticalSolutions.jl/actions/workflows/CI.yml/badge.svg?branch=main)](https://github.com/ohno/AnalyticalSolutions.jl/actions/workflows/CI.yml?query=branch%3Amain) 
+[![Stable](https://img.shields.io/badge/docs-stable-blue.svg)](https://ohno.github.io/AnalyticalSolutions.jl/stable/)
+[![Dev](https://img.shields.io/badge/docs-dev-blue.svg)](https://ohno.github.io/AnalyticalSolutions.jl/dev/)
 
 Self-contained, Well-Tested, Well-Documented Functions for Quantum Mechanical Models
 
@@ -11,7 +11,7 @@ Self-contained, Well-Tested, Well-Documented Functions for Quantum Mechanical Mo
 To install this package, run the following code in your Jupyter Notebook:
 
 ```julia
-using Pkg; Pkg.add(path="https://github.com/ohno/Antiq.jl.git")
+using Pkg; Pkg.add(path="https://github.com/ohno/AnalyticalSolutions.jl.git")
 ```
 
 ## Usage
@@ -19,33 +19,33 @@ using Pkg; Pkg.add(path="https://github.com/ohno/Antiq.jl.git")
 To use this package, run the following code before each use:
 
 ```julia
-using Antiq
+using AnalyticalSolutions
 ```
 
-The function `antiq(model, parameters...)` returns a module. Each module has `E()`, `ψ(x)` and some other functions.
+The function `solution(model, parameters...)` returns a module. Each module has `E()`, `ψ(x)` and some other functions.
 
 ## Examples
 
 The energy of $1S$ state in hydrogen atom:
 ```julia
-julia> H = antiq(:HydrogenAtom, Z=1)
+julia> H = solution(:HydrogenAtom, Z=1)
 julia> H.E(n=1)
 -0.5
 ```
 
 The energy of $1S$ state in helium atom:
 ```julia
-julia> He⁺ = antiq(:HydrogenAtom, Z=2)
+julia> He⁺ = solution(:HydrogenAtom, Z=2)
 julia> He⁺.E(n=1)
 -2.0
 ```
 
 ## Supported Models
 
-- [Infinite Potential Well](https://ohno.github.io/Antiq.jl/dev/InfinitePotentialWell/) `:InfinitePotentialWell`
-- [Harmonic Oscillator](https://ohno.github.io/Antiq.jl/dev/HarmonicOscillator/) `:HarmonicOscillator`
-- [Morse Potential](https://ohno.github.io/Antiq.jl/dev/MorsePotential/) `:MorsePotential`
-- [Hydrogen Atom](https://ohno.github.io/Antiq.jl/dev/HydrogenAtom/) `:HydrogenAtom`
+- [Infinite Potential Well](https://ohno.github.io/AnalyticalSolutions.jl/dev/InfinitePotentialWell/) `:InfinitePotentialWell`
+- [Harmonic Oscillator](https://ohno.github.io/AnalyticalSolutions.jl/dev/HarmonicOscillator/) `:HarmonicOscillator`
+- [Morse Potential](https://ohno.github.io/AnalyticalSolutions.jl/dev/MorsePotential/) `:MorsePotential`
+- [Hydrogen Atom](https://ohno.github.io/AnalyticalSolutions.jl/dev/HydrogenAtom/) `:HydrogenAtom`
 
 ## Future Works
 

@@ -1,9 +1,9 @@
-using Antiq
+using AnalyticalSolutions
 using Test
 using Printf
 using Markdown
 using QuadGK
-IPW = antiq(:InfinitePotentialWell, L=1.0, m=1.0, ℏ=1.0)
+IPW = solution(:InfinitePotentialWell, L=1.0, m=1.0, ℏ=1.0)
 
 
 # <ψᵢ|ψⱼ> = ∫ψₙ*ψₙdx = δᵢⱼ

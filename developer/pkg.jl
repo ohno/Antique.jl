@@ -27,4 +27,4 @@ t = Template(;
   ],
 )
 
-generate("Antiq.jl", t)
+generate("AnalyticalSolutions.jl", t)

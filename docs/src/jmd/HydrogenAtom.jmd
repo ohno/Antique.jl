@@ -1,5 +1,5 @@
 ```@meta
-CurrentModule = Antiq
+CurrentModule = AnalyticalSolutions
 ```
 
 # Hydrogen Atom
@@ -151,11 +151,11 @@ Examples:
 
 ## Usage & Examples
 
-[Install Antiq.jl](@ref Install) for the first run and run `using Antiq` before each use. The function `antiq(model, parameters...)` returns a module that has `E()`, `ψ(r)`, `V(r)` and some other functions. In this system, the model name is specified by `:HydrogenAtom` and several parameters `Z`, `Eₕ`, `mₑ`, `a₀` and `ℏ` are set as optional arguments.
+[Install AnalyticalSolutions.jl](@ref Install) for the first run and run `using AnalyticalSolutions` before each use. The function `solution(model, parameters...)` returns a module that has `E()`, `ψ(r)`, `V(r)` and some other functions. In this system, the model name is specified by `:HydrogenAtom` and several parameters `Z`, `Eₕ`, `mₑ`, `a₀` and `ℏ` are set as optional arguments.
 
 ```julia; cache = :all; results = "hidden"
-using Antiq
-H = antiq(:HydrogenAtom, Z=1, Eₕ=1.0, a₀=1.0, mₑ=1.0, ℏ=1.0)
+using AnalyticalSolutions
+H = solution(:HydrogenAtom, Z=1, Eₕ=1.0, a₀=1.0, mₑ=1.0, ℏ=1.0)
 ```
 
 Parameters:
@@ -242,7 +242,7 @@ plot!()
 
 ## Testing
 
-Unit testing and Integration testing were done using computer algebra system ([Symbolics.jl](https://symbolics.juliasymbolics.org/stable/)) and numerical integration ([QuadGK.jl](https://juliamath.github.io/QuadGK.jl/stable/)). The test script is [here](https://github.com/ohno/Antiq.jl/blob/main/test/HydrogenAtom.jl).
+Unit testing and Integration testing were done using computer algebra system ([Symbolics.jl](https://symbolics.juliasymbolics.org/stable/)) and numerical integration ([QuadGK.jl](https://juliamath.github.io/QuadGK.jl/stable/)). The test script is [here](https://github.com/ohno/AnalyticalSolutions.jl/blob/main/test/HydrogenAtom.jl).
 
 ```julia; line_width = 500
 include("../../../test/HydrogenAtom.jl")

@@ -3,4 +3,4 @@ using Pkg
 # Pkg.add("Revise")
 using Revise
 Pkg.activate("./")
-using Antiq
+using AnalyticalSolutions

@@ -1,4 +1,4 @@
-using Antiq
+using AnalyticalSolutions
 using Test
 using Printf
 using Markdown
@@ -6,7 +6,7 @@ using QuadGK
 using Symbolics
 using Latexify
 using LaTeXStrings
-HO = antiq(:HarmonicOscillator, k=1.0, m=1.0, ℏ=1.0)
+HO = solution(:HarmonicOscillator, k=1.0, m=1.0, ℏ=1.0)
 
 
 # Hₙ(x) = (-1)ⁿ exp(x²) dⁿ/dxⁿ　exp(-x²) = ...

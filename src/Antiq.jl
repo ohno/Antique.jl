@@ -1,6 +1,6 @@
-module Antiq
+module AnalyticalSolutions
 
-  export antiq
+  export solution
 
   # Update this list when you add a model.
   models = [
@@ -32,7 +32,7 @@ module Antiq
   end
 
   # main functions
-  function antiq(model; parameters...)
+  function solution(model; parameters...)
     # check existence of model
     if model ∉ models
       throw(ErrorException("\`:$(model)\` is not in the list of supported models $(models)."))

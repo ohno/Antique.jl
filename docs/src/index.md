@@ -1,8 +1,8 @@
 ```@meta
-CurrentModule = Antiq
+CurrentModule = AnalyticalSolutions
 ```
 
-# Antiq.jl
+# AnalyticalSolutions.jl
 
 Self-contained, Well-Tested, Well-Documented Functions for Quantum Mechanical Models
 
@@ -11,7 +11,7 @@ Self-contained, Well-Tested, Well-Documented Functions for Quantum Mechanical Mo
 To install this package, run the following code in your Jupyter Notebook:
 
 ```julia
-using Pkg; Pkg.add(path="https://github.com/ohno/Antiq.jl.git")
+using Pkg; Pkg.add(path="https://github.com/ohno/AnalyticalSolutions.jl.git")
 ```
 
 ## Usage
@@ -19,23 +19,23 @@ using Pkg; Pkg.add(path="https://github.com/ohno/Antiq.jl.git")
 To use this package, run the following code before each use:
 
 ```julia
-using Antiq
+using AnalyticalSolutions
 ```
 
-The function `antiq(model, parameters...)` returns a module. Each module has `E()`, `ψ(x)` and some other functions.
+The function `solution(model, parameters...)` returns a module. Each module has `E()`, `ψ(x)` and some other functions.
 
 ## Examples
 
 The energy of $1S$ state in hydrogen atom:
 ```julia
-julia> H = antiq(:HydrogenAtom, Z=1)
+julia> H = solution(:HydrogenAtom, Z=1)
 julia> H.E(n=1)
 -0.5
 ```
 
 The energy of $1S$ state in helium atom:
 ```julia
-julia> He⁺ = antiq(:HydrogenAtom, Z=2)
+julia> He⁺ = solution(:HydrogenAtom, Z=2)
 julia> He⁺.E(n=1)
 -2.0
 ```
