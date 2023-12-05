@@ -1,4 +1,4 @@
-using AnalyticalSolutions
+using Antique
 using Test
 using Printf
 using Markdown
@@ -6,8 +6,8 @@ using QuadGK
 using Symbolics
 using Latexify
 using LaTeXStrings
-HA = solution(:HydrogenAtom, Z=1, Eₕ=1.0, a₀=1.0, mₑ=1.0, ℏ=1.0)
-MP = solution(:MorsePotential)
+HA = antique(:HydrogenAtom, Z=1, Eₕ=1.0, a₀=1.0, mₑ=1.0, ℏ=1.0)
+MP = antique(:MorsePotential)
 
 # Pₙᵐ(x) = √(1-x²)ᵐ dᵐ/dxᵐ Pₙ(x); Pₙ(x) = 1/(2ⁿn!) dⁿ/dxⁿ (x²-1)ⁿ
 

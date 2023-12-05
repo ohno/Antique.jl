@@ -1,4 +1,4 @@
-using AnalyticalSolutions
+using Antique
 using Test
 using Printf
 using Markdown
@@ -6,7 +6,7 @@ using QuadGK
 using Symbolics
 using Latexify
 using LaTeXStrings
-MP = solution(:MorsePotential)
+MP = antique(:MorsePotential)
 
 
 # Lₙ⁽ᵅ⁾(x) = x⁻ᵅeˣ/n! dⁿ/dxⁿ xⁿ⁺ᵅe⁻ˣ

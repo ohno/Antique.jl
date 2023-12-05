@@ -1,5 +1,5 @@
 ```@meta
-CurrentModule = AnalyticalSolutions
+CurrentModule = Antique
 ```
 
 # Hydrogen Atom
@@ -151,11 +151,11 @@ Examples:
 
 ## Usage & Examples
 
-[Install AnalyticalSolutions.jl](@ref Install) for the first run and run `using AnalyticalSolutions` before each use. The function `solution(model, parameters...)` returns a module that has `E()`, `ψ(r)`, `V(r)` and some other functions. In this system, the model name is specified by `:HydrogenAtom` and several parameters `Z`, `Eₕ`, `mₑ`, `a₀` and `ℏ` are set as optional arguments.
+[Install Antique.jl](@ref Install) for the first run and run `using Antique` before each use. The function `antique(model, parameters...)` returns a module that has `E()`, `ψ(r)`, `V(r)` and some other functions. In this system, the model name is specified by `:HydrogenAtom` and several parameters `Z`, `Eₕ`, `mₑ`, `a₀` and `ℏ` are set as optional arguments.
 
 ```julia
-using AnalyticalSolutions
-H = solution(:HydrogenAtom, Z=1, Eₕ=1.0, a₀=1.0, mₑ=1.0, ℏ=1.0)
+using Antique
+H = antique(:HydrogenAtom, Z=1, Eₕ=1.0, a₀=1.0, mₑ=1.0, ℏ=1.0)
 ```
 
 
@@ -295,7 +295,7 @@ plot!()
 
 ## Testing
 
-Unit testing and Integration testing were done using computer algebra system ([Symbolics.jl](https://symbolics.juliasymbolics.org/stable/)) and numerical integration ([QuadGK.jl](https://juliamath.github.io/QuadGK.jl/stable/)). The test script is [here](https://github.com/ohno/AnalyticalSolutions.jl/blob/main/test/HydrogenAtom.jl).
+Unit testing and Integration testing were done using computer algebra system ([Symbolics.jl](https://symbolics.juliasymbolics.org/stable/)) and numerical integration ([QuadGK.jl](https://juliamath.github.io/QuadGK.jl/stable/)). The test script is [here](https://github.com/ohno/Antique.jl/blob/main/test/HydrogenAtom.jl).
 
 #### Associated Legendre Polynomials $P_n^m(x)$
 

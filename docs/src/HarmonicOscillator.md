@@ -1,5 +1,5 @@
 ```@meta
-CurrentModule = AnalyticalSolutions
+CurrentModule = Antique
 ```
 
 # Harmonic Oscillator
@@ -88,11 +88,11 @@ Examples:
 
 ## Usage & Examples
 
-[Install AnalyticalSolutions.jl](@ref Install) for the first run and run `using AnalyticalSolutions` before each use. The function `solution(model, parameters...)` returns a module that has `E()`, `ψ(x)`, `V(x)` and some other functions. In this system, the model name is specified by `:HarmonicOscillator` and several parameters `k`, `m` and `ℏ` are set as optional arguments.
+[Install Antique.jl](@ref Install) for the first run and run `using Antique` before each use. The function `antique(model, parameters...)` returns a module that has `E()`, `ψ(x)`, `V(x)` and some other functions. In this system, the model name is specified by `:HarmonicOscillator` and several parameters `k`, `m` and `ℏ` are set as optional arguments.
 
 ```julia
-using AnalyticalSolutions
-HO = solution(:HarmonicOscillator, k=1.0, m=1.0, ℏ=1.0)
+using Antique
+HO = antique(:HarmonicOscillator, k=1.0, m=1.0, ℏ=1.0)
 ```
 
 
@@ -174,7 +174,7 @@ plot!(x -> HO.V(x), lc=:black, lw=2, label="")
 
 ## Testing
 
-Unit testing and Integration testing were done using computer algebra system ([Symbolics.jl](https://symbolics.juliasymbolics.org/stable/)) and numerical integration ([QuadGK.jl](https://juliamath.github.io/QuadGK.jl/stable/)). The test script is [here](https://github.com/ohno/AnalyticalSolutions.jl/blob/main/test/HarmonicOscillator.jl).
+Unit testing and Integration testing were done using computer algebra system ([Symbolics.jl](https://symbolics.juliasymbolics.org/stable/)) and numerical integration ([QuadGK.jl](https://juliamath.github.io/QuadGK.jl/stable/)). The test script is [here](https://github.com/ohno/Antique.jl/blob/main/test/HarmonicOscillator.jl).
 
 #### Hermite Polynomials $H_n(x)$
 

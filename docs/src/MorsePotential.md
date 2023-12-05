@@ -1,5 +1,5 @@
 ```@meta
-CurrentModule = AnalyticalSolutions
+CurrentModule = Antique
 ```
 
 # Morse Potential
@@ -80,11 +80,11 @@ Examples:
 
 ## Usage & Examples
 
-[Install AnalyticalSolutions.jl](@ref Install) for the first run and run `using AnalyticalSolutions` before each use. The function `solution(model, parameters...)` returns a module that has `E()`, `ψ(r)`, `V(r)` and some other functions. In this system, the model name is specified by `:MorsePotential` and several parameters `rₑ`, `Dₑ`, `k`, `µ` and `ℏ` are set as optional arguments.
+[Install Antique.jl](@ref Install) for the first run and run `using Antique` before each use. The function `antique(model, parameters...)` returns a module that has `E()`, `ψ(r)`, `V(r)` and some other functions. In this system, the model name is specified by `:MorsePotential` and several parameters `rₑ`, `Dₑ`, `k`, `µ` and `ℏ` are set as optional arguments.
 
 ```julia
-using AnalyticalSolutions
-MP = solution(:MorsePotential)
+using Antique
+MP = antique(:MorsePotential)
 ```
 
 
@@ -154,8 +154,8 @@ plot!(x -> MP.ψ(x, n=5), label="n=5", lw=2)
 Potential energy curve, Energy levels, Comparison with harmonic oscillator:
 
 ```julia
-MP = solution(:MorsePotential)
-HO = solution(:HarmonicOscillator, k=MP.k, m=MP.μ)
+MP = antique(:MorsePotential)
+HO = antique(:HarmonicOscillator, k=MP.k, m=MP.μ)
 using Plots
 plot(xlims=(0.1,9.1), ylims=(-0.11,0.01), xlabel="\$r\$", ylabel="\$V(r), E_n\$", legend=:bottomright, size=(480,400), dpi=300)
 for n in 0:MP.nₘₐₓ()
@@ -178,7 +178,7 @@ where, the potential of harmonic oscillator is defined as $V(r) \simeq \frac{1}{
 
 ## Testing
 
-Unit testing and Integration testing were done using computer algebra system ([Symbolics.jl](https://symbolics.juliasymbolics.org/stable/)) and numerical integration ([QuadGK.jl](https://juliamath.github.io/QuadGK.jl/stable/)). The test script is [here](https://github.com/ohno/AnalyticalSolutions.jl/blob/main/test/MorsePotential.jl).
+Unit testing and Integration testing were done using computer algebra system ([Symbolics.jl](https://symbolics.juliasymbolics.org/stable/)) and numerical integration ([QuadGK.jl](https://juliamath.github.io/QuadGK.jl/stable/)). The test script is [here](https://github.com/ohno/Antique.jl/blob/main/test/MorsePotential.jl).
 
 #### Generalized Laguerre Polynomials $L_n^{(\alpha)}(x)$
 

@@ -1,8 +1,8 @@
-using AnalyticalSolutions
+using Antique
 using Test
 using Suppressor
 
-@testset "AnalyticalSolutions.jl" begin
+@testset "Antique.jl" begin
 	@suppress_out begin
 		include("./InfinitePotentialWell.jl")
 		include("./HarmonicOscillator.jl")

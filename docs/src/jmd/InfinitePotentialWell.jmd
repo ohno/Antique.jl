@@ -1,5 +1,5 @@
 ```@meta
-CurrentModule = AnalyticalSolutions
+CurrentModule = Antique
 ```
 
 # Infinite Potential Well (Particle in a Box)
@@ -50,11 +50,11 @@ The infinite potential well (particle in a box) is the simplest model for quantu
 
 ## Usage & Examples
 
-[Install AnalyticalSolutions.jl](@ref Install) for the first run and run `using AnalyticalSolutions` before each use. The function `solution(model, parameters...)` returns a module that has `E()`, `ψ(x)`, `V(x)` and some other functions. In this system, the model name is specified by `:InfinitePotentialWell` and several parameters `L`, `m` and `ℏ` are set as optional arguments.
+[Install Antique.jl](@ref Install) for the first run and run `using Antique` before each use. The function `antique(model, parameters...)` returns a module that has `E()`, `ψ(x)`, `V(x)` and some other functions. In this system, the model name is specified by `:InfinitePotentialWell` and several parameters `L`, `m` and `ℏ` are set as optional arguments.
 
 ```julia; cache = :all; results = "hidden"
-using AnalyticalSolutions
-IPW = solution(:InfinitePotentialWell, L=1.0, m=1.0, ℏ=1.0)
+using Antique
+IPW = antique(:InfinitePotentialWell, L=1.0, m=1.0, ℏ=1.0)
 ```
 
 Parameters:
@@ -102,7 +102,7 @@ plot!([0,0,L,L], [140,0,0,140], lc=:black, lw=2, label="")
 
 ## Testing
 
-Unit testing and Integration testing were done using numerical integration ([QuadGK.jl](https://juliamath.github.io/QuadGK.jl/stable/)). The test script is [here](https://github.com/ohno/AnalyticalSolutions.jl/blob/main/test/InfinitePotentialWell.jl).
+Unit testing and Integration testing were done using numerical integration ([QuadGK.jl](https://juliamath.github.io/QuadGK.jl/stable/)). The test script is [here](https://github.com/ohno/Antique.jl/blob/main/test/InfinitePotentialWell.jl).
 
 ```julia; line_width = 500
 include("../../../test/InfinitePotentialWell.jl")

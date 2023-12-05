@@ -56,6 +56,6 @@ jobs:
       - run: |
           julia --project=docs -e '
             using Documenter: DocMeta, doctest
-            using AnalyticalSolutions
-            DocMeta.setdocmeta!(AnalyticalSolutions, :DocTestSetup, :(using AnalyticalSolutions); recursive=true)
-            doctest(AnalyticalSolutions)'
+            using Antique
+            DocMeta.setdocmeta!(Antique, :DocTestSetup, :(using Antique); recursive=true)
+            doctest(Antique)'
