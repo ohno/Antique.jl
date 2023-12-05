@@ -26,14 +26,14 @@ The function `antique(model, parameters...)` returns a module. Each module has `
 
 ## Examples
 
-The energy of $1S$ state in hydrogen atom:
+The energy of $1\mathrm{S}$ state in $\mathrm{H}$:
 ```julia
 julia> H = antique(:HydrogenAtom, Z=1)
 julia> H.E(n=1)
 -0.5
 ```
 
-The energy of $1S$ state in helium atom:
+The energy of $1\mathrm{S}$ state in $\mathrm{He}^+$:
 ```julia
 julia> He⁺ = antique(:HydrogenAtom, Z=2)
 julia> He⁺.E(n=1)
