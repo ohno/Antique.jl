@@ -11,7 +11,7 @@ Self-contained, Well-Tested, Well-Documented **An**aly**ti**cal Solutions of **Q
 To install this package, run the following code in your Jupyter Notebook:
 
 ```julia
-using Pkg; Pkg.add(path="https://github.com/ohno/Antique.jl.git")
+using Pkg; Pkg.add("Antique")
 ```
 
 ## Usage
