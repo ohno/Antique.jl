@@ -9,6 +9,7 @@ using LaTeXStrings
 HA = antique(:HydrogenAtom, Z=1, Eₕ=1.0, a₀=1.0, mₑ=1.0, ℏ=1.0)
 MP = antique(:MorsePotential)
 
+
 # Pₙᵐ(x) = √(1-x²)ᵐ dᵐ/dxᵐ Pₙ(x); Pₙ(x) = 1/(2ⁿn!) dⁿ/dxⁿ (x²-1)ⁿ
 
 
@@ -77,16 +78,16 @@ println(raw"""
 ```""")
 
 @testset "∫Pᵢᵐ(x)Pⱼᵐ(x)dx = 2(j+m)!/(2j+1)(j-m)! δᵢⱼ" begin
-  println("  m\t  i\t  j\tnumerical         \tanalytical        \t|error|")
+  println(" m |  i |  j |        analytical |         numerical ")
+  println("-- | -- | -- | ----------------- | ----------------- ")
   for m in 0:5
   for i in m:9
   for j in m:9
-    numerical  = quadgk(x -> HA.P(x, n=i, m=m) * HA.P(x, n=j, m=m), -1, 1, maxevals=10^3)[1]
     analytical = 2*factorial(j+m)/(2*j+1)/factorial(j-m)*(i == j ? 1 : 0)
-    error = analytical == 0 ? (abs(numerical) < 1e-5 ? 0.0 : Inf) : abs((numerical-analytical)/analytical)
-    acceptance = error < 1e-5
+    numerical  = quadgk(x -> HA.P(x, n=i, m=m) * HA.P(x, n=j, m=m), -1, 1, maxevals=10^3)[1]
+    acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-5) : isapprox(analytical, numerical, rtol=1e-5)
     @test acceptance
-    @printf("%3d\t%3d\t%3d\t%.16f\t%.16f\t%.16f%%\t%s\n", m, i, j, numerical, analytical, error*100, acceptance ? "✔" :  "✗")
+    @printf("%2d | %2d | %2d | %17.12f | %17.12f %s\n", m, i, j, analytical, numerical, acceptance ? "✔" : "✗")
   end
   end
   end
@@ -112,23 +113,23 @@ Y_{lm}(\theta,\varphi)^* Y_{l'm'}(\theta,\varphi) \sin(\theta)
 ```""")
 
 @testset "∫Yₗ₁ₘ₁(θ,φ)Yₗ₂ₘ₂(θ,φ)sinθdθdφ = δₗ₁ₗ₂δₘ₁ₘ₂" begin
-  println(" l1 l2 m1 m2\tnumerical\t        analyrical        \t|error|")
+  println("l₁ | l₂ | m₁ | m₂ |        analytical |         numerical ")
+  println("-- | -- | -- | -- | ----------------- | ----------------- ")
   for l1 in 0:2
   for l2 in 0:2
   for m1 in -l1:l1
   for m2 in -l2:l2
-    numerical = (
+    analytical = (l1 == l2 ? 1 : 0) * (m1 == m2 ? 1 : 0)
+    numerical  = real(
       quadgk(φ ->
       quadgk(θ ->
         conj(HA.Y(θ,φ,l=l1,m=m1)) * HA.Y(θ,φ,l=l2,m=m2) * sin(θ)
       , 0, π, maxevals=50)[1]
       , 0, 2π, maxevals=100)[1]
     )
-    analytical = (l1 == l2 ? 1 : 0) * (m1 == m2 ? 1 : 0)
-    error = analytical == 0 ? (abs(numerical) < 1e-5 ? 0.0 : Inf) : abs((numerical-analytical)/analytical)
-    acceptance = error <1e-5
+    acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-5) : isapprox(analytical, numerical, rtol=1e-5)
     @test acceptance
-    @printf("%3d%3d%3d%3d\t%.16f\t%.16f\t%.16f%%\t%s\n", l1, l2, m1, m2, real(numerical), analytical, error*100, acceptance ? "✔" :  "✗")
+    @printf("%2d | %2d | %2d | %2d | %17.12f | %17.12f %s\n", l1, l2, m1, m2, analytical, numerical, acceptance ? "✔" : "✗")
   end
   end
   end
@@ -213,16 +214,16 @@ Replace $n+k$ with $n$ for [the definition of Wolfram MathWorld](https://mathwor
 ```""")
 
 @testset "∫exp(-x)xᵏLᵢᵏ(x)Lⱼᵏ(x)dx = (2i+k)!/(i+k)! δᵢⱼ" begin
-  println("  i\t  j\t  k\tnumerical         \tanalytical        \t|error|")
+  println(" i |  j |  k |        analytical |         numerical ")
+  println("-- | -- | -- | ----------------- | ----------------- ")
   for i in 0:7
   for j in 0:7
   for k in 0:min(i,j)
-    numerical  = quadgk(x -> exp(-x) * x^k * HA.L(x, n=i, k=k) * HA.L(x, n=j, k=k), 0, Inf, maxevals=10^3)[1]
     analytical = factorial(i) / factorial(i-k) * (i == j ? 1 : 0)
-    error = analytical == 0 ? (abs(numerical) < 1e-5 ? 0.0 : Inf) : abs((numerical-analytical)/analytical)
-    acceptance = error < 1e-5
+    numerical  = quadgk(x -> exp(-x) * x^k * HA.L(x, n=i, k=k) * HA.L(x, n=j, k=k), 0, Inf, maxevals=10^3)[1]
+    acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-5) : isapprox(analytical, numerical, rtol=1e-5)
     @test acceptance
-    @printf("%3d\t%3d\t%3d\t%.16f\t%.16f\t%.16f%%\t%s\n", i, j, k, numerical, analytical, error*100, acceptance ? "✔" :  "✗")
+    @printf("%2d | %2d | %2d | %17.12f | %17.12f %s\n", i, j, k, analytical, numerical, acceptance ? "✔" : "✗")
   end
   end
   end
@@ -244,15 +245,15 @@ println(raw"""
 ```""")
 
 @testset "∫|Rₙₗ(r)|²r²dr = δₙ₁ₙ₂δₗ₁ₗ₂" begin
-  println("  n\t  l\tnumerical         \tanalytical        \t|error|")
+  println(" n |  l |        analytical |         numerical ")
+  println("-- | -- | ----------------- | ----------------- ")
   for n in 1:9
   for l in 0:n-1
+    analytical = 1
     numerical  = quadgk(r -> r^2 * HA.R(r,n=n,l=l)^2, 0, Inf, maxevals=10^3)[1]
-    analytical = 1 # (n1 == n2 ? 1 : 0) * (l1 == l2 ? 1 : 0)
-    error = analytical == 0 ? (abs(numerical) < 1e-5 ? 0.0 : Inf) : abs((numerical-analytical)/analytical)
-    acceptance = error < 1e-5
+    acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-5) : isapprox(analytical, numerical, rtol=1e-5)
     @test acceptance
-    @printf("%3d\t%3d\t%.16f\t%.16f\t%.16f%%\t%s\n", n, l, numerical, analytical, error*100, acceptance ? "✔" :  "✗")
+    @printf("%2d | %2d | %17.12f | %17.12f %s\n", n, l, analytical, numerical, acceptance ? "✔" : "✗")
   end
   end
 end
@@ -278,18 +279,19 @@ a_\mu = a_0 \frac{m_\mathrm{e}}{\mu} \\
 Reference:
 - [高柳和夫『朝倉物理学大系 11 原子分子物理学』(2000, 朝倉書店) pp.11-22](https://www.asakura.co.jp/detail.php?book_code=13681)
 - [ Quan­tum Me­chan­ics for En­gi­neers by Leon van Dom­me­len](https://web1.eng.famu.fsu.edu/~dommelen/quantum/style_a/nt_rsexp.html)
+
 ```""")
 
 @testset "∫r|Rₙₗ(r)|²r²dr = (a₀×mₑ/μ)/2Z × [3n²-l(l+1)]; 1/μ = 1/mₑ + 1/mₚ" begin
-  println("  n\t  l\tnumerical         \tanalytical        \t|error|")
+  println(" n |  l |        analytical |         numerical ")
+  println("-- | -- | ----------------- | ----------------- ")
   for n in 1:9
   for l in 0:n-1
-    numerical  = quadgk(r -> r^3 * HA.R(r,n=n,l=l)^2, 0, Inf, maxevals=10^3)[1]
     analytical = HA.a₀/2/HA.Z * (3*n^2-l*(l+1))
-    error = analytical == 0 ? (abs(numerical) < 1e-5 ? 0.0 : Inf) : abs((numerical-analytical)/analytical)
-    acceptance = error < 1e-5
+    numerical  = quadgk(r -> r^3 * HA.R(r,n=n,l=l)^2, 0, Inf, maxevals=10^3)[1]
+    acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-5) : isapprox(analytical, numerical, rtol=1e-5)
     @test acceptance
-    @printf("%3d\t%3d\t%.16f\t%.16f\t%.16f%%\t%s\n", n, l, numerical, analytical, error*100, acceptance ? "✔" :  "✗")
+    @printf("%2d | %2d | %17.12f | %17.12f %s\n", n, l, analytical, numerical, acceptance ? "✔" : "✗")
   end
   end
 end
@@ -318,15 +320,15 @@ Reference:
 ```""")
 
 @testset "∫r²|Rₙₗ(r)|²r²dr = (a₀×mₑ/μ)²/2Z² × n²[5n²+1-3l(l+1)]; 1/μ = 1/mₑ + 1/mₚ" begin
-  println("  n\t  l\tnumerical         \tanalytical        \t|error|")
+  println(" n |  l |        analytical |         numerical ")
+  println("-- | -- | ----------------- | ----------------- ")
   for n in 1:9
   for l in 0:n-1
-    numerical  = quadgk(r -> r^4 * HA.R(r,n=n,l=l)^2, 0, Inf, maxevals=10^3)[1]
     analytical = HA.a₀^2/2/HA.Z^2 * n^2*(5*n^2+1-3*l*(l+1))
-    error = analytical == 0 ? (abs(numerical) < 1e-5 ? 0.0 : Inf) : abs((numerical-analytical)/analytical)
-    acceptance = error < 1e-5
+    numerical  = quadgk(r -> r^4 * HA.R(r,n=n,l=l)^2, 0, Inf, maxevals=10^3)[1]
+    acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-5) : isapprox(analytical, numerical, rtol=1e-5)
     @test acceptance
-    @printf("%3d\t%3d\t%.16f\t%.16f\t%.16f%%\t%s\n", n, l, numerical, analytical, error*100, acceptance ? "✔" :  "✗")
+    @printf("%2d | %2d | %17.12f | %17.12f %s\n", n, l, analytical, numerical, acceptance ? "✔" : "✗")
   end
   end
 end
@@ -349,14 +351,14 @@ The virial theorem $2\langle T \rangle + \langle V \rangle = 0$ and the definiti
 ```""")
 
 @testset "<ψₙ|V|ψₙ> / 2 = Eₙ" begin
-  println("  n\tnumerical         \tanalytical        \t|error|")
+  println(" n |        analytical |         numerical ")
+  println("-- | ----------------- | ----------------- ")
   for n in 1:10
-    numerical  = quadgk(r -> 4*π*r^2 * conj(HA.ψ(r,0,0, n=n)) * HA.V(r) * HA.ψ(r,0,0, n=n), 0, Inf, maxevals=10^3)[1]
     analytical = HA.E(n=n) * 2
-    error = abs((numerical-analytical)/analytical)
-    acceptance = error < 1e-5
+    numerical  = quadgk(r -> 4*π*r^2 * conj(HA.ψ(r,0,0, n=n)) * HA.V(r) * HA.ψ(r,0,0, n=n), 0, Inf, maxevals=10^3)[1]
+    acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-5) : isapprox(analytical, numerical, rtol=1e-5)
     @test acceptance
-    @printf("%3d\t%.16f\t%.16f\t%.16f%%\t%s\n", n, numerical, analytical, error*100, acceptance ? "✔" :  "✗")
+    @printf("%2d | %17.12f | %17.12f %s\n", n, analytical, numerical, acceptance ? "✔" : "✗")
   end
 end
 
@@ -376,13 +378,15 @@ println(raw"""
 ```""")
 
 @testset "<ψₙ₁ₗ₁ₘ₁|ψₙ₂ₗ₂ₘ₂> = δₙ₁ₙ₂δₗ₁ₗ₂δₘ₁ₘ₂" begin
-  println(" n1\t n2\t l1\t l2\t m1\t m2\tnumerical         \tanalytical        \t|error|")
+  println("n₁ | n₂ | l₁ | l₂ | m₁ | m₂ |        analytical |         numerical ")
+  println("-- | -- | -- | -- | -- | -- | ----------------- | ----------------- ")
   for n1 in 1:3
   for n2 in 1:3
   for l1 in 0:n1-1
   for l2 in 0:n2-1
   for m1 in -l1:l1
   for m2 in -l2:l2
+    analytical = (n1 == n2 ? 1 : 0) * (l1 == l2 ? 1 : 0) * (m1 == m2 ? 1 : 0)
     numerical = real(
       quadgk(phi ->
       quadgk(theta ->
@@ -392,15 +396,9 @@ println(raw"""
       , 0, π, maxevals=4)[1]
       , 0, 2π, maxevals=8)[1]
     )
-    analytical = (n1 == n2 ? 1 : 0) * (l1 == l2 ? 1 : 0) * (m1 == m2 ? 1 : 0)
-    if analytical == 0
-      error = abs(numerical) < 1e-2 ? 0.0 : Inf
-    else
-      error = abs((numerical-analytical)/analytical)
-    end
-    acceptance = error < 1e-2
+    acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-2) : isapprox(analytical, numerical, rtol=1e-2)
     @test acceptance
-    @printf("%3d\t%3d\t%3d\t%3d\t%3d\t%3d\t%.16f\t%.16f\t%.16f%%\t%s\n", n1, n2, l1, l2, m1, m2, numerical, analytical, error*100, acceptance ? "✔" :  "✗")
+    @printf("%2d | %2d | %2d | %2d | %2d | %2d | %17.12f | %17.12f %s\n", n1, n2, l1, l2, m1, m2, analytical, numerical, acceptance ? "✔" : "✗")
   end
   end
   end

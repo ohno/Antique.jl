@@ -6,6 +6,7 @@ using QuadGK
 using Symbolics
 using Latexify
 using LaTeXStrings
+using SpecialFunctions
 MP = antique(:MorsePotential)
 
 
@@ -63,7 +64,7 @@ println("""```
 """)
 
 
-# ∫Lᵢ⁽ᵅ⁾Lⱼ⁽ᵅ⁾(x)xᵅexp(-x)dx = Γ(i+α+1)/i! δᵢⱼ
+# ∫Lᵢ⁽ᵅ⁾(x)Lⱼ⁽ᵅ⁾(x)xᵅexp(-x)dx = Γ(i+α+1)/i! δᵢⱼ
 
 
 println(raw"""
@@ -75,18 +76,17 @@ println(raw"""
 
 ```""")
 
-@testset "∫Lᵢ⁽ᵅ⁾Lⱼ⁽ᵅ⁾(x)xᵅexp(-x)dx = Γ(i+α+1)/i! δᵢⱼ" begin
-  println(" α\t  n\t  m\tnumerical         \tanalytical        \t|error|")
-  for α in [0.1,0.5,1.0,7.0]
+@testset "∫Lᵢ⁽ᵅ⁾(x)Lⱼ⁽ᵅ⁾(x)xᵅexp(-x)dx = Γ(i+α+1)/i! δᵢⱼ" begin
+  println("   α |  i |  j |        analytical |         numerical ")
+  println("---- | -- | -- | ----------------- | ----------------- ")
+  for α in [0.01,0.05,0.1,0.5,1.0]
   for i in 0:9
   for j in 0:9
-    # numerical  = quadgk(x -> real(MP.L(x, n=i, α=α)) * real(MP.L(x, n=j, α=α)) * x^α * exp(-x), 0, Inf, maxevals=10^3)[1]
-    analytical = sqrt(π)*2^j*factorial(j)*(i == j ? 1 : 0)
-    numerical  = analytical
-    error = analytical == 0 ? (abs(numerical) < 1e-5 ? 0.0 : Inf) : abs((numerical-analytical)/analytical)
-    acceptance = error < 1e-5
+    analytical = gamma(i+α+1)/factorial(i)*(i == j ? 1 : 0)
+    numerical  = quadgk(x -> real(MP.L(x, n=i, α=α)) * real(MP.L(x, n=j, α=α)) * x^α * exp(-x), 0, Inf, maxevals=10^3)[1]
+    acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-5) : isapprox(analytical, numerical, rtol=1e-5)
     @test acceptance
-    @printf("%.1f\t%3d\t%3d\t%.16f\t%.16f\t%.16f%%\t%s\n", α, i, j, numerical, analytical, error*100, acceptance ? "✔" :  "✗")
+    @printf("%4.2f | %2d | %2d | %17.12f | %17.12f %s\n", α, i, j, analytical, numerical, acceptance ? "✔" : "✗")
   end
   end
   end
@@ -109,15 +109,15 @@ println(raw"""
 ```""")
 
 @testset "<ψᵢ|ψⱼ> = δᵢⱼ" begin
-  println("  i\t  j\tnumerical         \tanalytical        \t|error|")
+  println(" i |  j |        analytical |         numerical ")
+  println("-- | -- | ----------------- | ----------------- ")
   for i in 0:9
   for j in 0:9
-    numerical  = quadgk(x -> conj(MP.ψ(x, n=i)) * MP.ψ(x, n=j), 0, Inf, maxevals=10^3)[1]
     analytical = (i == j ? 1 : 0)
-    error = analytical == 0 ? (abs(numerical) < 1e-5 ? 0.0 : Inf) : abs((numerical-analytical)/analytical)
-    acceptance = error < 1e-5
+    numerical  = quadgk(x -> conj(MP.ψ(x, n=i)) * MP.ψ(x, n=j), 0, Inf, maxevals=10^3)[1]
+    acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-5) : isapprox(analytical, numerical, rtol=1e-5)
     @test acceptance
-    @printf("%3d\t%3d\t%.16f\t%.16f\t%.16f%%\t%s\n", i, j, numerical, analytical, error*100, acceptance ? "✔" :  "✗")
+    @printf("%2d | %2d | %17.12f | %17.12f %s\n", i, j, analytical, numerical, acceptance ? "✔" : "✗")
   end
   end
 end
@@ -196,15 +196,15 @@ are given by the sum of 2 Taylor series:
 
 @testset "<ψₙ|H|ψₙ> = ∫ψₙ*Hψₙdx = Eₙ" begin
   ψHψ(r; n=0, rₑ=MP.rₑ, Dₑ=MP.Dₑ, k=MP.k, µ=MP.µ, ℏ=MP.ℏ, Δr=0.005) = MP.V(r,rₑ=rₑ,Dₑ=Dₑ,k=k)*MP.ψ(r,n=n,rₑ=rₑ,Dₑ=Dₑ,k=k,µ=µ,ℏ=ℏ)^2 - ℏ^2/(2*μ)*conj(MP.ψ(r,n=n,rₑ=rₑ,Dₑ=Dₑ,k=k,µ=µ,ℏ=ℏ))*(MP.ψ(r+Δr,n=n,rₑ=rₑ,Dₑ=Dₑ,k=k,µ=µ,ℏ=ℏ)-2*MP.ψ(r,n=n,rₑ=rₑ,Dₑ=Dₑ,k=k,µ=µ,ℏ=ℏ)+MP.ψ(r-Δr,n=n,rₑ=rₑ,Dₑ=Dₑ,k=k,µ=µ,ℏ=ℏ))/Δr^2
-  println("       k\t  n\tnumerical         \tanalytical        \t|error|")
+  println("  k |  n |        analytical |         numerical ")
+  println("--- | -- | ----------------- | ----------------- ")
   for k in [0.1,0.2,0.3,MP.k]
   for n in 0:9
-    numerical  = quadgk(r -> ψHψ(r,n=n, rₑ=MP.rₑ, Dₑ=MP.Dₑ, k=k, µ=MP.µ, ℏ=MP.ℏ, Δr=0.0001), 0.0001, Inf, maxevals=10^4)[1]
     analytical = MP.E(n=n,rₑ=MP.rₑ,Dₑ=MP.Dₑ,k=k,µ=MP.µ,ℏ=MP.ℏ)
-    error = abs((numerical-analytical)/analytical)
-    acceptance = error < 1e-4
+    numerical  = quadgk(r -> ψHψ(r,n=n, rₑ=MP.rₑ, Dₑ=MP.Dₑ, k=k, µ=MP.µ, ℏ=MP.ℏ, Δr=0.0001), 0.0001, Inf, maxevals=10^4)[1]
+    acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-5) : isapprox(analytical, numerical, rtol=1e-5)
     @test acceptance
-    @printf("%.5f\t%3d\t%.16f\t%.16f\t%.16f%%\t%s\n", k, n, numerical, analytical, error*100, acceptance ? "✔" :  "✗")
+    @printf("%.1f | %2d | %17.12f | %17.12f %s\n", k, n, analytical, numerical, acceptance ? "✔" : "✗")
   end
   end
 end

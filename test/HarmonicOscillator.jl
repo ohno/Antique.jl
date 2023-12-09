@@ -74,15 +74,15 @@ println(raw"""
 ```""")
 
 @testset "∫Hⱼ(x)Hᵢ(x)exp(-x²)dx = √π2ʲj!δᵢⱼ" begin
-  println("   n\t  m\tnumerical         \tanalytical        \t|error|")
+  println(" i |  j |        analytical |         numerical ")
+  println("-- | -- | ----------------- | ----------------- ")
   for i in 0:9
   for j in 0:9
-    numerical  = quadgk(x -> HO.H(x, n=j) * HO.H(x, n=i)* exp(-x^2), -Inf, Inf, maxevals=10^3)[1]
     analytical = sqrt(π)*2^j*factorial(j)*(i == j ? 1 : 0)
-    error = analytical == 0 ? (abs(numerical) < 1e-5 ? 0.0 : Inf) : abs((numerical-analytical)/analytical)
-    acceptance = error < 1e-5
+    numerical  = quadgk(x -> HO.H(x, n=j) * HO.H(x, n=i)* exp(-x^2), -Inf, Inf, maxevals=10^3)[1]
+    acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-5) : isapprox(analytical, numerical, rtol=1e-5)
     @test acceptance
-    @printf("%3d\t%3d\t%.16f\t%.16f\t%.16f%%\t%s\n", i, j, numerical, analytical, error*100, acceptance ? "✔" :  "✗")
+    @printf("%2d | %2d | %17.12f | %17.12f %s\n", i, j, analytical, numerical, acceptance ? "✔" : "✗")
   end
   end
 end
@@ -104,15 +104,15 @@ println(raw"""
 ```""")
 
 @testset "<ψᵢ|ψⱼ> = δᵢⱼ" begin
-  println("  i\t  j\tnumerical         \tanalytical        \t|error|")
+  println(" i |  j |        analytical |         numerical ")
+  println("-- | -- | ----------------- | ----------------- ")
   for i in 0:9
   for j in 0:9
-    numerical  = quadgk(x -> conj(HO.ψ(x, n=i)) * HO.ψ(x, n=j), -Inf, Inf, maxevals=10^3)[1]
     analytical = (i == j ? 1 : 0)
-    error = analytical == 0 ? (abs(numerical) < 1e-5 ? 0.0 : Inf) : abs((numerical-analytical)/analytical)
-    acceptance = error < 1e-5
+    numerical  = quadgk(x -> conj(HO.ψ(x, n=i)) * HO.ψ(x, n=j), -Inf, Inf, maxevals=10^3)[1]
+    acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-5) : isapprox(analytical, numerical, rtol=1e-5)
     @test acceptance
-    @printf("%3d\t%3d\t%.16f\t%.16f\t%.16f%%\t%s\n", i, j, numerical, analytical, error*100, acceptance ? "✔" :  "✗")
+    @printf("%2d | %2d | %17.12f | %17.12f %s\n", i, j, analytical, numerical, acceptance ? "✔" : "✗")
   end
   end
 end
@@ -136,15 +136,15 @@ The virial theorem $\langle T \rangle = \langle V \rangle$ and the definition of
 ```""")
 
 @testset "2 × <ψₙ|V|ψₙ> = Eₙ" begin
-  println("   k\t  n\tnumerical         \tanalytical        \t|error|")
+  println("  k |  n |        analytical |         numerical ")
+  println("--- | -- | ----------------- | ----------------- ")
   for k in [0.1,0.5,1.0,5.0]
   for n in 0:9
-    numerical  = 2 * quadgk(x -> conj(HO.ψ(x, n=n)) * HO.V(x) * HO.ψ(x, n=n), -Inf, Inf, maxevals=10^3)[1]
     analytical = HO.E(n=n)
-    error = abs((numerical-analytical)/analytical)
-    acceptance = error < 1e-5
+    numerical  = 2 * quadgk(x -> conj(HO.ψ(x, n=n)) * HO.V(x) * HO.ψ(x, n=n), -Inf, Inf, maxevals=10^3)[1]
+    acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-5) : isapprox(analytical, numerical, rtol=1e-5)
     @test acceptance
-    @printf("%.1f\t%3d\t%.16f\t%.16f\t%.16f%%\t%s\n", k, n, numerical, analytical, error*100, acceptance ? "✔" :  "✗")
+    @printf("%.1f | %2d | %17.12f | %17.12f %s\n", k, n, analytical, numerical, acceptance ? "✔" : "✗")
   end
   end
 end
@@ -223,15 +223,15 @@ are given by the sum of 2 Taylor series:
 
 @testset "∫ψₙ*Hψₙdx = <ψₙ|H|ψₙ> = Eₙ" begin
   ψHψ(x; n=0, k=HO.k, m=HO.m, ℏ=HO.ℏ, Δx=0.005) = HO.V(x,k=k,m=m)*HO.ψ(x,n=n,k=k,m=m,ℏ=ℏ)^2 - ℏ^2/(2*m)*conj(HO.ψ(x,n=n,k=k,m=m,ℏ=ℏ))*(HO.ψ(x+Δx,n=n,k=k,m=m,ℏ=ℏ)-2*HO.ψ(x,n=n,k=k,m=m,ℏ=ℏ)+HO.ψ(x-Δx,n=n,k=k,m=m,ℏ=ℏ))/Δx^2
-  println("   k\t  n\tnumerical         \tanalytical        \t|error|")
+  println("  k |  n |        analytical |         numerical ")
+  println("--- | -- | ----------------- | ----------------- ")
   for k in [0.1,0.5,1.0,5.0]
   for n in 0:9
-    numerical  = quadgk(x -> ψHψ(x, n=n, k=k, Δx=0.001), -Inf, Inf, maxevals=10^3)[1]
     analytical = HO.E(n=n, k=k)
-    error = abs((numerical-analytical)/analytical)
-    acceptance = error < 1e-5
+    numerical  = quadgk(x -> ψHψ(x, n=n, k=k, Δx=0.001), -Inf, Inf, maxevals=10^3)[1]
+    acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-5) : isapprox(analytical, numerical, rtol=1e-5)
     @test acceptance
-    @printf("%.1f\t%3d\t%.16f\t%.16f\t%.16f%%\t%s\n", k, n, numerical, analytical, error*100, acceptance ? "✔" :  "✗")
+    @printf("%.1f | %2d | %17.12f | %17.12f %s\n", k, n, analytical, numerical, acceptance ? "✔" : "✗")
   end
   end
 end

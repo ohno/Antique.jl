@@ -19,18 +19,18 @@ println(raw"""
 ```""")
 
 @testset "<ψᵢ|ψⱼ> = ∫ψₙ*ψₙdx = δᵢⱼ" begin
-  println("  i\t  j\tnumerical         \tanalytical        \t|error|")
+  println(" i |  j |        analytical |         numerical ")
+  println("-- | -- | ----------------- | ----------------- ")
   # for L in [0.1, 0.5, 1.0, 7.0]
   # for m in [0.1, 0.5, 1.0, 7.0]
   # for ℏ in [0.1, 0.5, 1.0, 7.0]
   for i in 1:10
   for j in 1:10
-    numerical  = quadgk(x -> conj(IPW.ψ(x, n=i, L=IPW.L)) * IPW.ψ(x, n=j, L=IPW.L), 0.0, IPW.L, maxevals=10^3)[1]
     analytical = (i == j ? 1 : 0)
-    error = analytical == 0 ? (abs(numerical) < 1e-5 ? 0.0 : Inf) : abs((numerical-analytical)/analytical)
-    acceptance = error < 1e-5
+    numerical  = quadgk(x -> conj(IPW.ψ(x, n=i, L=IPW.L)) * IPW.ψ(x, n=j, L=IPW.L), 0.0, IPW.L, maxevals=10^3)[1]
+    acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-5) : isapprox(analytical, numerical, rtol=1e-5)
     @test acceptance
-    @printf("%3d\t%3d\t%.16f\t%.16f\t%.16f%%\t%s\n", i, j, numerical, analytical, error*100, acceptance ? "✔" :  "✗")
+    @printf("%2d | %2d | %17.12f | %17.12f %s\n", i, j, analytical, numerical, acceptance ? "✔" : "✗")
   end
   end
   # end
@@ -111,17 +111,17 @@ are given by the sum of 2 Taylor series:
 
 @testset "<ψₙ|H|ψₙ>  = ∫ψₙ*Tψₙdx = Eₙ" begin
   ψTψ(x; n=0, L=IPW.L, m=IPW.m, ℏ=IPW.ℏ, Δx=0.01) = -ℏ^2/(2*m)*conj(IPW.ψ(x,n=n,L=L))*(IPW.ψ(x+Δx,n=n,L=L)-2*IPW.ψ(x,n=n,L=L)+IPW.ψ(x-Δx,n=n,L=L))/Δx^2
-  println("  L    m    ℏ   n  numerical     \tanalytical    \t|error|")
+  println("  L |   m |   ℏ |  n |        analytical |         numerical ")
+  println("--- | --- | --- | -- | ----------------- | ----------------- ")
   for L in [0.1, 1.0]
   for m in [0.1, 1.0]
   for ℏ in [0.1, 1.0]
   for n in 1:10
-    numerical  = quadgk(x -> ψTψ(x, n=n, L=L, m=m, ℏ=ℏ, Δx=L*0.0001), 0, L, maxevals=10^3)[1]
     analytical = IPW.E(n=n, L=L, m=m, ℏ=ℏ)
-    error = analytical == 0 ? (abs(numerical) < 1e-5 ? 0.0 : Inf) : abs((numerical-analytical)/analytical)
-    acceptance = error < 1e-5
+    numerical  = quadgk(x -> ψTψ(x, n=n, L=L, m=m, ℏ=ℏ, Δx=L*0.0001), 0, L, maxevals=10^3)[1]
+    acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-5) : isapprox(analytical, numerical, rtol=1e-5)
     @test acceptance
-    @printf("%.1f  %.1f  %.1f  %2d  %.12f\t%.12f\t%.12f%%\t%s\n", L, m, ℏ, n, numerical, analytical, error*100, acceptance ? "✔" :  "✗")
+    @printf("%.1f | %.1f | %.1f | %2d | %17.12f | %17.12f %s\n", L, m, ℏ, n, numerical, analytical, acceptance ? "✔" :  "✗")
   end
   end
   end
@@ -149,15 +149,15 @@ Reference:
 ```""")
 
 @testset "<ψₙ|x|ψₙ>  = L/2" begin
-  println("   L\t  n\tnumerical         \tanalytical        \t|error|")
+  println("  L |  n |        analytical |         numerical ")
+  println("--- | -- | ----------------- | ----------------- ")
   for L in [0.1, 0.5, 1.0, 7.0]
   for n in 1:1
-    numerical  = quadgk(x -> conj(IPW.ψ(x, n=n, L=L)) * x * IPW.ψ(x, n=n, L=L), 0, L, maxevals=10^3)[1]
     analytical = L/2
-    error = analytical == 0 ? (abs(numerical) < 1e-5 ? 0.0 : Inf) : abs((numerical-analytical)/analytical)
-    acceptance = error < 1e-5
+    numerical  = quadgk(x -> conj(IPW.ψ(x, n=n, L=L)) * x * IPW.ψ(x, n=n, L=L), 0, L, maxevals=10^3)[1]
+    acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-5) : isapprox(analytical, numerical, rtol=1e-5)
     @test acceptance
-    @printf("%.1f\t%3d\t%.16f\t%.16f\t%.16f%%\t%s\n", L, n, numerical, analytical, error*100, acceptance ? "✔" :  "✗")
+    @printf("%.1f | %2d | %17.12f | %17.12f %s\n", L, n, numerical, analytical, acceptance ? "✔" :  "✗")
   end
   end
 end
@@ -182,15 +182,15 @@ Reference:
 ```""")
 
 @testset "<ψₙ|x²|ψₙ> = 2L²/π³(π³/6-π/4)" begin
-  println("   L\t  n\tnumerical         \tanalytical        \t|error|")
+  println("  L |  n |        analytical |         numerical ")
+  println("--- | -- | ----------------- | ----------------- ")
   for L in [0.1, 0.5, 1.0, 7.0]
   for n in 1:1
-    numerical  = quadgk(x -> conj(IPW.ψ(x, n=n, L=L)) * x^2 * IPW.ψ(x, n=n, L=L), 0, L, maxevals=10^3)[1]
     analytical = 2*L^2/π^3 * (π^3/6 - π/4)
-    error = analytical == 0 ? (abs(numerical) < 1e-5 ? 0.0 : Inf) : abs((numerical-analytical)/analytical)
-    acceptance = error < 1e-5
+    numerical  = quadgk(x -> conj(IPW.ψ(x, n=n, L=L)) * x^2 * IPW.ψ(x, n=n, L=L), 0, L, maxevals=10^3)[1]
+    acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-5) : isapprox(analytical, numerical, rtol=1e-5)
     @test acceptance
-    @printf("%.1f\t%3d\t%.16f\t%.16f\t%.16f%%\t%s\n", L, n, numerical, analytical, error*100, acceptance ? "✔" :  "✗")
+    @printf("%.1f | %2d | %17.12f | %17.12f %s\n", L, n, numerical, analytical, acceptance ? "✔" :  "✗")
   end
   end
 end
@@ -275,15 +275,15 @@ are given by the sum of 2 Taylor series:
 
 @testset "<ψₙ|p|ψₙ>  = ∫ψₙ*(-iℏd/dx)ψₙdx = 0" begin
   ψpψ(x; n=0, L=IPW.L, m=IPW.m, ℏ=IPW.ℏ, Δx=0.01) = -im*ℏ*conj(IPW.ψ(x,n=n,L=L))*(IPW.ψ(x+Δx,n=n,L=L)-IPW.ψ(x-Δx,n=n,L=L))/2/Δx
-  println("   L\t  n\tnumerical         \tanalytical        \t|error|")
+  println("  L |  n |        analytical |         numerical ")
+  println("--- | -- | ----------------- | ----------------- ")
   for L in [0.1, 0.5, 1.0, 7.0]
   for n in 1:1
-    numerical  = abs(quadgk(x -> ψpψ(x, n=n, L=L, m=IPW.m, ℏ=IPW.ℏ, Δx=L*0.0001), 0, L, maxevals=10^3)[1])
     analytical = 0
-    error = analytical == 0 ? (abs(numerical) < 1e-5 ? 0.0 : Inf) : abs((numerical-analytical)/analytical)
-    acceptance = error < 1e-5
+    numerical  = abs(quadgk(x -> ψpψ(x, n=n, L=L, m=IPW.m, ℏ=IPW.ℏ, Δx=L*0.0001), 0, L, maxevals=10^3)[1])
+    acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-5) : isapprox(analytical, numerical, rtol=1e-5)
     @test acceptance
-    @printf("%.1f\t%3d\t%.16f\t%.16f\t%.16f%%\t%s\n", L, n, numerical, analytical, error*100, acceptance ? "✔" :  "✗")
+    @printf("%.1f | %2d | %17.12f | %17.12f %s\n", L, n, numerical, analytical, acceptance ? "✔" :  "✗")
   end
   end
 end
@@ -370,15 +370,15 @@ are given by the sum of 2 Taylor series:
 
 @testset "<ψₙ|p²|ψₙ> = ∫ψₙ*(-ℏ²d²/dx²)ψₙdx = π²ℏ²/L²" begin
   ψp²ψ(x; n=0, L=IPW.L, m=IPW.m, ℏ=IPW.ℏ, Δx=0.01) = -ℏ^2*conj(IPW.ψ(x,n=n,L=L))*(IPW.ψ(x+Δx,n=n,L=L)-2*IPW.ψ(x,n=n,L=L)+IPW.ψ(x-Δx,n=n,L=L))/Δx^2
-  println("   L\t  n\tnumerical         \tanalytical        \t|error|")
+  println("  L |  n |        analytical |         numerical ")
+  println("--- | -- | ----------------- | ----------------- ")
   for L in [0.1, 0.5, 1.0, 7.0]
   for n in 1:1
-    numerical  = quadgk(x -> ψp²ψ(x, n=n, L=L, m=IPW.m, ℏ=IPW.ℏ, Δx=L*0.0001), 0, L, maxevals=10^3)[1]
     analytical = π^2*IPW.ℏ^2/L^2
-    error = analytical == 0 ? (abs(numerical) < 1e-5 ? 0.0 : Inf) : abs((numerical-analytical)/analytical)
-    acceptance = error < 1e-5
+    numerical  = quadgk(x -> ψp²ψ(x, n=n, L=L, m=IPW.m, ℏ=IPW.ℏ, Δx=L*0.0001), 0, L, maxevals=10^3)[1]
+    acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-5) : isapprox(analytical, numerical, rtol=1e-5)
     @test acceptance
-    @printf("%.1f\t%3d\t%.16f\t%.16f\t%.16f%%\t%s\n", L, n, numerical, analytical, error*100, acceptance ? "✔" :  "✗")
+    @printf("%.1f | %2d | %17.12f | %17.12f %s\n", L, n, numerical, analytical, acceptance ? "✔" :  "✗")
   end
   end
 end
