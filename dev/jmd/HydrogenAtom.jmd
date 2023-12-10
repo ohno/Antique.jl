@@ -8,7 +8,7 @@ The hydrogen atom is the simplest 2-body Coulomb system.
 
 ## Definitions
 
-``Z`` is the atomic number.
+``Z`` is the atomic number. The domains of the potential and the wave functions are $0\leq r \lt \infty, 0\leq \theta \lt \pi, 0\leq \varphi \lt 2\pi$.
 
 #### Schrödinger Equation
 ```math
