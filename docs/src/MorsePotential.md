@@ -82,9 +82,19 @@ Examples:
 
 [Install Antique.jl](@ref Install) for the first run and run `using Antique` before each use. The function `antique(model, parameters...)` returns a module that has `E()`, `ψ(r)`, `V(r)` and some other functions. In this system, the model name is specified by `:MorsePotential` and several parameters `rₑ`, `Dₑ`, `k`, `µ` and `ℏ` are set as optional arguments.
 
+!!! warning
+
+    `MO = antique(:MorsePotential)` does not work if [SpecialFunctions.jl](https://specialfunctions.juliamath.org/stable/) is not installed. Install [SpecialFunctions.jl](https://specialfunctions.juliamath.org/stable/) and use `antique(:MorsePotential)` to generate 2 modules with different parameters.
+
 ```julia
 using Antique
-MP = antique(:MorsePotential)
+MP = Antique.MorsePotential
+MP.rₑ =  1.997193319969992120068298141276 # https://doi.org/10.1002/slct.202102509
+MP.Vₑ = -0.602634619106539878727562156289 # https://doi.org/10.1002/slct.202102509
+MP.Dₑ = - 0.5 - Vₑ
+MP.k = 2*((-1.1026342144949464615+1/2.00) - Vₑ) / (2.00 - rₑ)^2 # https://doi.org/10.1002/slct.202102509
+MP.µ = 1/(1/1836.15267343 + 1/1836.15267343) # https://physics.nist.gov/cgi-bin/cuu/Value?mpsme
+MP.ℏ = 1.0
 ```
 
 
@@ -342,7 +352,7 @@ Unit testing and Integration testing were done using computer algebra system ([S
 
 ```
 Test Summary:                      | Pass  Total   Time
-Lₙ⁽ᵅ⁾(x) = x⁻ᵅeˣ/n! dⁿ/dxⁿ xⁿ⁺ᵅe⁻ˣ |   15     15  11.9s
+Lₙ⁽ᵅ⁾(x) = x⁻ᵅeˣ/n! dⁿ/dxⁿ xⁿ⁺ᵅe⁻ˣ |   15     15  11.8s
 ```
 
 #### Normalization & Orthogonality of $L_n^{(\alpha)}(x)$
@@ -855,7 +865,7 @@ Lₙ⁽ᵅ⁾(x) = x⁻ᵅeˣ/n! dⁿ/dxⁿ xⁿ⁺ᵅe⁻ˣ |   15     15  11.9
 1.00 |  9 |  8 |    0.000000000000 |   -0.000000000000 ✔
 1.00 |  9 |  9 |   10.000000000000 |   10.000000000001 ✔
 Test Summary:                                  | Pass  Total  Time
-∫Lᵢ⁽ᵅ⁾(x)Lⱼ⁽ᵅ⁾(x)xᵅexp(-x)dx = Γ(i+α+1)/i! δᵢⱼ |  500    500  2.4s
+∫Lᵢ⁽ᵅ⁾(x)Lⱼ⁽ᵅ⁾(x)xᵅexp(-x)dx = Γ(i+α+1)/i! δᵢⱼ |  500    500  2.3s
 ```
 
 #### Normalization & Orthogonality of $\psi_n(r)$
