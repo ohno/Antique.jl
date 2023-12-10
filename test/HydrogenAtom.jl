@@ -373,7 +373,7 @@ println(raw"""
 #### Normalization & Orthogonality of $\psi_n(r,\theta,\varphi)$
 
 ```math
-\int \psi_i^\ast(r,\theta,\varphi) \psi_j(r,\theta,\varphi) r^2 \mathrm{d}r \mathrm{d}\theta \mathrm{d}\varphi = \delta_{ij}
+\int \psi_i^\ast(r,\theta,\varphi) \psi_j(r,\theta,\varphi) r^2 \sin(\theta) \mathrm{d}r \mathrm{d}\theta \mathrm{d}\varphi = \delta_{ij}
 ```
 ```""")
 
