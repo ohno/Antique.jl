@@ -8,7 +8,8 @@ The Morse potential is a model for inter-nuclear anharmonic vibration in a diato
 
 ## Definitions
 
-``\xi := 2\lambda\mathrm{e}^{-a(r-r_e)}``, ``\omega := \sqrt{k/µ}``, ``k := 2D_\mathrm{e}a^2``, ``\lambda := \frac{\sqrt{2mD_\mathrm{e}}}{a\hbar}``, ``\chi := \frac{\hbar\omega}{4D_\mathrm{e}}``, ``N_n := \sqrt{\frac{n!(2\lambda-2n-1)a}{\Gamma(2\lambda-n)}}``, ``L_n^{(\alpha)}(x) := \frac{x^{-\alpha} \mathrm{e}^x}{n !} \frac{\mathrm{d}^n}{\mathrm{d} x^n}\left(\mathrm{e}^{-x} x^{n+\alpha}\right)`` are used.
+``\xi := 2\lambda\mathrm{e}^{-a(r-r_e)}``, ``\omega := \sqrt{k/µ}``, ``k := 2D_\mathrm{e}a^2``, ``\lambda := \frac{\sqrt{2mD_\mathrm{e}}}{a\hbar}``, ``\chi := \frac{\hbar\omega}{4D_\mathrm{e}}``, ``N_n := \sqrt{\frac{n!(2\lambda-2n-1)a}{\Gamma(2\lambda-n)}}``, ``L_n^{(\alpha)}(x) := \frac{x^{-\alpha} \mathrm{e}^x}{n !} \frac{\mathrm{d}^n}{\mathrm{d} x^n}\left(\mathrm{e}^{-x} x^{n+\alpha}\right)`` are used. The domains of the potential and the wave functions are $0\leq r \lt \infty$.
+
 
 #### Schrödinger Equation
 ```math
@@ -352,7 +353,7 @@ Unit testing and Integration testing were done using computer algebra system ([S
 
 ```
 Test Summary:                      | Pass  Total   Time
-Lₙ⁽ᵅ⁾(x) = x⁻ᵅeˣ/n! dⁿ/dxⁿ xⁿ⁺ᵅe⁻ˣ |   15     15  11.8s
+Lₙ⁽ᵅ⁾(x) = x⁻ᵅeˣ/n! dⁿ/dxⁿ xⁿ⁺ᵅe⁻ˣ |   15     15  11.0s
 ```
 
 #### Normalization & Orthogonality of $L_n^{(\alpha)}(x)$
@@ -865,7 +866,7 @@ Lₙ⁽ᵅ⁾(x) = x⁻ᵅeˣ/n! dⁿ/dxⁿ xⁿ⁺ᵅe⁻ˣ |   15     15  11.8
 1.00 |  9 |  8 |    0.000000000000 |   -0.000000000000 ✔
 1.00 |  9 |  9 |   10.000000000000 |   10.000000000001 ✔
 Test Summary:                                  | Pass  Total  Time
-∫Lᵢ⁽ᵅ⁾(x)Lⱼ⁽ᵅ⁾(x)xᵅexp(-x)dx = Γ(i+α+1)/i! δᵢⱼ |  500    500  2.3s
+∫Lᵢ⁽ᵅ⁾(x)Lⱼ⁽ᵅ⁾(x)xᵅexp(-x)dx = Γ(i+α+1)/i! δᵢⱼ |  500    500  2.0s
 ```
 
 #### Normalization & Orthogonality of $\psi_n(r)$
@@ -978,7 +979,7 @@ Test Summary:                                  | Pass  Total  Time
  9 |  8 |    0.000000000000 |    0.000000000000 ✔
  9 |  9 |    1.000000000000 |    1.000000000015 ✔
 Test Summary: | Pass  Total  Time
-<ψᵢ|ψⱼ> = δᵢⱼ |  100    100  1.1s
+<ψᵢ|ψⱼ> = δᵢⱼ |  100    100  0.9s
 ```
 
 #### Eigen Values
@@ -1087,6 +1088,6 @@ are given by the sum of 2 Taylor series:
 0.1 |  8 |   -0.032413875662 |   -0.032413886246 ✔
 0.1 |  9 |   -0.026741858566 |   -0.026742018376 ✔
 Test Summary:              | Pass  Total  Time
-<ψₙ|H|ψₙ> = ∫ψₙ*Hψₙdx = Eₙ |   40     40  2.8s
+<ψₙ|H|ψₙ> = ∫ψₙ*Hψₙdx = Eₙ |   40     40  2.6s
 
 ```

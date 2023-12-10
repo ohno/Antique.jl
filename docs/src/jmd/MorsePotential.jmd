@@ -8,7 +8,8 @@ The Morse potential is a model for inter-nuclear anharmonic vibration in a diato
 
 ## Definitions
 
-``\xi := 2\lambda\mathrm{e}^{-a(r-r_e)}``, ``\omega := \sqrt{k/µ}``, ``k := 2D_\mathrm{e}a^2``, ``\lambda := \frac{\sqrt{2mD_\mathrm{e}}}{a\hbar}``, ``\chi := \frac{\hbar\omega}{4D_\mathrm{e}}``, ``N_n := \sqrt{\frac{n!(2\lambda-2n-1)a}{\Gamma(2\lambda-n)}}``, ``L_n^{(\alpha)}(x) := \frac{x^{-\alpha} \mathrm{e}^x}{n !} \frac{\mathrm{d}^n}{\mathrm{d} x^n}\left(\mathrm{e}^{-x} x^{n+\alpha}\right)`` are used.
+``\xi := 2\lambda\mathrm{e}^{-a(r-r_e)}``, ``\omega := \sqrt{k/µ}``, ``k := 2D_\mathrm{e}a^2``, ``\lambda := \frac{\sqrt{2mD_\mathrm{e}}}{a\hbar}``, ``\chi := \frac{\hbar\omega}{4D_\mathrm{e}}``, ``N_n := \sqrt{\frac{n!(2\lambda-2n-1)a}{\Gamma(2\lambda-n)}}``, ``L_n^{(\alpha)}(x) := \frac{x^{-\alpha} \mathrm{e}^x}{n !} \frac{\mathrm{d}^n}{\mathrm{d} x^n}\left(\mathrm{e}^{-x} x^{n+\alpha}\right)`` are used. The domains of the potential and the wave functions are $0\leq r \lt \infty$.
+
 
 #### Schrödinger Equation
 ```math

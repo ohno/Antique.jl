@@ -8,7 +8,7 @@ The hydrogen atom is the simplest 2-body Coulomb system.
 
 ## Definitions
 
-``Z`` is the atomic number.
+``Z`` is the atomic number. The domains of the potential and the wave functions are $0\leq r \lt \infty, 0\leq \theta \lt \pi, 0\leq \varphi \lt 2\pi$.
 
 #### Schrödinger Equation
 ```math
@@ -924,7 +924,7 @@ l₁ | l₂ | m₁ | m₂ |        analytical |         numerical
  2 |  2 |  2 |  1 |    0.000000000000 |    0.000000000000 ✔
  2 |  2 |  2 |  2 |    1.000000000000 |    1.000000000000 ✔
 Test Summary:                              | Pass  Total  Time
-∫Yₗ₁ₘ₁(θ,φ)Yₗ₂ₘ₂(θ,φ)sinθdθdφ = δₗ₁ₗ₂δₘ₁ₘ₂ |   81     81  1.9s
+∫Yₗ₁ₘ₁(θ,φ)Yₗ₂ₘ₂(θ,φ)sinθdθdφ = δₗ₁ₗ₂δₘ₁ₘ₂ |   81     81  1.8s
 ```
 
 #### Associated Laguerre Polynomials $L_n^{k}(x)$
@@ -1106,7 +1106,7 @@ Test Summary:                              | Pass  Total  Time
 
 ```
 Test Summary:                                          | Pass  Total  Time
-Lₙᵏ(x) = dᵏ/dxᵏ Lₙ(x); Lₙ(x) = 1/(n!) eˣ dⁿ/dxⁿ e⁻ˣ xⁿ |   15     15  0.6s
+Lₙᵏ(x) = dᵏ/dxᵏ Lₙ(x); Lₙ(x) = 1/(n!) eˣ dⁿ/dxⁿ e⁻ˣ xⁿ |   15     15  0.5s
 ```
 
 #### Normalization & Orthogonality of $L_n^{k}(x)$
@@ -1536,7 +1536,7 @@ The virial theorem $2\langle T \rangle + \langle V \rangle = 0$ and the definiti
  9 |   -0.012345679012 |   -0.012345679012 ✔
 10 |   -0.010000000000 |   -0.010000000000 ✔
 Test Summary:      | Pass  Total  Time
-<ψₙ|V|ψₙ> / 2 = Eₙ |   10     10  0.6s
+<ψₙ|V|ψₙ> / 2 = Eₙ |   10     10  0.5s
 ```
 
 #### Normalization & Orthogonality of $\psi_n(r,\theta,\varphi)$
@@ -1744,6 +1744,6 @@ n₁ | n₂ | l₁ | l₂ | m₁ | m₂ |        analytical |         numerical
  3 |  3 |  2 |  2 |  2 |  1 |    0.000000000000 |    0.000000000000 ✔
  3 |  3 |  2 |  2 |  2 |  2 |    1.000000000000 |    1.000300628566 ✔
 Test Summary:                       | Pass  Total  Time
-<ψₙ₁ₗ₁ₘ₁|ψₙ₂ₗ₂ₘ₂> = δₙ₁ₙ₂δₗ₁ₗ₂δₘ₁ₘ₂ |  196    196  5.8s
+<ψₙ₁ₗ₁ₘ₁|ψₙ₂ₗ₂ₘ₂> = δₙ₁ₙ₂δₗ₁ₗ₂δₘ₁ₘ₂ |  196    196  5.5s
 
 ```
