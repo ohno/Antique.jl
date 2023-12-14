@@ -16,5 +16,14 @@ for file in Antique.models # [:InfinitePotentialWell]
     @show m.offset
     text = replace(text, m.match => "\n```\n")
   end
+  # remove Time in the results of tests
+  for m in eachmatch(r"(Test\sSummary:.+Total)\s+Time.*\n(.+\d+)(?<time>\s+.*s)", text)
+    @show m.match
+    @show m.offset
+    @show m[1]
+    @show m[2]
+    @show m[:time]
+    text = replace(text, m.match => "$(m[1])\n$(m[2])")
+  end
   Antique.save("./src/$file.md", text)
 end

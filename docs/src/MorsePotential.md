@@ -352,8 +352,8 @@ Unit testing and Integration testing were done using computer algebra system ([S
 ```
 
 ```
-Test Summary:                      | Pass  Total   Time
-Lₙ⁽ᵅ⁾(x) = x⁻ᵅeˣ/n! dⁿ/dxⁿ xⁿ⁺ᵅe⁻ˣ |   15     15  11.0s
+Test Summary:                      | Pass  Total
+Lₙ⁽ᵅ⁾(x) = x⁻ᵅeˣ/n! dⁿ/dxⁿ xⁿ⁺ᵅe⁻ˣ |   15     15
 ```
 
 #### Normalization & Orthogonality of $L_n^{(\alpha)}(x)$
@@ -865,8 +865,8 @@ Lₙ⁽ᵅ⁾(x) = x⁻ᵅeˣ/n! dⁿ/dxⁿ xⁿ⁺ᵅe⁻ˣ |   15     15  11.0
 1.00 |  9 |  7 |    0.000000000000 |   -0.000000000000 ✔
 1.00 |  9 |  8 |    0.000000000000 |   -0.000000000000 ✔
 1.00 |  9 |  9 |   10.000000000000 |   10.000000000001 ✔
-Test Summary:                                  | Pass  Total  Time
-∫Lᵢ⁽ᵅ⁾(x)Lⱼ⁽ᵅ⁾(x)xᵅexp(-x)dx = Γ(i+α+1)/i! δᵢⱼ |  500    500  2.0s
+Test Summary:                                  | Pass  Total
+∫Lᵢ⁽ᵅ⁾(x)Lⱼ⁽ᵅ⁾(x)xᵅexp(-x)dx = Γ(i+α+1)/i! δᵢⱼ |  500    500
 ```
 
 #### Normalization & Orthogonality of $\psi_n(r)$
@@ -978,8 +978,8 @@ Test Summary:                                  | Pass  Total  Time
  9 |  7 |    0.000000000000 |    0.000000000004 ✔
  9 |  8 |    0.000000000000 |    0.000000000000 ✔
  9 |  9 |    1.000000000000 |    1.000000000015 ✔
-Test Summary: | Pass  Total  Time
-<ψᵢ|ψⱼ> = δᵢⱼ |  100    100  0.9s
+Test Summary: | Pass  Total
+<ψᵢ|ψⱼ> = δᵢⱼ |  100    100
 ```
 
 #### Eigen Values
@@ -1087,7 +1087,7 @@ are given by the sum of 2 Taylor series:
 0.1 |  7 |   -0.038630997356 |   -0.038631017157 ✔
 0.1 |  8 |   -0.032413875662 |   -0.032413886246 ✔
 0.1 |  9 |   -0.026741858566 |   -0.026742018376 ✔
-Test Summary:              | Pass  Total  Time
-<ψₙ|H|ψₙ> = ∫ψₙ*Hψₙdx = Eₙ |   40     40  2.6s
+Test Summary:              | Pass  Total
+<ψₙ|H|ψₙ> = ∫ψₙ*Hψₙdx = Eₙ |   40     40
 
 ```

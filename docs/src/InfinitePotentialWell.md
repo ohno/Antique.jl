@@ -236,8 +236,8 @@ Unit testing and Integration testing were done using numerical integration ([Qua
 10 |  8 |    0.000000000000 |    0.000000000000 ✔
 10 |  9 |    0.000000000000 |    0.000000000000 ✔
 10 | 10 |    1.000000000000 |    1.000000000000 ✔
-Test Summary:            | Pass  Total  Time
-<ψᵢ|ψⱼ> = ∫ψₙ*ψₙdx = δᵢⱼ |  100    100  1.8s
+Test Summary:            | Pass  Total
+<ψᵢ|ψⱼ> = ∫ψₙ*ψₙdx = δᵢⱼ |  100    100
 ```
 
 #### Eigen Values
@@ -384,8 +384,8 @@ are given by the sum of 2 Taylor series:
 1.0 | 1.0 | 1.0 |  8 |  315.827174600228 |  315.827340834859 ✔
 1.0 | 1.0 | 1.0 |  9 |  399.718711951912 |  399.718978244119 ✔
 1.0 | 1.0 | 1.0 | 10 |  493.479814178266 |  493.480220054468 ✔
-Test Summary:               | Pass  Total  Time
-<ψₙ|H|ψₙ>  = ∫ψₙ*Tψₙdx = Eₙ |   80     80  0.7s
+Test Summary:               | Pass  Total
+<ψₙ|H|ψₙ>  = ∫ψₙ*Tψₙdx = Eₙ |   80     80
 ```
 #### Expected Value of $x$
 
@@ -405,8 +405,8 @@ Reference:
 0.5 |  1 |    0.250000000000 |    0.250000000000 ✔
 1.0 |  1 |    0.500000000000 |    0.500000000000 ✔
 7.0 |  1 |    3.500000000000 |    3.500000000000 ✔
-Test Summary:    | Pass  Total  Time
-<ψₙ|x|ψₙ>  = L/2 |    4      4  0.5s
+Test Summary:    | Pass  Total
+<ψₙ|x|ψₙ>  = L/2 |    4      4
 ```
 #### Expected Value of $x^2$
 
@@ -425,8 +425,8 @@ Reference:
 0.5 |  1 |    0.070668185378 |    0.070668185378 ✔
 1.0 |  1 |    0.282672741512 |    0.282672741512 ✔
 7.0 |  1 |   13.850964334096 |   13.850964334096 ✔
-Test Summary:                 | Pass  Total  Time
-<ψₙ|x²|ψₙ> = 2L²/π³(π³/6-π/4) |    4      4  0.4s
+Test Summary:                 | Pass  Total
+<ψₙ|x²|ψₙ> = 2L²/π³(π³/6-π/4) |    4      4
 ```
 
 #### Expected Value of $p$
@@ -504,8 +504,8 @@ are given by the sum of 2 Taylor series:
 0.5 |  1 |    0.000000000000 |    0.000000000000 ✔
 1.0 |  1 |    0.000000000000 |    0.000000000000 ✔
 7.0 |  1 |    0.000000000000 |    0.000000000000 ✔
-Test Summary:                      | Pass  Total  Time
-<ψₙ|p|ψₙ>  = ∫ψₙ*(-iℏd/dx)ψₙdx = 0 |    4      4  0.6s
+Test Summary:                      | Pass  Total
+<ψₙ|p|ψₙ>  = ∫ψₙ*(-iℏd/dx)ψₙdx = 0 |    4      4
 ```
 #### Expected Value of $p^2$
 
@@ -585,7 +585,7 @@ are given by the sum of 2 Taylor series:
 0.5 |  1 |   39.478417274195 |   39.478417604357 ✔
 1.0 |  1 |    9.869604318963 |    9.869604401089 ✔
 7.0 |  1 |    0.201420496383 |    0.201420497981 ✔
-Test Summary:                              | Pass  Total  Time
-<ψₙ|p²|ψₙ> = ∫ψₙ*(-ℏ²d²/dx²)ψₙdx = π²ℏ²/L² |    4      4  0.4s
+Test Summary:                              | Pass  Total
+<ψₙ|p²|ψₙ> = ∫ψₙ*(-ℏ²d²/dx²)ψₙdx = π²ℏ²/L² |    4      4
 
 ```

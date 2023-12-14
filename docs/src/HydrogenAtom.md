@@ -459,8 +459,8 @@ Unit testing and Integration testing were done using computer algebra system ([S
 ```
 
 ```
-Test Summary:                                                   | Pass  Total  Time
-Pₙᵐ(x) = √(1-x²)ᵐ dᵐ/dxᵐ Pₙ(x); Pₙ(x) = 1/(2ⁿn!) dⁿ/dxⁿ (x²-1)ⁿ |   15     15  1.2s
+Test Summary:                                                   | Pass  Total
+Pₙᵐ(x) = √(1-x²)ᵐ dᵐ/dxᵐ Pₙ(x); Pₙ(x) = 1/(2ⁿn!) dⁿ/dxⁿ (x²-1)ⁿ |   15     15
 ```
 
 #### Normalization & Orthogonality of $P_n^m(x)$
@@ -826,8 +826,8 @@ Pₙᵐ(x) = √(1-x²)ᵐ dᵐ/dxᵐ Pₙ(x); Pₙ(x) = 1/(2ⁿn!) dⁿ/dxⁿ (
  5 |  9 |  7 |    0.000000000000 |    0.000000003725 ✔
  5 |  9 |  8 |    0.000000000000 |   -0.000000001397 ✔
  5 |  9 |  9 | 382360926.315789461136 | 382360926.315789461136 ✔
-Test Summary:                              | Pass  Total  Time
-∫Pᵢᵐ(x)Pⱼᵐ(x)dx = 2(j+m)!/(2j+1)(j-m)! δᵢⱼ |  355    355  0.9s
+Test Summary:                              | Pass  Total
+∫Pᵢᵐ(x)Pⱼᵐ(x)dx = 2(j+m)!/(2j+1)(j-m)! δᵢⱼ |  355    355
 ```
 
 #### Normalization & Orthogonality of $Y_{lm}(\theta,\varphi)$
@@ -923,8 +923,8 @@ l₁ | l₂ | m₁ | m₂ |        analytical |         numerical
  2 |  2 |  2 |  0 |    0.000000000000 |    0.000000000000 ✔
  2 |  2 |  2 |  1 |    0.000000000000 |    0.000000000000 ✔
  2 |  2 |  2 |  2 |    1.000000000000 |    1.000000000000 ✔
-Test Summary:                              | Pass  Total  Time
-∫Yₗ₁ₘ₁(θ,φ)Yₗ₂ₘ₂(θ,φ)sinθdθdφ = δₗ₁ₗ₂δₘ₁ₘ₂ |   81     81  1.8s
+Test Summary:                              | Pass  Total
+∫Yₗ₁ₘ₁(θ,φ)Yₗ₂ₘ₂(θ,φ)sinθdθdφ = δₗ₁ₗ₂δₘ₁ₘ₂ |   81     81
 ```
 
 #### Associated Laguerre Polynomials $L_n^{k}(x)$
@@ -1105,8 +1105,8 @@ Test Summary:                              | Pass  Total  Time
 ```
 
 ```
-Test Summary:                                          | Pass  Total  Time
-Lₙᵏ(x) = dᵏ/dxᵏ Lₙ(x); Lₙ(x) = 1/(n!) eˣ dⁿ/dxⁿ e⁻ˣ xⁿ |   15     15  0.5s
+Test Summary:                                          | Pass  Total
+Lₙᵏ(x) = dᵏ/dxᵏ Lₙ(x); Lₙ(x) = 1/(n!) eˣ dⁿ/dxⁿ e⁻ˣ xⁿ |   15     15
 ```
 
 #### Normalization & Orthogonality of $L_n^{k}(x)$
@@ -1323,8 +1323,8 @@ Replace $n+k$ with $n$ for [the definition of Wolfram MathWorld](https://mathwor
  7 |  7 |  5 | 2520.000000000000 | 2519.999999999775 ✔
  7 |  7 |  6 | 5040.000000000000 | 5039.999999999985 ✔
  7 |  7 |  7 | 5040.000000000000 | 5040.000000000000 ✔
-Test Summary:                                 | Pass  Total  Time
-∫exp(-x)xᵏLᵢᵏ(x)Lⱼᵏ(x)dx = (2i+k)!/(i+k)! δᵢⱼ |  204    204  0.8s
+Test Summary:                                 | Pass  Total
+∫exp(-x)xᵏLᵢᵏ(x)Lⱼᵏ(x)dx = (2i+k)!/(i+k)! δᵢⱼ |  204    204
 ```
 
 #### Normalization of $R_{nl}(r)$
@@ -1380,8 +1380,8 @@ Test Summary:                                 | Pass  Total  Time
  9 |  6 |    1.000000000000 |    1.000000000000 ✔
  9 |  7 |    1.000000000000 |    1.000000000000 ✔
  9 |  8 |    1.000000000000 |    1.000000000000 ✔
-Test Summary:               | Pass  Total  Time
-∫|Rₙₗ(r)|²r²dr = δₙ₁ₙ₂δₗ₁ₗ₂ |   45     45  0.6s
+Test Summary:               | Pass  Total
+∫|Rₙₗ(r)|²r²dr = δₙ₁ₙ₂δₗ₁ₗ₂ |   45     45
 ```
 
 #### Expected Value of $r$
@@ -1446,8 +1446,8 @@ Reference:
  9 |  6 |  100.500000000000 |  100.500000000000 ✔
  9 |  7 |   93.500000000000 |   93.500000000000 ✔
  9 |  8 |   85.500000000000 |   85.500000000000 ✔
-Test Summary:                                                    | Pass  Total  Time
-∫r|Rₙₗ(r)|²r²dr = (a₀×mₑ/μ)/2Z × [3n²-l(l+1)]; 1/μ = 1/mₑ + 1/mₚ |   45     45  0.6s
+Test Summary:                                                    | Pass  Total
+∫r|Rₙₗ(r)|²r²dr = (a₀×mₑ/μ)/2Z × [3n²-l(l+1)]; 1/μ = 1/mₑ + 1/mₚ |   45     45
 ```
 
 #### Expected Value of $r^2$
@@ -1511,8 +1511,8 @@ Reference:
  9 |  6 | 11340.000000000000 | 11339.999999999945 ✔
  9 |  7 | 9639.000000000000 | 9638.999999999991 ✔
  9 |  8 | 7695.000000000000 | 7694.999999999998 ✔
-Test Summary:                                                            | Pass  Total  Time
-∫r²|Rₙₗ(r)|²r²dr = (a₀×mₑ/μ)²/2Z² × n²[5n²+1-3l(l+1)]; 1/μ = 1/mₑ + 1/mₚ |   45     45  0.6s
+Test Summary:                                                            | Pass  Total
+∫r²|Rₙₗ(r)|²r²dr = (a₀×mₑ/μ)²/2Z² × n²[5n²+1-3l(l+1)]; 1/μ = 1/mₑ + 1/mₚ |   45     45
 ```
 
 #### Virial Theorem
@@ -1535,14 +1535,14 @@ The virial theorem $2\langle T \rangle + \langle V \rangle = 0$ and the definiti
  8 |   -0.015625000000 |   -0.015625000000 ✔
  9 |   -0.012345679012 |   -0.012345679012 ✔
 10 |   -0.010000000000 |   -0.010000000000 ✔
-Test Summary:      | Pass  Total  Time
-<ψₙ|V|ψₙ> / 2 = Eₙ |   10     10  0.5s
+Test Summary:      | Pass  Total
+<ψₙ|V|ψₙ> / 2 = Eₙ |   10     10
 ```
 
 #### Normalization & Orthogonality of $\psi_n(r,\theta,\varphi)$
 
 ```math
-\int \psi_i^\ast(r,\theta,\varphi) \psi_j(r,\theta,\varphi) r^2 \mathrm{d}r \mathrm{d}\theta \mathrm{d}\varphi = \delta_{ij}
+\int \psi_i^\ast(r,\theta,\varphi) \psi_j(r,\theta,\varphi) r^2 \sin(\theta) \mathrm{d}r \mathrm{d}\theta \mathrm{d}\varphi = \delta_{ij}
 ```
 ```
 n₁ | n₂ | l₁ | l₂ | m₁ | m₂ |        analytical |         numerical 
@@ -1743,7 +1743,7 @@ n₁ | n₂ | l₁ | l₂ | m₁ | m₂ |        analytical |         numerical
  3 |  3 |  2 |  2 |  2 |  0 |    0.000000000000 |   -0.000000000000 ✔
  3 |  3 |  2 |  2 |  2 |  1 |    0.000000000000 |    0.000000000000 ✔
  3 |  3 |  2 |  2 |  2 |  2 |    1.000000000000 |    1.000300628566 ✔
-Test Summary:                       | Pass  Total  Time
-<ψₙ₁ₗ₁ₘ₁|ψₙ₂ₗ₂ₘ₂> = δₙ₁ₙ₂δₗ₁ₗ₂δₘ₁ₘ₂ |  196    196  5.5s
+Test Summary:                       | Pass  Total
+<ψₙ₁ₗ₁ₘ₁|ψₙ₂ₗ₂ₘ₂> = δₙ₁ₙ₂δₗ₁ₗ₂δₘ₁ₘ₂ |  196    196
 
 ```

@@ -287,8 +287,8 @@ Unit testing and Integration testing were done using computer algebra system ([S
 ```
 
 ```
-Test Summary:                               | Pass  Total   Time
-Hₙ(x) = (-1)ⁿ exp(x²) dⁿ/dxⁿ exp(-x²) = ... |   10     10  21.1s
+Test Summary:                               | Pass  Total
+Hₙ(x) = (-1)ⁿ exp(x²) dⁿ/dxⁿ exp(-x²) = ... |   10     10
 ```
 
 #### Normalization & Orthogonality of $H_n(x)$
@@ -400,8 +400,8 @@ Hₙ(x) = (-1)ⁿ exp(x²) dⁿ/dxⁿ exp(-x²) = ... |   10     10  21.1s
  9 |  7 |    0.000000000000 |    0.000000011649 ✔
  9 |  8 |    0.000000000000 |    0.000000001630 ✔
  9 |  9 | 329312283.349295914173 | 329312283.349295675755 ✔
-Test Summary:                     | Pass  Total  Time
-∫Hⱼ(x)Hᵢ(x)exp(-x²)dx = √π2ʲj!δᵢⱼ |  100    100  0.8s
+Test Summary:                     | Pass  Total
+∫Hⱼ(x)Hᵢ(x)exp(-x²)dx = √π2ʲj!δᵢⱼ |  100    100
 ```
 
 #### Normalization & Orthogonality of $\psi_n(x)$
@@ -513,8 +513,8 @@ Test Summary:                     | Pass  Total  Time
  9 |  7 |    0.000000000000 |    0.000000000000 ✔
  9 |  8 |    0.000000000000 |   -0.000000000000 ✔
  9 |  9 |    1.000000000000 |    1.000000000000 ✔
-Test Summary: | Pass  Total  Time
-<ψᵢ|ψⱼ> = δᵢⱼ |  100    100  0.7s
+Test Summary: | Pass  Total
+<ψᵢ|ψⱼ> = δᵢⱼ |  100    100
 ```
 
 #### Virial Theorem
@@ -568,8 +568,8 @@ The virial theorem $\langle T \rangle = \langle V \rangle$ and the definition of
 5.0 |  7 |    7.500000000000 |    7.500000000000 ✔
 5.0 |  8 |    8.500000000000 |    8.500000000000 ✔
 5.0 |  9 |    9.500000000000 |    9.500000000000 ✔
-Test Summary:      | Pass  Total  Time
-2 × <ψₙ|V|ψₙ> = Eₙ |   40     40  0.6s
+Test Summary:      | Pass  Total
+2 × <ψₙ|V|ψₙ> = Eₙ |   40     40
 ```
 
 #### Eigen Values
@@ -677,7 +677,7 @@ are given by the sum of 2 Taylor series:
 5.0 |  7 |   16.770509831248 |   16.770492175222 ✔
 5.0 |  8 |   19.006577808748 |   19.006555152416 ✔
 5.0 |  9 |   21.242645786248 |   21.242617504750 ✔
-Test Summary:              | Pass  Total  Time
-∫ψₙ*Hψₙdx = <ψₙ|H|ψₙ> = Eₙ |   40     40  0.8s
+Test Summary:              | Pass  Total
+∫ψₙ*Hψₙdx = <ψₙ|H|ψₙ> = Eₙ |   40     40
 
 ```
