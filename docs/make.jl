@@ -12,6 +12,7 @@ makedocs(;
     prettyurls=get(ENV, "CI", "false") == "true",
     canonical="https://ohno.github.io/Antique.jl",
     edit_link="main",
+    repolink="https://github.com/ohno/Antique.jl",
     assets=String[
       "./assets/logo.ico",
       "./assets/css/catalog.css"
