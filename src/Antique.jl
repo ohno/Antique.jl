@@ -55,7 +55,7 @@ module Antique
       # println("$(parameter[1]) = $(parameter[2])")
     end
     # modules
-    return Meta.eval(Meta.parse(source))
+    return Base.include_string(Antique, source) # Meta.eval(Meta.parse(source))
   end
 
 end
