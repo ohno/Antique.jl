@@ -105,8 +105,8 @@ plot!(x -&gt; HO.V(x), lc=:black, lw=2, label=&quot;&quot;)</code></pre><p><img 
    =  - e^{x^{2}} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d} e^{ - x^{2}}}{\mathrm{d}x}
   &amp;= 30240 x - 80640 x^{3} + 512 x^{9} - 9216 x^{7} + 48384 x^{5} \\
   &amp;= 30240 x - 80640 x^{3} + 512 x^{9} - 9216 x^{7} + 48384 x^{5}
-\end{aligned}\]</p><pre><code class="nohighlight hljs">Test Summary:                               | Pass  Total   Time
-Hₙ(x) = (-1)ⁿ exp(x²) dⁿ/dxⁿ exp(-x²) = ... |   10     10  21.1s</code></pre><h4 id="Normalization-and-Orthogonality-of-H_n(x)"><a class="docs-heading-anchor" href="#Normalization-and-Orthogonality-of-H_n(x)">Normalization &amp; Orthogonality of <span>$H_n(x)$</span></a><a id="Normalization-and-Orthogonality-of-H_n(x)-1"></a><a class="docs-heading-anchor-permalink" href="#Normalization-and-Orthogonality-of-H_n(x)" title="Permalink"></a></h4><p class="math-container">\[\int_{-\infty}^\infty H_j(x) H_i(x) \mathrm{e}^{-x^2} \mathrm{d}x = \sqrt{\pi} 2^j j! \delta_{ij}\]</p><pre><code class="nohighlight hljs"> i |  j |        analytical |         numerical 
+\end{aligned}\]</p><pre><code class="nohighlight hljs">Test Summary:                               | Pass  Total
+Hₙ(x) = (-1)ⁿ exp(x²) dⁿ/dxⁿ exp(-x²) = ... |   10     10</code></pre><h4 id="Normalization-and-Orthogonality-of-H_n(x)"><a class="docs-heading-anchor" href="#Normalization-and-Orthogonality-of-H_n(x)">Normalization &amp; Orthogonality of <span>$H_n(x)$</span></a><a id="Normalization-and-Orthogonality-of-H_n(x)-1"></a><a class="docs-heading-anchor-permalink" href="#Normalization-and-Orthogonality-of-H_n(x)" title="Permalink"></a></h4><p class="math-container">\[\int_{-\infty}^\infty H_j(x) H_i(x) \mathrm{e}^{-x^2} \mathrm{d}x = \sqrt{\pi} 2^j j! \delta_{ij}\]</p><pre><code class="nohighlight hljs"> i |  j |        analytical |         numerical 
 -- | -- | ----------------- | ----------------- 
  0 |  0 |    1.772453850906 |    1.772453850906 ✔
  0 |  1 |    0.000000000000 |    0.000000000000 ✔
@@ -208,8 +208,8 @@ Hₙ(x) = (-1)ⁿ exp(x²) dⁿ/dxⁿ exp(-x²) = ... |   10     10  21.1s</code
  9 |  7 |    0.000000000000 |    0.000000011649 ✔
  9 |  8 |    0.000000000000 |    0.000000001630 ✔
  9 |  9 | 329312283.349295914173 | 329312283.349295675755 ✔
-Test Summary:                     | Pass  Total  Time
-∫Hⱼ(x)Hᵢ(x)exp(-x²)dx = √π2ʲj!δᵢⱼ |  100    100  0.8s</code></pre><h4 id="Normalization-and-Orthogonality-of-\\psi_n(x)"><a class="docs-heading-anchor" href="#Normalization-and-Orthogonality-of-\\psi_n(x)">Normalization &amp; Orthogonality of <span>$\psi_n(x)$</span></a><a id="Normalization-and-Orthogonality-of-\\psi_n(x)-1"></a><a class="docs-heading-anchor-permalink" href="#Normalization-and-Orthogonality-of-\\psi_n(x)" title="Permalink"></a></h4><p class="math-container">\[\int \psi_i^\ast(x) \psi_j(x) \mathrm{d}x = \delta_{ij}\]</p><pre><code class="nohighlight hljs"> i |  j |        analytical |         numerical 
+Test Summary:                     | Pass  Total
+∫Hⱼ(x)Hᵢ(x)exp(-x²)dx = √π2ʲj!δᵢⱼ |  100    100</code></pre><h4 id="Normalization-and-Orthogonality-of-\\psi_n(x)"><a class="docs-heading-anchor" href="#Normalization-and-Orthogonality-of-\\psi_n(x)">Normalization &amp; Orthogonality of <span>$\psi_n(x)$</span></a><a id="Normalization-and-Orthogonality-of-\\psi_n(x)-1"></a><a class="docs-heading-anchor-permalink" href="#Normalization-and-Orthogonality-of-\\psi_n(x)" title="Permalink"></a></h4><p class="math-container">\[\int \psi_i^\ast(x) \psi_j(x) \mathrm{d}x = \delta_{ij}\]</p><pre><code class="nohighlight hljs"> i |  j |        analytical |         numerical 
 -- | -- | ----------------- | ----------------- 
  0 |  0 |    1.000000000000 |    1.000000000000 ✔
  0 |  1 |    0.000000000000 |    0.000000000000 ✔
@@ -311,8 +311,8 @@ Test Summary:                     | Pass  Total  Time
  9 |  7 |    0.000000000000 |    0.000000000000 ✔
  9 |  8 |    0.000000000000 |   -0.000000000000 ✔
  9 |  9 |    1.000000000000 |    1.000000000000 ✔
-Test Summary: | Pass  Total  Time
-&lt;ψᵢ|ψⱼ&gt; = δᵢⱼ |  100    100  0.7s</code></pre><h4 id="Virial-Theorem"><a class="docs-heading-anchor" href="#Virial-Theorem">Virial Theorem</a><a id="Virial-Theorem-1"></a><a class="docs-heading-anchor-permalink" href="#Virial-Theorem" title="Permalink"></a></h4><p>The virial theorem <span>$\langle T \rangle = \langle V \rangle$</span> and the definition of Hamiltonian <span>$\langle H \rangle = \langle T \rangle + \langle V \rangle$</span> derive <span>$\langle H \rangle = 2 \langle V \rangle = 2 \langle T \rangle$</span>.</p><p class="math-container">\[2 \int \psi_n^\ast(x) V(x) \psi_n(x) \mathrm{d}x = E_n\]</p><pre><code class="nohighlight hljs">  k |  n |        analytical |         numerical 
+Test Summary: | Pass  Total
+&lt;ψᵢ|ψⱼ&gt; = δᵢⱼ |  100    100</code></pre><h4 id="Virial-Theorem"><a class="docs-heading-anchor" href="#Virial-Theorem">Virial Theorem</a><a id="Virial-Theorem-1"></a><a class="docs-heading-anchor-permalink" href="#Virial-Theorem" title="Permalink"></a></h4><p>The virial theorem <span>$\langle T \rangle = \langle V \rangle$</span> and the definition of Hamiltonian <span>$\langle H \rangle = \langle T \rangle + \langle V \rangle$</span> derive <span>$\langle H \rangle = 2 \langle V \rangle = 2 \langle T \rangle$</span>.</p><p class="math-container">\[2 \int \psi_n^\ast(x) V(x) \psi_n(x) \mathrm{d}x = E_n\]</p><pre><code class="nohighlight hljs">  k |  n |        analytical |         numerical 
 --- | -- | ----------------- | ----------------- 
 0.1 |  0 |    0.500000000000 |    0.500000000000 ✔
 0.1 |  1 |    1.500000000000 |    1.500000000000 ✔
@@ -354,8 +354,8 @@ Test Summary: | Pass  Total  Time
 5.0 |  7 |    7.500000000000 |    7.500000000000 ✔
 5.0 |  8 |    8.500000000000 |    8.500000000000 ✔
 5.0 |  9 |    9.500000000000 |    9.500000000000 ✔
-Test Summary:      | Pass  Total  Time
-2 × &lt;ψₙ|V|ψₙ&gt; = Eₙ |   40     40  0.6s</code></pre><h4 id="Eigen-Values-2"><a class="docs-heading-anchor" href="#Eigen-Values-2">Eigen Values</a><a class="docs-heading-anchor-permalink" href="#Eigen-Values-2" title="Permalink"></a></h4><p class="math-container">\[  \begin{aligned}
+Test Summary:      | Pass  Total
+2 × &lt;ψₙ|V|ψₙ&gt; = Eₙ |   40     40</code></pre><h4 id="Eigen-Values-2"><a class="docs-heading-anchor" href="#Eigen-Values-2">Eigen Values</a><a class="docs-heading-anchor-permalink" href="#Eigen-Values-2" title="Permalink"></a></h4><p class="math-container">\[  \begin{aligned}
     E_n
     &amp;=      \int \psi^\ast_n(x) \hat{H} \psi_n(x) \mathrm{d}x \\
     &amp;=      \int \psi^\ast_n(x) \left[ \hat{V} + \hat{T} \right] \psi(x) \mathrm{d}x \\
@@ -441,6 +441,6 @@ Test Summary:      | Pass  Total  Time
 5.0 |  7 |   16.770509831248 |   16.770492175222 ✔
 5.0 |  8 |   19.006577808748 |   19.006555152416 ✔
 5.0 |  9 |   21.242645786248 |   21.242617504750 ✔
-Test Summary:              | Pass  Total  Time
-∫ψₙ*Hψₙdx = &lt;ψₙ|H|ψₙ&gt; = Eₙ |   40     40  0.8s
-</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../InfinitePotentialWell/">« Infinite Potential Well</a><a class="docs-footer-nextpage" href="../MorsePotential/">Morse Potential »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="auto">Automatic (OS)</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.2.1 on <span class="colophon-date" title="Sunday 10 December 2023 12:27">Sunday 10 December 2023</span>. Using Julia version 1.9.4.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+Test Summary:              | Pass  Total
+∫ψₙ*Hψₙdx = &lt;ψₙ|H|ψₙ&gt; = Eₙ |   40     40
+</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../InfinitePotentialWell/">« Infinite Potential Well</a><a class="docs-footer-nextpage" href="../MorsePotential/">Morse Potential »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="auto">Automatic (OS)</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.2.1 on <span class="colophon-date" title="Thursday 14 December 2023 16:29">Thursday 14 December 2023</span>. Using Julia version 1.9.4.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>

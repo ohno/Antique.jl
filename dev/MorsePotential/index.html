@@ -21,14 +21,19 @@
     L_4^{(3)}(x) &amp;= 35 - 35 x + 21/2 x^{2} - 7/6 x^{3} + 1/24 x^{4}, \\
     L_4^{(4)}(x) &amp;= 70 - 56 x + 14 x^{2} - 4/3 x^{3} + 1/24 x^{4}, \\
     \vdots
-  \end{aligned}\]</p><h4 id="References"><a class="docs-heading-anchor" href="#References">References</a><a id="References-1"></a><a class="docs-heading-anchor-permalink" href="#References" title="Permalink"></a></h4><ul><li><a href="https://doi.org/10.1103/PhysRev.34.57">P. M. Morse, Phys. Rev. 34, 57 (1929)</a></li><li><a href="https://doi.org/10.1063/1.453761">J. P. Dahl, M. Springborg, J. Chem. Phys. 88, 4535 (1988). (62), (63)</a></li><li><a href="http://dx.doi.org/10.22436/jnsa.009.05.124">W. K. Shao, Y. He, J. Pan, J. Nonlinear Sci. Appl., 9, 5, 3388 (2016). (1.6)</a> </li><li>The Digital Library of Mathematical Functions (DLMF) <a href="https://dlmf.nist.gov/18.3#T1">18.3 Table1</a>, <a href="https://dlmf.nist.gov/18.5#T1">18.5 Table1</a>, <a href="https://dlmf.nist.gov/18.5#E12">18.5.12</a></li></ul><h2 id="Usage-and-Examples"><a class="docs-heading-anchor" href="#Usage-and-Examples">Usage &amp; Examples</a><a id="Usage-and-Examples-1"></a><a class="docs-heading-anchor-permalink" href="#Usage-and-Examples" title="Permalink"></a></h2><p><a href="../#Install">Install Antique.jl</a> for the first run and run <code>using Antique</code> before each use. The function <code>antique(model, parameters...)</code> returns a module that has <code>E()</code>, <code>ψ(r)</code>, <code>V(r)</code> and some other functions. In this system, the model name is specified by <code>:MorsePotential</code> and several parameters <code>rₑ</code>, <code>Dₑ</code>, <code>k</code>, <code>µ</code> and <code>ℏ</code> are set as optional arguments.</p><div class="admonition is-warning"><header class="admonition-header">Warning</header><div class="admonition-body"><p><code>MO = antique(:MorsePotential)</code> does not work if <a href="https://specialfunctions.juliamath.org/stable/">SpecialFunctions.jl</a> is not installed. Install <a href="https://specialfunctions.juliamath.org/stable/">SpecialFunctions.jl</a> and use <code>antique(:MorsePotential)</code> to generate 2 modules with different parameters.</p></div></div><pre><code class="language-julia hljs">using Antique
-MP = Antique.MorsePotential
-MP.rₑ =  1.997193319969992120068298141276 # https://doi.org/10.1002/slct.202102509
-MP.Vₑ = -0.602634619106539878727562156289 # https://doi.org/10.1002/slct.202102509
-MP.Dₑ = - 0.5 - Vₑ
-MP.k = 2*((-1.1026342144949464615+1/2.00) - Vₑ) / (2.00 - rₑ)^2 # https://doi.org/10.1002/slct.202102509
-MP.µ = 1/(1/1836.15267343 + 1/1836.15267343) # https://physics.nist.gov/cgi-bin/cuu/Value?mpsme
-MP.ℏ = 1.0</code></pre><p>Parameters (for H₂⁺):</p><pre><code class="language-julia hljs">julia&gt; MP.rₑ
+  \end{aligned}\]</p><h4 id="References"><a class="docs-heading-anchor" href="#References">References</a><a id="References-1"></a><a class="docs-heading-anchor-permalink" href="#References" title="Permalink"></a></h4><ul><li><a href="https://doi.org/10.1103/PhysRev.34.57">P. M. Morse, Phys. Rev. 34, 57 (1929)</a></li><li><a href="https://doi.org/10.1063/1.453761">J. P. Dahl, M. Springborg, J. Chem. Phys. 88, 4535 (1988). (62), (63)</a></li><li><a href="http://dx.doi.org/10.22436/jnsa.009.05.124">W. K. Shao, Y. He, J. Pan, J. Nonlinear Sci. Appl., 9, 5, 3388 (2016). (1.6)</a> </li><li>The Digital Library of Mathematical Functions (DLMF) <a href="https://dlmf.nist.gov/18.3#T1">18.3 Table1</a>, <a href="https://dlmf.nist.gov/18.5#T1">18.5 Table1</a>, <a href="https://dlmf.nist.gov/18.5#E12">18.5.12</a></li></ul><h2 id="Usage-and-Examples"><a class="docs-heading-anchor" href="#Usage-and-Examples">Usage &amp; Examples</a><a id="Usage-and-Examples-1"></a><a class="docs-heading-anchor-permalink" href="#Usage-and-Examples" title="Permalink"></a></h2><p><a href="../#Install">Install Antique.jl</a> for the first run and run <code>using Antique</code> before each use. The function <code>antique(model, parameters...)</code> returns a module that has <code>E()</code>, <code>ψ(r)</code>, <code>V(r)</code> and some other functions. In this system, the model name is specified by <code>:MorsePotential</code> and several parameters <code>rₑ</code>, <code>Dₑ</code>, <code>k</code>, <code>µ</code> and <code>ℏ</code> are set as optional arguments.</p><div class="admonition is-warning"><header class="admonition-header">Warning</header><div class="admonition-body"><p>Run <code>using Pkg; Pkg.add(&quot;SpecialFunctions&quot;)</code> if the following returns an error.</p></div></div><pre><code class="language-julia hljs"># Parameters for H₂⁺
+# https://doi.org/10.1002/slct.202102509
+# https://doi.org/10.5281/zenodo.5047817
+# https://physics.nist.gov/cgi-bin/cuu/Value?mpsme
+rₑ =  1.997193319969992120068298141276
+Vₑ = -0.602634619106539878727562156289
+Dₑ = - 0.5 - Vₑ
+k = 2*((-1.1026342144949464615+1/2.00) - Vₑ) / (2.00 - rₑ)^2
+µ = 1/(1/1836.15267343 + 1/1836.15267343)
+ℏ = 1.0
+
+using Antique
+MP = antique(:MorsePotential, rₑ=rₑ, Vₑ=Vₑ, Dₑ=Dₑ, k=k, µ =µ, ℏ =ℏ)</code></pre><p>Parameters:</p><pre><code class="language-julia hljs">julia&gt; MP.rₑ
 1.997193319969992
 
 julia&gt; MP.Dₑ
@@ -145,8 +150,8 @@ plot!(0.1:0.01:15, r -&gt; MP.V(r), lc=&quot;#578FC7&quot;, lw=2, label=&quot;Mo
    = \frac{\frac{1}{24} e^{x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} x^{8} e^{ - x}}{x^{4}}
   &amp;= 70 - 56 x - \frac{4}{3} x^{3} + 14 x^{2} + \frac{1}{24} x^{4} \\
   &amp;= 70 - \frac{4}{3} x^{3} - 56 x + 14 x^{2} + \frac{1}{24} x^{4}
-\end{aligned}\]</p><pre><code class="nohighlight hljs">Test Summary:                      | Pass  Total   Time
-Lₙ⁽ᵅ⁾(x) = x⁻ᵅeˣ/n! dⁿ/dxⁿ xⁿ⁺ᵅe⁻ˣ |   15     15  11.0s</code></pre><h4 id="Normalization-and-Orthogonality-of-L_n{(\\alpha)}(x)"><a class="docs-heading-anchor" href="#Normalization-and-Orthogonality-of-L_n{(\\alpha)}(x)">Normalization &amp; Orthogonality of <span>$L_n^{(\alpha)}(x)$</span></a><a id="Normalization-and-Orthogonality-of-L_n{(\\alpha)}(x)-1"></a><a class="docs-heading-anchor-permalink" href="#Normalization-and-Orthogonality-of-L_n{(\\alpha)}(x)" title="Permalink"></a></h4><p class="math-container">\[\int_0^\infty L_i^{(\alpha)}(x) L_j^{(\alpha)}(x) x^\alpha \mathrm{e}^{-x} \mathrm{d}x = \frac{\Gamma(n+\alpha+1)}{n!} \delta_{ij}\]</p><pre><code class="nohighlight hljs">   α |  i |  j |        analytical |         numerical 
+\end{aligned}\]</p><pre><code class="nohighlight hljs">Test Summary:                      | Pass  Total
+Lₙ⁽ᵅ⁾(x) = x⁻ᵅeˣ/n! dⁿ/dxⁿ xⁿ⁺ᵅe⁻ˣ |   15     15</code></pre><h4 id="Normalization-and-Orthogonality-of-L_n{(\\alpha)}(x)"><a class="docs-heading-anchor" href="#Normalization-and-Orthogonality-of-L_n{(\\alpha)}(x)">Normalization &amp; Orthogonality of <span>$L_n^{(\alpha)}(x)$</span></a><a id="Normalization-and-Orthogonality-of-L_n{(\\alpha)}(x)-1"></a><a class="docs-heading-anchor-permalink" href="#Normalization-and-Orthogonality-of-L_n{(\\alpha)}(x)" title="Permalink"></a></h4><p class="math-container">\[\int_0^\infty L_i^{(\alpha)}(x) L_j^{(\alpha)}(x) x^\alpha \mathrm{e}^{-x} \mathrm{d}x = \frac{\Gamma(n+\alpha+1)}{n!} \delta_{ij}\]</p><pre><code class="nohighlight hljs">   α |  i |  j |        analytical |         numerical 
 ---- | -- | -- | ----------------- | ----------------- 
 0.01 |  0 |  0 |    0.994325851192 |    0.994325852936 ✔
 0.01 |  0 |  1 |    0.000000000000 |    0.000000000000 ✔
@@ -648,8 +653,8 @@ Lₙ⁽ᵅ⁾(x) = x⁻ᵅeˣ/n! dⁿ/dxⁿ xⁿ⁺ᵅe⁻ˣ |   15     15  11.0
 1.00 |  9 |  7 |    0.000000000000 |   -0.000000000000 ✔
 1.00 |  9 |  8 |    0.000000000000 |   -0.000000000000 ✔
 1.00 |  9 |  9 |   10.000000000000 |   10.000000000001 ✔
-Test Summary:                                  | Pass  Total  Time
-∫Lᵢ⁽ᵅ⁾(x)Lⱼ⁽ᵅ⁾(x)xᵅexp(-x)dx = Γ(i+α+1)/i! δᵢⱼ |  500    500  2.0s</code></pre><h4 id="Normalization-and-Orthogonality-of-\\psi_n(r)"><a class="docs-heading-anchor" href="#Normalization-and-Orthogonality-of-\\psi_n(r)">Normalization &amp; Orthogonality of <span>$\psi_n(r)$</span></a><a id="Normalization-and-Orthogonality-of-\\psi_n(r)-1"></a><a class="docs-heading-anchor-permalink" href="#Normalization-and-Orthogonality-of-\\psi_n(r)" title="Permalink"></a></h4><p class="math-container">\[\int_0^\infty \psi_i^\ast(r) \psi_j(r) \mathrm{d}r = \delta_{ij}\]</p><pre><code class="nohighlight hljs"> i |  j |        analytical |         numerical 
+Test Summary:                                  | Pass  Total
+∫Lᵢ⁽ᵅ⁾(x)Lⱼ⁽ᵅ⁾(x)xᵅexp(-x)dx = Γ(i+α+1)/i! δᵢⱼ |  500    500</code></pre><h4 id="Normalization-and-Orthogonality-of-\\psi_n(r)"><a class="docs-heading-anchor" href="#Normalization-and-Orthogonality-of-\\psi_n(r)">Normalization &amp; Orthogonality of <span>$\psi_n(r)$</span></a><a id="Normalization-and-Orthogonality-of-\\psi_n(r)-1"></a><a class="docs-heading-anchor-permalink" href="#Normalization-and-Orthogonality-of-\\psi_n(r)" title="Permalink"></a></h4><p class="math-container">\[\int_0^\infty \psi_i^\ast(r) \psi_j(r) \mathrm{d}r = \delta_{ij}\]</p><pre><code class="nohighlight hljs"> i |  j |        analytical |         numerical 
 -- | -- | ----------------- | ----------------- 
  0 |  0 |    1.000000000000 |    1.000000000000 ✔
  0 |  1 |    0.000000000000 |    0.000000000000 ✔
@@ -751,8 +756,8 @@ Test Summary:                                  | Pass  Total  Time
  9 |  7 |    0.000000000000 |    0.000000000004 ✔
  9 |  8 |    0.000000000000 |    0.000000000000 ✔
  9 |  9 |    1.000000000000 |    1.000000000015 ✔
-Test Summary: | Pass  Total  Time
-&lt;ψᵢ|ψⱼ&gt; = δᵢⱼ |  100    100  0.9s</code></pre><h4 id="Eigen-Values-2"><a class="docs-heading-anchor" href="#Eigen-Values-2">Eigen Values</a><a class="docs-heading-anchor-permalink" href="#Eigen-Values-2" title="Permalink"></a></h4><p class="math-container">\[  \begin{aligned}
+Test Summary: | Pass  Total
+&lt;ψᵢ|ψⱼ&gt; = δᵢⱼ |  100    100</code></pre><h4 id="Eigen-Values-2"><a class="docs-heading-anchor" href="#Eigen-Values-2">Eigen Values</a><a class="docs-heading-anchor-permalink" href="#Eigen-Values-2" title="Permalink"></a></h4><p class="math-container">\[  \begin{aligned}
     E_n
     &amp;=      \int \psi^\ast_n(r) \hat{H} \psi_n(r) \mathrm{d}x \\
     &amp;=      \int \psi^\ast_n(r) \left[ \hat{V} + \hat{T} \right] \psi(r) \mathrm{d}x \\
@@ -838,6 +843,6 @@ Test Summary: | Pass  Total  Time
 0.1 |  7 |   -0.038630997356 |   -0.038631017157 ✔
 0.1 |  8 |   -0.032413875662 |   -0.032413886246 ✔
 0.1 |  9 |   -0.026741858566 |   -0.026742018376 ✔
-Test Summary:              | Pass  Total  Time
-&lt;ψₙ|H|ψₙ&gt; = ∫ψₙ*Hψₙdx = Eₙ |   40     40  2.6s
-</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../HarmonicOscillator/">« Harmonic Oscillator</a><a class="docs-footer-nextpage" href="../HydrogenAtom/">Hydrogen Atom »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="auto">Automatic (OS)</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.2.1 on <span class="colophon-date" title="Sunday 10 December 2023 12:27">Sunday 10 December 2023</span>. Using Julia version 1.9.4.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+Test Summary:              | Pass  Total
+&lt;ψₙ|H|ψₙ&gt; = ∫ψₙ*Hψₙdx = Eₙ |   40     40
+</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../HarmonicOscillator/">« Harmonic Oscillator</a><a class="docs-footer-nextpage" href="../HydrogenAtom/">Hydrogen Atom »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="auto">Automatic (OS)</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.2.1 on <span class="colophon-date" title="Thursday 14 December 2023 16:29">Thursday 14 December 2023</span>. Using Julia version 1.9.4.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>

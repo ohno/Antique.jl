@@ -188,8 +188,8 @@ plot!()</code></pre><p><img src="../assets/fig/HydrogenAtom_8_1.png" alt/></p><h
     = \left( 1 - x^{2} \right)^{2} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{1}{384} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \left( -1 + x^{2} \right)^{4}
   &amp;= 105 \left( 1 - x^{2} \right)^{2} \\
   &amp;= 105 \left( 1 - x^{2} \right)^{2}
-\end{aligned}\]</p><pre><code class="nohighlight hljs">Test Summary:                                                   | Pass  Total  Time
-Pₙᵐ(x) = √(1-x²)ᵐ dᵐ/dxᵐ Pₙ(x); Pₙ(x) = 1/(2ⁿn!) dⁿ/dxⁿ (x²-1)ⁿ |   15     15  1.2s</code></pre><h4 id="Normalization-and-Orthogonality-of-P_nm(x)"><a class="docs-heading-anchor" href="#Normalization-and-Orthogonality-of-P_nm(x)">Normalization &amp; Orthogonality of <span>$P_n^m(x)$</span></a><a id="Normalization-and-Orthogonality-of-P_nm(x)-1"></a><a class="docs-heading-anchor-permalink" href="#Normalization-and-Orthogonality-of-P_nm(x)" title="Permalink"></a></h4><p class="math-container">\[\int_{-1}^{1} P_i^m(x) P_j^m(x) \mathrm{d}x = \frac{2(j+m)!}{(2j+1)(j-m)!} \delta_{ij}\]</p><pre><code class="nohighlight hljs"> m |  i |  j |        analytical |         numerical 
+\end{aligned}\]</p><pre><code class="nohighlight hljs">Test Summary:                                                   | Pass  Total
+Pₙᵐ(x) = √(1-x²)ᵐ dᵐ/dxᵐ Pₙ(x); Pₙ(x) = 1/(2ⁿn!) dⁿ/dxⁿ (x²-1)ⁿ |   15     15</code></pre><h4 id="Normalization-and-Orthogonality-of-P_nm(x)"><a class="docs-heading-anchor" href="#Normalization-and-Orthogonality-of-P_nm(x)">Normalization &amp; Orthogonality of <span>$P_n^m(x)$</span></a><a id="Normalization-and-Orthogonality-of-P_nm(x)-1"></a><a class="docs-heading-anchor-permalink" href="#Normalization-and-Orthogonality-of-P_nm(x)" title="Permalink"></a></h4><p class="math-container">\[\int_{-1}^{1} P_i^m(x) P_j^m(x) \mathrm{d}x = \frac{2(j+m)!}{(2j+1)(j-m)!} \delta_{ij}\]</p><pre><code class="nohighlight hljs"> m |  i |  j |        analytical |         numerical 
 -- | -- | -- | ----------------- | ----------------- 
  0 |  0 |  0 |    2.000000000000 |    2.000000000000 ✔
  0 |  0 |  1 |    0.000000000000 |    0.000000000000 ✔
@@ -546,8 +546,8 @@ Pₙᵐ(x) = √(1-x²)ᵐ dᵐ/dxᵐ Pₙ(x); Pₙ(x) = 1/(2ⁿn!) dⁿ/dxⁿ (
  5 |  9 |  7 |    0.000000000000 |    0.000000003725 ✔
  5 |  9 |  8 |    0.000000000000 |   -0.000000001397 ✔
  5 |  9 |  9 | 382360926.315789461136 | 382360926.315789461136 ✔
-Test Summary:                              | Pass  Total  Time
-∫Pᵢᵐ(x)Pⱼᵐ(x)dx = 2(j+m)!/(2j+1)(j-m)! δᵢⱼ |  355    355  0.9s</code></pre><h4 id="Normalization-and-Orthogonality-of-Y_{lm}(\\theta,\\varphi)"><a class="docs-heading-anchor" href="#Normalization-and-Orthogonality-of-Y_{lm}(\\theta,\\varphi)">Normalization &amp; Orthogonality of <span>$Y_{lm}(\theta,\varphi)$</span></a><a id="Normalization-and-Orthogonality-of-Y_{lm}(\\theta,\\varphi)-1"></a><a class="docs-heading-anchor-permalink" href="#Normalization-and-Orthogonality-of-Y_{lm}(\\theta,\\varphi)" title="Permalink"></a></h4><p class="math-container">\[\int_0^{2\pi}
+Test Summary:                              | Pass  Total
+∫Pᵢᵐ(x)Pⱼᵐ(x)dx = 2(j+m)!/(2j+1)(j-m)! δᵢⱼ |  355    355</code></pre><h4 id="Normalization-and-Orthogonality-of-Y_{lm}(\\theta,\\varphi)"><a class="docs-heading-anchor" href="#Normalization-and-Orthogonality-of-Y_{lm}(\\theta,\\varphi)">Normalization &amp; Orthogonality of <span>$Y_{lm}(\theta,\varphi)$</span></a><a id="Normalization-and-Orthogonality-of-Y_{lm}(\\theta,\\varphi)-1"></a><a class="docs-heading-anchor-permalink" href="#Normalization-and-Orthogonality-of-Y_{lm}(\\theta,\\varphi)" title="Permalink"></a></h4><p class="math-container">\[\int_0^{2\pi}
 \int_0^\pi
 Y_{lm}(\theta,\varphi)^* Y_{l&#39;m&#39;}(\theta,\varphi) \sin(\theta)
 ~\mathrm{d}\theta \mathrm{d}\varphi
@@ -634,8 +634,8 @@ Y_{lm}(\theta,\varphi)^* Y_{l&#39;m&#39;}(\theta,\varphi) \sin(\theta)
  2 |  2 |  2 |  0 |    0.000000000000 |    0.000000000000 ✔
  2 |  2 |  2 |  1 |    0.000000000000 |    0.000000000000 ✔
  2 |  2 |  2 |  2 |    1.000000000000 |    1.000000000000 ✔
-Test Summary:                              | Pass  Total  Time
-∫Yₗ₁ₘ₁(θ,φ)Yₗ₂ₘ₂(θ,φ)sinθdθdφ = δₗ₁ₗ₂δₘ₁ₘ₂ |   81     81  1.8s</code></pre><h4 id="Associated-Laguerre-Polynomials-L_n{k}(x)"><a class="docs-heading-anchor" href="#Associated-Laguerre-Polynomials-L_n{k}(x)">Associated Laguerre Polynomials <span>$L_n^{k}(x)$</span></a><a id="Associated-Laguerre-Polynomials-L_n{k}(x)-1"></a><a class="docs-heading-anchor-permalink" href="#Associated-Laguerre-Polynomials-L_n{k}(x)" title="Permalink"></a></h4><p class="math-container">\[  \begin{aligned}
+Test Summary:                              | Pass  Total
+∫Yₗ₁ₘ₁(θ,φ)Yₗ₂ₘ₂(θ,φ)sinθdθdφ = δₗ₁ₗ₂δₘ₁ₘ₂ |   81     81</code></pre><h4 id="Associated-Laguerre-Polynomials-L_n{k}(x)"><a class="docs-heading-anchor" href="#Associated-Laguerre-Polynomials-L_n{k}(x)">Associated Laguerre Polynomials <span>$L_n^{k}(x)$</span></a><a id="Associated-Laguerre-Polynomials-L_n{k}(x)-1"></a><a class="docs-heading-anchor-permalink" href="#Associated-Laguerre-Polynomials-L_n{k}(x)" title="Permalink"></a></h4><p class="math-container">\[  \begin{aligned}
   L_n^{k}(x)
     &amp;= \frac{\mathrm{d}^k}{\mathrm{d}x^k} L_n(x) \\
     &amp;= \frac{\mathrm{d}^k}{\mathrm{d}x^k} \frac{1}{n!} \mathrm{e}^x \frac{\mathrm{d}^n}{\mathrm{d}x ^n} \left( \mathrm{e}^{-x} x^n \right) \\
@@ -731,8 +731,8 @@ Test Summary:                              | Pass  Total  Time
   &amp;= 1 \\
   &amp;= 1 \\
   &amp;= 1
-\end{aligned}\]</p><pre><code class="nohighlight hljs">Test Summary:                                          | Pass  Total  Time
-Lₙᵏ(x) = dᵏ/dxᵏ Lₙ(x); Lₙ(x) = 1/(n!) eˣ dⁿ/dxⁿ e⁻ˣ xⁿ |   15     15  0.5s</code></pre><h4 id="Normalization-and-Orthogonality-of-L_n{k}(x)"><a class="docs-heading-anchor" href="#Normalization-and-Orthogonality-of-L_n{k}(x)">Normalization &amp; Orthogonality of <span>$L_n^{k}(x)$</span></a><a id="Normalization-and-Orthogonality-of-L_n{k}(x)-1"></a><a class="docs-heading-anchor-permalink" href="#Normalization-and-Orthogonality-of-L_n{k}(x)" title="Permalink"></a></h4><p class="math-container">\[\int_{0}^{\infty} \mathrm{e}^{-x} x^k L_i^k(x) L_j^k(x) \mathrm{d}x = \frac{i!}{(i-k)!} \delta_{ij}\]</p><p>Replace <span>$n+k$</span> with <span>$n$</span> for <a href="https://mathworld.wolfram.com/AssociatedLaguerrePolynomial.html">the definition of Wolfram MathWorld</a>.</p><pre><code class="nohighlight hljs"> i |  j |  k |        analytical |         numerical 
+\end{aligned}\]</p><pre><code class="nohighlight hljs">Test Summary:                                          | Pass  Total
+Lₙᵏ(x) = dᵏ/dxᵏ Lₙ(x); Lₙ(x) = 1/(n!) eˣ dⁿ/dxⁿ e⁻ˣ xⁿ |   15     15</code></pre><h4 id="Normalization-and-Orthogonality-of-L_n{k}(x)"><a class="docs-heading-anchor" href="#Normalization-and-Orthogonality-of-L_n{k}(x)">Normalization &amp; Orthogonality of <span>$L_n^{k}(x)$</span></a><a id="Normalization-and-Orthogonality-of-L_n{k}(x)-1"></a><a class="docs-heading-anchor-permalink" href="#Normalization-and-Orthogonality-of-L_n{k}(x)" title="Permalink"></a></h4><p class="math-container">\[\int_{0}^{\infty} \mathrm{e}^{-x} x^k L_i^k(x) L_j^k(x) \mathrm{d}x = \frac{i!}{(i-k)!} \delta_{ij}\]</p><p>Replace <span>$n+k$</span> with <span>$n$</span> for <a href="https://mathworld.wolfram.com/AssociatedLaguerrePolynomial.html">the definition of Wolfram MathWorld</a>.</p><pre><code class="nohighlight hljs"> i |  j |  k |        analytical |         numerical 
 -- | -- | -- | ----------------- | ----------------- 
  0 |  0 |  0 |    1.000000000000 |    1.000000000000 ✔
  0 |  1 |  0 |    0.000000000000 |    0.000000000000 ✔
@@ -938,8 +938,8 @@ Lₙᵏ(x) = dᵏ/dxᵏ Lₙ(x); Lₙ(x) = 1/(n!) eˣ dⁿ/dxⁿ e⁻ˣ xⁿ |  
  7 |  7 |  5 | 2520.000000000000 | 2519.999999999775 ✔
  7 |  7 |  6 | 5040.000000000000 | 5039.999999999985 ✔
  7 |  7 |  7 | 5040.000000000000 | 5040.000000000000 ✔
-Test Summary:                                 | Pass  Total  Time
-∫exp(-x)xᵏLᵢᵏ(x)Lⱼᵏ(x)dx = (2i+k)!/(i+k)! δᵢⱼ |  204    204  0.8s</code></pre><h4 id="Normalization-of-R_{nl}(r)"><a class="docs-heading-anchor" href="#Normalization-of-R_{nl}(r)">Normalization of <span>$R_{nl}(r)$</span></a><a id="Normalization-of-R_{nl}(r)-1"></a><a class="docs-heading-anchor-permalink" href="#Normalization-of-R_{nl}(r)" title="Permalink"></a></h4><p class="math-container">\[\int |R_{nl}(r)|^2 r^2 \mathrm{d}r = 1\]</p><pre><code class="nohighlight hljs"> n |  l |        analytical |         numerical 
+Test Summary:                                 | Pass  Total
+∫exp(-x)xᵏLᵢᵏ(x)Lⱼᵏ(x)dx = (2i+k)!/(i+k)! δᵢⱼ |  204    204</code></pre><h4 id="Normalization-of-R_{nl}(r)"><a class="docs-heading-anchor" href="#Normalization-of-R_{nl}(r)">Normalization of <span>$R_{nl}(r)$</span></a><a id="Normalization-of-R_{nl}(r)-1"></a><a class="docs-heading-anchor-permalink" href="#Normalization-of-R_{nl}(r)" title="Permalink"></a></h4><p class="math-container">\[\int |R_{nl}(r)|^2 r^2 \mathrm{d}r = 1\]</p><pre><code class="nohighlight hljs"> n |  l |        analytical |         numerical 
 -- | -- | ----------------- | ----------------- 
  1 |  0 |    1.000000000000 |    1.000000000000 ✔
  2 |  0 |    1.000000000000 |    1.000000000000 ✔
@@ -986,8 +986,8 @@ Test Summary:                                 | Pass  Total  Time
  9 |  6 |    1.000000000000 |    1.000000000000 ✔
  9 |  7 |    1.000000000000 |    1.000000000000 ✔
  9 |  8 |    1.000000000000 |    1.000000000000 ✔
-Test Summary:               | Pass  Total  Time
-∫|Rₙₗ(r)|²r²dr = δₙ₁ₙ₂δₗ₁ₗ₂ |   45     45  0.6s</code></pre><h4 id="Expected-Value-of-r"><a class="docs-heading-anchor" href="#Expected-Value-of-r">Expected Value of <span>$r$</span></a><a id="Expected-Value-of-r-1"></a><a class="docs-heading-anchor-permalink" href="#Expected-Value-of-r" title="Permalink"></a></h4><p class="math-container">\[\langle r \rangle
+Test Summary:               | Pass  Total
+∫|Rₙₗ(r)|²r²dr = δₙ₁ₙ₂δₗ₁ₗ₂ |   45     45</code></pre><h4 id="Expected-Value-of-r"><a class="docs-heading-anchor" href="#Expected-Value-of-r">Expected Value of <span>$r$</span></a><a id="Expected-Value-of-r-1"></a><a class="docs-heading-anchor-permalink" href="#Expected-Value-of-r" title="Permalink"></a></h4><p class="math-container">\[\langle r \rangle
 = \int r |R_{n_1 l_1}(r)|^2 r^2 \mathrm{d}r
 = \frac{a_\mu}{2Z} \left[ 3n^2 - l(l+1) \right] \\
 a_\mu = a_0 \frac{m_\mathrm{e}}{\mu} \\
@@ -1038,8 +1038,8 @@ a_\mu = a_0 \frac{m_\mathrm{e}}{\mu} \\
  9 |  6 |  100.500000000000 |  100.500000000000 ✔
  9 |  7 |   93.500000000000 |   93.500000000000 ✔
  9 |  8 |   85.500000000000 |   85.500000000000 ✔
-Test Summary:                                                    | Pass  Total  Time
-∫r|Rₙₗ(r)|²r²dr = (a₀×mₑ/μ)/2Z × [3n²-l(l+1)]; 1/μ = 1/mₑ + 1/mₚ |   45     45  0.6s</code></pre><h4 id="Expected-Value-of-r2"><a class="docs-heading-anchor" href="#Expected-Value-of-r2">Expected Value of <span>$r^2$</span></a><a id="Expected-Value-of-r2-1"></a><a class="docs-heading-anchor-permalink" href="#Expected-Value-of-r2" title="Permalink"></a></h4><p class="math-container">\[\langle r^2 \rangle
+Test Summary:                                                    | Pass  Total
+∫r|Rₙₗ(r)|²r²dr = (a₀×mₑ/μ)/2Z × [3n²-l(l+1)]; 1/μ = 1/mₑ + 1/mₚ |   45     45</code></pre><h4 id="Expected-Value-of-r2"><a class="docs-heading-anchor" href="#Expected-Value-of-r2">Expected Value of <span>$r^2$</span></a><a id="Expected-Value-of-r2-1"></a><a class="docs-heading-anchor-permalink" href="#Expected-Value-of-r2" title="Permalink"></a></h4><p class="math-container">\[\langle r^2 \rangle
 = \int r^2 |R_{n_1 l_1}(r)|^2 r^2 \mathrm{d}r
 = \frac{a_\mu^2}{2Z^2} n^2 \left[ 5n^2 + 1 - 3l(l+1) \right] \\
 a_\mu = a_0 \frac{m_\mathrm{e}}{\mu} \\
@@ -1090,8 +1090,8 @@ a_\mu = a_0 \frac{m_\mathrm{e}}{\mu} \\
  9 |  6 | 11340.000000000000 | 11339.999999999945 ✔
  9 |  7 | 9639.000000000000 | 9638.999999999991 ✔
  9 |  8 | 7695.000000000000 | 7694.999999999998 ✔
-Test Summary:                                                            | Pass  Total  Time
-∫r²|Rₙₗ(r)|²r²dr = (a₀×mₑ/μ)²/2Z² × n²[5n²+1-3l(l+1)]; 1/μ = 1/mₑ + 1/mₚ |   45     45  0.6s</code></pre><h4 id="Virial-Theorem"><a class="docs-heading-anchor" href="#Virial-Theorem">Virial Theorem</a><a id="Virial-Theorem-1"></a><a class="docs-heading-anchor-permalink" href="#Virial-Theorem" title="Permalink"></a></h4><p>The virial theorem <span>$2\langle T \rangle + \langle V \rangle = 0$</span> and the definition of Hamiltonian <span>$\langle H \rangle = \langle T \rangle + \langle V \rangle$</span> derive <span>$\langle H \rangle = \frac{1}{2} \langle V \rangle$</span> and <span>$\langle H \rangle = -\langle T \rangle$</span>.</p><p class="math-container">\[\frac{1}{2} \int \psi_n^\ast(x) V(x) \psi_n(x) \mathrm{d}x = E_n\]</p><pre><code class="nohighlight hljs"> n |        analytical |         numerical 
+Test Summary:                                                            | Pass  Total
+∫r²|Rₙₗ(r)|²r²dr = (a₀×mₑ/μ)²/2Z² × n²[5n²+1-3l(l+1)]; 1/μ = 1/mₑ + 1/mₚ |   45     45</code></pre><h4 id="Virial-Theorem"><a class="docs-heading-anchor" href="#Virial-Theorem">Virial Theorem</a><a id="Virial-Theorem-1"></a><a class="docs-heading-anchor-permalink" href="#Virial-Theorem" title="Permalink"></a></h4><p>The virial theorem <span>$2\langle T \rangle + \langle V \rangle = 0$</span> and the definition of Hamiltonian <span>$\langle H \rangle = \langle T \rangle + \langle V \rangle$</span> derive <span>$\langle H \rangle = \frac{1}{2} \langle V \rangle$</span> and <span>$\langle H \rangle = -\langle T \rangle$</span>.</p><p class="math-container">\[\frac{1}{2} \int \psi_n^\ast(x) V(x) \psi_n(x) \mathrm{d}x = E_n\]</p><pre><code class="nohighlight hljs"> n |        analytical |         numerical 
 -- | ----------------- | ----------------- 
  1 |   -1.000000000000 |   -1.000000000000 ✔
  2 |   -0.250000000000 |   -0.250000000000 ✔
@@ -1103,8 +1103,8 @@ Test Summary:                                                            | Pass 
  8 |   -0.015625000000 |   -0.015625000000 ✔
  9 |   -0.012345679012 |   -0.012345679012 ✔
 10 |   -0.010000000000 |   -0.010000000000 ✔
-Test Summary:      | Pass  Total  Time
-&lt;ψₙ|V|ψₙ&gt; / 2 = Eₙ |   10     10  0.5s</code></pre><h4 id="Normalization-and-Orthogonality-of-\\psi_n(r,\\theta,\\varphi)"><a class="docs-heading-anchor" href="#Normalization-and-Orthogonality-of-\\psi_n(r,\\theta,\\varphi)">Normalization &amp; Orthogonality of <span>$\psi_n(r,\theta,\varphi)$</span></a><a id="Normalization-and-Orthogonality-of-\\psi_n(r,\\theta,\\varphi)-1"></a><a class="docs-heading-anchor-permalink" href="#Normalization-and-Orthogonality-of-\\psi_n(r,\\theta,\\varphi)" title="Permalink"></a></h4><p class="math-container">\[\int \psi_i^\ast(r,\theta,\varphi) \psi_j(r,\theta,\varphi) r^2 \mathrm{d}r \mathrm{d}\theta \mathrm{d}\varphi = \delta_{ij}\]</p><pre><code class="nohighlight hljs">n₁ | n₂ | l₁ | l₂ | m₁ | m₂ |        analytical |         numerical 
+Test Summary:      | Pass  Total
+&lt;ψₙ|V|ψₙ&gt; / 2 = Eₙ |   10     10</code></pre><h4 id="Normalization-and-Orthogonality-of-\\psi_n(r,\\theta,\\varphi)"><a class="docs-heading-anchor" href="#Normalization-and-Orthogonality-of-\\psi_n(r,\\theta,\\varphi)">Normalization &amp; Orthogonality of <span>$\psi_n(r,\theta,\varphi)$</span></a><a id="Normalization-and-Orthogonality-of-\\psi_n(r,\\theta,\\varphi)-1"></a><a class="docs-heading-anchor-permalink" href="#Normalization-and-Orthogonality-of-\\psi_n(r,\\theta,\\varphi)" title="Permalink"></a></h4><p class="math-container">\[\int \psi_i^\ast(r,\theta,\varphi) \psi_j(r,\theta,\varphi) r^2 \sin(\theta) \mathrm{d}r \mathrm{d}\theta \mathrm{d}\varphi = \delta_{ij}\]</p><pre><code class="nohighlight hljs">n₁ | n₂ | l₁ | l₂ | m₁ | m₂ |        analytical |         numerical 
 -- | -- | -- | -- | -- | -- | ----------------- | ----------------- 
  1 |  1 |  0 |  0 |  0 |  0 |    1.000000000000 |    1.000000000252 ✔
  1 |  2 |  0 |  0 |  0 |  0 |    0.000000000000 |   -0.000000011223 ✔
@@ -1302,6 +1302,6 @@ Test Summary:      | Pass  Total  Time
  3 |  3 |  2 |  2 |  2 |  0 |    0.000000000000 |   -0.000000000000 ✔
  3 |  3 |  2 |  2 |  2 |  1 |    0.000000000000 |    0.000000000000 ✔
  3 |  3 |  2 |  2 |  2 |  2 |    1.000000000000 |    1.000300628566 ✔
-Test Summary:                       | Pass  Total  Time
-&lt;ψₙ₁ₗ₁ₘ₁|ψₙ₂ₗ₂ₘ₂&gt; = δₙ₁ₙ₂δₗ₁ₗ₂δₘ₁ₘ₂ |  196    196  5.5s
-</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../MorsePotential/">« Morse Potential</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="auto">Automatic (OS)</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.2.1 on <span class="colophon-date" title="Sunday 10 December 2023 12:27">Sunday 10 December 2023</span>. Using Julia version 1.9.4.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+Test Summary:                       | Pass  Total
+&lt;ψₙ₁ₗ₁ₘ₁|ψₙ₂ₗ₂ₘ₂&gt; = δₙ₁ₙ₂δₗ₁ₗ₂δₘ₁ₘ₂ |  196    196
+</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../MorsePotential/">« Morse Potential</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="auto">Automatic (OS)</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.2.1 on <span class="colophon-date" title="Thursday 14 December 2023 16:29">Thursday 14 December 2023</span>. Using Julia version 1.9.4.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>

@@ -135,8 +135,8 @@ plot!([0,0,L,L], [140,0,0,140], lc=:black, lw=2, label=&quot;&quot;)</code></pre
 10 |  8 |    0.000000000000 |    0.000000000000 ✔
 10 |  9 |    0.000000000000 |    0.000000000000 ✔
 10 | 10 |    1.000000000000 |    1.000000000000 ✔
-Test Summary:            | Pass  Total  Time
-&lt;ψᵢ|ψⱼ&gt; = ∫ψₙ*ψₙdx = δᵢⱼ |  100    100  1.8s</code></pre><h4 id="Eigen-Values-2"><a class="docs-heading-anchor" href="#Eigen-Values-2">Eigen Values</a><a class="docs-heading-anchor-permalink" href="#Eigen-Values-2" title="Permalink"></a></h4><p class="math-container">\[  \begin{aligned}
+Test Summary:            | Pass  Total
+&lt;ψᵢ|ψⱼ&gt; = ∫ψₙ*ψₙdx = δᵢⱼ |  100    100</code></pre><h4 id="Eigen-Values-2"><a class="docs-heading-anchor" href="#Eigen-Values-2">Eigen Values</a><a class="docs-heading-anchor-permalink" href="#Eigen-Values-2" title="Permalink"></a></h4><p class="math-container">\[  \begin{aligned}
     E_n
     &amp;=      \int_0^L \psi^\ast_n(x) \hat{H} \psi_n(x) ~\mathrm{d}x \\
     &amp;=      \int_0^L \psi^\ast_n(x) \left[ \hat{V} + \hat{T} \right] \psi(x) ~\mathrm{d}x \\
@@ -262,8 +262,8 @@ Test Summary:            | Pass  Total  Time
 1.0 | 1.0 | 1.0 |  8 |  315.827174600228 |  315.827340834859 ✔
 1.0 | 1.0 | 1.0 |  9 |  399.718711951912 |  399.718978244119 ✔
 1.0 | 1.0 | 1.0 | 10 |  493.479814178266 |  493.480220054468 ✔
-Test Summary:               | Pass  Total  Time
-&lt;ψₙ|H|ψₙ&gt;  = ∫ψₙ*Tψₙdx = Eₙ |   80     80  0.7s</code></pre><h4 id="Expected-Value-of-x"><a class="docs-heading-anchor" href="#Expected-Value-of-x">Expected Value of <span>$x$</span></a><a id="Expected-Value-of-x-1"></a><a class="docs-heading-anchor-permalink" href="#Expected-Value-of-x" title="Permalink"></a></h4><p class="math-container">\[\langle x \rangle_{n=1}
+Test Summary:               | Pass  Total
+&lt;ψₙ|H|ψₙ&gt;  = ∫ψₙ*Tψₙdx = Eₙ |   80     80</code></pre><h4 id="Expected-Value-of-x"><a class="docs-heading-anchor" href="#Expected-Value-of-x">Expected Value of <span>$x$</span></a><a id="Expected-Value-of-x-1"></a><a class="docs-heading-anchor-permalink" href="#Expected-Value-of-x" title="Permalink"></a></h4><p class="math-container">\[\langle x \rangle_{n=1}
 = \int_{0}^{L} \psi_1^\ast(x) \hat{x} \psi_1(x) ~\mathrm{d}x
 = \frac{2(2a)^2}{\pi^3} \left( \frac{\pi^3}{6} - \frac{\pi}{4} \right)\]</p><p>for only <span>$n=1$</span>.</p><p>Reference:</p><ul><li><a href="https://phys.libretexts.org/Bookshelves/Modern_Physics/Book%3A_Spiral_Modern_Physics_(D&#39;Alessandris)/6%3A_The_Schrodinger_Equation/6.4%3A_Expectation_Values_Observables_and_Uncertainty">LibreTexts PHYSICS, 6.4: Expectation Values, Observables, and Uncertainty</a></li></ul><pre><code class="nohighlight hljs">  L |  n |        analytical |         numerical 
 --- | -- | ----------------- | ----------------- 
@@ -271,8 +271,8 @@ Test Summary:               | Pass  Total  Time
 0.5 |  1 |    0.250000000000 |    0.250000000000 ✔
 1.0 |  1 |    0.500000000000 |    0.500000000000 ✔
 7.0 |  1 |    3.500000000000 |    3.500000000000 ✔
-Test Summary:    | Pass  Total  Time
-&lt;ψₙ|x|ψₙ&gt;  = L/2 |    4      4  0.5s</code></pre><h4 id="Expected-Value-of-x2"><a class="docs-heading-anchor" href="#Expected-Value-of-x2">Expected Value of <span>$x^2$</span></a><a id="Expected-Value-of-x2-1"></a><a class="docs-heading-anchor-permalink" href="#Expected-Value-of-x2" title="Permalink"></a></h4><p class="math-container">\[\langle x^2 \rangle_{n=1}
+Test Summary:    | Pass  Total
+&lt;ψₙ|x|ψₙ&gt;  = L/2 |    4      4</code></pre><h4 id="Expected-Value-of-x2"><a class="docs-heading-anchor" href="#Expected-Value-of-x2">Expected Value of <span>$x^2$</span></a><a id="Expected-Value-of-x2-1"></a><a class="docs-heading-anchor-permalink" href="#Expected-Value-of-x2" title="Permalink"></a></h4><p class="math-container">\[\langle x^2 \rangle_{n=1}
 = \int_{0}^{L} \psi_1^\ast(x) \hat{x}^2 \psi_1(x) ~\mathrm{d}x
 = \frac{2(2a)^2}{\pi^3} \left( \frac{\pi^3}{6} - \frac{\pi}{4} \right)\]</p><p>Reference:</p><ul><li><a href="https://phys.libretexts.org/Bookshelves/Modern_Physics/Book%3A_Spiral_Modern_Physics_(D&#39;Alessandris)/6%3A_The_Schrodinger_Equation/6.4%3A_Expectation_Values_Observables_and_Uncertainty">LibreTexts PHYSICS, 6.4: Expectation Values, Observables, and Uncertainty</a></li></ul><pre><code class="nohighlight hljs">  L |  n |        analytical |         numerical 
 --- | -- | ----------------- | ----------------- 
@@ -280,8 +280,8 @@ Test Summary:    | Pass  Total  Time
 0.5 |  1 |    0.070668185378 |    0.070668185378 ✔
 1.0 |  1 |    0.282672741512 |    0.282672741512 ✔
 7.0 |  1 |   13.850964334096 |   13.850964334096 ✔
-Test Summary:                 | Pass  Total  Time
-&lt;ψₙ|x²|ψₙ&gt; = 2L²/π³(π³/6-π/4) |    4      4  0.4s</code></pre><h4 id="Expected-Value-of-p"><a class="docs-heading-anchor" href="#Expected-Value-of-p">Expected Value of <span>$p$</span></a><a id="Expected-Value-of-p-1"></a><a class="docs-heading-anchor-permalink" href="#Expected-Value-of-p" title="Permalink"></a></h4><p class="math-container">\[\langle p \rangle_{n=1}
+Test Summary:                 | Pass  Total
+&lt;ψₙ|x²|ψₙ&gt; = 2L²/π³(π³/6-π/4) |    4      4</code></pre><h4 id="Expected-Value-of-p"><a class="docs-heading-anchor" href="#Expected-Value-of-p">Expected Value of <span>$p$</span></a><a id="Expected-Value-of-p-1"></a><a class="docs-heading-anchor-permalink" href="#Expected-Value-of-p" title="Permalink"></a></h4><p class="math-container">\[\langle p \rangle_{n=1}
 = \int_{0}^{L} \psi_1^\ast(x) \hat{p} \psi_1(x) ~\mathrm{d}x
 = 0\]</p><p>Reference:</p><ul><li><a href="https://phys.libretexts.org/Bookshelves/Modern_Physics/Book%3A_Spiral_Modern_Physics_(D&#39;Alessandris)/6%3A_The_Schrodinger_Equation/6.4%3A_Expectation_Values_Observables_and_Uncertainty">LibreTexts PHYSICS, 6.4: Expectation Values, Observables, and Uncertainty</a></li></ul><hr/><p class="math-container">\[  \begin{aligned}
     \langle p \rangle_{n=1}
@@ -330,8 +330,8 @@ Test Summary:                 | Pass  Total  Time
 0.5 |  1 |    0.000000000000 |    0.000000000000 ✔
 1.0 |  1 |    0.000000000000 |    0.000000000000 ✔
 7.0 |  1 |    0.000000000000 |    0.000000000000 ✔
-Test Summary:                      | Pass  Total  Time
-&lt;ψₙ|p|ψₙ&gt;  = ∫ψₙ*(-iℏd/dx)ψₙdx = 0 |    4      4  0.6s</code></pre><h4 id="Expected-Value-of-p2"><a class="docs-heading-anchor" href="#Expected-Value-of-p2">Expected Value of <span>$p^2$</span></a><a id="Expected-Value-of-p2-1"></a><a class="docs-heading-anchor-permalink" href="#Expected-Value-of-p2" title="Permalink"></a></h4><p class="math-container">\[\langle p^2 \rangle
+Test Summary:                      | Pass  Total
+&lt;ψₙ|p|ψₙ&gt;  = ∫ψₙ*(-iℏd/dx)ψₙdx = 0 |    4      4</code></pre><h4 id="Expected-Value-of-p2"><a class="docs-heading-anchor" href="#Expected-Value-of-p2">Expected Value of <span>$p^2$</span></a><a id="Expected-Value-of-p2-1"></a><a class="docs-heading-anchor-permalink" href="#Expected-Value-of-p2" title="Permalink"></a></h4><p class="math-container">\[\langle p^2 \rangle
 = \int_{0}^{L} \psi_1^\ast(x) \hat{p}^2 \psi_1(x) ~\mathrm{d}x
 = \frac{\pi^2\hbar^2}{L^2}\]</p><p>Reference:</p><ul><li><a href="https://phys.libretexts.org/Bookshelves/Modern_Physics/Book%3A_Spiral_Modern_Physics_(D&#39;Alessandris)/6%3A_The_Schrodinger_Equation/6.4%3A_Expectation_Values_Observables_and_Uncertainty">LibreTexts PHYSICS, 6.4: Expectation Values, Observables, and Uncertainty</a></li></ul><hr/><p class="math-container">\[  \begin{aligned}
     \langle p^2 \rangle
@@ -382,6 +382,6 @@ Test Summary:                      | Pass  Total  Time
 0.5 |  1 |   39.478417274195 |   39.478417604357 ✔
 1.0 |  1 |    9.869604318963 |    9.869604401089 ✔
 7.0 |  1 |    0.201420496383 |    0.201420497981 ✔
-Test Summary:                              | Pass  Total  Time
-&lt;ψₙ|p²|ψₙ&gt; = ∫ψₙ*(-ℏ²d²/dx²)ψₙdx = π²ℏ²/L² |    4      4  0.4s
-</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../">« Home</a><a class="docs-footer-nextpage" href="../HarmonicOscillator/">Harmonic Oscillator »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="auto">Automatic (OS)</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.2.1 on <span class="colophon-date" title="Sunday 10 December 2023 12:27">Sunday 10 December 2023</span>. Using Julia version 1.9.4.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+Test Summary:                              | Pass  Total
+&lt;ψₙ|p²|ψₙ&gt; = ∫ψₙ*(-ℏ²d²/dx²)ψₙdx = π²ℏ²/L² |    4      4
+</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../">« Home</a><a class="docs-footer-nextpage" href="../HarmonicOscillator/">Harmonic Oscillator »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="auto">Automatic (OS)</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.2.1 on <span class="colophon-date" title="Thursday 14 December 2023 16:29">Thursday 14 December 2023</span>. Using Julia version 1.9.4.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
