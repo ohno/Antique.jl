@@ -14,31 +14,33 @@ To install this package, run the following code in your Jupyter Notebook:
 using Pkg; Pkg.add("Antique")
 ```
 
-## Usage
+## Usage & Examples
 
-To use this package, run the following code before each use:
+Install Antique.jl for the first use and run `using Antique` before each use. The function `antique(model, parameters...)` returns a module that has `E`, `ψ`, `V` and some other functions. Here are examples in hydrogen-like atom. The analytical notation of energy (eigen value of the Hamiltonian) is written as
+
+```math
+E_n = -\frac{Z^2}{2n^2} E_\mathrm{h}.
+```
+
+Hydrogen atom has symbol $\mathrm{H}$ and atomic number 1 ($Z=1$). Therefore the ground state ($n=1$) energy is $-\frac{1}{2} E_\mathrm{h}$.
 
 ```julia
 using Antique
+H = antique(:HydrogenAtom, Z=1)
+H.E(n=1)
+# output> -0.5
 ```
 
-The function `antique(model, parameters...)` returns a module. Each module has `E()`, `ψ(x)` and some other functions.
+Helium cation has symbol $\mathrm{He}^+$ and atomic number 2 ($Z=2$). Therefore the ground state ($n=1$) energy is $-2 E_\mathrm{h}$.
 
-## Examples
-
-The energy of $1\mathrm{S}$ state in $\mathrm{H}$:
 ```julia
-julia> H = antique(:HydrogenAtom, Z=1)
-julia> H.E(n=1)
--0.5
+using Antique
+He⁺ = antique(:HydrogenAtom, Z=2)
+He⁺.E(n=1)
+# output> -2.0
 ```
 
-The energy of $1\mathrm{S}$ state in $\mathrm{He}^+$:
-```julia
-julia> He⁺ = antique(:HydrogenAtom, Z=2)
-julia> He⁺.E(n=1)
--2.0
-```
+There are more examples on each model page.
 
 ## Supported Models
 

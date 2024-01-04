@@ -81,7 +81,7 @@ Examples:
 
 ## Usage & Examples
 
-[Install Antique.jl](@ref Install) for the first run and run `using Antique` before each use. The function `antique(model, parameters...)` returns a module that has `E()`, `ψ(r)`, `V(r)` and some other functions. In this system, the model name is specified by `:MorsePotential` and several parameters `rₑ`, `Dₑ`, `k`, `µ` and `ℏ` are set as optional arguments.
+[Install Antique.jl](@ref Install) for the first use and run `using Antique` before each use. The function `antique(model, parameters...)` returns a module that has `E()`, `ψ(r)`, `V(r)` and some other functions. In this system, the model name is specified by `:MorsePotential` and several parameters `rₑ`, `Dₑ`, `k`, `µ` and `ℏ` are set as optional arguments.
 
 !!! warning
 

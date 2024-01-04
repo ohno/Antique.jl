@@ -50,7 +50,7 @@ The infinite potential well (particle in a box) is the simplest model for quantu
 
 ## Usage & Examples
 
-[Install Antique.jl](@ref Install) for the first run and run `using Antique` before each use. The function `antique(model, parameters...)` returns a module that has `E()`, `ψ(x)`, `V(x)` and some other functions. In this system, the model name is specified by `:InfinitePotentialWell` and several parameters `L`, `m` and `ℏ` are set as optional arguments.
+[Install Antique.jl](@ref Install) for the first use and run `using Antique` before each use. The function `antique(model, parameters...)` returns a module that has `E()`, `ψ(x)`, `V(x)` and some other functions. In this system, the model name is specified by `:InfinitePotentialWell` and several parameters `L`, `m` and `ℏ` are set as optional arguments.
 
 ```julia
 using Antique
