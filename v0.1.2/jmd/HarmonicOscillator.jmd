@@ -1,0 +1,154 @@
+```@meta
+CurrentModule = Antique
+```
+
+# Harmonic Oscillator
+
+The harmonic oscillator is the most frequently used model in quantum physics.
+
+## Definitions
+
+``k`` is the spring constant. And ``\omega = \sqrt{k/m}``, ``\xi = \sqrt{\frac{m\omega}{\hbar}}x``, ``A_n = \sqrt{\frac{1}{n! 2^n} \sqrt{\frac{m\omega}{\pi\hbar}}}``, ``H_n(x) = (-1)^n \mathrm{e}^{x^2} \frac{\mathrm{d}^n}{\mathrm{d}x^n} \mathrm{e}^{-x^2}`` are used.
+
+#### Schrödinger Equation
+```math
+  \hat{H}\psi(x) = E \psi(x)
+```
+
+#### Hamiltonian
+```math
+  \begin{aligned}
+    \hat{H}
+    &= - \frac{\hbar^2}{2m} \frac{\mathrm{d}^2}{\mathrm{d}x ^2} + V(x) \\
+    &= - \frac{1}{2} \hbar\omega \frac{\mathrm{d}^2}{\mathrm{d}\xi^2} + V(x)
+  \end{aligned}
+```
+
+#### Potential
+`V(x; k=k, m=m, ω=sqrt(k/m))`
+```math
+  V(x)
+  = \frac{1}{2} k x^2
+  = \frac{1}{2} m \omega^2 x^2
+  = \frac{1}{2} \hbar \omega \xi^2
+```
+
+#### Eigen Values
+`E(n; k, m, ω=sqrt(k/m), ℏ=ℏ)`
+```math
+  E_n = \hbar \omega \left( n + \frac{1}{2} \right)
+```
+
+#### Eigen Functions
+`ψ(n, x; k=k, m=m, ω=sqrt(k/m), ℏ=ℏ)`
+```math
+  \psi_n(x) = A_n H_n(\xi) \exp{\left( -\frac{\xi^2}{2} \right)}
+```
+
+#### Hermite Polynomials
+`H(x; n=0)`
+
+Rodrigues' formula & closed-form:
+```math
+  \begin{aligned}
+    H_{n}(x)
+    &:= (-1)^n \mathrm{e}^{x^2} \frac{\mathrm{d}^n}{\mathrm{d}x^n} \mathrm{e}^{-x^2} \\
+    &= n! \sum_{m=0}^{\lfloor n/2 \rfloor} \frac{(-1)^m}{m! (n-2m)!}(2 x)^{n-2m}.
+  \end{aligned}
+```
+Examples:
+```math
+  \begin{aligned}
+    H_{0}(x)  &= 1, \\
+    H_{1}(x)  &= 2 x, \\
+    H_{2}(x)  &= -2 + 4 x^{2}, \\
+    H_{3}(x)  &= -12 x + 8 x^{3}, \\
+    H_{4}(x)  &= 12 - 48 x^{2} + 16 x^{4}, \\
+    H_{5}(x)  &= 120 x - 160 x^{3} + 32 x^{5}, \\
+    H_{6}(x)  &= -120 + 720 x^{2} - 480 x^{4} + 64 x^{6}, \\
+    H_{7}(x)  &= -1680 x + 3360 x^{3} - 1344 x^{5} + 128 x^{7}, \\
+    H_{8}(x)  &= 1680 - 13440 x^{2} + 13440 x^{4} - 3584 x^{6} + 256 x^{8}, \\
+    H_{9}(x)  &= 30240 x - 80640 x^{3} + 48384 x^{5} - 9216 x^{7} + 512 x^{9}, \\
+    &\vdots
+  \end{aligned}
+```
+
+#### Reference
+- [DLMF 18.5.18](https://dlmf.nist.gov/18.5#E18)
+- [cpprefjp](https://cpprefjp.github.io/reference/cmath/hermite.html)
+- The Digital Library of Mathematical Functions (DLMF)                                                    [18.3 Table1](https://dlmf.nist.gov/18.3#T1), [18.5 Table1](https://dlmf.nist.gov/18.5#T1), [18.5.13](https://dlmf.nist.gov/18.5#E13), [18.5.18](https://dlmf.nist.gov/18.5#E18)
+- L. D. Landau, E. M. Lifshitz, Quantum Mechanics (Pergamon Press, 1965)                                  [p.595 (a.4), (a.6)](https://archive.org/details/ost-physics-landaulifshitz-quantummechanics/page/n607/mode/2up)
+- L. I. Schiff, Quantum Mechanics (McGraw-Hill Book Company, 1968)                                        [p.71 (13.12)](https://archive.org/details/ost-physics-schiff-quantummechanics/page/n87/mode/2up)
+- A. Messiah, Quanfum Mechanics (Dover Publications, 1999)                                                [p.491 (B.59)](https://archive.org/details/quantummechanics0000mess/page/491/mode/1up)
+- W. Greiner, Quantum Mechanics: An Introduction Third Edition (Springer, 1994)                           [p.152 (7.22)](https://archive.org/details/quantummechanics0001grei_u4x0/page/152/mode/1up)
+- D. J. Griffiths, Introduction to Quantum Mechanics (Prentice Hall, 1995)                                [p.41 Table 2.1](https://archive.org/details/griffiths-introduction-to-quantum-mechanics/page/41/mode/1up), [p.43 (2.70)](https://archive.org/details/griffiths-introduction-to-quantum-mechanics/page/43/mode/1up)
+- D. A. McQuarrie, J. D. Simon, Physical Chemistry: A Molecular Approach (University Science Books, 1997) [p.170 Table 5.2](https://archive.org/details/McQuarrieSimonPhysicalChemistrySolutions/McQuarrie_Simon_Physical_Chemistry1997/page/n193/mode/1up)
+- P. W. Atkins, J. De Paula, Atkins' Physical Chemistry, 8th edition (W. H. Freeman, 2008)                [p.293 Table 9.1](https://archive.org/details/atkinsphysicalch00pwat/page/292/mode/2up)
+- J. J. Sakurai, J. Napolitano, Modern Quantum Mechanics Third Edition (Cambridge University Press, 2021) [p.524 (B.29)](https://doi.org/10.1017/9781108587280)
+
+## Usage & Examples
+
+[Install Antique.jl](@ref Install) for the first use and run `using Antique` before each use. The function `antique(model, parameters...)` returns a module that has `E()`, `ψ(x)`, `V(x)` and some other functions. In this system, the model name is specified by `:HarmonicOscillator` and several parameters `k`, `m` and `ℏ` are set as optional arguments.
+
+```julia; cache = :all; results = "hidden"
+using Antique
+HO = antique(:HarmonicOscillator, k=1.0, m=1.0, ℏ=1.0)
+```
+
+Parameters:
+
+```julia; term = true
+HO.k
+HO.m
+HO.ℏ
+```
+
+Eigen values:
+
+```julia; term = true
+HO.E(n=0)
+HO.E(n=1)
+```
+
+Potential energy curve:
+
+```julia
+using Plots
+plot(-5:0.1:5, x -> HO.V(x), lw=2, label="", xlabel="x", ylabel="V(x)")
+```
+
+Wave functions:
+
+```julia
+using Plots
+plot(xlim=(-5,5), xlabel="x", ylabel="ψ(x)")
+plot!(x -> HO.ψ(x, n=0), label="n=0", lw=2)
+plot!(x -> HO.ψ(x, n=1), label="n=1", lw=2)
+plot!(x -> HO.ψ(x, n=2), label="n=2", lw=2)
+plot!(x -> HO.ψ(x, n=3), label="n=3", lw=2)
+plot!(x -> HO.ψ(x, n=4), label="n=4", lw=2)
+```
+
+Potential energy curve, Energy levels, Wave functions:
+
+```julia
+using Plots
+plot(xlim=(-5.5,5.5), ylim=(-0.2,5.4), xlabel="\$x\$", ylabel="\$V(x),~E_n,~\\psi_n(x)\\times0.5+E_n\$", size=(480,400), dpi=300)
+for n in 0:4
+  # energy
+  hline!([HO.E(n=n)], lc=:black, ls=:dash, label="")
+  plot!([-sqrt(2*HO.k*HO.E(n=n)),sqrt(2*HO.k*HO.E(n=n))], fill(HO.E(n=n),2), lc=:black, lw=2, label="")
+  # wave function
+  plot!(x -> HO.E(n=n) + 0.5*HO.ψ(x,n=n), lc=n+1, lw=2, label="")
+end
+# potential
+plot!(x -> HO.V(x), lc=:black, lw=2, label="")
+```
+
+## Testing
+
+Unit testing and Integration testing were done using computer algebra system ([Symbolics.jl](https://symbolics.juliasymbolics.org/stable/)) and numerical integration ([QuadGK.jl](https://juliamath.github.io/QuadGK.jl/stable/)). The test script is [here](https://github.com/ohno/Antique.jl/blob/main/test/HarmonicOscillator.jl).
+
+```julia; line_width = 500
+include("../../../test/HarmonicOscillator.jl")
+```
