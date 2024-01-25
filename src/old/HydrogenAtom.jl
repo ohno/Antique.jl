@@ -1,4 +1,4 @@
-module HydrogenAtom
+module OldHydrogenAtom
 
     # Default
     Z = 1 # change here!

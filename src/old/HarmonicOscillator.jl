@@ -1,4 +1,4 @@
-module HarmonicOscillator
+module OldHarmonicOscillator
 
     # Default
     k = 1.0 # change here!

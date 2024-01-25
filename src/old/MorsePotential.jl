@@ -1,4 +1,4 @@
-module MorsePotential
+module OldMorsePotential
 
     # Packages
     using SpecialFunctions

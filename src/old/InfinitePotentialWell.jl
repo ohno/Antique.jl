@@ -1,4 +1,4 @@
-module InfinitePotentialWell
+module OldInfinitePotentialWell
 
   # Default
   L = 1.0 # change here!
