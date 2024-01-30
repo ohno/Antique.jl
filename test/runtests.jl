@@ -4,9 +4,8 @@ using Suppressor
 
 @testset "Antique.jl" begin
 	@suppress_out begin
-		include("./InfinitePotentialWell.jl")
-		include("./HarmonicOscillator.jl")
-		include("./MorsePotential.jl")
-		include("./HydrogenAtom.jl")
+		for model in Antique.models
+			include("./$(model).jl")
+		end
 	end
 end

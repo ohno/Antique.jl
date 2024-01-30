@@ -10,7 +10,7 @@ export HydrogenAtom, V, E, ψ, R, L, Y, P
 end
 
 # Potential
-function V(model::HydrogenAtom, r; Z=Z, a₀=a₀)
+function V(model::HydrogenAtom, r)
   # if r<0
   #   throw(DomainError(r, "r=$r is out of the domain (0≦r)"))
   # end

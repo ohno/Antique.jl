@@ -28,7 +28,7 @@ function ψ(model::HarmonicOscillator, x; n=0)
   m = model.m
   ℏ = model.ℏ
   ω = sqrt(k/m)
-  A = sqrt(1//(factorial(n)*2^n)*(m*ω/(π*ℏ)))^(1//2)
+  A = sqrt(1//(factorial(n)*2^n)*sqrt(m*ω/(π*ℏ)))
   ξ = sqrt(m*ω/ℏ) * x
   return A * H(model,ξ,n=n) * exp(-ξ^2/2)
 end

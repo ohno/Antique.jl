@@ -6,7 +6,7 @@ using QuadGK
 using Symbolics
 using Latexify
 using LaTeXStrings
-HO = antique(:HarmonicOscillator, k=1.0, m=1.0, ℏ=1.0)
+HO = HarmonicOscillator(k=1.0, m=1.0, ℏ=1.0)
 
 
 # Hₙ(x) = (-1)ⁿ exp(x²) dⁿ/dxⁿ　exp(-x²) = ...
@@ -34,7 +34,7 @@ println(raw"""
     c = a * D(b)                            # Rodrigues' formula
     d = expand_derivatives(c)               # expand dⁿ/dxⁿ
     e = simplify(d, expand=true)            # simplify
-    f = simplify(HO.H(x, n=n), expand=true) # closed-form
+    f = simplify(H(HO, x, n=n), expand=true) # closed-form
     # latexify
     eq1 = latexify(e, env=:raw)
     eq2 = latexify(f, env=:raw)
@@ -79,7 +79,7 @@ println(raw"""
   for i in 0:9
   for j in 0:9
     analytical = sqrt(π)*2^j*factorial(j)*(i == j ? 1 : 0)
-    numerical  = quadgk(x -> HO.H(x, n=j) * HO.H(x, n=i)* exp(-x^2), -Inf, Inf, maxevals=10^3)[1]
+    numerical  = quadgk(x -> H(HO, x, n=j) * H(HO, x, n=i)* exp(-x^2), -Inf, Inf, maxevals=10^3)[1]
     acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-5) : isapprox(analytical, numerical, rtol=1e-5)
     @test acceptance
     @printf("%2d | %2d | %17.12f | %17.12f %s\n", i, j, analytical, numerical, acceptance ? "✔" : "✗")
@@ -109,7 +109,7 @@ println(raw"""
   for i in 0:9
   for j in 0:9
     analytical = (i == j ? 1 : 0)
-    numerical  = quadgk(x -> conj(HO.ψ(x, n=i)) * HO.ψ(x, n=j), -Inf, Inf, maxevals=10^3)[1]
+    numerical  = quadgk(x -> conj(ψ(HO, x, n=i)) * ψ(HO, x, n=j), -Inf, Inf, maxevals=10^3)[1]
     acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-5) : isapprox(analytical, numerical, rtol=1e-5)
     @test acceptance
     @printf("%2d | %2d | %17.12f | %17.12f %s\n", i, j, analytical, numerical, acceptance ? "✔" : "✗")
@@ -140,8 +140,8 @@ The virial theorem $\langle T \rangle = \langle V \rangle$ and the definition of
   println("--- | -- | ----------------- | ----------------- ")
   for k in [0.1,0.5,1.0,5.0]
   for n in 0:9
-    analytical = HO.E(n=n)
-    numerical  = 2 * quadgk(x -> conj(HO.ψ(x, n=n)) * HO.V(x) * HO.ψ(x, n=n), -Inf, Inf, maxevals=10^3)[1]
+    analytical = E(HO, n=n)
+    numerical  = 2 * quadgk(x -> conj(ψ(HO, x, n=n)) * V(HO, x) * ψ(HO, x, n=n), -Inf, Inf, maxevals=10^3)[1]
     acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-5) : isapprox(analytical, numerical, rtol=1e-5)
     @test acceptance
     @printf("%.1f | %2d | %17.12f | %17.12f %s\n", k, n, analytical, numerical, acceptance ? "✔" : "✗")
@@ -222,19 +222,21 @@ are given by the sum of 2 Taylor series:
 ```""")
 
 @testset "∫ψₙ*Hψₙdx = <ψₙ|H|ψₙ> = Eₙ" begin
-  ψHψ(x; n=0, k=HO.k, m=HO.m, ℏ=HO.ℏ, Δx=0.005) = HO.V(x,k=k,m=m)*HO.ψ(x,n=n,k=k,m=m,ℏ=ℏ)^2 - ℏ^2/(2*m)*conj(HO.ψ(x,n=n,k=k,m=m,ℏ=ℏ))*(HO.ψ(x+Δx,n=n,k=k,m=m,ℏ=ℏ)-2*HO.ψ(x,n=n,k=k,m=m,ℏ=ℏ)+HO.ψ(x-Δx,n=n,k=k,m=m,ℏ=ℏ))/Δx^2
+  ψHψ(HO, x; n=0, Δx=0.005) = V(HO,x)*ψ(HO,x,n=n)^2 - HO.ℏ^2/(2*HO.m)*conj(ψ(HO,x,n=n))*(ψ(HO,x+Δx,n=n)-2*ψ(HO,x,n=n)+ψ(HO,x-Δx,n=n))/Δx^2
   println("  k |  n |        analytical |         numerical ")
   println("--- | -- | ----------------- | ----------------- ")
   for k in [0.1,0.5,1.0,5.0]
   for n in 0:9
-    analytical = HO.E(n=n, k=k)
-    numerical  = quadgk(x -> ψHψ(x, n=n, k=k, Δx=0.001), -Inf, Inf, maxevals=10^3)[1]
+    HO = HarmonicOscillator(k=k)
+    analytical = E(HO, n=n)
+    numerical  = quadgk(x -> ψHψ(HO, x, n=n, Δx=0.001), -Inf, Inf, maxevals=10^3)[1]
     acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-5) : isapprox(analytical, numerical, rtol=1e-5)
     @test acceptance
     @printf("%.1f | %2d | %17.12f | %17.12f %s\n", k, n, analytical, numerical, acceptance ? "✔" : "✗")
   end
   end
 end
+HO = HarmonicOscillator(k=1.0, m=1.0, ℏ=1.0)
 
 println("""```
 """)

@@ -67,7 +67,7 @@ end
 # Generalized Laguerre Polynomials
 function L(model::MorsePotential, x; n=0, α=0)
   if isinteger(α)
-    return sum(k -> (-1)^(k) * (Int(gamma(α+n+1)) // Int((gamma(α+1+k)*gamma(n-k+1)))) * x^k // factorial(k), 0:n)
+    return sum(k -> (-1)^(k) * (Int(gamma(α+n+1)) // Int((gamma(α+1+k)*gamma(n-k+1)))) * x^k * 1 // factorial(k), 0:n)
   else
     return sum(k -> (-1)^(k) * (gamma(α+n+1) / (gamma(α+1+k)*gamma(n-k+1))) * x^k / factorial(k), 0:n)
   end

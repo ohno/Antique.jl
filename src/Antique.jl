@@ -1,14 +1,5 @@
 module Antique
 
-  include("./InfinitePotentialWell.jl")
-  include("./HarmonicOscillator.jl")
-  include("./MorsePotential.jl")
-  include("./HydrogenAtom.jl")
-
-  # --------------- for old version ---------------
-
-  export antique
-
   # Update this list when you add a model.
   models = [
     :InfinitePotentialWell,
@@ -19,6 +10,23 @@ module Antique
 
   # include statements
   for model in models
+    include("./$(model).jl")
+  end
+
+  # --------------- for old version ---------------
+
+  export antique
+
+  # Update this list when you add a model.
+  oldmodels = [
+    :InfinitePotentialWell,
+    :HarmonicOscillator,
+    :MorsePotential,
+    :HydrogenAtom,
+  ]
+
+  # include statements
+  for model in oldmodels
     include("./old/$(model).jl")
   end
   
