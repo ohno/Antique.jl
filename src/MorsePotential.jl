@@ -4,7 +4,7 @@ export MorsePotential, V, E, nₘₐₓ, ψ, L
 using SpecialFunctions
 
 # Parameters
-@kwdef struct MorsePotential
+Base.@kwdef struct MorsePotential
   # F. M. Fernández, J. Garcia, ChemistrySelect, 6, 9527−9534(2021) https://doi.org/10.1002/slct.202102509
   # CODATA recommended values of the fundamental physical constants: 2018 https://physics.nist.gov/cgi-bin/cuu/Value?mpsme
   rₑ =  1.997193319969992120068298141276
