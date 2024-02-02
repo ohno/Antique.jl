@@ -77,6 +77,22 @@ There are more examples on each model page.
 
 [List of quantum-mechanical systems with analytical solutions](https://en.wikipedia.org/wiki/List_of_quantum-mechanical_systems_with_analytical_solutions)
 
+## Developer's Guide
+
+This is the guideline for adding new models.
+
+1. First, please add a new issue [here](https://github.com/ohno/Antique.jl/issues). We need to find a reference for the definition and analytical solutions (eigenvalues and eigenfunctions) before the development.
+2. Fork [the repository](https://github.com/ohno/Antique.jl) on GitHub.
+3. Clone the forked repository to your local machine by Git.
+4. Add the new model name `:ModelName` to the `models = [...]` array in src/Antique.jl. `:` is required at the beginning.
+5. Add the file src/ModelName.jl with the same name as the model name. The most helpful code examples are harmonic oscillators for one-dimensional systems and hydrogen atoms for three-dimensional systems. We recommend that you copy these.
+6. Write the code in that file. First we need to create a structure `struct ModelName` with the same name as the model name (The best way is Find & Replace). Create V, E, ψ and other functions. Because the function names conflict, you must always give the structure as an argument. Multi-dispatch avoids conflict. We recommend using Revice.jl while coding. Run `include("./developer/revice.jl")` on the REPL or use dev.ipynb.
+7. Add test code test/ModelName.jl. At a minimum, it is recommended to check the normalization and the orthogonality of wavefunction using QuadGK.jl. All tests will be executed by executing `include("./developer/test.jl")`. It will take about 2 minutes to complete.
+8. Add documentation. Add either docs/ModelName.md or docs/jmd/ModelName.jmd (if you have a jmd file, the md file will be automatically generated). Include at least the definition of the Hamiltonian and the analytical solutions (eigenvalues and eigenfunctions).
+9. Execute `include("./developer/docs.jl")` to compile. Please check docs/build/*.html in your browser.
+10. Push the code.
+11. Submit a pull request on GitHub.
+
 ## Acknowledgment
 
 This package was named by [@KB-satou](https://github.com/KB-satou) and [@ultimatile](https://github.com/ultimatile).
