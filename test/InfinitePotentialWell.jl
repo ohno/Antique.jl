@@ -1,8 +1,3 @@
-using Antique
-using Test
-using Printf
-using Markdown
-using QuadGK
 IPW = InfinitePotentialWell(L=1.0, m=1.0, ℏ=1.0)
 
 

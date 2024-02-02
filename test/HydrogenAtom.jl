@@ -1,11 +1,3 @@
-using Antique
-using Test
-using Printf
-using Markdown
-using QuadGK
-using Symbolics
-using Latexify
-using LaTeXStrings
 HA = HydrogenAtom(Z=1, Eₕ=1.0, a₀=1.0, mₑ=1.0, ℏ=1.0)
 MP = MorsePotential()
 

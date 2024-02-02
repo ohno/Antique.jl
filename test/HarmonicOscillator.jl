@@ -1,11 +1,3 @@
-using Antique
-using Test
-using Printf
-using Markdown
-using QuadGK
-using Symbolics
-using Latexify
-using LaTeXStrings
 HO = HarmonicOscillator(k=1.0, m=1.0, ℏ=1.0)
 
 

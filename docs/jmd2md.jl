@@ -5,7 +5,7 @@ for file in Antique.models # [:InfinitePotentialWell :HarmonicOscillator :MorseP
   weave("./src/jmd/$file.jmd", doctype="github", out_path="./src/", fig_path="./assets/fig/")
   text = Antique.load("./src/$file.md")
   # remove ```  after include(...s)
-  for m in eachmatch(r"\n```julia\n.*?jl\"\)\n```[.\n]*?```", text)
+  for m in eachmatch(r"\n```julia\n.*?log\"\)\)\n```[.\n]*?```", text)
     @show m.match
     @show m.offset
     text = replace(text, m.match => "")
