@@ -1,7 +1,5 @@
 module Antique
 
-  export antique
-
   # Update this list when you add a model.
   models = [
     :InfinitePotentialWell,
@@ -15,6 +13,23 @@ module Antique
     include("./$(model).jl")
   end
 
+  # --------------- for old version ---------------
+
+  export antique
+
+  # Update this list when you add a model.
+  oldmodels = [
+    :InfinitePotentialWell,
+    :HarmonicOscillator,
+    :MorsePotential,
+    :HydrogenAtom,
+  ]
+
+  # include statements
+  for model in oldmodels
+    include("./old/$(model).jl")
+  end
+  
   # I/O function
   function save(path, text)
     mkpath(dirname(path))
@@ -33,15 +48,17 @@ module Antique
 
   # main functions
   function antique(model; parameters...)
+    # alart
+    @warn "The function `antique(model; parameters...)` is deprecated. Please check the latest document: https://ohno.github.io/Antique.jl/stable/"
     # check existence of model
     if model ∉ models
       throw(ErrorException("\`:$(model)\` is not in the list of supported models $(models)."))
     end
     # load source code file
     if Sys.iswindows()
-      source = load("$(dirname(@__FILE__()))\\\\$(model).jl")
+      source = load("$(dirname(@__FILE__()))\\\\old\\\\$(model).jl")
     else
-      source = load("$(dirname(@__FILE__()))/$(model).jl")
+      source = load("$(dirname(@__FILE__()))/old/$(model).jl")
     end
     # replace name of module
     for m in eachmatch(Regex("module $(model)"), source)

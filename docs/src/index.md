@@ -16,7 +16,7 @@ using Pkg; Pkg.add("Antique")
 
 ## Usage & Examples
 
-[Install Antique.jl](@ref Install) for the first use and run `using Antique` before each use. The function `antique(model, parameters...)` returns a module that has `E`, `ψ`, `V` and some other functions. Here are examples in hydrogen-like atom. The analytical notation of energy (eigen value of the Hamiltonian) is written as
+[Install Antique.jl](@ref Install) for the first use and run `using Antique` before each use. The energy `E()`, wavefunction `ψ()`, potential `V()` and some other functions are suppoted. Here are examples in hydrogen-like atom. The analytical notation of energy (eigen value of the Hamiltonian) is written as
 
 ```math
 E_n = -\frac{Z^2}{2n^2} E_\mathrm{h}.
@@ -26,8 +26,8 @@ Hydrogen atom has symbol $\mathrm{H}$ and atomic number 1 ($Z=1$). Therefore the
 
 ```julia
 using Antique
-H = antique(:HydrogenAtom, Z=1)
-H.E(n=1)
+H = HydrogenAtom(Z=1)
+E(H)
 # output> -0.5
 ```
 
@@ -35,8 +35,8 @@ Helium cation has symbol $\mathrm{He}^+$ and atomic number 2 ($Z=2$). Therefore 
 
 ```julia
 using Antique
-He⁺ = antique(:HydrogenAtom, Z=2)
-He⁺.E(n=1)
+He⁺ = HydrogenAtom(Z=2)
+E(He⁺)
 # output> -2.0
 ```
 
@@ -50,25 +50,25 @@ There are more examples on each model page.
     <a target="_blank" href="./InfinitePotentialWell">
       <img src="assets/fig/InfinitePotentialWell_6_1.png" alt="InfinitePotentialWell"/>
     </a>
-    <code>:InfinitePotentialWell</code>
+    <code>InfinitePotentialWell</code>
   </div>
   <div class="item">
     <a target="_blank" href="./HarmonicOscillator">
       <img src="assets/fig/HarmonicOscillator_6_1.png" alt="HarmonicOscillator"/>
     </a>
-    <code>:HarmonicOscillator</code>
+    <code>HarmonicOscillator</code>
   </div>
   <div class="item">
     <a target="_blank" href="./MorsePotential">
       <img src="assets/fig/MorsePotential_6_1.png" alt="MorsePotential"/>
     </a>
-    <code>:MorsePotential</code>
+    <code>MorsePotential</code>
   </div>
   <div class="item">
     <a target="_blank" href="./HydrogenAtom">
       <img src="assets/fig/HydrogenAtom_5_1.png" alt="HydrogenAtom"/>
     </a>
-    <code>:HydrogenAtom</code>
+    <code>HydrogenAtom</code>
   </div>
 </div>
 ```
