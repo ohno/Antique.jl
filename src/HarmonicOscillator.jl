@@ -1,7 +1,7 @@
 export HarmonicOscillator, V, E, ψ, H
 
 # Parameters
-Base.@kwdef struct HarmonicOscillator
+@kwdef struct HarmonicOscillator
   k = 1.0
   m = 1.0
   ℏ = 1.0

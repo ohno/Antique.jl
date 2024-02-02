@@ -1,7 +1,7 @@
 export HydrogenAtom, V, E, ψ, R, L, Y, P
 
 # Parameters
-Base.@kwdef struct HydrogenAtom
+@kwdef struct HydrogenAtom
   Z = 1
   ℏ = 1.0
   Eₕ = 1.0

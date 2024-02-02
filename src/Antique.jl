@@ -8,6 +8,9 @@ module Antique
     :HydrogenAtom,
   ]
 
+  # for Julia 1.1
+  import Base:@kwdef
+
   # include statements
   for model in models
     include("./$(model).jl")

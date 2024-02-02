@@ -1,7 +1,7 @@
 export InfinitePotentialWell, V, E, ψ
 
 # Parameters
-Base.@kwdef struct InfinitePotentialWell
+@kwdef struct InfinitePotentialWell
   L = 1.0
   m = 1.0
   ℏ = 1.0
