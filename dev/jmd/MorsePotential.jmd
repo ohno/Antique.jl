@@ -161,5 +161,5 @@ where, the potential of harmonic oscillator is defined as $V(r) \simeq \frac{1}{
 Unit testing and Integration testing were done using computer algebra system ([Symbolics.jl](https://symbolics.juliasymbolics.org/stable/)) and numerical integration ([QuadGK.jl](https://juliamath.github.io/QuadGK.jl/stable/)). The test script is [here](https://github.com/ohno/Antique.jl/blob/main/test/MorsePotential.jl).
 
 ```julia; line_width = 500
-Antique.load("../../test/result/MorsePotential.log")
+println(Antique.load("../../test/result/MorsePotential.log"))
 ```
