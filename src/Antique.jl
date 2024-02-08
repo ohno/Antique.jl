@@ -6,6 +6,7 @@ module Antique
     :HarmonicOscillator,
     :MorsePotential,
     :HydrogenAtom,
+    :DeltaPotential,
   ]
 
   # for Julia 1.1
