@@ -1,7 +1,7 @@
 using Antique
 using Weave
 
-for file in Antique.models # [:InfinitePotentialWell :HarmonicOscillator :MorsePotential :HydrogenAtom]
+for file in Antique.models # [:DeltaPotential]
   weave("./src/jmd/$file.jmd", doctype="github", out_path="./src/", fig_path="./assets/fig/")
   text = Antique.load("./src/$file.md")
   # remove ```  after include(...s)
