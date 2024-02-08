@@ -68,14 +68,14 @@ function L(model::MorsePotential, x; n=0, α=0)
 end
 
 @doc raw"""
-MorsePotential(α=1.0, m=1.0, ℏ=1.0)
+`MorsePotential(α=1.0, m=1.0, ℏ=1.0)`
 
 ``\r_e`` is the equilibrium bond distance, ``D_e`` is the the well depth , ``k`` is the force constant, ``\mu`` is the reduced mass and ``\hbar`` is the reduced Planck constant (Dirac's constant).
 
 """ MorsePotential
 
 @doc raw"""
-V(model::MorsePotential, r)
+`V(model::MorsePotential, r)`
 
 ```math
     V(r) = D_\mathrm{e} \left( \mathrm{e}^{-2a(r-r_e)} - 2\mathrm{e}^{-a(r-r_e)} \right)
@@ -83,7 +83,7 @@ V(model::MorsePotential, r)
 """ V(model::MorsePotential, r)
 
 @doc raw"""
-E(model::MorsePotential; n=0)
+`E(model::MorsePotential; n=0)`
 
 ```math
 E_n = - D_\mathrm{e} + \hbar \omega \left( n + \frac{1}{2} \right) - \chi \hbar \omega \left( n + \frac{1}{2} \right)^2
@@ -99,14 +99,14 @@ n_{max} = \left\lfloor \frac{2 D_e - \omega}{\omega} \right\rfloor
 """ nₘₐₓ(model::MorsePotential)
 
 @doc raw"""
-ψ(model::MorsePotential, r; n=0)
+`ψ(model::MorsePotential, r; n=0)`
 
 ```math
 \psi_n(r) = N_n z^{\lambda-n-1/2} \mathrm{e}^{-z/2} L_n^{(2\lambda-2n-1)}(\xi)```
 """ ψ(model::MorsePotential, r; n=0)
 
 @doc raw"""
-L(model::MorsePotential, x; n=0, α=0)
+`L(model::MorsePotential, x; n=0, α=0)`
 
 ```math
 L_n^{(\alpha)}(x) = \sum_{k=0}^n(-1)^k \frac{\Gamma(\alpha+n+1)}{\Gamma(\alpha+k+1)\Gamma(n-k+1)} \frac{x^k}{k !}

@@ -43,7 +43,7 @@ HarmonicOscillator(α=1.0, m=1.0, ℏ=1.0)
 """ HarmonicOscillator
 
 @doc raw"""
-    V(model::HarmonicOscillator, x)
+`V(model::HarmonicOscillator, x)`
 
 ```math
   V(x) = \frac{1}{2} k x^2.
@@ -51,7 +51,7 @@ HarmonicOscillator(α=1.0, m=1.0, ℏ=1.0)
 """ V(model::HarmonicOscillator, x)
 
 @doc raw"""
-    E(model::HarmonicOscillator)
+`E(model::HarmonicOscillator)`
 
 ```math
   E = -\hbar \omega \left(n+\frac{1}{2}\right)

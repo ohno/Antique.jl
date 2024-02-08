@@ -24,13 +24,13 @@ function ψ(model::InfinitePotentialWell, x; n=1)
 end
 
 @doc raw"""
-InfinitePotentialWell(L=1.0, m=1.0, ℏ=1.0)
+`InfinitePotentialWell(L=1.0, m=1.0, ℏ=1.0)`
 
 ``L`` is the length of the box, ``m`` is the mass of particle and ``\hbar`` is the reduced Planck constant (Dirac's constant).
 """ InfinitePotentialWell
 
 @doc raw"""
-V(model::InfinitePotentialWell; x)
+`V(model::InfinitePotentialWell; x)`
 
 ```math
 V(x) =
@@ -44,7 +44,7 @@ V(x) =
 """ V(model::InfinitePotentialWell, x)
 
 @doc raw"""
-E(model::InfinitePotentialWell; n=0)
+`E(model::InfinitePotentialWell; n=1)`
 
 ```math
 E_n = \frac{\hbar^2 n^2 \pi^2}{2 m L^2}
@@ -52,7 +52,7 @@ E_n = \frac{\hbar^2 n^2 \pi^2}{2 m L^2}
 """ E(model::InfinitePotentialWell; n=1)
 
 @doc raw"""
-ψ(model::InfinitePotentialWell, x; n=0)
+`ψ(model::InfinitePotentialWell, x; n=1)`
 
 ```math
 \psi_n(x) = \sqrt{\frac{2}{L}} \sin \frac{n\pi x}{L}
