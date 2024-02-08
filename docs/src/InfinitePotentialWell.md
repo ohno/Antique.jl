@@ -17,7 +17,7 @@ The infinite potential well (particle in a box) is the simplest model for quantu
 
 #### Hamiltonian
 ```math
-  \hat{H} = \frac{\hbar^2}{2m} \frac{\mathrm{d}^2}{\mathrm{d}x ^2} + V(x)
+  \hat{H} = - \frac{\hbar^2}{2m} \frac{\mathrm{d}^2}{\mathrm{d}x ^2} + V(x)
 ```
 
 #### Potential

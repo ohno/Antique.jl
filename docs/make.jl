@@ -24,6 +24,7 @@ makedocs(;
     "Harmonic Oscillator"     => "HarmonicOscillator.md"   ,
     "Morse Potential"         => "MorsePotential.md"       ,
     "Hydrogen Atom"           => "HydrogenAtom.md"         ,
+    "Delta Potential"         => "DeltaPotential.md"       ,
   ],
 )
 
