@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Harmonic Oscillator · Antique.jl</title><meta name="title" content="Harmonic Oscillator · Antique.jl"/><meta property="og:title" content="Harmonic Oscillator · Antique.jl"/><meta property="twitter:title" content="Harmonic Oscillator · Antique.jl"/><meta name="description" content="Documentation for Antique.jl."/><meta property="og:description" content="Documentation for Antique.jl."/><meta property="twitter:description" content="Documentation for Antique.jl."/><meta property="og:url" content="https://ohno.github.io/Antique.jl/HarmonicOscillator/"/><meta property="twitter:url" content="https://ohno.github.io/Antique.jl/HarmonicOscillator/"/><link rel="canonical" href="https://ohno.github.io/Antique.jl/HarmonicOscillator/"/><script data-outdated-warner src="../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.050/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL=".."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../assets/documenter.js"></script><script src="../search_index.js"></script><script src="../siteinfo.js"></script><script src="../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../assets/themeswap.js"></script><link href="../assets/logo.ico" rel="icon" type="image/x-icon"/><link href="../assets/css/catalog.css" rel="stylesheet" type="text/css"/></head><body><div id="documenter"><nav class="docs-sidebar"><a class="docs-logo" href="../"><img src="../assets/logo.svg" alt="Antique.jl logo"/></a><div class="docs-package-name"><span class="docs-autofit"><a href="../">Antique.jl</a></span></div><button class="docs-search-query input is-rounded is-small is-clickable my-2 mx-auto py-1 px-2" id="documenter-search-query">Search docs (Ctrl + /)</button><ul class="docs-menu"><li><a class="tocitem" href="../">Home</a></li><li><a class="tocitem" href="../InfinitePotentialWell/">Infinite Potential Well</a></li><li class="is-active"><a class="tocitem" href>Harmonic Oscillator</a><ul class="internal"><li><a class="tocitem" href="#Definitions"><span>Definitions</span></a></li><li><a class="tocitem" href="#Usage-and-Examples"><span>Usage &amp; Examples</span></a></li><li><a class="tocitem" href="#Testing"><span>Testing</span></a></li></ul></li><li><a class="tocitem" href="../MorsePotential/">Morse Potential</a></li><li><a class="tocitem" href="../HydrogenAtom/">Hydrogen Atom</a></li><li><a class="tocitem" href="../DeltaPotential/">Delta Potential</a></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><a class="docs-sidebar-button docs-navbar-link fa-solid fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a><nav class="breadcrumb"><ul class="is-hidden-mobile"><li class="is-active"><a href>Harmonic Oscillator</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Harmonic Oscillator</a></li></ul></nav><div class="docs-right"><a class="docs-navbar-link" href="https://github.com/ohno/Antique.jl" title="View the repository on GitHub"><span class="docs-icon fa-brands"></span><span class="docs-label is-hidden-touch">GitHub</span></a><a class="docs-navbar-link" href="https://github.com/ohno/Antique.jl/blob/main/docs/src/HarmonicOscillator.md#" title="Edit source on GitHub"><span class="docs-icon fa-solid"></span></a><a class="docs-settings-button docs-navbar-link fa-solid fa-gear" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-article-toggle-button fa-solid fa-chevron-up" id="documenter-article-toggle-button" href="javascript:;" title="Collapse all docstrings"></a></div></header><article class="content" id="documenter-page"><h1 id="Harmonic-Oscillator"><a class="docs-heading-anchor" href="#Harmonic-Oscillator">Harmonic Oscillator</a><a id="Harmonic-Oscillator-1"></a><a class="docs-heading-anchor-permalink" href="#Harmonic-Oscillator" title="Permalink"></a></h1><p>The harmonic oscillator is the most frequently used model in quantum physics.</p><h2 id="Definitions"><a class="docs-heading-anchor" href="#Definitions">Definitions</a><a id="Definitions-1"></a><a class="docs-heading-anchor-permalink" href="#Definitions" title="Permalink"></a></h2><p><span>$k$</span> is the spring constant. And <span>$\omega = \sqrt{k/m}$</span>, <span>$\xi = \sqrt{\frac{m\omega}{\hbar}}x$</span>, <span>$A_n = \sqrt{\frac{1}{n! 2^n} \sqrt{\frac{m\omega}{\pi\hbar}}}$</span>, <span>$H_n(x) = (-1)^n \mathrm{e}^{x^2} \frac{\mathrm{d}^n}{\mathrm{d}x^n} \mathrm{e}^{-x^2}$</span> are used.</p><h4 id="Schrödinger-Equation"><a class="docs-heading-anchor" href="#Schrödinger-Equation">Schrödinger Equation</a><a id="Schrödinger-Equation-1"></a><a class="docs-heading-anchor-permalink" href="#Schrödinger-Equation" title="Permalink"></a></h4><p class="math-container">\[  \hat{H}\psi(x) = E \psi(x)\]</p><h4 id="Hamiltonian"><a class="docs-heading-anchor" href="#Hamiltonian">Hamiltonian</a><a id="Hamiltonian-1"></a><a class="docs-heading-anchor-permalink" href="#Hamiltonian" title="Permalink"></a></h4><p class="math-container">\[  \begin{aligned}
+    \hat{H}
+    &amp;= - \frac{\hbar^2}{2m} \frac{\mathrm{d}^2}{\mathrm{d}x ^2} + V(x) \\
+    &amp;= - \frac{1}{2} \hbar\omega \frac{\mathrm{d}^2}{\mathrm{d}\xi^2} + V(x)
+  \end{aligned}\]</p><h4 id="Potential"><a class="docs-heading-anchor" href="#Potential">Potential</a><a id="Potential-1"></a><a class="docs-heading-anchor-permalink" href="#Potential" title="Permalink"></a></h4><p><code>V(model::HarmonicOscillator; x)</code></p><p class="math-container">\[  V(x)
+  = \frac{1}{2} k x^2
+  = \frac{1}{2} m \omega^2 x^2
+  = \frac{1}{2} \hbar \omega \xi^2\]</p><h4 id="Eigen-Values"><a class="docs-heading-anchor" href="#Eigen-Values">Eigen Values</a><a id="Eigen-Values-1"></a><a class="docs-heading-anchor-permalink" href="#Eigen-Values" title="Permalink"></a></h4><p><code>E(model::HarmonicOscillator; n=0)</code></p><p class="math-container">\[  E_n = \hbar \omega \left( n + \frac{1}{2} \right)\]</p><h4 id="Eigen-Functions"><a class="docs-heading-anchor" href="#Eigen-Functions">Eigen Functions</a><a id="Eigen-Functions-1"></a><a class="docs-heading-anchor-permalink" href="#Eigen-Functions" title="Permalink"></a></h4><p><code>ψ(model::HarmonicOscillator, x; n=0)</code></p><p class="math-container">\[  \psi_n(x) = A_n H_n(\xi) \exp{\left( -\frac{\xi^2}{2} \right)}\]</p><h4 id="Hermite-Polynomials"><a class="docs-heading-anchor" href="#Hermite-Polynomials">Hermite Polynomials</a><a id="Hermite-Polynomials-1"></a><a class="docs-heading-anchor-permalink" href="#Hermite-Polynomials" title="Permalink"></a></h4><p><code>H(model::HarmonicOscillator, x; n=0)</code></p><p>Rodrigues&#39; formula &amp; closed-form:</p><p class="math-container">\[  \begin{aligned}
+    H_{n}(x)
+    &amp;:= (-1)^n \mathrm{e}^{x^2} \frac{\mathrm{d}^n}{\mathrm{d}x^n} \mathrm{e}^{-x^2} \\
+    &amp;= n! \sum_{m=0}^{\lfloor n/2 \rfloor} \frac{(-1)^m}{m! (n-2m)!}(2 x)^{n-2m}.
+  \end{aligned}\]</p><p>Examples:</p><p class="math-container">\[  \begin{aligned}
+    H_{0}(x)  &amp;= 1, \\
+    H_{1}(x)  &amp;= 2 x, \\
+    H_{2}(x)  &amp;= -2 + 4 x^{2}, \\
+    H_{3}(x)  &amp;= -12 x + 8 x^{3}, \\
+    H_{4}(x)  &amp;= 12 - 48 x^{2} + 16 x^{4}, \\
+    H_{5}(x)  &amp;= 120 x - 160 x^{3} + 32 x^{5}, \\
+    H_{6}(x)  &amp;= -120 + 720 x^{2} - 480 x^{4} + 64 x^{6}, \\
+    H_{7}(x)  &amp;= -1680 x + 3360 x^{3} - 1344 x^{5} + 128 x^{7}, \\
+    H_{8}(x)  &amp;= 1680 - 13440 x^{2} + 13440 x^{4} - 3584 x^{6} + 256 x^{8}, \\
+    H_{9}(x)  &amp;= 30240 x - 80640 x^{3} + 48384 x^{5} - 9216 x^{7} + 512 x^{9}, \\
+    &amp;\vdots
+  \end{aligned}\]</p><h4 id="Reference"><a class="docs-heading-anchor" href="#Reference">Reference</a><a id="Reference-1"></a><a class="docs-heading-anchor-permalink" href="#Reference" title="Permalink"></a></h4><ul><li><a href="https://dlmf.nist.gov/18.5#E18">DLMF 18.5.18</a></li><li><a href="https://cpprefjp.github.io/reference/cmath/hermite.html">cpprefjp</a></li><li>The Digital Library of Mathematical Functions (DLMF)                                                    <a href="https://dlmf.nist.gov/18.3#T1">18.3 Table1</a>, <a href="https://dlmf.nist.gov/18.5#T1">18.5 Table1</a>, <a href="https://dlmf.nist.gov/18.5#E13">18.5.13</a>, <a href="https://dlmf.nist.gov/18.5#E18">18.5.18</a></li><li>L. D. Landau, E. M. Lifshitz, Quantum Mechanics (Pergamon Press, 1965)                                  <a href="https://archive.org/details/ost-physics-landaulifshitz-quantummechanics/page/n607/mode/2up">p.595 (a.4), (a.6)</a></li><li>L. I. Schiff, Quantum Mechanics (McGraw-Hill Book Company, 1968)                                        <a href="https://archive.org/details/ost-physics-schiff-quantummechanics/page/n87/mode/2up">p.71 (13.12)</a></li><li>A. Messiah, Quanfum Mechanics (Dover Publications, 1999)                                                <a href="https://archive.org/details/quantummechanics0000mess/page/491/mode/1up">p.491 (B.59)</a></li><li>W. Greiner, Quantum Mechanics: An Introduction Third Edition (Springer, 1994)                           <a href="https://archive.org/details/quantummechanics0001grei_u4x0/page/152/mode/1up">p.152 (7.22)</a></li><li>D. J. Griffiths, Introduction to Quantum Mechanics (Prentice Hall, 1995)                                <a href="https://archive.org/details/griffiths-introduction-to-quantum-mechanics/page/41/mode/1up">p.41 Table 2.1</a>, <a href="https://archive.org/details/griffiths-introduction-to-quantum-mechanics/page/43/mode/1up">p.43 (2.70)</a></li><li>D. A. McQuarrie, J. D. Simon, Physical Chemistry: A Molecular Approach (University Science Books, 1997) <a href="https://archive.org/details/McQuarrieSimonPhysicalChemistrySolutions/McQuarrie_Simon_Physical_Chemistry1997/page/n193/mode/1up">p.170 Table 5.2</a></li><li>P. W. Atkins, J. De Paula, Atkins&#39; Physical Chemistry, 8th edition (W. H. Freeman, 2008)                <a href="https://archive.org/details/atkinsphysicalch00pwat/page/292/mode/2up">p.293 Table 9.1</a></li><li>J. J. Sakurai, J. Napolitano, Modern Quantum Mechanics Third Edition (Cambridge University Press, 2021) <a href="https://doi.org/10.1017/9781108587280">p.524 (B.29)</a></li></ul><h2 id="Usage-and-Examples"><a class="docs-heading-anchor" href="#Usage-and-Examples">Usage &amp; Examples</a><a id="Usage-and-Examples-1"></a><a class="docs-heading-anchor-permalink" href="#Usage-and-Examples" title="Permalink"></a></h2><p><a href="../#Install">Install Antique.jl</a> for the first use and run <code>using Antique</code> before each use. The energy <code>E()</code>, wavefunction <code>ψ()</code>, potential <code>V()</code> and some other functions are suppoted. In this system, the model is generated by <code>HarmonicOscillator</code> and several parameters <code>k</code>, <code>m</code> and <code>ℏ</code> are set as optional arguments.</p><pre><code class="language-julia hljs">using Antique
+HO = HarmonicOscillator(k=1.0, m=1.0, ℏ=1.0)</code></pre><p>Parameters:</p><pre><code class="language-julia hljs">julia&gt; HO.k
+1.0
+
+julia&gt; HO.m
+1.0
+
+julia&gt; HO.ℏ
+1.0</code></pre><p>Eigen values:</p><pre><code class="language-julia hljs">julia&gt; E(HO, n=0)
+0.5
+
+julia&gt; E(HO, n=1)
+1.5</code></pre><p>Potential energy curve:</p><pre><code class="language-julia hljs">using Plots
+plot(-5:0.1:5, x -&gt; V(HO, x), lw=2, label=&quot;&quot;, xlabel=&quot;x&quot;, ylabel=&quot;V(x)&quot;)</code></pre><p><img src="../assets/fig/HarmonicOscillator_4_1.png" alt/></p><p>Wave functions:</p><pre><code class="language-julia hljs">using Plots
+plot(xlim=(-5,5), xlabel=&quot;x&quot;, ylabel=&quot;ψ(x)&quot;)
+plot!(x -&gt; ψ(HO, x, n=0), label=&quot;n=0&quot;, lw=2)
+plot!(x -&gt; ψ(HO, x, n=1), label=&quot;n=1&quot;, lw=2)
+plot!(x -&gt; ψ(HO, x, n=2), label=&quot;n=2&quot;, lw=2)
+plot!(x -&gt; ψ(HO, x, n=3), label=&quot;n=3&quot;, lw=2)
+plot!(x -&gt; ψ(HO, x, n=4), label=&quot;n=4&quot;, lw=2)</code></pre><p><img src="../assets/fig/HarmonicOscillator_5_1.png" alt/></p><p>Potential energy curve, Energy levels, Wave functions:</p><pre><code class="language-julia hljs">using Plots
+plot(xlim=(-5.5,5.5), ylim=(-0.2,5.4), xlabel=&quot;\$x\$&quot;, ylabel=&quot;\$V(x),~E_n,~\\psi_n(x)\\times0.5+E_n\$&quot;, size=(480,400), dpi=300)
+for n in 0:4
+  # energy
+  hline!([E(HO, n=n)], lc=:black, ls=:dash, label=&quot;&quot;)
+  plot!([-sqrt(2*HO.k*E(HO, n=n)),sqrt(2*HO.k*E(HO, n=n))], fill(E(HO, n=n),2), lc=:black, lw=2, label=&quot;&quot;)
+  # wave function
+  plot!(x -&gt; E(HO, n=n) + 0.5*ψ(HO, x,n=n), lc=n+1, lw=2, label=&quot;&quot;)
+end
+# potential
+plot!(x -&gt; V(HO, x), lc=:black, lw=2, label=&quot;&quot;)</code></pre><p><img src="../assets/fig/HarmonicOscillator_6_1.png" alt/></p><h2 id="Testing"><a class="docs-heading-anchor" href="#Testing">Testing</a><a id="Testing-1"></a><a class="docs-heading-anchor-permalink" href="#Testing" title="Permalink"></a></h2><p>Unit testing and Integration testing were done using computer algebra system (<a href="https://symbolics.juliasymbolics.org/stable/">Symbolics.jl</a>) and numerical integration (<a href="https://juliamath.github.io/QuadGK.jl/stable/">QuadGK.jl</a>). The test script is <a href="https://github.com/ohno/Antique.jl/blob/main/test/HarmonicOscillator.jl">here</a>.</p><h4 id="Hermite-Polynomials-H_n(x)"><a class="docs-heading-anchor" href="#Hermite-Polynomials-H_n(x)">Hermite Polynomials <span>$H_n(x)$</span></a><a id="Hermite-Polynomials-H_n(x)-1"></a><a class="docs-heading-anchor-permalink" href="#Hermite-Polynomials-H_n(x)" title="Permalink"></a></h4><p class="math-container">\[  \begin{aligned}
+    H_{n}(x)
+    &amp;:= (-1)^n \mathrm{e}^{x^2} \frac{\mathrm{d}^n}{\mathrm{d}x^n} \mathrm{e}^{-x^2} \\
+    &amp;= n! \sum_{m=0}^{\lfloor n/2 \rfloor} \frac{(-1)^m}{m! (n-2m)!}(2 x)^{n-2m}.
+  \end{aligned}\]</p><p><span>$n=0:$</span> ✔</p><p class="math-container">\[\begin{aligned}
+  H_{0}(x)
+   = e^{ - x^{2}} e^{x^{2}}
+  &amp;= 1 \\
+  &amp;= 1
+\end{aligned}\]</p><p><span>$n=1:$</span> ✔</p><p class="math-container">\[\begin{aligned}
+  H_{1}(x)
+   =  - e^{x^{2}} \frac{\mathrm{d} e^{ - x^{2}}}{\mathrm{d}x}
+  &amp;= 2 x \\
+  &amp;= 2 x
+\end{aligned}\]</p><p><span>$n=2:$</span> ✔</p><p class="math-container">\[\begin{aligned}
+  H_{2}(x)
+   = e^{x^{2}} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d} e^{ - x^{2}}}{\mathrm{d}x}
+  &amp;= -2 + 4 x^{2} \\
+  &amp;= -2 + 4 x^{2}
+\end{aligned}\]</p><p><span>$n=3:$</span> ✔</p><p class="math-container">\[\begin{aligned}
+  H_{3}(x)
+   =  - \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d} e^{ - x^{2}}}{\mathrm{d}x} e^{x^{2}}
+  &amp;=  - 12 x + 8 x^{3} \\
+  &amp;=  - 12 x + 8 x^{3}
+\end{aligned}\]</p><p><span>$n=4:$</span> ✔</p><p class="math-container">\[\begin{aligned}
+  H_{4}(x)
+   = e^{x^{2}} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d} e^{ - x^{2}}}{\mathrm{d}x}
+  &amp;= 12 - 48 x^{2} + 16 x^{4} \\
+  &amp;= 12 - 48 x^{2} + 16 x^{4}
+\end{aligned}\]</p><p><span>$n=5:$</span> ✔</p><p class="math-container">\[\begin{aligned}
+  H_{5}(x)
+   =  - \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d} e^{ - x^{2}}}{\mathrm{d}x} e^{x^{2}}
+  &amp;= 120 x - 160 x^{3} + 32 x^{5} \\
+  &amp;= 120 x - 160 x^{3} + 32 x^{5}
+\end{aligned}\]</p><p><span>$n=6:$</span> ✔</p><p class="math-container">\[\begin{aligned}
+  H_{6}(x)
+   = e^{x^{2}} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d} e^{ - x^{2}}}{\mathrm{d}x}
+  &amp;= -120 + 720 x^{2} - 480 x^{4} + 64 x^{6} \\
+  &amp;= -120 + 720 x^{2} - 480 x^{4} + 64 x^{6}
+\end{aligned}\]</p><p><span>$n=7:$</span> ✔</p><p class="math-container">\[\begin{aligned}
+  H_{7}(x)
+   =  - e^{x^{2}} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d} e^{ - x^{2}}}{\mathrm{d}x}
+  &amp;=  - 1680 x + 3360 x^{3} - 1344 x^{5} + 128 x^{7} \\
+  &amp;=  - 1680 x + 3360 x^{3} - 1344 x^{5} + 128 x^{7}
+\end{aligned}\]</p><p><span>$n=8:$</span> ✔</p><p class="math-container">\[\begin{aligned}
+  H_{8}(x)
+   = e^{x^{2}} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d} e^{ - x^{2}}}{\mathrm{d}x}
+  &amp;= 1680 - 13440 x^{2} + 13440 x^{4} - 3584 x^{6} + 256 x^{8} \\
+  &amp;= 1680 - 13440 x^{2} + 13440 x^{4} - 3584 x^{6} + 256 x^{8}
+\end{aligned}\]</p><p><span>$n=9:$</span> ✔</p><p class="math-container">\[\begin{aligned}
+  H_{9}(x)
+   =  - e^{x^{2}} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d} e^{ - x^{2}}}{\mathrm{d}x}
+  &amp;= 30240 x - 80640 x^{3} + 48384 x^{5} - 9216 x^{7} + 512 x^{9} \\
+  &amp;= 30240 x - 80640 x^{3} + 48384 x^{5} - 9216 x^{7} + 512 x^{9}
+\end{aligned}\]</p><pre><code class="nohighlight hljs"></code></pre><h4 id="Normalization-and-Orthogonality-of-H_n(x)"><a class="docs-heading-anchor" href="#Normalization-and-Orthogonality-of-H_n(x)">Normalization &amp; Orthogonality of <span>$H_n(x)$</span></a><a id="Normalization-and-Orthogonality-of-H_n(x)-1"></a><a class="docs-heading-anchor-permalink" href="#Normalization-and-Orthogonality-of-H_n(x)" title="Permalink"></a></h4><p class="math-container">\[\int_{-\infty}^\infty H_j(x) H_i(x) \mathrm{e}^{-x^2} \mathrm{d}x = \sqrt{\pi} 2^j j! \delta_{ij}\]</p><pre><code class="nohighlight hljs"> i |  j |        analytical |         numerical 
+-- | -- | ----------------- | ----------------- 
+ 0 |  0 |    1.772453850906 |    1.772453850906 ✔
+ 0 |  1 |    0.000000000000 |    0.000000000000 ✔
+ 0 |  2 |    0.000000000000 |    0.000000000000 ✔
+ 0 |  3 |    0.000000000000 |    0.000000000000 ✔
+ 0 |  4 |    0.000000000000 |   -0.000000000000 ✔
+ 0 |  5 |    0.000000000000 |   -0.000000000000 ✔
+ 0 |  6 |    0.000000000000 |    0.000000000000 ✔
+ 0 |  7 |    0.000000000000 |    0.000000000000 ✔
+ 0 |  8 |    0.000000000000 |   -0.000000000001 ✔
+ 0 |  9 |    0.000000000000 |    0.000000000000 ✔
+ 1 |  0 |    0.000000000000 |    0.000000000000 ✔
+ 1 |  1 |    3.544907701811 |    3.544907701811 ✔
+ 1 |  2 |    0.000000000000 |    0.000000000000 ✔
+ 1 |  3 |    0.000000000000 |   -0.000000000000 ✔
+ 1 |  4 |    0.000000000000 |   -0.000000000000 ✔
+ 1 |  5 |    0.000000000000 |    0.000000000000 ✔
+ 1 |  6 |    0.000000000000 |    0.000000000000 ✔
+ 1 |  7 |    0.000000000000 |   -0.000000000000 ✔
+ 1 |  8 |    0.000000000000 |   -0.000000000000 ✔
+ 1 |  9 |    0.000000000000 |    0.000000000014 ✔
+ 2 |  0 |    0.000000000000 |    0.000000000000 ✔
+ 2 |  1 |    0.000000000000 |    0.000000000000 ✔
+ 2 |  2 |   14.179630807244 |   14.179630807244 ✔
+ 2 |  3 |    0.000000000000 |   -0.000000000000 ✔
+ 2 |  4 |    0.000000000000 |   -0.000000000000 ✔
+ 2 |  5 |    0.000000000000 |    0.000000000000 ✔
+ 2 |  6 |    0.000000000000 |    0.000000000000 ✔
+ 2 |  7 |    0.000000000000 |    0.000000000000 ✔
+ 2 |  8 |    0.000000000000 |   -0.000000000011 ✔
+ 2 |  9 |    0.000000000000 |   -0.000000000002 ✔
+ 3 |  0 |    0.000000000000 |    0.000000000000 ✔
+ 3 |  1 |    0.000000000000 |   -0.000000000000 ✔
+ 3 |  2 |    0.000000000000 |   -0.000000000000 ✔
+ 3 |  3 |   85.077784843465 |   85.077784843465 ✔
+ 3 |  4 |    0.000000000000 |   -0.000000000000 ✔
+ 3 |  5 |    0.000000000000 |    0.000000000000 ✔
+ 3 |  6 |    0.000000000000 |   -0.000000000000 ✔
+ 3 |  7 |    0.000000000000 |   -0.000000000000 ✔
+ 3 |  8 |    0.000000000000 |   -0.000000000000 ✔
+ 3 |  9 |    0.000000000000 |    0.000000000139 ✔
+ 4 |  0 |    0.000000000000 |   -0.000000000000 ✔
+ 4 |  1 |    0.000000000000 |   -0.000000000000 ✔
+ 4 |  2 |    0.000000000000 |   -0.000000000000 ✔
+ 4 |  3 |    0.000000000000 |   -0.000000000000 ✔
+ 4 |  4 |  680.622278747718 |  680.622278747718 ✔
+ 4 |  5 |    0.000000000000 |   -0.000000000000 ✔
+ 4 |  6 |    0.000000000000 |    0.000000000002 ✔
+ 4 |  7 |    0.000000000000 |    0.000000000000 ✔
+ 4 |  8 |    0.000000000000 |   -0.000000000063 ✔
+ 4 |  9 |    0.000000000000 |    0.000000000000 ✔
+ 5 |  0 |    0.000000000000 |   -0.000000000000 ✔
+ 5 |  1 |    0.000000000000 |    0.000000000000 ✔
+ 5 |  2 |    0.000000000000 |    0.000000000000 ✔
+ 5 |  3 |    0.000000000000 |    0.000000000000 ✔
+ 5 |  4 |    0.000000000000 |   -0.000000000000 ✔
+ 5 |  5 | 6806.222787477181 | 6806.222787477180 ✔
+ 5 |  6 |    0.000000000000 |    0.000000000000 ✔
+ 5 |  7 |    0.000000000000 |    0.000000000009 ✔
+ 5 |  8 |    0.000000000000 |    0.000000000000 ✔
+ 5 |  9 |    0.000000000000 |    0.000000001339 ✔
+ 6 |  0 |    0.000000000000 |    0.000000000000 ✔
+ 6 |  1 |    0.000000000000 |    0.000000000000 ✔
+ 6 |  2 |    0.000000000000 |    0.000000000000 ✔
+ 6 |  3 |    0.000000000000 |   -0.000000000000 ✔
+ 6 |  4 |    0.000000000000 |    0.000000000002 ✔
+ 6 |  5 |    0.000000000000 |    0.000000000000 ✔
+ 6 |  6 | 81674.673449726179 | 81674.673449726135 ✔
+ 6 |  7 |    0.000000000000 |    0.000000000004 ✔
+ 6 |  8 |    0.000000000000 |    0.000000000397 ✔
+ 6 |  9 |    0.000000000000 |   -0.000000000087 ✔
+ 7 |  0 |    0.000000000000 |    0.000000000000 ✔
+ 7 |  1 |    0.000000000000 |   -0.000000000000 ✔
+ 7 |  2 |    0.000000000000 |    0.000000000000 ✔
+ 7 |  3 |    0.000000000000 |   -0.000000000000 ✔
+ 7 |  4 |    0.000000000000 |    0.000000000000 ✔
+ 7 |  5 |    0.000000000000 |    0.000000000009 ✔
+ 7 |  6 |    0.000000000000 |    0.000000000004 ✔
+ 7 |  7 | 1143445.428296166472 | 1143445.428296166705 ✔
+ 7 |  8 |    0.000000000000 |   -0.000000000007 ✔
+ 7 |  9 |    0.000000000000 |    0.000000011649 ✔
+ 8 |  0 |    0.000000000000 |   -0.000000000001 ✔
+ 8 |  1 |    0.000000000000 |   -0.000000000000 ✔
+ 8 |  2 |    0.000000000000 |   -0.000000000011 ✔
+ 8 |  3 |    0.000000000000 |   -0.000000000000 ✔
+ 8 |  4 |    0.000000000000 |   -0.000000000063 ✔
+ 8 |  5 |    0.000000000000 |    0.000000000000 ✔
+ 8 |  6 |    0.000000000000 |    0.000000000397 ✔
+ 8 |  7 |    0.000000000000 |   -0.000000000007 ✔
+ 8 |  8 | 18295126.852738663554 | 18295126.852738667279 ✔
+ 8 |  9 |    0.000000000000 |    0.000000001630 ✔
+ 9 |  0 |    0.000000000000 |    0.000000000000 ✔
+ 9 |  1 |    0.000000000000 |    0.000000000014 ✔
+ 9 |  2 |    0.000000000000 |   -0.000000000002 ✔
+ 9 |  3 |    0.000000000000 |    0.000000000139 ✔
+ 9 |  4 |    0.000000000000 |    0.000000000000 ✔
+ 9 |  5 |    0.000000000000 |    0.000000001339 ✔
+ 9 |  6 |    0.000000000000 |   -0.000000000087 ✔
+ 9 |  7 |    0.000000000000 |    0.000000011649 ✔
+ 9 |  8 |    0.000000000000 |    0.000000001630 ✔
+ 9 |  9 | 329312283.349295914173 | 329312283.349295675755 ✔</code></pre><h4 id="Normalization-and-Orthogonality-of-\\psi_n(x)"><a class="docs-heading-anchor" href="#Normalization-and-Orthogonality-of-\\psi_n(x)">Normalization &amp; Orthogonality of <span>$\psi_n(x)$</span></a><a id="Normalization-and-Orthogonality-of-\\psi_n(x)-1"></a><a class="docs-heading-anchor-permalink" href="#Normalization-and-Orthogonality-of-\\psi_n(x)" title="Permalink"></a></h4><p class="math-container">\[\int \psi_i^\ast(x) \psi_j(x) \mathrm{d}x = \delta_{ij}\]</p><pre><code class="nohighlight hljs"> i |  j |        analytical |         numerical 
+-- | -- | ----------------- | ----------------- 
+ 0 |  0 |    1.000000000000 |    1.000000000000 ✔
+ 0 |  1 |    0.000000000000 |    0.000000000000 ✔
+ 0 |  2 |    0.000000000000 |    0.000000000000 ✔
+ 0 |  3 |    0.000000000000 |    0.000000000000 ✔
+ 0 |  4 |    0.000000000000 |   -0.000000000000 ✔
+ 0 |  5 |    0.000000000000 |   -0.000000000000 ✔
+ 0 |  6 |    0.000000000000 |    0.000000000000 ✔
+ 0 |  7 |    0.000000000000 |    0.000000000000 ✔
+ 0 |  8 |    0.000000000000 |   -0.000000000000 ✔
+ 0 |  9 |    0.000000000000 |    0.000000000000 ✔
+ 1 |  0 |    0.000000000000 |    0.000000000000 ✔
+ 1 |  1 |    1.000000000000 |    1.000000000000 ✔
+ 1 |  2 |    0.000000000000 |    0.000000000000 ✔
+ 1 |  3 |    0.000000000000 |   -0.000000000000 ✔
+ 1 |  4 |    0.000000000000 |   -0.000000000000 ✔
+ 1 |  5 |    0.000000000000 |    0.000000000000 ✔
+ 1 |  6 |    0.000000000000 |    0.000000000000 ✔
+ 1 |  7 |    0.000000000000 |   -0.000000000000 ✔
+ 1 |  8 |    0.000000000000 |    0.000000000000 ✔
+ 1 |  9 |    0.000000000000 |    0.000000000000 ✔
+ 2 |  0 |    0.000000000000 |    0.000000000000 ✔
+ 2 |  1 |    0.000000000000 |    0.000000000000 ✔
+ 2 |  2 |    1.000000000000 |    1.000000000000 ✔
+ 2 |  3 |    0.000000000000 |   -0.000000000000 ✔
+ 2 |  4 |    0.000000000000 |   -0.000000000000 ✔
+ 2 |  5 |    0.000000000000 |   -0.000000000000 ✔
+ 2 |  6 |    0.000000000000 |    0.000000000000 ✔
+ 2 |  7 |    0.000000000000 |    0.000000000000 ✔
+ 2 |  8 |    0.000000000000 |   -0.000000000000 ✔
+ 2 |  9 |    0.000000000000 |    0.000000000000 ✔
+ 3 |  0 |    0.000000000000 |    0.000000000000 ✔
+ 3 |  1 |    0.000000000000 |   -0.000000000000 ✔
+ 3 |  2 |    0.000000000000 |   -0.000000000000 ✔
+ 3 |  3 |    1.000000000000 |    1.000000000000 ✔
+ 3 |  4 |    0.000000000000 |   -0.000000000000 ✔
+ 3 |  5 |    0.000000000000 |    0.000000000000 ✔
+ 3 |  6 |    0.000000000000 |    0.000000000000 ✔
+ 3 |  7 |    0.000000000000 |    0.000000000000 ✔
+ 3 |  8 |    0.000000000000 |   -0.000000000000 ✔
+ 3 |  9 |    0.000000000000 |    0.000000000000 ✔
+ 4 |  0 |    0.000000000000 |   -0.000000000000 ✔
+ 4 |  1 |    0.000000000000 |   -0.000000000000 ✔
+ 4 |  2 |    0.000000000000 |   -0.000000000000 ✔
+ 4 |  3 |    0.000000000000 |   -0.000000000000 ✔
+ 4 |  4 |    1.000000000000 |    1.000000000000 ✔
+ 4 |  5 |    0.000000000000 |    0.000000000000 ✔
+ 4 |  6 |    0.000000000000 |    0.000000000000 ✔
+ 4 |  7 |    0.000000000000 |    0.000000000000 ✔
+ 4 |  8 |    0.000000000000 |   -0.000000000000 ✔
+ 4 |  9 |    0.000000000000 |   -0.000000000000 ✔
+ 5 |  0 |    0.000000000000 |   -0.000000000000 ✔
+ 5 |  1 |    0.000000000000 |    0.000000000000 ✔
+ 5 |  2 |    0.000000000000 |   -0.000000000000 ✔
+ 5 |  3 |    0.000000000000 |    0.000000000000 ✔
+ 5 |  4 |    0.000000000000 |    0.000000000000 ✔
+ 5 |  5 |    1.000000000000 |    1.000000000000 ✔
+ 5 |  6 |    0.000000000000 |    0.000000000000 ✔
+ 5 |  7 |    0.000000000000 |    0.000000000000 ✔
+ 5 |  8 |    0.000000000000 |    0.000000000000 ✔
+ 5 |  9 |    0.000000000000 |    0.000000000000 ✔
+ 6 |  0 |    0.000000000000 |    0.000000000000 ✔
+ 6 |  1 |    0.000000000000 |    0.000000000000 ✔
+ 6 |  2 |    0.000000000000 |    0.000000000000 ✔
+ 6 |  3 |    0.000000000000 |    0.000000000000 ✔
+ 6 |  4 |    0.000000000000 |    0.000000000000 ✔
+ 6 |  5 |    0.000000000000 |    0.000000000000 ✔
+ 6 |  6 |    1.000000000000 |    1.000000000000 ✔
+ 6 |  7 |    0.000000000000 |   -0.000000000000 ✔
+ 6 |  8 |    0.000000000000 |    0.000000000000 ✔
+ 6 |  9 |    0.000000000000 |    0.000000000000 ✔
+ 7 |  0 |    0.000000000000 |    0.000000000000 ✔
+ 7 |  1 |    0.000000000000 |   -0.000000000000 ✔
+ 7 |  2 |    0.000000000000 |    0.000000000000 ✔
+ 7 |  3 |    0.000000000000 |    0.000000000000 ✔
+ 7 |  4 |    0.000000000000 |    0.000000000000 ✔
+ 7 |  5 |    0.000000000000 |    0.000000000000 ✔
+ 7 |  6 |    0.000000000000 |   -0.000000000000 ✔
+ 7 |  7 |    1.000000000000 |    1.000000000000 ✔
+ 7 |  8 |    0.000000000000 |    0.000000000000 ✔
+ 7 |  9 |    0.000000000000 |    0.000000000000 ✔
+ 8 |  0 |    0.000000000000 |   -0.000000000000 ✔
+ 8 |  1 |    0.000000000000 |    0.000000000000 ✔
+ 8 |  2 |    0.000000000000 |   -0.000000000000 ✔
+ 8 |  3 |    0.000000000000 |   -0.000000000000 ✔
+ 8 |  4 |    0.000000000000 |   -0.000000000000 ✔
+ 8 |  5 |    0.000000000000 |    0.000000000000 ✔
+ 8 |  6 |    0.000000000000 |    0.000000000000 ✔
+ 8 |  7 |    0.000000000000 |    0.000000000000 ✔
+ 8 |  8 |    1.000000000000 |    1.000000000000 ✔
+ 8 |  9 |    0.000000000000 |   -0.000000000000 ✔
+ 9 |  0 |    0.000000000000 |    0.000000000000 ✔
+ 9 |  1 |    0.000000000000 |    0.000000000000 ✔
+ 9 |  2 |    0.000000000000 |    0.000000000000 ✔
+ 9 |  3 |    0.000000000000 |    0.000000000000 ✔
+ 9 |  4 |    0.000000000000 |   -0.000000000000 ✔
+ 9 |  5 |    0.000000000000 |    0.000000000000 ✔
+ 9 |  6 |    0.000000000000 |    0.000000000000 ✔
+ 9 |  7 |    0.000000000000 |    0.000000000000 ✔
+ 9 |  8 |    0.000000000000 |   -0.000000000000 ✔
+ 9 |  9 |    1.000000000000 |    1.000000000000 ✔</code></pre><h4 id="Virial-Theorem"><a class="docs-heading-anchor" href="#Virial-Theorem">Virial Theorem</a><a id="Virial-Theorem-1"></a><a class="docs-heading-anchor-permalink" href="#Virial-Theorem" title="Permalink"></a></h4><p>The virial theorem <span>$\langle T \rangle = \langle V \rangle$</span> and the definition of Hamiltonian <span>$\langle H \rangle = \langle T \rangle + \langle V \rangle$</span> derive <span>$\langle H \rangle = 2 \langle V \rangle = 2 \langle T \rangle$</span>.</p><p class="math-container">\[2 \int \psi_n^\ast(x) V(x) \psi_n(x) \mathrm{d}x = E_n\]</p><pre><code class="nohighlight hljs">  k |  n |        analytical |         numerical 
+--- | -- | ----------------- | ----------------- 
+0.1 |  0 |    0.500000000000 |    0.500000000000 ✔
+0.1 |  1 |    1.500000000000 |    1.500000000000 ✔
+0.1 |  2 |    2.500000000000 |    2.500000000000 ✔
+0.1 |  3 |    3.500000000000 |    3.500000000000 ✔
+0.1 |  4 |    4.500000000000 |    4.500000000000 ✔
+0.1 |  5 |    5.500000000000 |    5.500000000000 ✔
+0.1 |  6 |    6.500000000000 |    6.500000000000 ✔
+0.1 |  7 |    7.500000000000 |    7.500000000000 ✔
+0.1 |  8 |    8.500000000000 |    8.500000000000 ✔
+0.1 |  9 |    9.500000000000 |    9.500000000000 ✔
+0.5 |  0 |    0.500000000000 |    0.500000000000 ✔
+0.5 |  1 |    1.500000000000 |    1.500000000000 ✔
+0.5 |  2 |    2.500000000000 |    2.500000000000 ✔
+0.5 |  3 |    3.500000000000 |    3.500000000000 ✔
+0.5 |  4 |    4.500000000000 |    4.500000000000 ✔
+0.5 |  5 |    5.500000000000 |    5.500000000000 ✔
+0.5 |  6 |    6.500000000000 |    6.500000000000 ✔
+0.5 |  7 |    7.500000000000 |    7.500000000000 ✔
+0.5 |  8 |    8.500000000000 |    8.500000000000 ✔
+0.5 |  9 |    9.500000000000 |    9.500000000000 ✔
+1.0 |  0 |    0.500000000000 |    0.500000000000 ✔
+1.0 |  1 |    1.500000000000 |    1.500000000000 ✔
+1.0 |  2 |    2.500000000000 |    2.500000000000 ✔
+1.0 |  3 |    3.500000000000 |    3.500000000000 ✔
+1.0 |  4 |    4.500000000000 |    4.500000000000 ✔
+1.0 |  5 |    5.500000000000 |    5.500000000000 ✔
+1.0 |  6 |    6.500000000000 |    6.500000000000 ✔
+1.0 |  7 |    7.500000000000 |    7.500000000000 ✔
+1.0 |  8 |    8.500000000000 |    8.500000000000 ✔
+1.0 |  9 |    9.500000000000 |    9.500000000000 ✔
+5.0 |  0 |    0.500000000000 |    0.500000000000 ✔
+5.0 |  1 |    1.500000000000 |    1.500000000000 ✔
+5.0 |  2 |    2.500000000000 |    2.500000000000 ✔
+5.0 |  3 |    3.500000000000 |    3.500000000000 ✔
+5.0 |  4 |    4.500000000000 |    4.500000000000 ✔
+5.0 |  5 |    5.500000000000 |    5.500000000000 ✔
+5.0 |  6 |    6.500000000000 |    6.500000000000 ✔
+5.0 |  7 |    7.500000000000 |    7.500000000000 ✔
+5.0 |  8 |    8.500000000000 |    8.500000000000 ✔
+5.0 |  9 |    9.500000000000 |    9.500000000000 ✔</code></pre><h4 id="Eigen-Values-2"><a class="docs-heading-anchor" href="#Eigen-Values-2">Eigen Values</a><a class="docs-heading-anchor-permalink" href="#Eigen-Values-2" title="Permalink"></a></h4><p class="math-container">\[  \begin{aligned}
+    E_n
+    &amp;=      \int \psi^\ast_n(x) \hat{H} \psi_n(x) \mathrm{d}x \\
+    &amp;=      \int \psi^\ast_n(x) \left[ \hat{V} + \hat{T} \right] \psi(x) \mathrm{d}x \\
+    &amp;=      \int \psi^\ast_n(x) \left[ V(x) - \frac{\hbar^2}{2m} \frac{\mathrm{d}^{2}}{\mathrm{d} x^{2}} \right] \psi(x) \mathrm{d}x \\
+    &amp;\simeq \int \psi^\ast_n(x) \left[ V(x)\psi(x) -\frac{\hbar^2}{2m} \frac{\psi(x+\Delta x) - 2\psi(x) + \psi(x-\Delta x)}{\Delta x^{2}} \right] \mathrm{d}x.
+  \end{aligned}\]</p><p>Where, the difference formula for the 2nd-order derivative:</p><p class="math-container">\[\begin{aligned}
+  % 2\psi(x)
+  % + \frac{\mathrm{d}^{2} \psi(x)}{\mathrm{d} x^{2}} \Delta x^{2}
+  % + O\left(\Delta x^{4}\right)
+  % &amp;=
+  % \psi(x+\Delta x)
+  % + \psi(x-\Delta x)
+  % \\
+  % \frac{\mathrm{d}^{2} \psi(x)}{\mathrm{d} x^{2}} \Delta x^{2}
+  % &amp;=
+  % \psi(x+\Delta x)
+  % - 2\psi(x)
+  % + \psi(x-\Delta x)
+  % - O\left(\Delta x^{4}\right)
+  % \\
+  % \frac{\mathrm{d}^{2} \psi(x)}{\mathrm{d} x^{2}}
+  % &amp;=
+  % \frac{\psi(x+\Delta x) - 2\psi(x) + \psi(x-\Delta x)}{\Delta x^{2}}
+  % - \frac{O\left(\Delta x^{4}\right)}{\Delta x^{2}}
+  % \\
+  \frac{\mathrm{d}^{2} \psi(x)}{\mathrm{d} x^{2}}
+  &amp;=
+  \frac{\psi(x+\Delta x) - 2\psi(x) + \psi(x-\Delta x)}{\Delta x^{2}}
+  + O\left(\Delta x^{2}\right)
+\end{aligned}\]</p><p>are given by the sum of 2 Taylor series:</p><p class="math-container">\[\begin{aligned}
+\psi(x+\Delta x)
+&amp;= \psi(x)
++ \frac{\mathrm{d} \psi(x)}{\mathrm{d} x} \Delta x
++ \frac{1}{2!} \frac{\mathrm{d}^{2} \psi(x)}{\mathrm{d} x^{2}} \Delta x^{2}
++ \frac{1}{3!} \frac{\mathrm{d}^{3} \psi(x)}{\mathrm{d} x^{3}} \Delta x^{3}
++ O\left(\Delta x^{4}\right),
+\\
+\psi(x-\Delta x)
+&amp;= \psi(x)
+- \frac{\mathrm{d} \psi(x)}{\mathrm{d} x} \Delta x
++ \frac{1}{2!} \frac{\mathrm{d}^{2} \psi(x)}{\mathrm{d} x^{2}} \Delta x^{2}
+- \frac{1}{3!} \frac{\mathrm{d}^{3} \psi(x)}{\mathrm{d} x^{3}} \Delta x^{3}
++ O\left(\Delta x^{4}\right).
+\end{aligned}\]</p><pre><code class="nohighlight hljs">  k |  n |        analytical |         numerical 
+--- | -- | ----------------- | ----------------- 
+0.1 |  0 |    0.158113883008 |    0.158113879883 ✔
+0.1 |  1 |    0.474341649025 |    0.474341633410 ✔
+0.1 |  2 |    0.790569415042 |    0.790569374409 ✔
+0.1 |  3 |    1.106797181059 |    1.106797102928 ✔
+0.1 |  4 |    1.423024947076 |    1.423024818987 ✔
+0.1 |  5 |    1.739252713093 |    1.739252522506 ✔
+0.1 |  6 |    2.055480479109 |    2.055480213500 ✔
+0.1 |  7 |    2.371708245126 |    2.371707891950 ✔
+0.1 |  8 |    2.687936011143 |    2.687935558100 ✔
+0.1 |  9 |    3.004163777160 |    3.004163211450 ✔
+0.5 |  0 |    0.353553390593 |    0.353553374944 ✔
+0.5 |  1 |    1.060660171780 |    1.060660093649 ✔
+0.5 |  2 |    1.767766952966 |    1.767766749878 ✔
+0.5 |  3 |    2.474873734153 |    2.474873343556 ✔
+0.5 |  4 |    3.181980515339 |    3.181979874817 ✔
+0.5 |  5 |    3.889087296526 |    3.889086343463 ✔
+0.5 |  6 |    4.596194077713 |    4.596192749665 ✔
+0.5 |  7 |    5.303300858899 |    5.303299093519 ✔
+0.5 |  8 |    6.010407640086 |    6.010405374197 ✔
+0.5 |  9 |    6.717514421272 |    6.717511593266 ✔
+1.0 |  0 |    0.500000000000 |    0.499999968773 ✔
+1.0 |  1 |    1.500000000000 |    1.499999843774 ✔
+1.0 |  2 |    2.500000000000 |    2.499999593764 ✔
+1.0 |  3 |    3.500000000000 |    3.499999218732 ✔
+1.0 |  4 |    4.500000000000 |    4.499998718747 ✔
+1.0 |  5 |    5.500000000000 |    5.499998093755 ✔
+1.0 |  6 |    6.500000000000 |    6.499997343602 ✔
+1.0 |  7 |    7.500000000000 |    7.499996468887 ✔
+1.0 |  8 |    8.500000000000 |    8.499995468843 ✔
+1.0 |  9 |    9.500000000000 |    9.499994343445 ✔
+5.0 |  0 |    1.118033988750 |    1.118033832523 ✔
+5.0 |  1 |    3.354101966250 |    3.354101184969 ✔
+5.0 |  2 |    5.590169943749 |    5.590167912524 ✔
+5.0 |  3 |    7.826237921249 |    7.826234014984 ✔
+5.0 |  4 |   10.062305898749 |   10.062299492494 ✔
+5.0 |  5 |   12.298373876249 |   12.298364344997 ✔
+5.0 |  6 |   14.534441853749 |   14.534428572309 ✔
+5.0 |  7 |   16.770509831248 |   16.770492175222 ✔
+5.0 |  8 |   19.006577808748 |   19.006555152416 ✔
+5.0 |  9 |   21.242645786248 |   21.242617504750 ✔
+</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../InfinitePotentialWell/">« Infinite Potential Well</a><a class="docs-footer-nextpage" href="../MorsePotential/">Morse Potential »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="auto">Automatic (OS)</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.2.1 on <span class="colophon-date" title="Thursday 8 February 2024 12:20">Thursday 8 February 2024</span>. Using Julia version 1.10.0.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
