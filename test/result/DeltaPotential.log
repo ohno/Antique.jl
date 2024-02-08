@@ -1,0 +1,13 @@
+#### Normalization & Orthogonality of $\psi(x)$
+
+```math
+\int_{-Inf}^{Inf} \psi^\ast(x) \psi(x) ~\mathrm{d}x = 1
+```
+
+```
+        analytical |         numerical 
+ ----------------- | ----------------- 
+   1.000000000000 |    1.000000000000 ✔
+```
+
+
