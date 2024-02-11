@@ -1,6 +1,5 @@
 export MorsePotential, V, E, nₘₐₓ, ψ, L
 
-# Packages
 using SpecialFunctions
 
 @kwdef struct MorsePotential
@@ -68,47 +67,80 @@ function L(model::MorsePotential, x; n=0, α=0)
 end
 
 @doc raw"""
-`MorsePotential(α=1.0, m=1.0, ℏ=1.0)`
+`MP = MorsePotential(rₑ=2.0, Dₑ=0.1, k=0.1, µ=918.1, ℏ=1.0)`
 
-``\r_e`` is the equilibrium bond distance, ``D_e`` is the the well depth , ``k`` is the force constant, ``\mu`` is the reduced mass and ``\hbar`` is the reduced Planck constant (Dirac's constant).
-
+``r_\mathrm{e}`` is the equilibrium bond distance, ``D__\mathrm{e}`` is the the well depth , ``k`` is the force constant, ``\mu`` is the reduced mass and ``\hbar`` is the reduced Planck constant (Dirac's constant).
 """ MorsePotential
 
 @doc raw"""
 `V(model::MorsePotential, r)`
 
 ```math
-    V(r) = D_\mathrm{e} \left( \mathrm{e}^{-2a(r-r_e)} - 2\mathrm{e}^{-a(r-r_e)} \right)
+V(r) = D_\mathrm{e} \left( \mathrm{e}^{-2a(r-r_e)} - 2\mathrm{e}^{-a(r-r_e)} \right),
 ```
+where ``a = \sqrt{\frac{k}{2Dₑ}}`` is defined. The domain is $0\leq r \lt \infty$.
 """ V(model::MorsePotential, r)
 
 @doc raw"""
 `E(model::MorsePotential; n=0)`
 
 ```math
-E_n = - D_\mathrm{e} + \hbar \omega \left( n + \frac{1}{2} \right) - \chi \hbar \omega \left( n + \frac{1}{2} \right)^2
+E_n = - D_\mathrm{e} + \hbar \omega \left( n + \frac{1}{2} \right) - \chi \hbar \omega \left( n + \frac{1}{2} \right)^2,
 ```
+where ``\omega = \sqrt{k/µ}`` and ``\chi = \frac{\hbar\omega}{4D_\mathrm{e}}`` are defined.
 """ E(model::MorsePotential; n=0)
 
 @doc raw"""
 `nₘₐₓ(model::MorsePotential)`
 
 ```math
-n_{max} = \left\lfloor \frac{2 D_e - \omega}{\omega} \right\rfloor
+n_\mathrm{max} = \left\lfloor \frac{2 D_e - \omega}{\omega} \right\rfloor,
 ```
+where ``\omega = \sqrt{k/µ}`` is defined.
 """ nₘₐₓ(model::MorsePotential)
 
 @doc raw"""
 `ψ(model::MorsePotential, r; n=0)`
 
 ```math
-\psi_n(r) = N_n z^{\lambda-n-1/2} \mathrm{e}^{-z/2} L_n^{(2\lambda-2n-1)}(\xi)```
+\psi_n(r) = N_n z^{\lambda-n-1/2} \mathrm{e}^{-z/2} L_n^{(2\lambda-2n-1)}(\xi),
+```
+
+``N_n = \sqrt{\frac{n!(2\lambda-2n-1)a}{\Gamma(2\lambda-n)}}``,
+``\lambda = \frac{\sqrt{2\mu D_\mathrm{e}}}{a\hbar}``, ``a = \sqrt{\frac{k}{2Dₑ}}``, ``L_n^{(\alpha)}(x) = \frac{x^{-\alpha} \mathrm{e}^x}{n !} \frac{\mathrm{d}^n}{\mathrm{d} x^n}\left(\mathrm{e}^{-x} x^{n+\alpha}\right)``, ``\xi := 2\lambda\mathrm{e}^{-a(r-r_e)}`` are defined. The domain is $0\leq r \lt \infty$.
 """ ψ(model::MorsePotential, r; n=0)
 
 @doc raw"""
 `L(model::MorsePotential, x; n=0, α=0)`
 
+Rodrigues' formula & closed-form:
 ```math
-L_n^{(\alpha)}(x) = \sum_{k=0}^n(-1)^k \frac{\Gamma(\alpha+n+1)}{\Gamma(\alpha+k+1)\Gamma(n-k+1)} \frac{x^k}{k !}
+\begin{aligned}
+  L_n^{(\alpha)}(x)
+  &= \frac{x^{-\alpha}e^x}{n!} \frac{d^n}{dx^n}\left(x^{n+\alpha}e^{-x}\right) \\
+  &= \sum_{k=0}^n(-1)^k \left(\begin{array}{l} n+\alpha \\ n-k \end{array}\right) \frac{x^k}{k !} \\
+  &= \sum_{k=0}^n(-1)^k \frac{\Gamma(\alpha+n+1)}{\Gamma(\alpha+k+1)\Gamma(n-k+1)} \frac{x^k}{k !}.
+\end{aligned}
+```
+Examples:
+```math
+\begin{aligned}
+  L_0^{(0)}(x) &= 1, \\
+  L_1^{(0)}(x) &= 1 - x, \\
+  L_1^{(1)}(x) &= 2 - x, \\
+  L_2^{(0)}(x) &= 1 - 2 x + 1/2 x^{2}, \\
+  L_2^{(1)}(x) &= 3 - 3 x + 1/2 x^{2}, \\
+  L_2^{(2)}(x) &= 6 - 4 x + 1/2 x^{2}, \\
+  L_3^{(0)}(x) &= 1 - 3 x + 3/2 x^{2} - 1/6 x^{3}, \\
+  L_3^{(1)}(x) &= 4 - 6 x + 2 x^{2} - 1/6 x^{3}, \\
+  L_3^{(2)}(x) &= 10 - 10 x + 5/2 x^{2} - 1/6 x^{3}, \\
+  L_3^{(3)}(x) &= 20 - 15 x + 3 x^{2} - 1/6 x^{3}, \\
+  L_4^{(0)}(x) &= 1 - 4 x + 3 x^{2} - 2/3 x^{3} + 1/24 x^{4}, \\
+  L_4^{(1)}(x) &= 5 - 10 x + 5 x^{2} - 5/6 x^{3} + 1/24 x^{4}, \\
+  L_4^{(2)}(x) &= 15 - 20 x + 15/2 x^{2} - 1 x^{3} + 1/24 x^{4}, \\
+  L_4^{(3)}(x) &= 35 - 35 x + 21/2 x^{2} - 7/6 x^{3} + 1/24 x^{4}, \\
+  L_4^{(4)}(x) &= 70 - 56 x + 14 x^{2} - 4/3 x^{3} + 1/24 x^{4}, \\
+  \vdots
+\end{aligned}
 ```
 """ L(model::MorsePotential, x; n=0, α=0)

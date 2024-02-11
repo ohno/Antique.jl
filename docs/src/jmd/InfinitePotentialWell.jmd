@@ -8,40 +8,34 @@ The infinite potential well (particle in a box) is the simplest model for quantu
 
 ## Definitions
 
-``L`` is the length of the 1D-box, ``m`` is the mass of particle.
-
-#### Schrödinger Equation
+This model is described with the time-independent Schrödinger equation
 ```math
-  \hat{H} \psi(x) = E \psi(x)
+  \hat{H} \psi(x) = E \psi(x),
 ```
-
-#### Hamiltonian
+and the Hamiltonian
 ```math
-  \hat{H} = - \frac{\hbar^2}{2m} \frac{\mathrm{d}^2}{\mathrm{d}x ^2} + V(x)
+  \hat{H} = - \frac{\hbar^2}{2m} \frac{\mathrm{d}^2}{\mathrm{d}x ^2} + V(x).
+```
+Parameters are specified with the following struct.
+
+#### Parameters
+```@docs; canonical=false
+Antique.InfinitePotentialWell
 ```
 
 #### Potential
-`V(model::InfinitePotentialWell; x)`
-```math
-  V(x) =
-  \left\{
-    \begin{array}{ll}
-    \infty & x \lt 0, L \lt x \\
-    0      & 0 \leq x \leq L
-    \end{array}
-  \right.
+```@docs; canonical=false
+Antique.V(::InfinitePotentialWell, ::Any)
 ```
 
 #### Eigen Values
-`E(model::InfinitePotentialWell; n=0)`
-```math
-  E_n = \frac{\hbar^2 n^2 \pi^2}{2 m L^2}
+```@docs; canonical=false
+Antique.E(::InfinitePotentialWell)
 ```
 
 #### Eigen Functions
-`ψ(model::InfinitePotentialWell, x; n=0)`
-```math
-   \psi_n(x) = \sqrt{\frac{2}{L}} \sin \frac{n\pi x}{L}
+```@docs; canonical=false
+Antique.ψ(::InfinitePotentialWell, ::Any)
 ```
 
 #### Proofs
