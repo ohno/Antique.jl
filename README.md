@@ -48,6 +48,7 @@ There are more examples on each model page.
 - [Harmonic Oscillator](https://ohno.github.io/Antique.jl/dev/HarmonicOscillator/) `HarmonicOscillator`
 - [Morse Potential](https://ohno.github.io/Antique.jl/dev/MorsePotential/) `MorsePotential`
 - [Hydrogen Atom](https://ohno.github.io/Antique.jl/dev/HydrogenAtom/) `HydrogenAtom`
+- [Delta Potential](https://ohno.github.io/Antique.jl/dev/DeltaPotential/) `DeltaPotential`
 
 ## Future Works
 
