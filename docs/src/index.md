@@ -70,11 +70,17 @@ There are more examples on each model page.
     </a>
     <code>HydrogenAtom</code>
   </div>
-    <div class="item">
+  <div class="item">
     <a target="_blank" href="./DeltaPotential">
       <img src="assets/fig/DeltaPotential_4_1.png" alt="DeltaPotential"/>
     </a>
     <code>DeltaPotential</code>
+  </div>
+  <div class="item">
+    <a target="_blank" href="./PoschlTeller">
+      <img src="assets/fig/PoschlTeller_5_1.png" alt="PoschlTeller"/>
+    </a>
+    <code>PoschlTeller</code>
   </div>
 </div>
 ```

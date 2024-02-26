@@ -155,7 +155,7 @@ using Plots
 plot(xlabel="\$r~/~a_0\$", ylabel="\$r^2|R_{nl}(r)|^2~/~a_0^{-1}\$", ylims=(-0.01,0.55), xticks=0:1:20, size=(480,400), dpi=300)
 for n in 1:3
   for l in 0:n-1
-    plot!(0:0.01:20, r->r^2*R(H,r,n=n,l=l)^2, lc=n, lw=2, ls=[:solid,:dash,:dot,:dashdot,:dashdotdot][l+1], label="\$n = $n, l=$l\$")
+    plot!(0:0.01:20, r->r^2*R(H,r,n=n,l=l)^2, lc=n, lw=2, ls=[:solid,:dash,:dot,:dashdot,:dashdotdot][l+1], label="\n = $n, l=$l\$")
   end
 end
 plot!()
