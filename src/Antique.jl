@@ -7,6 +7,7 @@ module Antique
     :MorsePotential,
     :HydrogenAtom,
     :DeltaPotential,
+    :PoschlTeller,
   ]
 
   # for Julia 1.1

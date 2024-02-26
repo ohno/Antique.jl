@@ -25,6 +25,7 @@ makedocs(;
     "Morse Potential"         => "MorsePotential.md"       ,
     "Hydrogen Atom"           => "HydrogenAtom.md"         ,
     "Delta Potential"         => "DeltaPotential.md"       ,
+    "Pöschl-Teller Potential" => "PoschlTeller.md"         ,
     # "API reference"           => "API.md"                  ,
   ],
 )
