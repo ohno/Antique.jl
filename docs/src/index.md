@@ -76,12 +76,12 @@ There are more examples on each model page.
     </a>
     <code>DeltaPotential</code>
   </div>
-  <div class="item">
+  <!-- <div class="item">
     <a target="_blank" href="./PoschlTeller">
       <img src="assets/fig/PoschlTeller_5_1.png" alt="PoschlTeller"/>
     </a>
     <code>PoschlTeller</code>
-  </div>
+  </div> -->
 </div>
 ```
 
