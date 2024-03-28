@@ -72,7 +72,7 @@ There are more examples on each model page.
   </div>
   <div class="item">
     <a target="_blank" href="./DeltaPotential">
-      <img src="assets/fig/DeltaPotential_4_1.png" alt="DeltaPotential"/>
+      <img src="assets/fig/DeltaPotential_5_1.png" alt="DeltaPotential"/>
     </a>
     <code>DeltaPotential</code>
   </div>
