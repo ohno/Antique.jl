@@ -74,6 +74,19 @@ plot!(xlim=[-2,2], ylim=[0,2.5], legend=false)
 plot!(xlabel="x", ylabel="ψ(x)", title="Delta Potential")
 ```
 
+Potential energy curve, Energy levels, Wave functions:
+
+```julia
+DP = DeltaPotential(α=0.1, m=0.5, ℏ=0.1)
+x = LinRange(-2,2,500);
+
+using Plots
+plot(xlim=[-2,2], ylim=[-1,2.0], legend=false, xlabel="\$x\$", ylabel="\$V(x),~E,~\\psi(x)+E\$")
+plot!([-2,0,0,0,2], [0,0,-1,0,0], lw=1, lc=:black) # plot!(x, x->V(DP,x), lw=1, lc=:black)
+plot!(x, x->ψ(DP,x) + E(DP), lw=2, lc=1)
+hline!([E(DP)], lw=1, ls=:dash, lc=:black)
+```
+
 ## Testing
 
 Unit testing and Integration testing were done using numerical integration ([QuadGK.jl](https://juliamath.github.io/QuadGK.jl/stable/)). The test script is [here](https://github.com/ohno/Antique.jl/blob/main/test/DeltaPotential.jl).
