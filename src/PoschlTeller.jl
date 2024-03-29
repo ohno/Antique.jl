@@ -115,6 +115,6 @@ where ``\mu = \mu(n) = n_\mathrm{max}-n+1``, and ``n_\mathrm{max} = \left\lfloor
 @doc raw"""
 `P(model::PoschlTeller, x; n=0, m=0)`
 
-Associated Legendre polynomials are the associated Legendre functions for integer indices. Please note here, that for the Poschl-Teller potential we use a slightly different notation of the associated Legendre functions as compared to the model HydrogenAtom. Here we have an additional factor ``(-1)^\m``.
+Associated Legendre polynomials are the associated Legendre functions for integer indices. Please note here, that for the Poschl-Teller potential we use a slightly different notation of the associated Legendre functions as compared to the model HydrogenAtom. Here we have an additional factor ``(-1)^m``.
 
 """ P(model::PoschlTeller, x; n=0, m=0)
