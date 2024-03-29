@@ -1,4 +1,4 @@
-PT = PoschlTeller(lambda=10.0)
+PT = PoschlTeller(λ=10.0)
 
 # <ψᵢ|ψⱼ> = δᵢⱼ
 
