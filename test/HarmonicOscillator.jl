@@ -46,11 +46,7 @@ println(raw"""
     # result
     @test acceptance
   end
-  println("```")
 end
-
-println("""```
-""")
 
 
 # ∫Hⱼ(x)Hᵢ(x)exp(-x²)dx = √π2ʲj!δᵢⱼ

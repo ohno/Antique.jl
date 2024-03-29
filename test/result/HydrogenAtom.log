@@ -159,9 +159,6 @@
 \end{aligned}
 ```
 
-```
-```
-
 #### Normalization & Orthogonality of $P_n^m(x)$
 
 ```math
@@ -797,9 +794,6 @@ l₁ | l₂ | m₁ | m₂ |        analytical |         numerical
   &= 1 \\
   &= 1
 \end{aligned}
-```
-
-```
 ```
 
 #### Normalization & Orthogonality of $L_n^{k}(x)$

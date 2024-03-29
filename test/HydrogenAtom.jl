@@ -51,11 +51,7 @@ println(raw"""
       @test acceptance
   end
   end
-  println("```")
 end
-
-println("""```
-""")
 
 
 # ∫Pᵢᵐ(x)Pⱼᵐ(x)dx = 2(j+m)!/(2j+1)(j-m)! δᵢⱼ
@@ -185,11 +181,7 @@ println(raw"""
     @test acceptance
   end
   end
-  println("```")
 end
-
-println("""```
-""")
 
 
 # ∫exp(-x)xᵏLᵢᵏ(x)Lⱼᵏ(x)dx = (2i+k)!/(i+k)! δᵢⱼ

@@ -48,11 +48,7 @@ println(raw"""
     @test acceptance
   end
   end
-  println("```")
 end
-
-println("""```
-""")
 
 
 # ∫Lᵢ⁽ᵅ⁾(x)Lⱼ⁽ᵅ⁾(x)xᵅexp(-x)dx = Γ(i+α+1)/i! δᵢⱼ

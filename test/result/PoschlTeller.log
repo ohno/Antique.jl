@@ -1,3 +1,164 @@
+#### Associated Legendre Polynomials $P_n^m(x)$
+
+```math
+  \begin{aligned}
+    P_n^m(x)
+    &= (-1)^m \left( 1-x^2 \right)^{m/2} \frac{\mathrm{d}^m}{\mathrm{d}x^m} P_n(x) \\
+    &= (-1)^m \left( 1-x^2 \right)^{m/2} \frac{\mathrm{d}^m}{\mathrm{d}x^m} \frac{1}{2^n n!} \frac{\mathrm{d}^n}{\mathrm{d}x ^n} \left[ \left( x^2-1 \right)^n \right] \\
+    &= \frac{(-1)^m}{2^n} (1-x^2)^{m/2} \sum_{j=0}^{\left\lfloor\frac{n-m}{2}\right\rfloor} (-1)^j \frac{(2n-2j)!}{j! (n-j)! (n-2j-m)!} x^{(n-2j-m)}.
+  \end{aligned}
+```
+
+``n=0, m=0:`` ✔
+```math
+\begin{aligned}
+  P_{0}^{0}(x)
+    = 1
+  &= 1 \\
+  &= 1
+\end{aligned}
+```
+
+``n=1, m=0:`` ✔
+```math
+\begin{aligned}
+  P_{1}^{0}(x)
+    = \frac{1}{2} \frac{\mathrm{d}}{\mathrm{d}x} \left( -1 + x^{2} \right)
+  &= x \\
+  &= x
+\end{aligned}
+```
+
+``n=1, m=1:`` ✔
+```math
+\begin{aligned}
+  P_{1}^{1}(x)
+    =  - \left( 1 - x^{2} \right)^{\frac{1}{2}} \frac{\mathrm{d}}{\mathrm{d}x} \frac{1}{2} \frac{\mathrm{d}}{\mathrm{d}x} \left( -1 + x^{2} \right)
+  &=  - \left( 1 - x^{2} \right)^{\frac{1}{2}} \\
+  &=  - \left( 1 - x^{2} \right)^{\frac{1}{2}}
+\end{aligned}
+```
+
+``n=2, m=0:`` ✔
+```math
+\begin{aligned}
+  P_{2}^{0}(x)
+    = \frac{1}{8} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \left( -1 + x^{2} \right)^{2}
+  &= \frac{-1}{2} + \frac{3}{2} x^{2} \\
+  &= \frac{-1}{2} + \frac{3}{2} x^{2}
+\end{aligned}
+```
+
+``n=2, m=1:`` ✔
+```math
+\begin{aligned}
+  P_{2}^{1}(x)
+    =  - \left( 1 - x^{2} \right)^{\frac{1}{2}} \frac{\mathrm{d}}{\mathrm{d}x} \frac{1}{8} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \left( -1 + x^{2} \right)^{2}
+  &=  - 3 \left( 1 - x^{2} \right)^{\frac{1}{2}} x \\
+  &=  - 3 \left( 1 - x^{2} \right)^{\frac{1}{2}} x
+\end{aligned}
+```
+
+``n=2, m=2:`` ✔
+```math
+\begin{aligned}
+  P_{2}^{2}(x)
+    = \left( 1 - x^{2} \right) \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{1}{8} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \left( -1 + x^{2} \right)^{2}
+  &= 3 - 3 x^{2} \\
+  &= 3 - 3 x^{2}
+\end{aligned}
+```
+
+``n=3, m=0:`` ✔
+```math
+\begin{aligned}
+  P_{3}^{0}(x)
+    = \frac{1}{48} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \left( -1 + x^{2} \right)^{3}
+  &=  - \frac{3}{2} x + \frac{5}{2} x^{3} \\
+  &=  - \frac{3}{2} x + \frac{5}{2} x^{3}
+\end{aligned}
+```
+
+``n=3, m=1:`` ✔
+```math
+\begin{aligned}
+  P_{3}^{1}(x)
+    =  - \left( 1 - x^{2} \right)^{\frac{1}{2}} \frac{\mathrm{d}}{\mathrm{d}x} \frac{1}{48} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \left( -1 + x^{2} \right)^{3}
+  &= \frac{3}{2} \left( 1 - x^{2} \right)^{\frac{1}{2}} - \frac{15}{2} x^{2} \left( 1 - x^{2} \right)^{\frac{1}{2}} \\
+  &= \frac{3}{2} \left( 1 - x^{2} \right)^{\frac{1}{2}} - \frac{15}{2} x^{2} \left( 1 - x^{2} \right)^{\frac{1}{2}}
+\end{aligned}
+```
+
+``n=3, m=2:`` ✔
+```math
+\begin{aligned}
+  P_{3}^{2}(x)
+    = \left( 1 - x^{2} \right) \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{1}{48} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \left( -1 + x^{2} \right)^{3}
+  &= 15 x - 15 x^{3} \\
+  &= 15 x - 15 x^{3}
+\end{aligned}
+```
+
+``n=3, m=3:`` ✔
+```math
+\begin{aligned}
+  P_{3}^{3}(x)
+    =  - \left( 1 - x^{2} \right)^{\frac{3}{2}} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{1}{48} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \left( -1 + x^{2} \right)^{3}
+  &=  - 15 \left( 1 - x^{2} \right)^{\frac{3}{2}} \\
+  &=  - 15 \left( 1 - x^{2} \right)^{\frac{3}{2}}
+\end{aligned}
+```
+
+``n=4, m=0:`` ✔
+```math
+\begin{aligned}
+  P_{4}^{0}(x)
+    = \frac{1}{384} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \left( -1 + x^{2} \right)^{4}
+  &= \frac{3}{8} - \frac{15}{4} x^{2} + \frac{35}{8} x^{4} \\
+  &= \frac{3}{8} - \frac{15}{4} x^{2} + \frac{35}{8} x^{4}
+\end{aligned}
+```
+
+``n=4, m=1:`` ✔
+```math
+\begin{aligned}
+  P_{4}^{1}(x)
+    =  - \left( 1 - x^{2} \right)^{\frac{1}{2}} \frac{\mathrm{d}}{\mathrm{d}x} \frac{1}{384} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \left( -1 + x^{2} \right)^{4}
+  &= \frac{15}{2} \left( 1 - x^{2} \right)^{\frac{1}{2}} x - \frac{35}{2} x^{3} \left( 1 - x^{2} \right)^{\frac{1}{2}} \\
+  &= \frac{15}{2} \left( 1 - x^{2} \right)^{\frac{1}{2}} x - \frac{35}{2} x^{3} \left( 1 - x^{2} \right)^{\frac{1}{2}}
+\end{aligned}
+```
+
+``n=4, m=2:`` ✔
+```math
+\begin{aligned}
+  P_{4}^{2}(x)
+    = \left( 1 - x^{2} \right) \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{1}{384} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \left( -1 + x^{2} \right)^{4}
+  &= \frac{-15}{2} + 60 x^{2} - \frac{105}{2} x^{4} \\
+  &= \frac{-15}{2} + 60 x^{2} - \frac{105}{2} x^{4}
+\end{aligned}
+```
+
+``n=4, m=3:`` ✔
+```math
+\begin{aligned}
+  P_{4}^{3}(x)
+    =  - \left( 1 - x^{2} \right)^{\frac{3}{2}} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{1}{384} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \left( -1 + x^{2} \right)^{4}
+  &=  - 105 \left( 1 - x^{2} \right)^{\frac{3}{2}} x \\
+  &=  - 105 \left( 1 - x^{2} \right)^{\frac{3}{2}} x
+\end{aligned}
+```
+
+``n=4, m=4:`` ✔
+```math
+\begin{aligned}
+  P_{4}^{4}(x)
+    = \left( 1 - x^{2} \right)^{2} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{1}{384} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \left( -1 + x^{2} \right)^{4}
+  &= 105 \left( 1 - x^{2} \right)^{2} \\
+  &= 105 \left( 1 - x^{2} \right)^{2}
+\end{aligned}
+```
+
 #### Normalization & Orthogonality of $\psi_n(x)$
 
 ```math

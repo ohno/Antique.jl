@@ -117,4 +117,13 @@ where ``\mu = \mu(n) = n_\mathrm{max}-n+1``, and ``n_\mathrm{max} = \left\lfloor
 
 Associated Legendre polynomials are the associated Legendre functions for integer indices. Please note here, that for the Poschl-Teller potential we use a slightly different notation of the associated Legendre functions as compared to the model HydrogenAtom. Here we have an additional factor ``(-1)^m``.
 
+```math
+\begin{aligned}
+  P_n^m(x)
+  &= (-1)^m \left( 1-x^2 \right)^{m/2} \frac{\mathrm{d}^m}{\mathrm{d}x^m} P_n(x) \\
+  &= (-1)^m \left( 1-x^2 \right)^{m/2} \frac{\mathrm{d}^m}{\mathrm{d}x^m} \frac{1}{2^n n!} \frac{\mathrm{d}^n}{\mathrm{d}x ^n} \left[ \left( x^2-1 \right)^n \right] \\
+  &= \frac{(-1)^m}{2^n} (1-x^2)^{m/2} \sum_{j=0}^{\left\lfloor\frac{n-m}{2}\right\rfloor} (-1)^j \frac{(2n-2j)!}{j! (n-j)! (n-2j-m)!} x^{(n-2j-m)}.
+\end{aligned}
+```
+
 """ P(model::PoschlTeller, x; n=0, m=0)
