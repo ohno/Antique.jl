@@ -65,7 +65,7 @@ svg = """
 
 HTML(svg) |> display
 
-path = "./docs/src/assets/logo.svg"
+path = "./docs/src/assets/fig/logo.svg"
 mkpath(dirname(path))
 file = open(path, "w")
 Base.write(file, svg)

@@ -15,7 +15,7 @@ makedocs(;
     edit_link="main",
     repolink="https://github.com/ohno/Antique.jl",
     assets=String[
-      "./assets/logo.ico",
+      "./assets/fig/logo.ico",
       "./assets/css/catalog.css"
     ],
   ),
