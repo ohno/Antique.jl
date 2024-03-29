@@ -62,65 +62,42 @@ Antique.ψ(::PoschlTeller, ::Any)
 
 ```@example PT
 using Antique
-PT = PoschlTeller(lambda=6.0)
+PT = PoschlTeller(λ=4.0)
+; # hide
 ```
 
 Parameters:
 
-```julia
-julia> PT.lambda
-6.0
+```@repl PT
+PT.λ
+PT.m
+PT.ℏ
+PT.x0
 ```
 
 Eigen values:
 
-```julia
-julia> E(PT,n=0)
--18.0
-
-julia> E(PT,n=1)
--12.5
-
-julia> E(PT,n=2)
--8.0
-
-julia> E(PT,n=3)
--4.5
-
-julia> E(PT,n=4)
--2.0
-
-julia> E(PT,n=5)
--0.5
+```@repl PT
+E(PT,n=0)
+E(PT,n=1)
+E(PT,n=2)
+E(PT,n=3)
 ```
 
 Wave functions:
 
-```julia
-lambda = 4.0
-PT = PoschlTeller(lambda)
-
+```@example PT
 using Plots
-plot(xlim=(-4,4), ylim=(-11.0,1.0), xlabel="\$x/x_0\$", ylabel="\$V(x),~E_n,~\\psi_n(x)+E_n\$", size=(480,400), dpi=300)
-for n in 0:3
-  # classical turning point:
-  xE = acosh(sqrt(λ*(λ+1)/abs(E(PT,n=n))/2))
-  # energy
-  hline!([E(PT, n=n)], lc=:black, ls=:dash, label="")
-  plot!([-xE,xE], fill(E(PT, n=n),2), lc=:black, lw=2, label="")
-  # wave function
-  plot!(x -> E(PT, n=n) + ψ(PT, x,n=n), lc=n+1, lw=2, label="\$n = $n\$")
-end
-# potential
-plot!(x -> V(PT, x), lc=:black, lw=2, label="")
+plot(xlim=(-4,4), xlabel="\$x/x_0\$", ylabel="\$\\psi_n(x)\$")
+plot!(x -> ψ(PT, x, n=0), lc=1, lw=2, label="\$n = 0\$")
+plot!(x -> ψ(PT, x, n=1), lc=2, lw=2, label="\$n = 1\$")
+plot!(x -> ψ(PT, x, n=2), lc=3, lw=2, label="\$n = 2\$")
+plot!(x -> ψ(PT, x, n=3), lc=4, lw=2, label="\$n = 3\$")
 ```
 
 Potential energy curve, Energy levels, Wave functions:
 
-```julia
-lambda = 4.0
-PT = PoschlTeller(lambda)
-
+```@example PT
 using Plots
 plot(xlim=(-4,4), ylim=(-11.0,1.0), xlabel="\$x/x_0\$", ylabel="\$V(x),~E_n,~\\psi_n(x)+E_n\$", size=(480,400), dpi=300)
 for n in 0:3

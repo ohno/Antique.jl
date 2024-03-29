@@ -1,4 +1,4 @@
-export PoschlTeller, V, E, ψ, H
+export PoschlTeller, V, E, ψ
 
 @kwdef struct PoschlTeller
   λ = 1.0
