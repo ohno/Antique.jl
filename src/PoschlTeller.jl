@@ -4,7 +4,7 @@ export PoschlTeller, V, E, ψ
   λ = 1.0
   m = 1.0
   ℏ = 1.0
-  x0 = 1.0
+  x₀ = 1.0
 end
 
 function V(model::PoschlTeller, x)
@@ -12,7 +12,7 @@ function V(model::PoschlTeller, x)
   return -λ*(λ+1)/2/cosh(x)^2
 end
 
-function nmax(model::PoschlTeller)
+function nₘₐₓ(model::PoschlTeller)
   λ = model.λ
   return Int(floor(λ-1)) # if counting n from zero
 end
@@ -21,9 +21,9 @@ function E(model::PoschlTeller; n=0)
   λ = model.λ
   m = model.m
   ℏ = model.ℏ
-  x0 = model.x0
+  x₀ = model.x₀
 
-  n_max = nmax(model)
+  n_max = nₘₐₓ(model)
   mu = n_max-n+1
   #m = model.m
   #ℏ = model.ℏ
@@ -38,7 +38,7 @@ function E(model::PoschlTeller; n=0)
   end
   
   if 0 <= n <= n_max
-    return -(mu)^2/2 * ℏ^2/(m*x0^2)
+    return -(mu)^2/2 * ℏ^2/(m*x₀^2)
   else
     error("Error: n must be non-negative and smaller than λ: 0 <= n < λ")
   end
@@ -46,7 +46,7 @@ end
 
 function ψ(model::PoschlTeller, x; n=0)
   λ = model.λ
-  n_max = nmax(model)
+  n_max = nₘₐₓ(model)
   mu = n_max-n+1
 
   if 0 <= n <= n_max
@@ -68,7 +68,7 @@ end
 
 # docstrings:
 @doc raw"""
-`PoschlTeller(λ=1.0,m=1.0,ℏ=1.0,x0=1.0)`
+`PoschlTeller(λ=1.0, m=1.0, ℏ=1.0, x₀=1.0)`
 
 ``\lambda`` determines the potential strength.
 """ PoschlTeller
@@ -87,12 +87,12 @@ end
 
 
 @doc raw"""
-`nmax(model::PoschlTeller)`
+`nₘₐₓ(model::PoschlTeller)`
 
 ```math
 n_\mathrm{max} = \left\lfloor \lambda \right\rfloor - 1.
 ```
-""" nmax(model::PoschlTeller)
+""" nₘₐₓ(model::PoschlTeller)
 
 @doc raw"""
 `E(model::PoschlTeller; n=0)`
