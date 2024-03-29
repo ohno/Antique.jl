@@ -1,5 +1,6 @@
 using Antique
 using Documenter
+using Plots
 
 DocMeta.setdocmeta!(Antique, :DocTestSetup, :(using Antique); recursive=true)
 
