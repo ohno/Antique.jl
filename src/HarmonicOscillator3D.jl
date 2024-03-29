@@ -1,10 +1,10 @@
-export HarmonicOscillator3D, V, E, ψ, R, L, Y, P
+export HarmonicOscillator3D, V, E, ψ
 
 @kwdef struct HarmonicOscillator3D
-    k = 1.0
-    m = 1.0
-    ℏ = 1.0
-  end
+  k = 1.0
+  m = 1.0
+  ℏ = 1.0
+end
 
 function V(model::HarmonicOscillator3D, r)
   # if r<0
@@ -95,7 +95,7 @@ V(r)
 = \frac{1}{2} \hbar \omega \xi^2,
 ```
 where ``\omega = \sqrt{k/m}`` is the angular frequency and ``\xi = \sqrt{\frac{m\omega}{\hbar}}r``.
-""" V(model::HarmonicOscillator, x)
+""" V(model::HarmonicOscillator3D, x)
 
 @doc raw"""
 `E(model::HarmonicOscillator3D; n=1)`
