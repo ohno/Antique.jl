@@ -1,8 +1,12 @@
 # run on REPL # https://qiita.com/SatoshiTerasaki/items/7dbb809c962e794a9df6
 
-# using Pkg
-# Pkg.add("PkgTemplates")
-using PkgTemplates
+try
+  using PkgTemplates
+catch
+  using Pkg
+  Pkg.add("PkgTemplates")
+  using PkgTemplates
+end
 
 t = Template(;
   user="ohno",

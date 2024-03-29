@@ -1,6 +1,23 @@
+# Path
+dir = dirname(@__FILE__) * "/../"
+cd(dir)
+@show pwd()
+
+# Antique.jl
+using Pkg
+Pkg.activate(dir)
 using Antique
-using Documenter
-using Plots
+
+# Packages
+try
+  using Plots
+  using Documenter
+catch
+  Pkg.add("Plots")
+  Pkg.add("Documenter")
+  using Plots
+  using Documenter
+end
 
 DocMeta.setdocmeta!(Antique, :DocTestSetup, :(using Antique); recursive=true)
 

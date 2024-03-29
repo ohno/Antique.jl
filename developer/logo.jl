@@ -3,8 +3,11 @@
 # https://github.com/JuliaLang/julia-logo-graphics
 # https://products.aspose.app/imaging/conversion/svg-to-ico
 
+dir = dirname(@__FILE__) * "/../"
+cd(dir)
+@show pwd()
 using Pkg
-Pkg.activate("./")
+Pkg.activate(dir)
 using Antique
 
 function XY2path(X,Y)
