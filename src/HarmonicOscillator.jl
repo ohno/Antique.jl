@@ -34,7 +34,7 @@ function H(model::HarmonicOscillator, x; n=0)
 end
 
 @doc raw"""
-`HarmonicOscillator(α=1.0, m=1.0, ℏ=1.0)`
+`HarmonicOscillator(k=1.0, m=1.0, ℏ=1.0)`
 
 ``k`` is the force constant, ``m`` is the mass of particle and ``\hbar`` is the reduced Planck constant (Dirac's constant).
 """ HarmonicOscillator
@@ -48,7 +48,7 @@ V(x)
 = \frac{1}{2} m \omega^2 x^2
 = \frac{1}{2} \hbar \omega \xi^2,
 ```
-where ``\omega = \sqrt{k/m}`` is the angular frequency.
+where ``\omega = \sqrt{k/m}`` is the angular frequency and ``\xi = \sqrt{\frac{m\omega}{\hbar}}x``.
 """ V(model::HarmonicOscillator, x)
 
 @doc raw"""

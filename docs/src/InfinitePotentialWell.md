@@ -93,7 +93,12 @@ plot!(x -> ψ(IPW, x, n=4), label="n=4", lw=2)
 plot!(x -> ψ(IPW, x, n=5), label="n=5", lw=2)
 ```
 
-![](./assets/fig//InfinitePotentialWell_4_1.png)
+```
+Error: ArgumentError: Package Plots not found in current path.
+- Run `import Pkg; Pkg.add("Plots")` to install the Plots package.
+```
+
+
 
 
 
@@ -113,7 +118,12 @@ end
 plot!([0,0,L,L], [140,0,0,140], lc=:black, lw=2, label="")
 ```
 
-![](./assets/fig//InfinitePotentialWell_5_1.png)
+```
+Error: ArgumentError: Package Plots not found in current path.
+- Run `import Pkg; Pkg.add("Plots")` to install the Plots package.
+```
+
+
 
 
 

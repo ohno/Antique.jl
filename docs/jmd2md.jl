@@ -1,4 +1,5 @@
 using Antique
+import Pkg; Pkg.add("Weave")
 using Weave
 
 for file in Antique.models # [:DeltaPotential]

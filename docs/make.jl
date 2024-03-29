@@ -1,4 +1,5 @@
 using Antique
+import Pkg; Pkg.add("Documenter")
 using Documenter
 
 DocMeta.setdocmeta!(Antique, :DocTestSetup, :(using Antique); recursive=true)
@@ -22,6 +23,7 @@ makedocs(;
     "Home" => "index.md",
     "Infinite Potential Well" => "InfinitePotentialWell.md",
     "Harmonic Oscillator"     => "HarmonicOscillator.md"   ,
+    "Harmonic Oscillator 3D"  => "HarmonicOscillator3D.md" ,
     "Morse Potential"         => "MorsePotential.md"       ,
     "Hydrogen Atom"           => "HydrogenAtom.md"         ,
     "Delta Potential"         => "DeltaPotential.md"       ,

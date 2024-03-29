@@ -87,7 +87,12 @@ plot!(xlim=[-2,2], ylim=[0,2.5], legend=false)
 plot!(xlabel="x", ylabel="ψ(x)", title="Delta Potential")
 ```
 
-![](./assets/fig//DeltaPotential_4_1.png)
+```
+Error: ArgumentError: Package Plots not found in current path.
+- Run `import Pkg; Pkg.add("Plots")` to install the Plots package.
+```
+
+
 
 
 

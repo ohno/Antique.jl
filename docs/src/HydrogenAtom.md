@@ -178,7 +178,12 @@ plot(xlims=(0.0,15.0), ylims=(-0.6,0.05), xlabel="\$r~/~a_0\$", ylabel="\$V(r)/E
 plot!(0.1:0.01:15, r -> V(H,r), lc=:black, lw=2, label="") # potential
 ```
 
-![](./assets/fig//HydrogenAtom_6_1.png)
+```
+Error: ArgumentError: Package Plots not found in current path.
+- Run `import Pkg; Pkg.add("Plots")` to install the Plots package.
+```
+
+
 
 
 
@@ -193,7 +198,12 @@ end
 plot!(0.1:0.01:15, r -> V(H,r), lc=:black, lw=2, label="") # potential
 ```
 
-![](./assets/fig//HydrogenAtom_7_1.png)
+```
+Error: ArgumentError: Package Plots not found in current path.
+- Run `import Pkg; Pkg.add("Plots")` to install the Plots package.
+```
+
+
 
 
 
@@ -210,7 +220,12 @@ end
 plot!()
 ```
 
-![](./assets/fig//HydrogenAtom_8_1.png)
+```
+Error: ArgumentError: Package Plots not found in current path.
+- Run `import Pkg; Pkg.add("Plots")` to install the Plots package.
+```
+
+
 
 
 
