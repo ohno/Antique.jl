@@ -48,37 +48,37 @@ There are more examples on each model page.
 <div class="catalog">
   <div class="item">
     <a target="_blank" href="./InfinitePotentialWell">
-      <img src="assets/fig/InfinitePotentialWell_6_1.png" alt="InfinitePotentialWell"/>
+      <img src="assets/fig/InfinitePotentialWell.png" alt="InfinitePotentialWell"/>
     </a>
     <code>InfinitePotentialWell</code>
   </div>
   <div class="item">
     <a target="_blank" href="./HarmonicOscillator">
-      <img src="assets/fig/HarmonicOscillator_6_1.png" alt="HarmonicOscillator"/>
+      <img src="assets/fig/HarmonicOscillator.png" alt="HarmonicOscillator"/>
     </a>
     <code>HarmonicOscillator</code>
   </div>
   <div class="item">
     <a target="_blank" href="./MorsePotential">
-      <img src="assets/fig/MorsePotential_6_1.png" alt="MorsePotential"/>
+      <img src="assets/fig/MorsePotential.png" alt="MorsePotential"/>
     </a>
     <code>MorsePotential</code>
   </div>
   <div class="item">
     <a target="_blank" href="./HydrogenAtom">
-      <img src="assets/fig/HydrogenAtom_5_1.png" alt="HydrogenAtom"/>
+      <img src="assets/fig/HydrogenAtom.png" alt="HydrogenAtom"/>
     </a>
     <code>HydrogenAtom</code>
   </div>
   <div class="item">
     <a target="_blank" href="./DeltaPotential">
-      <img src="assets/fig/DeltaPotential_5_1.png" alt="DeltaPotential"/>
+      <img src="assets/fig/DeltaPotential.png" alt="DeltaPotential"/>
     </a>
     <code>DeltaPotential</code>
   </div>
   <!-- <div class="item">
     <a target="_blank" href="./PoschlTeller">
-      <img src="assets/fig/PoschlTeller_5_1.png" alt="PoschlTeller"/>
+      <img src="assets/fig/PoschlTeller.png" alt="PoschlTeller"/>
     </a>
     <code>PoschlTeller</code>
   </div> -->
