@@ -40,6 +40,7 @@ makedocs(;
     "Home" => "index.md",
     "Infinite Potential Well" => "InfinitePotentialWell.md",
     "Harmonic Oscillator"     => "HarmonicOscillator.md"   ,
+    "Harmonic Oscillator 3D"  => "HarmonicOscillator3D.md" ,
     "Morse Potential"         => "MorsePotential.md"       ,
     "Hydrogen Atom"           => "HydrogenAtom.md"         ,
     "Delta Potential"         => "DeltaPotential.md"       ,

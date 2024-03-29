@@ -8,6 +8,7 @@ module Antique
     :HydrogenAtom,
     :DeltaPotential,
     :PoschlTeller,
+    :HarmonicOscillator3D
   ]
 
   # for Julia 1.1
