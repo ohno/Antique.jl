@@ -1,23 +1,6 @@
-# Path
-dir = dirname(@__FILE__) * "/../"
-cd(dir)
-@show pwd()
-
-# Antique.jl
-using Pkg
-Pkg.activate(dir)
 using Antique
-
-# Packages
-try
-  using Plots
-  using Documenter
-catch
-  Pkg.add("Plots")
-  Pkg.add("Documenter")
-  using Plots
-  using Documenter
-end
+using Documenter
+using Plots
 
 DocMeta.setdocmeta!(Antique, :DocTestSetup, :(using Antique); recursive=true)
 
@@ -40,7 +23,7 @@ makedocs(;
     "Home" => "index.md",
     "Infinite Potential Well" => "InfinitePotentialWell.md",
     "Harmonic Oscillator"     => "HarmonicOscillator.md"   ,
-    "Harmonic Oscillator 3D"  => "HarmonicOscillator3D.md" ,
+    # "Harmonic Oscillator 3D"  => "HarmonicOscillator3D.md" ,
     "Morse Potential"         => "MorsePotential.md"       ,
     "Hydrogen Atom"           => "HydrogenAtom.md"         ,
     "Delta Potential"         => "DeltaPotential.md"       ,
