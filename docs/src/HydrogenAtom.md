@@ -133,34 +133,70 @@ println("λ = hc/ΔE = ", h*c/ΔE*100, " cm")
 Potential energy curve:
 
 ```@example HA
-using Plots
-plot(xlims=(0.0,15.0), ylims=(-0.6,0.05), xlabel="\$r~/~a_0\$", ylabel="\$V(r)/E_\\mathrm{h},~E_n/E_\\mathrm{h}\$", legend=:bottomright, size=(480,400))
-plot!(0.1:0.01:15, r -> V(H,r), lc=:black, lw=2, label="") # potential
-```
+using CairoMakie
 
-Potential energy curve, Energy levels:
-
-```@example HA
-using Plots
-plot(xlims=(0.0,15.0), ylims=(-0.6,0.05), xlabel="\$r~/~a_0\$", ylabel="\$V(r)/E_\\mathrm{h}\$", legend=:bottomright, size=(480,400))
-for n in 0:10
-  plot!(0.0:0.01:15, r -> E(H,n=n) > V(H,r) ? E(H,n=n) : NaN, lc=n, lw=1, label="") # energy level
-end
-plot!(0.1:0.01:15, r -> V(H,r), lc=:black, lw=2, label="") # potential
+f = Figure()
+ax = Axis(f[1,1], xlabel=L"$r~/~a_0$", ylabel=L"$V(r)$~/~E_\mathrm{h}0$$",  limits=(0.0,15.0,-2.0,0.2))
+lines!(ax, 0.1:0.01:20, r -> V(H, r))
+f
 ```
 
 Radial functions:
 
 ```@example HA
-using Plots
-plot(xlabel="\$r~/~a_0\$", ylabel="\$r^2|R_{nl}(r)|^2~/~a_0^{-1}\$", ylims=(-0.01,0.55), xticks=0:1:20, size=(480,400), dpi=300)
+using CairoMakie
+using LaTeXStrings
+
+# setting
+f = Figure()
+ax = Axis(f[1,1], xlabel=L"$r~/~a_0$", ylabel=L"$r^2|R_{nl}(r)|^2~/~a_0^{-1}$", limits=(0,20,0,0.58))
+
+# plot
+ws = []
+ls = []
 for n in 1:3
   for l in 0:n-1
-    plot!(0:0.01:20, r->r^2*R(H,r,n=n,l=l)^2, lc=n, lw=2, ls=[:solid,:dash,:dot,:dashdot,:dashdotdot][l+1], label="\$n = $n, l=$l\$")
+    w = lines!(
+        ax,
+        0..20,
+        r -> r^2 * R(H,r,n=n,l=l)^2,
+        linewidth = 2,
+        linestyle = [:solid,:dash,:dot,:dashdot,:dashdotdot][l+1],
+        color = n,
+        colormap = :tab10,
+        colorrange = (1,10)
+    )
+    push!(ws, w)
+    push!(ls, latexstring("n=$n, l=$l"))
   end
 end
-plot!()
-savefig("assets/fig/HydrogenAtom.png") # hide
+
+# legend
+axislegend(ax, ws, ls, position=:rt)
+
+f
+```
+
+Wave functions (electron density in $n=5,l=2,m=1$):
+
+```@example HA
+using Antique
+H = HydrogenAtom(Z=1, Eₕ=1.0, a₀=1.0, mₑ=1.0, ℏ=1.0)
+loop(x) = x<-1 ? loop(x+2) : (1<x ? loop(x-2) : x)
+myacos(x) = acos(loop(x))
+r(x,y,z)  = sqrt(x^2+y^2+z^2)
+θ(x,y,z) = x^2+y^2<1e-9 ? 0 : myacos(z/r(x,y,z)) 
+φ(x,y,z) = y^2<1e-9 ? 0 : sign(y)*myacos(x/sqrt(x^2+y^2))
+P(x,y,z) = abs(ψ(H,r(x,y,z),θ(x,y,z),φ(x,y,z),n=5,l=2,m=1))^2
+
+using CairoMakie
+f = Figure(size=(500,500), backgroundcolor=:transparent)
+a = Axis(f[1,1], aspect=1)
+hidespines!(a)
+hidedecorations!(a)
+heatmap!(a, -40:0.1:40, -40:0.1:40, (y,z) -> P(0,y,z), colorrange=(0.0,0.00001))
+f
+save("assets/fig/HydrogenAtom.png", f) # hide
 ; # hide
 ```
 

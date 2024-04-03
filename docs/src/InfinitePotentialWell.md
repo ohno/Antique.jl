@@ -70,30 +70,49 @@ E(IPW, n=2)
 Wave functions:
 
 ```@example IPW
-using Plots
-plot(xlim=(0,1), xlabel="x", ylabel="ψ(x)")
-plot!(x -> ψ(IPW, x, n=1), label="n=1", lw=2)
-plot!(x -> ψ(IPW, x, n=2), label="n=2", lw=2)
-plot!(x -> ψ(IPW, x, n=3), label="n=3", lw=2)
-plot!(x -> ψ(IPW, x, n=4), label="n=4", lw=2)
-plot!(x -> ψ(IPW, x, n=5), label="n=5", lw=2)
+using CairoMakie
+
+# settings
+f = Figure()
+ax = Axis(f[1,1], xlabel=L"$x$", ylabel=L"$\psi(x)$")
+
+# plot
+w1 = lines!(ax, 0..1, x -> ψ(IPW, x, n=1))
+w2 = lines!(ax, 0..1, x -> ψ(IPW, x, n=2))
+w3 = lines!(ax, 0..1, x -> ψ(IPW, x, n=3))
+w4 = lines!(ax, 0..1, x -> ψ(IPW, x, n=4))
+w5 = lines!(ax, 0..1, x -> ψ(IPW, x, n=5))
+
+# legend
+axislegend(ax, [w1, w2, w3, w4, w5], [L"n=1", L"n=2", L"n=3", L"n=4", L"n=5"], position=:lb)
+
+f
 ```
 
 Potential energy curve, Energy levels, Wave functions:
 
 ```@example IPW
-L = 1
-using Plots
-plot(xlim=(-0.5,1.5), ylim=(-5,140), xlabel="\$x\$", ylabel="\$V(x),~E_n,~\\psi_n(x)\\times5+E_n\$", size=(480,400), dpi=300)
+using CairoMakie
+
+# settings
+f = Figure()
+ax = Axis(f[1,1], xlabel=L"$x$", ylabel=L"$V(x),~E_n,~\psi_n(x) \times 5 + E_n$", aspect=1, limits=(-0.5,1.5,0,140))
+# hidespines!(ax)
+# hidedecorations!(ax)
+
+# plot
 for n in 1:5
   # energy
-  plot!([0,L], fill(E(IPW,n=n),2), lc=:black, lw=2, label="")
+  lines!(ax, [0,IPW.L], fill(E(IPW,n=n),2), color=:black, linewidth=2)
   # wave function
-  plot!(0:0.01:L, x->E(IPW,n=n) + 5*ψ(IPW,x,n=n), lc=n, lw=2, label="")
+  lines!(ax, 0..IPW.L, x -> E(IPW,n=n) + 5*ψ(IPW,x,n=n), linewidth=2)
 end
-# potential
-plot!([0,0,L,L], [140,0,0,140], lc=:black, lw=2, label="")
-savefig("assets/fig/InfinitePotentialWell.png") # hide
+
+#potential
+lines!(ax, [0,0,IPW.L,IPW.L], [140,0,0,140], color=:black, linewidth=2)
+
+f
+save("assets/fig/InfinitePotentialWell.png", f) # hide
 ; # hide
 ```
 

@@ -1,6 +1,6 @@
 using Antique
 using Documenter
-using Plots
+using CairoMakie
 
 DocMeta.setdocmeta!(Antique, :DocTestSetup, :(using Antique); recursive=true)
 

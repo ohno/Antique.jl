@@ -66,27 +66,40 @@ E(DP)
 Wave functions:
 
 ```@example DP
-DP = DeltaPotential(α=0.1, m=0.5, ℏ=0.1)
-x = LinRange(-2,2,500);
+using CairoMakie
 
-using Plots
-plot(x, x->ψ(DP,x), linewidth=3)
-plot!(xlim=[-2,2], ylim=[0,2.5], legend=false)
-plot!(xlabel="x", ylabel="ψ(x)", title="Delta Potential")
+# setting
+f = Figure()
+ax = Axis(f[1,1], xlabel=L"$x$", ylabel=L"$\psi(x)$")
+
+# plot
+w = lines!(ax, -5..5, x -> ψ(DP, x))
+
+f
 ```
 
 Potential energy curve, Energy levels, Wave functions:
 
 ```@example DP
-DP = DeltaPotential(α=0.1, m=0.5, ℏ=0.1)
-x = LinRange(-2,2,500);
+using CairoMakie
 
-using Plots
-plot(xlim=[-2,2], ylim=[-1,2.0], legend=false, xlabel="\$x\$", ylabel="\$V(x),~E,~\\psi(x)+E\$")
-plot!([-2,0,0,0,2], [0,0,-1,0,0], lw=1, lc=:black) # plot!(x, x->V(DP,x), lw=1, lc=:black)
-plot!(x, x->ψ(DP,x) + E(DP), lw=2, lc=1)
-hline!([E(DP)], lw=1, ls=:dash, lc=:black)
-savefig("assets/fig/DeltaPotential.png") # hide
+# settings
+f = Figure()
+ax = Axis(f[1,1], xlabel=L"$x$", ylabel=L"$V(x),~E_n,~\psi_n(x) \times 5 + E_n$", aspect=1, limits=(-5,5,-0.6,0.6))
+# hidespines!(ax)
+# hidedecorations!(ax)
+
+# energy
+hlines!(ax, E(DP), color=:black, linewidth=1, linestyle=:dash)
+
+# wave function
+lines!(ax, -5..5, x -> E(DP) + ψ(DP,x), linewidth=2)
+
+#potential
+lines!(ax, [-5,0,0,0,5], [0,0,-1,0,0], color=:black, linewidth=2)
+
+f
+save("assets/fig/DeltaPotential.png", f) # hide
 ; # hide
 ```
 

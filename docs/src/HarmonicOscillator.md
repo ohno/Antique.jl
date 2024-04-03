@@ -84,37 +84,62 @@ E(HO, n=1)
 Potential energy curve:
 
 ```@example HO
-using Plots
-plot(-5:0.1:5, x -> V(HO, x), lw=2, label="", xlabel="x", ylabel="V(x)")
+using CairoMakie
+
+f = Figure()
+ax = Axis(f[1,1], xlabel=L"$x$", ylabel=L"$V(x)$")
+lines!(ax, -5..5, x -> V(HO, x))
+f
 ```
 
 Wave functions:
 
 ```@example HO
-using Plots
-plot(xlim=(-5,5), xlabel="x", ylabel="ψ(x)")
-plot!(x -> ψ(HO, x, n=0), label="n=0", lw=2)
-plot!(x -> ψ(HO, x, n=1), label="n=1", lw=2)
-plot!(x -> ψ(HO, x, n=2), label="n=2", lw=2)
-plot!(x -> ψ(HO, x, n=3), label="n=3", lw=2)
-plot!(x -> ψ(HO, x, n=4), label="n=4", lw=2)
+using CairoMakie
+
+# setting
+f = Figure()
+ax = Axis(f[1,1], xlabel=L"$x$", ylabel=L"$\psi(x)$")
+
+# plot
+w0 = lines!(ax, -5..5, x -> ψ(HO, x, n=0))
+w1 = lines!(ax, -5..5, x -> ψ(HO, x, n=1))
+w2 = lines!(ax, -5..5, x -> ψ(HO, x, n=2))
+w3 = lines!(ax, -5..5, x -> ψ(HO, x, n=3))
+w4 = lines!(ax, -5..5, x -> ψ(HO, x, n=4))
+
+# legend
+axislegend(ax, [w0, w1, w2, w3, w4], [L"n=0", L"n=1", L"n=2", L"n=3", L"n=4"], position=:lb)
+
+f
 ```
 
 Potential energy curve, Energy levels, Wave functions:
 
 ```@example HO
-using Plots
-plot(xlim=(-5.5,5.5), ylim=(-0.2,5.4), xlabel="\$x\$", ylabel="\$V(x),~E_n,~\\psi_n(x)\\times0.5+E_n\$", size=(480,400), dpi=300)
+using CairoMakie
+
+# settings
+f = Figure()
+ax = Axis(f[1,1], xlabel=L"$x$", ylabel=L"$V(x),~E_n,~\psi_n(x) \times 5 + E_n$", aspect=1, limits=(-5,5,0,5.2))
+# hidespines!(ax)
+# hidedecorations!(ax)
+
 for n in 0:4
+  # classical turning point
+  xE = sqrt(2*HO.k*E(HO, n=n))
   # energy
-  hline!([E(HO, n=n)], lc=:black, ls=:dash, label="")
-  plot!([-sqrt(2*HO.k*E(HO, n=n)),sqrt(2*HO.k*E(HO, n=n))], fill(E(HO, n=n),2), lc=:black, lw=2, label="")
+  lines!(ax, [-xE,xE], fill(E(HO,n=n),2), color=:black, linewidth=2)
+  hlines!(ax, E(HO, n=n), color=:black, linewidth=1, linestyle=:dash)
   # wave function
-  plot!(x -> E(HO, n=n) + 0.5*ψ(HO, x,n=n), lc=n+1, lw=2, label="")
+  lines!(ax, -5..5, x -> E(HO,n=n) + 0.5*ψ(HO,x,n=n), linewidth=2)
 end
-# potential
-plot!(x -> V(HO, x), lc=:black, lw=2, label="")
-savefig("assets/fig/HarmonicOscillator.png") # hide
+
+#potential
+lines!(ax, -5..5, x -> V(HO, x), color=:black, linewidth=2)
+
+f
+save("assets/fig/HarmonicOscillator.png", f) # hide
 ; # hide
 ```
 

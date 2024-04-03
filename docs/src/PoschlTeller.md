@@ -89,37 +89,64 @@ E(PT, n=2)
 E(PT, n=3)
 ```
 
+Potential energy curve:
+
+```@example PT
+using CairoMakie
+
+f = Figure()
+ax = Axis(f[1,1], xlabel=L"$x$", ylabel=L"$V(x)$")
+lines!(ax, -6..6, x -> V(PT, x))
+f
+```
+
 Wave functions:
 
 ```@example PT
-using Plots
-plot(xlim=(-4,4), xlabel="\$x/x_0\$", ylabel="\$\\psi_n(x)\$")
-plot!(x -> ψ(PT, x, n=0), lc=1, lw=2, label="\$n = 0\$")
-plot!(x -> ψ(PT, x, n=1), lc=2, lw=2, label="\$n = 1\$")
-plot!(x -> ψ(PT, x, n=2), lc=3, lw=2, label="\$n = 2\$")
-plot!(x -> ψ(PT, x, n=3), lc=4, lw=2, label="\$n = 3\$")
+using CairoMakie
+
+# setting
+f = Figure()
+ax = Axis(f[1,1], xlabel=L"$x$", ylabel=L"$\psi(x)$")
+
+# plot
+w0 = lines!(ax, -3..3, x -> ψ(PT, x, n=0))
+w1 = lines!(ax, -3..3, x -> ψ(PT, x, n=1))
+w2 = lines!(ax, -3..3, x -> ψ(PT, x, n=2))
+w3 = lines!(ax, -3..3, x -> ψ(PT, x, n=3))
+
+# legend
+axislegend(ax, [w0, w1, w2, w3], [L"n=0", L"n=1", L"n=2", L"n=3"], position=:lb)
+
+f
 ```
 
 Potential energy curve, Energy levels, Wave functions:
 
 ```@example PT
-λ = 4.0
-PT = PoschlTeller(λ=λ)
+using CairoMakie
 
-using Plots
-plot(xlim=(-4,4), ylim=(-11.0,1.0), xlabel="\$x/x_0\$", ylabel="\$V(x),~E_n,~\\psi_n(x)+E_n\$", size=(480,400), dpi=300)
+# settings
+f = Figure()
+ax = Axis(f[1,1], xlabel=L"$x$", ylabel=L"$V(x),~E_n,~\psi_n(x) \times 5 + E_n$", aspect=1, limits=(-4,4,-10.5,1))
+# hidespines!(ax)
+# hidedecorations!(ax)
+
 for n in 0:3
-  # classical turning point:
-  xE = acosh(sqrt(λ*(λ+1)/abs(E(PT,n=n))/2))
+  # classical turning point
+  xE = acosh(sqrt(PT.λ*(PT.λ+1)/abs(E(PT,n=n))/2))
   # energy
-  hline!([E(PT, n=n)], lc=:black, ls=:dash, label="")
-  plot!([-xE,xE], fill(E(PT, n=n),2), lc=:black, lw=2, label="")
+  hlines!(ax, E(PT, n=n), color=:black, linewidth=1, linestyle=:dash)
+  lines!(ax, [-xE,xE], fill(E(PT,n=n),2), color=:black, linewidth=2)
   # wave function
-  plot!(x -> E(PT, n=n) + ψ(PT, x,n=n), lc=n+1, lw=2, label="\$n = $n\$")
+  lines!(ax, -4..4, x -> E(PT,n=n) + ψ(PT,x,n=n), linewidth=2)
 end
-# potential
-plot!(x -> V(PT, x), lc=:black, lw=2, label="")
-savefig("assets/fig/PoschlTeller.png") # hide
+
+#potential
+lines!(ax, -4..4, x -> V(PT,x), color=:black, linewidth=2)
+
+f
+save("assets/fig/PoschlTeller.png", f) # hide
 ; # hide
 ```
 

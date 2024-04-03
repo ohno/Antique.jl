@@ -94,41 +94,71 @@ E(MP, n=1)
 Potential energy curve:
 
 ```@example MP
-using Plots
-plot(0.1:0.01:15, r -> V(MP, r), lw=2, label="", xlims=(0.1,9.1), ylims=(-0.11,0.01), xlabel="r", ylabel="V(r)")
+using CairoMakie
+
+f = Figure()
+ax = Axis(f[1,1], xlabel=L"$r$", ylabel=L"$V(r)$",  limits=(0.0,20.0,-0.11,0.1))
+lines!(ax, 0.1:0.01:20, r -> V(MP, r))
+f
 ```
 
 Wave functions:
 
 ```@example MP
-using Plots
-plot(xlim=(0,5), xlabel="x", ylabel="ψ(x)")
-plot!(x -> ψ(MP, x, n=0), label="n=0", lw=2)
-plot!(x -> ψ(MP, x, n=1), label="n=1", lw=2)
-plot!(x -> ψ(MP, x, n=2), label="n=2", lw=2)
-plot!(x -> ψ(MP, x, n=3), label="n=3", lw=2)
-plot!(x -> ψ(MP, x, n=4), label="n=4", lw=2)
-plot!(x -> ψ(MP, x, n=5), label="n=5", lw=2)
+using CairoMakie
+
+# setting
+f = Figure()
+ax = Axis(f[1,1], xlabel=L"$r$", ylabel=L"$\psi(r)$")
+
+# plot
+w0 = lines!(ax, 0..5, x -> ψ(MP, x, n=0))
+w1 = lines!(ax, 0..5, x -> ψ(MP, x, n=1))
+w2 = lines!(ax, 0..5, x -> ψ(MP, x, n=2))
+w3 = lines!(ax, 0..5, x -> ψ(MP, x, n=3))
+w4 = lines!(ax, 0..5, x -> ψ(MP, x, n=4))
+
+# legend
+axislegend(ax, [w0, w1, w2, w3, w4], [L"n=0", L"n=1", L"n=2", L"n=3", L"n=4"], position=:lb)
+
+f
 ```
 
 Potential energy curve, Energy levels, Comparison with harmonic oscillator:
 
 ```@example MP
-MP = MorsePotential()
-HO = HarmonicOscillator(k=MP.k, m=MP.μ)
-using Plots
-plot(xlims=(0.1,9.1), ylims=(-0.11,0.01), xlabel="\$r\$", ylabel="\$V(r), E_n\$", legend=:bottomright, size=(480,400), dpi=300)
+using Antique
+
+# https://physics.nist.gov/cgi-bin/cuu/Value?mmusme
+m = 206.7682830
+μ = 1 / (1/m + 1/m)
+MP = MorsePotential(μ=μ)
+@show nₘₐₓ(MP)
+
+using CairoMakie
+
+# settings
+f = Figure()
+ax = Axis(f[1,1], xlabel=L"$r$", ylabel=L"$V(r),~E_n,~\psi_n(r) \times 5 + E_n$", aspect=1, limits=(0.5,10,-0.105,0.007))
+# hidespines!(ax)
+# hidedecorations!(ax)
+
+println(nₘₐₓ(MP))
+
 for n in 0:nₘₐₓ(MP)
   # energy
-  EM = E(MP, n=n)
-  EH = E(HO, n=n) - MP.Dₑ
-  plot!(0.1:0.01:15, r -> EH > V(HO, r-MP.rₑ) - MP.Dₑ ? EH : NaN, lc="#BC1C5F", lw=1, label="")
-  plot!(0.1:0.01:15, r -> EM > V(MP, r) ? EM : NaN, lc="#578FC7", lw=1, label="")
+  EMP = E(MP, n=n)
+  lines!(ax, 0.1:0.01:15, r -> EMP > V(MP, r) ? EMP : NaN, color=:black, linewidth=2)
+  hlines!(ax, E(MP, n=n), color=:black, linewidth=1, linestyle=:dash)
+  # wave function
+  lines!(ax, 0..10, x -> E(MP,n=n) + 0.0065*ψ(MP,x,n=n), linewidth=2)
 end
-# potential
-plot!(0.1:0.01:15, r -> V(HO, r-MP.rₑ) - MP.Dₑ, lc="#BC1C5F", lw=2, label="Harmonic Oscillator")
-plot!(0.1:0.01:15, r -> V(MP, r), lc="#578FC7", lw=2, label="Morse Potential")
-savefig("assets/fig/MorsePotential.png") # hide
+
+#potential
+lines!(ax, 0..10, x -> V(MP, x), color=:black, linewidth=2)
+
+f
+save("assets/fig/MorsePotential.png", f) # hide
 ; # hide
 ```
 
