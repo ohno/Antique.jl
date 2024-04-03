@@ -1,4 +1,4 @@
 [deps]
 Antique = "be6e5d0e-34a5-4c8f-af83-e1b5389203d8"
 Documenter = "e30172f5-a6a5-5a46-863b-614d45cd2de4"
-Plots = "91a5bcdd-55d7-5caf-9e0b-520d859cae80"
+CairoMakie = "13f3f980-e62b-5c42-98c6-ff1f3baf88f0"
