@@ -43,7 +43,10 @@ Antique.ψ(::HarmonicOscillator3D, ::Any, ::Any, ::Any)
 Antique.R(::HarmonicOscillator3D, ::Any)
 ```
 
-#### Associated Laguerre Polynomials
+#### Generalized Laguerre Polynomials
+!!! note
+    The generalized Laguerre polynomials $L_n^{(\alpha)}(x)$, not the associated Laguerre polynomials $L_n^{k}(x)$, are used in this model. 
+
 ```@docs; canonical=false
 Antique.L(::HarmonicOscillator3D, ::Any)
 ```
