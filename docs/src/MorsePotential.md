@@ -84,6 +84,12 @@ MP.µ
 MP.ℏ
 ```
 
+Number of bound states:
+
+```@repl MP
+nₘₐₓ(MP)
+```
+
 Eigen values:
 
 ```@repl MP
@@ -133,7 +139,7 @@ using Antique
 m = 206.7682830
 μ = 1 / (1/m + 1/m)
 MP = MorsePotential(μ=μ)
-@show nₘₐₓ(MP)
+# @show nₘₐₓ(MP)
 
 using CairoMakie
 

@@ -80,6 +80,12 @@ PT.ℏ
 PT.x₀
 ```
 
+Number of bound states:
+
+```@repl PT
+nₘₐₓ(PT)
+```
+
 Eigen values:
 
 ```@repl PT
