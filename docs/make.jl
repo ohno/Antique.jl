@@ -21,13 +21,13 @@ makedocs(;
   ),
   pages=[
     "Home" => "index.md",
+    "Delta Potential"         => "DeltaPotential.md"       ,
     "Infinite Potential Well" => "InfinitePotentialWell.md",
     "Harmonic Oscillator"     => "HarmonicOscillator.md"   ,
-    # "Harmonic Oscillator 3D"  => "HarmonicOscillator3D.md" ,
     "Morse Potential"         => "MorsePotential.md"       ,
-    "Hydrogen Atom"           => "HydrogenAtom.md"         ,
-    "Delta Potential"         => "DeltaPotential.md"       ,
     "Pöschl-Teller Potential" => "PoschlTeller.md"         ,
+    "Hydrogen Atom"           => "HydrogenAtom.md"         ,
+    # "Harmonic Oscillator 3D"  => "HarmonicOscillator3D.md" ,
     # "API reference"           => "API.md"                  ,
   ],
 )
