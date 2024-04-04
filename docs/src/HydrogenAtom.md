@@ -4,7 +4,7 @@ CurrentModule = Antique
 
 # Hydrogen Atom
 
-The hydrogen atom is the simplest 2-body Coulomb system.
+The hydrogen atom is the simplest Coulomb 2-body system.
 
 ## Definitions
 
@@ -14,9 +14,9 @@ This model is described with the time-independent Schrödinger equation
 ```
 and the Hamiltonian
 ```math
-  \hat{H} = - \frac{\hbar^2}{2\mu} \frac{\mathrm{d}^2}{\mathrm{d}r ^2} + V(r),
+  \hat{H} = - \frac{\hbar^2}{2m} \nabla^2 + V(r),
 ```
-where $\mu=\left(\frac{1}{m_\mathrm{e}}+\frac{1}{m_\mathrm{p}}\right)^{-1}$ is the reduced mass of electron $\mathrm{e}$ and proton $\mathrm{p}$. $\mu = m_\mathrm{e}$ holds in the limit $m_\mathrm{p}\rightarrow\infty$. Parameters are specified with the following struct.
+where $\mu=\left(\frac{1}{m_\mathrm{e}}+\frac{1}{m_\mathrm{p}}\right)^{-1}$ is the reduced mass of electron $\mathrm{e}$ and proton $\mathrm{p}$. $\mu = m_\mathrm{e}$ holds in the limit $m_\mathrm{p}\rightarrow\infty$. The potential includes only Coulomb interaction and it does not include fine or hyperfine interactions in this model. Parameters are specified with the following struct.
 
 #### Parameters
 ```@docs; canonical=false
