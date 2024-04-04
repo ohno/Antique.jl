@@ -27,6 +27,7 @@ makedocs(;
     "Morse Potential"         => "MorsePotential.md"       ,
     "Pöschl-Teller Potential" => "PoschlTeller.md"         ,
     "Hydrogen Atom"           => "HydrogenAtom.md"         ,
+    "Rigid Rotor"             => "RigidRotor.md"         ,
     # "Harmonic Oscillator 3D"  => "HarmonicOscillator3D.md" ,
     # "API reference"           => "API.md"                  ,
   ],
