@@ -57,7 +57,7 @@ Antique.P(::RigidRotor, ::Any)
 
 ```@example RR
 using Antique
-RR = RigidRotor(m₁=1.0,m₂=1.0,R=1.0, ℏ=1.0)
+RR = RigidRotor(m₁=1.0, m₂=1.0, R=1.0, ℏ=1.0)
 ; #hide
 ```
 
@@ -75,8 +75,26 @@ Eigen values:
 ```@repl RR
 E(RR, l=0)
 E(RR, l=1)
+E(RR, l=2)
 ```
 
+Wave functions:
+
+```@repl RR
+ψ(RR, 0, 0, l=2, m=1)
+ψ(RR, π/4, 0, l=2, m=1)
+ψ(RR, π/4, π/2, l=2, m=1)
+```
+
+```@example RR
+using CairoMakie
+
+f = Figure(size=(400,400))
+ax = PolarAxis(f[1,1], title=L"$\theta\mapsto|\psi_{2,1}(\theta,0)|^2$", rticklabelsvisible=false)
+lines!(ax, 0..2pi, θ->abs(ψ(RR,θ,0,l=2,m=1))^2, linewidth=2)
+
+f
+```
 
 ## Testing
 
