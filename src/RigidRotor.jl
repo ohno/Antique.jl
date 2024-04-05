@@ -1,8 +1,8 @@
 export RigidRotor, V, E, ψ, Y, P
 
 @kwdef struct RigidRotor
-    m1 = 1.0
-    m2 = 1.0
+    m₁ = 1.0
+    m₂ = 1.0
     R  = 1.0
     ℏ  = 1.0
   end
@@ -15,12 +15,12 @@ function V(model::RigidRotor, r)
 end
 
 function E(model::RigidRotor; l=0)
-    m1 = model.m1
-    m2 = model.m2
+    m₁ = model.m₁
+    m₂ = model.m₂
     R = model.R
     ℏ = model.ℏ
 
-    μ = m1*m2/(m1+m2)
+    μ = m₁*m₂/(m₁+m₂)
     I = μ * R^2
 
     return ℏ^2/(2*I) *l*(l+1)
@@ -40,9 +40,9 @@ function P(model::RigidRotor, x; n=0, m=0)
 end
 
 @doc raw"""
-`RigidRotor(m1=1.0, m2=1.0, R=1.0, ℏ=1.0)`
+`RigidRotor(m₁=1.0, m₂=1.0, R=1.0, ℏ=1.0)`
 
-``m1`` and ``m2`` are mass of two particles, ``R`` is the distance, and ``\hbar`` is the reduced Planck constant (Dirac's constant).
+``m₁`` and ``m₂`` are mass of two particles, ``R`` is the distance, and ``\hbar`` is the reduced Planck constant (Dirac's constant).
 """ RigidRotor
 
 
@@ -64,7 +64,7 @@ end
 E_l
 = \frac{\hbar^2}{2I}l(l+1),
 ```
-where ``I=\mu R^2`` is the moment of inertia,``R`` is the distance, and ``\mu`` is the reduced mass of the two particles.
+where ``I=\mu R^2`` is the moment of inertia, ``R`` is the distance, and ``\mu`` is the reduced mass of the two particles.
 """ E(model::RigidRotor; l=0)
 
 @doc raw"""

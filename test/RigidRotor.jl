@@ -1,4 +1,4 @@
-RR = RigidRotor(m1=1.0, m2=1.0, R=1.0, ℏ=1.0)
+RR = RigidRotor(m₁=1.0, m₂=1.0, R=1.0, ℏ=1.0)
 
 
 # Pₙᵐ(x) = √(1-x²)ᵐ dᵐ/dxᵐ Pₙ(x); Pₙ(x) = 1/(2ⁿn!) dⁿ/dxⁿ (x²-1)ⁿ
@@ -104,19 +104,19 @@ Y_{lm}(\theta,\varphi)^* Y_{l'm'}(\theta,\varphi) \sin(\theta)
   println("-- | -- | -- | -- | ----------------- | ----------------- ")
   for l1 in 0:2
   for l2 in 0:2
-  for m1 in -l1:l1
-  for m2 in -l2:l2
-    analytical = (l1 == l2 ? 1 : 0) * (m1 == m2 ? 1 : 0)
+  for m₁ in -l1:l1
+  for m₂ in -l2:l2
+    analytical = (l1 == l2 ? 1 : 0) * (m₁ == m₂ ? 1 : 0)
     numerical  = real(
       quadgk(φ ->
       quadgk(θ ->
-        conj(Y(RR,θ,φ,l=l1,m=m1)) * Y(RR,θ,φ,l=l2,m=m2) * sin(θ)
+        conj(Y(RR,θ,φ,l=l1,m=m₁)) * Y(RR,θ,φ,l=l2,m=m₂) * sin(θ)
       , 0, π, maxevals=50)[1]
       , 0, 2π, maxevals=100)[1]
     )
     acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-5) : isapprox(analytical, numerical, rtol=1e-5)
     @test acceptance
-    @printf("%2d | %2d | %2d | %2d | %17.12f | %17.12f %s\n", l1, l2, m1, m2, analytical, numerical, acceptance ? "✔" : "✗")
+    @printf("%2d | %2d | %2d | %2d | %17.12f | %17.12f %s\n", l1, l2, m₁, m₂, analytical, numerical, acceptance ? "✔" : "✗")
   end
   end
   end
