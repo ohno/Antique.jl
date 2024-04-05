@@ -44,12 +44,13 @@ There are more examples on each model page.
 
 ## Supported Models
 
-- [Infinite Potential Well](https://ohno.github.io/Antique.jl/dev/InfinitePotentialWell/) `InfinitePotentialWell`
-- [Harmonic Oscillator](https://ohno.github.io/Antique.jl/dev/HarmonicOscillator/) `HarmonicOscillator`
-- [Morse Potential](https://ohno.github.io/Antique.jl/dev/MorsePotential/) `MorsePotential`
-- [Hydrogen Atom](https://ohno.github.io/Antique.jl/dev/HydrogenAtom/) `HydrogenAtom`
-- [Delta Potential](https://ohno.github.io/Antique.jl/dev/DeltaPotential/) `DeltaPotential`
-- [PoschlTeller](https://ohno.github.io/Antique.jl/dev/PoschlTeller/) `PoschlTeller`
+- [Delta Potential](https://ohno.github.io/Antique.jl/stable/DeltaPotential/) `DeltaPotential`
+- [Infinite Potential Well](https://ohno.github.io/Antique.jl/stable/InfinitePotentialWell/) `InfinitePotentialWell`
+- [Harmonic Oscillator](https://ohno.github.io/Antique.jl/stable/HarmonicOscillator/) `HarmonicOscillator`
+- [PoschlTeller](https://ohno.github.io/Antique.jl/stable/PoschlTeller/) `PoschlTeller`
+- [Morse Potential](https://ohno.github.io/Antique.jl/stable/MorsePotential/) `MorsePotential`
+- [Rigid Rotor](https://ohno.github.io/Antique.jl/stable/RigidRotor/) `RigidRotor`
+- [Hydrogen Atom](https://ohno.github.io/Antique.jl/stable/HydrogenAtom/) `HydrogenAtom`
 
 ## Future Works
 
