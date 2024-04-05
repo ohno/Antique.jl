@@ -77,6 +77,12 @@ There are more examples on each model page.
     <code>MorsePotential</code>
   </div>
   <div class="item">
+    <a target="_blank" href="./RigidRotor">
+      <img src="assets/fig/RigidRotor.png" alt="RigidRotor"/>
+    </a>
+    <code>RigidRotor</code>
+  </div>
+  <div class="item">
     <a target="_blank" href="./HydrogenAtom">
       <img src="assets/fig/HydrogenAtom.png" alt="HydrogenAtom"/>
     </a>
