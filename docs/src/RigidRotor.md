@@ -96,6 +96,24 @@ lines!(ax, 0..2pi, θ->abs(ψ(RR,θ,0,l=2,m=1))^2, linewidth=2)
 f
 ```
 
+```@example RR
+using CairoMakie
+
+f = Figure(size=(400,400))
+ax = PolarAxis(f[1,1], title=L"$\theta\mapsto|\psi_{lm}(\theta,0)|^2$", rticklabelsvisible=false)
+l1 = lines!(ax, 0..2pi, θ->abs(ψ(RR,θ,0,l=0,m=0))^2, linewidth=2)
+l2 = lines!(ax, 0..2pi, θ->abs(ψ(RR,θ,0,l=1,m=0))^2, linewidth=2)
+l3 = lines!(ax, 0..2pi, θ->abs(ψ(RR,θ,0,l=1,m=1))^2, linewidth=2)
+l4 = lines!(ax, 0..2pi, θ->abs(ψ(RR,θ,0,l=2,m=1))^2, linewidth=2)
+Legend(f[2,1], [l1,l2,l3,l4], [L"(l,m)=(0,0)",L"(1,0)",L"(1,1)",L"(2,1)"], framevisible=false, orientation=:horizontal, tellwidth=false, tellheight=true)
+
+f
+save("assets/fig/RigidRotor.png", f) # hide
+; # hide
+```
+
+![](assets/fig/RigidRotor.png)
+
 ## Testing
 
 Unit testing and Integration testing were done using computer algebra system ([Symbolics.jl](https://symbolics.juliasymbolics.org/stable/)) and numerical integration ([QuadGK.jl](https://juliamath.github.io/QuadGK.jl/stable/)). The test script is [here](https://github.com/ohno/Antique.jl/blob/main/test/RigidRotor.jl).
