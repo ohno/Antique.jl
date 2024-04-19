@@ -9,7 +9,8 @@ module Antique
     :DeltaPotential,
     :PoschlTeller,
     :HarmonicOscillator3D,
-    :RigidRotor
+    :RigidRotor,
+    :InfinitePotentialWell3D
   ]
 
   # for Julia 1.1
