@@ -1,42 +1,40 @@
 export RigidRotor, V, E, ψ, Y, P
 
 @kwdef struct RigidRotor
-    m₁ = 1.0
-    m₂ = 1.0
-    R  = 1.0
-    ℏ  = 1.0
-  end
+  m₁ = 1.0
+  m₂ = 1.0
+  R  = 1.0
+  ℏ  = 1.0
+end
   
 function V(model::RigidRotor, r)
-    # if r<0
-    #   throw(DomainError(r, "r=$r is out of the domain (0≦r)"))
-    # end
-    return 0
+  # if r<0
+  #   throw(DomainError(r, "r=$r is out of the domain (0≦r)"))
+  # end
+  return 0
 end
 
 function E(model::RigidRotor; l=0)
-    m₁ = model.m₁
-    m₂ = model.m₂
-    R = model.R
-    ℏ = model.ℏ
-
-    μ = m₁*m₂/(m₁+m₂)
-    I = μ * R^2
-
-    return ℏ^2/(2*I) *l*(l+1)
+  m₁ = model.m₁
+  m₂ = model.m₂
+  R = model.R
+  ℏ = model.ℏ
+  μ = (1/m₁ + 1/m₂)^(-1)
+  I = μ * R^2
+  return ℏ^2/(2*I) *l*(l+1)
 end
 
 function ψ(model::RigidRotor, θ, φ; l=0, m=0)
-    return Y(model, θ, φ; l=l, m=m)
+  return Y(model, θ, φ; l=l, m=m)
 end
 
 function Y(model::RigidRotor, θ, φ; l=0, m=0)
-    N = (im)^(m+abs(m)) * sqrt( (2*l+1)*factorial(l-Int(abs(m))) / (2*factorial(l+Int(abs(m)))) )
-    return N * P(model,cos(θ), n=l, m=Int(abs(m))) * exp(im*m*φ) / sqrt(2*π)
+  N = (im)^(m+abs(m)) * sqrt( (2*l+1)*factorial(l-Int(abs(m))) / (2*factorial(l+Int(abs(m)))) )
+  return N * P(model,cos(θ), n=l, m=Int(abs(m))) * exp(im*m*φ) / sqrt(2*π)
 end
 
 function P(model::RigidRotor, x; n=0, m=0)
-    return (1//2)^n * (1-x^2)^(m//2) * sum(j -> (-1)^j * factorial(2*n-2*j) // (factorial(j) * factorial(n-j) * factorial(n-2*j-m)) * x^(n-2*j-m), 0:Int(floor((n-m)/2)))
+  return (1//2)^n * (1-x^2)^(m//2) * sum(j -> (-1)^j * factorial(2*n-2*j) // (factorial(j) * factorial(n-j) * factorial(n-2*j-m)) * x^(n-2*j-m), 0:Int(floor((n-m)/2)))
 end
 
 @doc raw"""
@@ -71,7 +69,7 @@ where ``I=\mu R^2`` is the moment of inertia, ``R`` is the distance, and ``\mu``
 `ψ(model::RigidRotor, θ, φ; l=0, m=0)`
 
 ```math
-\psi_{lm}(\theta,\varphi) =Y_{lm}(\theta,\varphi)
+\psi_{lm}(\theta,\varphi) = Y_{lm}(\theta,\varphi)
 ```
 The wave function is the spherical harmonics. The domain is $0\leq \theta \lt \pi$ and $0\leq \varphi \lt 2\pi$.
 """ ψ(model::RigidRotor, θ, φ; l=0, m=0)
