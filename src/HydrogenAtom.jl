@@ -14,7 +14,8 @@ function V(model::HydrogenAtom, r)
   # end
   Z = model.Z
   a₀ = model.a₀
-  return -Z/abs(r/a₀)
+  Eₕ = model.Eₕ
+  return Eₕ*-1*Z/abs(r/a₀)
 end
 
 function E(model::HydrogenAtom; n=1)
@@ -27,8 +28,6 @@ function ψ(model::HydrogenAtom, r, θ, φ; n=1, l=0, m=0)
   # if r<0
   #   throw(DomainError(r, "r=$r is out of the domain (0≦r)"))
   # end
-  Z = model.Z
-  a₀ = model.a₀
   return R(model, r, n=n, l=l) * Y(model, θ, φ, l=l, m=m)
 end
 
