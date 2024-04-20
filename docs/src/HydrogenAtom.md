@@ -14,7 +14,7 @@ This model is described with the time-independent Schrödinger equation
 ```
 and the Hamiltonian
 ```math
-  \hat{H} = - \frac{\hbar^2}{2m} \nabla^2 + V(r),
+  \hat{H} = - \frac{\hbar^2}{2\mu} \nabla^2 + V(r),
 ```
 where $\mu=\left(\frac{1}{m_\mathrm{e}}+\frac{1}{m_\mathrm{p}}\right)^{-1}$ is the reduced mass of electron $\mathrm{e}$ and proton $\mathrm{p}$. $\mu = m_\mathrm{e}$ holds in the limit $m_\mathrm{p}\rightarrow\infty$. The potential includes only Coulomb interaction and it does not include fine or hyperfine interactions in this model. Parameters are specified with the following struct.
 
@@ -108,20 +108,20 @@ println("λ  = ", ((E(H,n=2)-E(H,n=1))*Eₕ2nm⁻¹)^-1, " nm")
 Hyperfine Splitting:
 
 ```@example HA
-# constants: https://doi.org/10.1103/RevModPhys.93.025010
+# E. Tiesinga, et al., Rev. Mod. Phys. 93, 025010 (2021) https://doi.org/10.1103/RevModPhys.93.025010
 e  = 1.602176634e-19    # C      https://physics.nist.gov/cgi-bin/cuu/Value?e
 h  = 6.62607015e-34     # J Hz-1 https://physics.nist.gov/cgi-bin/cuu/Value?h
 c  = 299792458          # m s-1  https://physics.nist.gov/cgi-bin/cuu/Value?c
 a0 = 5.29177210903e-11  # m      https://physics.nist.gov/cgi-bin/cuu/Value?bohrrada0
-µ0 = 1.25663706212e-6   # N A-2  https://physics.nist.gov/cgi-bin/cuu/Value?mu0
-µB = 9.2740100783e-24   # J T-1  https://physics.nist.gov/cgi-bin/cuu/Value?mub
-µN = 5.0507837461e-27   # J T-1  https://physics.nist.gov/cgi-bin/cuu/Value?mun
+μ0 = 1.25663706212e-6   # N A-2  https://physics.nist.gov/cgi-bin/cuu/Value?mu0
+μB = 9.2740100783e-24   # J T-1  https://physics.nist.gov/cgi-bin/cuu/Value?mub
+μN = 5.0507837461e-27   # J T-1  https://physics.nist.gov/cgi-bin/cuu/Value?mun
 ge = 2.00231930436256   #        https://physics.nist.gov/cgi-bin/cuu/Value?gem
 gp = 5.5856946893       #        https://physics.nist.gov/cgi-bin/cuu/Value?gp
 
-# calculation: https://doi.org/10.1119/1.12733
+# D. J. Griffiths, Am. J. Phys. 50, 698 (1982) https://doi.org/10.1119/1.12733
 δ = abs(ψ(H,0,0,0))^2
-ΔE = 2 / 3 * µ0 * µN * µB * gp * ge * δ * a0^(-3)
+ΔE = 2 / 3 * μ0 * μN * μB * gp * ge * δ * a0^(-3)
 println("1/π    = ", 1/π)
 println("<δ(r)> = ", δ, " a₀⁻³")
 println("<δ(r)> = ", δ * a0^(-3), " m⁻³")
@@ -136,7 +136,7 @@ Potential energy curve:
 using CairoMakie
 
 f = Figure()
-ax = Axis(f[1,1], xlabel=L"$r~/~a_0$", ylabel=L"$V(r)$~/~E_\mathrm{h}0$$",  limits=(0.0,15.0,-2.0,0.2))
+ax = Axis(f[1,1], xlabel=L"$r~/~a_0$", ylabel=L"$V(r)~/~E_\mathrm{h}0$",  limits=(0.0,15.0,-2.0,0.2))
 lines!(ax, 0.1:0.01:20, r -> V(H, r))
 f
 ```

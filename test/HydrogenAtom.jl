@@ -23,13 +23,13 @@ println(raw"""
   for m in 0:n
       # Rodrigues' formula
       @variables x
-      Dn = n==0 ? x->x : Differential(x)^n         # dⁿ/dxⁿ
-      Dm = m==0 ? x->x : Differential(x)^m         # dᵐ/dxᵐ
-      a = 1 // (2^n * factorial(n))                # left
-      b = (x^2 - 1)^n                              # right
-      c = (1 - x^2)^(m//2) * Dm(a * Dn(b))         # Rodrigues' formula
-      d = expand_derivatives(c)                    # expand dⁿ/dxⁿ and dᵐ/dxᵐ
-      e = simplify(d, expand=true)                 # simplify
+      Dn = n==0 ? x->x : Differential(x)^n          # dⁿ/dxⁿ
+      Dm = m==0 ? x->x : Differential(x)^m          # dᵐ/dxᵐ
+      a = 1 // (2^n * factorial(n))                 # left
+      b = (x^2 - 1)^n                               # right
+      c = (1 - x^2)^(m//2) * Dm(a * Dn(b))          # Rodrigues' formula
+      d = expand_derivatives(c)                     # expand dⁿ/dxⁿ and dᵐ/dxᵐ
+      e = simplify(d, expand=true)                  # simplify
       f = simplify(P(HA, x, n=n, m=m), expand=true) # closed-form
       # latexify
       eq1 = latexify(e, env=:raw)
@@ -262,7 +262,7 @@ a_\mu = a_0 \frac{m_\mathrm{e}}{\mu} \\
 
 Reference:
 - [高柳和夫『朝倉物理学大系 11 原子分子物理学』(2000, 朝倉書店) pp.11-22](https://www.asakura.co.jp/detail.php?book_code=13681)
-- [ Quan­tum Me­chan­ics for En­gi­neers by Leon van Dom­me­len](https://web1.eng.famu.fsu.edu/~dommelen/quantum/style_a/nt_rsexp.html)
+- [Quan­tum Me­chan­ics for En­gi­neers by Leon van Dom­me­len](https://web1.eng.famu.fsu.edu/~dommelen/quantum/style_a/nt_rsexp.html)
 
 ```""")
 
@@ -300,7 +300,7 @@ a_\mu = a_0 \frac{m_\mathrm{e}}{\mu} \\
 
 Reference:
 - [高柳和夫『朝倉物理学大系 11 原子分子物理学』(2000, 朝倉書店) pp.11-22](https://www.asakura.co.jp/detail.php?book_code=13681)
-- [ Quan­tum Me­chan­ics for En­gi­neers by Leon van Dom­me­len](https://web1.eng.famu.fsu.edu/~dommelen/quantum/style_a/nt_rsexp.html)
+- [Quan­tum Me­chan­ics for En­gi­neers by Leon van Dom­me­len](https://web1.eng.famu.fsu.edu/~dommelen/quantum/style_a/nt_rsexp.html)
 ```""")
 
 @testset "∫r²|Rₙₗ(r)|²r²dr = (a₀×mₑ/μ)²/2Z² × n²[5n²+1-3l(l+1)]; 1/μ = 1/mₑ + 1/mₚ" begin
