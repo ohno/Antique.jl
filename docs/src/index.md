@@ -34,7 +34,6 @@ E(H)
 Helium cation has symbol $\mathrm{He}^+$ and atomic number 2 ($Z=2$). Therefore the ground state ($n=1$) energy is $-2 E_\mathrm{h}$.
 
 ```julia
-using Antique
 He⁺ = HydrogenAtom(Z=2)
 E(He⁺)
 # output> -2.0
@@ -46,12 +45,6 @@ There are more examples on each model page.
 
 ```@raw html
 <div class="catalog">
-  <div class="item">
-    <a target="_blank" href="./DeltaPotential">
-      <img src="assets/fig/DeltaPotential.png" alt="DeltaPotential"/>
-    </a>
-    <code>DeltaPotential</code>
-  </div>
   <div class="item">
     <a target="_blank" href="./InfinitePotentialWell">
       <img src="assets/fig/InfinitePotentialWell.png" alt="InfinitePotentialWell"/>
@@ -76,20 +69,17 @@ There are more examples on each model page.
     </a>
     <code>MorsePotential</code>
   </div>
-  <div class="item">
-    <a target="_blank" href="./RigidRotor">
-      <img src="assets/fig/RigidRotor.png" alt="RigidRotor"/>
-    </a>
-    <code>RigidRotor</code>
-  </div>
-  <div class="item">
-    <a target="_blank" href="./HydrogenAtom">
-      <img src="assets/fig/HydrogenAtom.png" alt="HydrogenAtom"/>
-    </a>
-    <code>HydrogenAtom</code>
-  </div>
 </div>
 ```
+
+- [Delta Potential](https://ohno.github.io/Antique.jl/stable/DeltaPotential/) `DeltaPotential`
+- [Infinite Potential Well](https://ohno.github.io/Antique.jl/stable/InfinitePotentialWell/) `InfinitePotentialWell`
+- [Harmonic Oscillator](https://ohno.github.io/Antique.jl/stable/HarmonicOscillator/) `HarmonicOscillator`
+- [PoschlTeller](https://ohno.github.io/Antique.jl/stable/PoschlTeller/) `PoschlTeller`
+- [Morse Potential](https://ohno.github.io/Antique.jl/stable/MorsePotential/) `MorsePotential`
+- [Rigid Rotor](https://ohno.github.io/Antique.jl/stable/RigidRotor/) `RigidRotor`
+- [Hydrogen Atom](https://ohno.github.io/Antique.jl/stable/HydrogenAtom/) `HydrogenAtom`
+- [Coulomb 2-Body System](https://ohno.github.io/Antique.jl/stable/HydrogenAtom/) `CoulombTwoBody`
 
 ## Future Works
 

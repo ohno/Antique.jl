@@ -136,7 +136,7 @@ Potential energy curve:
 using CairoMakie
 
 f = Figure()
-ax = Axis(f[1,1], xlabel=L"$r~/~a_0$", ylabel=L"$V(r)~/~E_\mathrm{h}0$",  limits=(0.0,15.0,-2.0,0.2))
+ax = Axis(f[1,1], xlabel=L"$r~/~a_0$", ylabel=L"$V(r)~/~E_\mathrm{h}$",  limits=(0.0,15.0,-2.0,0.2))
 lines!(ax, 0.1:0.01:20, r -> V(H, r))
 f
 ```

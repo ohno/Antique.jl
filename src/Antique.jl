@@ -10,7 +10,8 @@ module Antique
     :PoschlTeller,
     :HarmonicOscillator3D,
     :RigidRotor,
-    :InfinitePotentialWell3D
+    :InfinitePotentialWell3D,
+    :CoulombTwoBody,
   ]
 
   # for Julia 1.1

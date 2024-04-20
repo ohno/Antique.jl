@@ -34,7 +34,6 @@ E(H)
 Helium cation has symbol $\mathrm{He}^+$ and atomic number 2 ($Z=2$). Therefore the ground state ($n=1$) energy is $-2 E_\mathrm{h}$.
 
 ```julia
-using Antique
 He⁺ = HydrogenAtom(Z=2)
 E(He⁺)
 # output> -2.0
@@ -51,6 +50,7 @@ There are more examples on each model page.
 - [Morse Potential](https://ohno.github.io/Antique.jl/stable/MorsePotential/) `MorsePotential`
 - [Rigid Rotor](https://ohno.github.io/Antique.jl/stable/RigidRotor/) `RigidRotor`
 - [Hydrogen Atom](https://ohno.github.io/Antique.jl/stable/HydrogenAtom/) `HydrogenAtom`
+- [Coulomb 2-Body System](https://ohno.github.io/Antique.jl/stable/HydrogenAtom/) `CoulombTwoBody`
 
 ## Future Works
 
