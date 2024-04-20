@@ -71,12 +71,13 @@ This is the guideline for adding new models.
 | `test/ModelName.jl` | Write test code in this file. At a minimum, it is recommended to check the normalization and the orthogonality of wavefunction using QuadGK.jl. |
 | `docs/src/ModelName.md` | Write documnetation in this file. Include at least the definition of the Hamiltonian and the analytical solutions (eigenvalues and eigenfunctions). Calls a docstring in the source code. |
 
-5. Please rewrite 2 files:
+5. Please rewrite 3 files:
 
 | files | comments |
 | - | - |
 | `src/Antique.jl` | Add the new model name `:ModelName` to the `models = [...]` array in this file. `:` is required at the beginning. |
 | `docs/make.jl` | Add the new model into `pages=[...]` in this file. |
+| `test/runtests.jl` | Change `for model in [...]` in this file. Please test all models before pull requests. |
 
 6. Execute `include("./developer/test.jl")` to run tests. It will take few minutes to complete.
 7. Execute `include("./developer/docs.jl")` to compile documents. HTML files (docs/build/*.html) will be generated. Please check them with Chrome or any other web browsers.

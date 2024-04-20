@@ -48,10 +48,14 @@ module Antique
 
   # I/O function
   function load(path)
-    file = open(path, "r")
-    text = Base.read(file, String)
-    close(file)
-    return text
+    try
+      file = open(path, "r")
+      text = Base.read(file, String)
+      close(file)
+      return text
+    catch
+      return ""
+    end
   end
 
   # main functions
