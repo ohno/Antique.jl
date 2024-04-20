@@ -1,14 +1,10 @@
 name = "Antique"
 uuid = "be6e5d0e-34a5-4c8f-af83-e1b5389203d8"
 authors = ["Shuhei Ohno"]
-version = "0.5.1"
+version = "0.5.2"
 
 [deps]
-CairoMakie = "13f3f980-e62b-5c42-98c6-ff1f3baf88f0"
-Documenter = "e30172f5-a6a5-5a46-863b-614d45cd2de4"
-SparseArrays = "2f01184e-e22b-5df5-ae63-d93ebab69eaf"
 SpecialFunctions = "276daf66-3868-5448-9aa4-cd146d93841b"
-SuiteSparse_jll = "bea87d4a-7f5b-5778-9afe-8cc45184846c"
 
 [compat]
 SpecialFunctions = "2.3.1"
@@ -26,6 +22,3 @@ Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
 
 [targets]
 test = ["Test", "Suppressor", "Printf", "Markdown", "QuadGK", "Symbolics", "Latexify", "LaTeXStrings"]
-
-[weakdeps]
-Revise = "295af30f-e4ad-537b-8983-00126c2a3abe"
