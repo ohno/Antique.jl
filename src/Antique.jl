@@ -8,7 +8,7 @@ module Antique
     :HydrogenAtom,
     :DeltaPotential,
     :PoschlTeller,
-    :HarmonicOscillator3D,
+    :SphericalOscillator,
     :RigidRotor,
     :InfinitePotentialWell3D,
     :CoulombTwoBody,

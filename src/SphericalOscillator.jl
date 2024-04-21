@@ -1,12 +1,12 @@
-export HarmonicOscillator3D, V, E, ψ
+export SphericalOscillator, V, E, ψ
 
-@kwdef struct HarmonicOscillator3D
+@kwdef struct SphericalOscillator
   k = 1.0
-  m = 1.0
+  μ = 1.0
   ℏ = 1.0
 end
 
-function V(model::HarmonicOscillator3D, r)
+function V(model::SphericalOscillator, r)
   # if r<0
   #   throw(DomainError(r, "r=$r is out of the domain (0≦r)"))
   # end
@@ -14,158 +14,141 @@ function V(model::HarmonicOscillator3D, r)
   return 1/2 * k * r^2
 end
 
-function E(model::HarmonicOscillator3D; n=1)
+function E(model::SphericalOscillator; n=0, l=0)
   ℏ = model.ℏ
-  m = model.m
+  μ = model.μ
   k = model.k 
-  ω = sqrt(k/m)
-  return (n + 3/2) * ℏ * ω
+  ω = sqrt(k/μ)
+  return (2*n + l + 3/2) * ℏ * ω
 end
 
-function ψ(model::HarmonicOscillator3D, r, θ, φ; n=1, l=0, m=0)
+function ψ(model::SphericalOscillator, r, θ, φ; n=0, l=0, m=0)
   # if r<0
   #   throw(DomainError(r, "r=$r is out of the domain (0≦r)"))
   # end
   ℏ = model.ℏ
-  μ = model.m #conflict with magnetic m
+  μ = model.μ
   k = model.k 
   return R(model, r, n=n, l=l) * Y(model, θ, φ, l=l, m=m)
 end
 
-
-function R(model::HarmonicOscillator3D, r; n=1, l=0)
+function R(model::SphericalOscillator, r; n=0, l=0)
   # if r<0
   #   throw(DomainError(r, "r=$r is out of the domain (0≦r)"))
   # end
   ℏ = model.ℏ
-  m = model.m
+  μ = model.μ
   k = model.k 
-  ω = sqrt(k/m)
-  γ = m*ω/ℏ
+  ω = sqrt(k/μ)
+  γ = μ*ω/ℏ
   ξ = sqrt(γ)*abs(r)
   fact(n) = n>0 ? n*fact(n-1) : 1    # n!
   ffact(n) = n>0 ? n*ffact(n-2) : 1  # n!!
   N = sqrt( γ^(3/2)/(2*sqrt(π))) * sqrt( 2^(n+l+3) * fact(n)/ffact(2n+2l+1))
-  return N * ξ^l * exp(-ξ^2/2) * L(model, ξ^2, n=n, k=l+1/2)
+  return N * ξ^l * exp(-ξ^2/2) * L(model, ξ^2, n=n, α=l+1/2)
 end
 
-function L(model::HarmonicOscillator3D, x; n=0, k=0)
-  if n < 0
-      error("n must be a non-negative integer")
-  end
-  
-  if n == 0
-      return 1
-  elseif n == 1
-      return 1 + k - x
+function L(model::SphericalOscillator, x; n=0, α=0)
+  if isinteger(α)
+    return sum(k -> (-1)^(k) * (Int(gamma(α+n+1)) // Int((gamma(α+1+k)*gamma(n-k+1)))) * x^k * 1 // factorial(k), 0:n)
   else
-      Lnm1 = 1
-      Ln = 1 + k - x
-      for m in 1:n-1
-          Lnp1 = ((2*m + 1 + k - x) * Ln - (m + k) * Lnm1) / (m + 1)
-          Lnm1, Ln = Ln, Lnp1
-      end
-      return Ln
+    return sum(k -> (-1)^(k) * (gamma(α+n+1) / (gamma(α+1+k)*gamma(n-k+1))) * x^k / factorial(k), 0:n)
   end
-end 
+end
 
-function Y(model::HarmonicOscillator3D, θ, φ; l=0, m=0)
+function Y(model::SphericalOscillator, θ, φ; l=0, m=0)
   N = (im)^(m+abs(m)) * sqrt( (2*l+1)*factorial(l-Int(abs(m))) / (2*factorial(l+Int(abs(m)))) )
   return N * P(model,cos(θ), n=l, m=Int(abs(m))) * exp(im*m*φ) / sqrt(2*π)
 end
 
-function P(model::HarmonicOscillator3D, x; n=0, m=0)
+function P(model::SphericalOscillator, x; n=0, m=0)
   return (1//2)^n * (1-x^2)^(m//2) * sum(j -> (-1)^j * factorial(2*n-2*j) // (factorial(j) * factorial(n-j) * factorial(n-2*j-m)) * x^(n-2*j-m), 0:Int(floor((n-m)/2)))
 end
 
 
 @doc raw"""
-`HarmonicOscillator(k=1.0, m=1.0, ℏ=1.0)`
+`HarmonicOscillator(k=1.0, μ=1.0, ℏ=1.0)`
 
-``k`` is the force constant, ``m`` is the mass of particle and ``\hbar`` is the reduced Planck constant (Dirac's constant).
-""" HarmonicOscillator3D
+``k`` is the force constant, ``μ`` is the mass of particle and ``\hbar`` is the reduced Planck constant (Dirac's constant).
+""" SphericalOscillator
 
 @doc raw"""
-`V(model::HarmonicOscillator3D, r)`
+`V(model::SphericalOscillator, r)`
 
 ```math
 V(r)
 = \frac{1}{2} k r^2
-= \frac{1}{2} m \omega^2 r^2
+= \frac{1}{2} \mu \omega^2 r^2
 = \frac{1}{2} \hbar \omega \xi^2,
 ```
-where ``\omega = \sqrt{k/m}`` is the angular frequency and ``\xi = \sqrt{\frac{m\omega}{\hbar}}r``.
-""" V(model::HarmonicOscillator3D, x)
+where ``\omega = \sqrt{k/\mu}`` is the angular frequency and ``\xi = \sqrt{\frac{\mu\omega}{\hbar}}r``.
+""" V(model::SphericalOscillator, x)
 
 @doc raw"""
-`E(model::HarmonicOscillator3D; n=1)`
+`E(model::SphericalOscillator; n=0, l=0)`
 
 ```math
-E_n
-= \left(n + \frac{3}{2}\right)\hbar \omega,
+E_{nl}
+= \left(2n + l + \frac{3}{2}\right)\hbar \omega,
 ```
-where ``\omega = \sqrt{k/m}``
-""" E(model::HarmonicOscillator3D; n=1)
+where ``\omega = \sqrt{k/\mu}``.
+""" E(model::SphericalOscillator; n=0, l=0)
 
 @doc raw"""
-`ψ(model::HarmonicOscillator3D, r, θ, φ; n=1, l=0, m=0)`
+`ψ(model::SphericalOscillator, r, θ, φ; n=0, l=0, m=0)`
 
 ```math
 \psi_{nlm}(\pmb{r}) = R_{nl}(r) Y_{lm}(\theta,\varphi)
 ```
 The domain is $0\leq r \lt \infty, 0\leq \theta \lt \pi, 0\leq \varphi \lt 2\pi$.
-""" ψ(model::HarmonicOscillator3D, r, θ, φ; n=1, l=0, m=0)
+""" ψ(model::SphericalOscillator, r, θ, φ; n=0, l=0, m=0)
 
 @doc raw"""
-`R(model::HarmonicOscillator3D, r; n=1, l=0)`
+`R(model::SphericalOscillator, r; n=0, l=0)`
 
 ```math
-R_{nl}(r) = \sqrt{ \frac{\gamma^{3/2}}{(2\sqrt{\pi}}} \sqrt{\frac{2^{n+l+3} n!}{(2n+2l+1)!!}} \xi^l \exp\left(-\xi^2/2\right)L_{n}^{l+\frac{1}{2}} \left(\xi^2\right),
+R_{nl}(r) = \sqrt{ \frac{\gamma^{3/2}}{2\sqrt{\pi}}} \sqrt{\frac{2^{n+l+3} n!}{(2n+2l+1)!!}} \xi^l \exp\left(-\xi^2/2\right)L_{n}^{(l+\frac{1}{2})} \left(\xi^2\right),
 ```
-where Laguerre polynomials are defined as ``L_n(x) = \frac{1}{n!} \mathrm{e}^x \frac{\mathrm{d}^n}{\mathrm{d}x ^n} \left( \mathrm{e}^{-x} x^n \right)``, and associated Laguerre polynomials are defined as ``L_n^{k}(x) = \frac{\mathrm{d}^k}{\mathrm{d}x^k} L_n(x)``. Note that replace ``2n(n+l)!`` with ``2n[(n+l)!]^3`` if Laguerre polynomials are defined as ``L_n(x) = \mathrm{e}^x \frac{\mathrm{d}^n}{\mathrm{d}x ^n} \left( \mathrm{e}^{-x} x^n \right)``. 
-The domain is $0\leq r \lt \infty$.
-""" R(model::HarmonicOscillator3D, r; n=1, l=0)
+where ``\gamma = \mu\omega/\hbar`` and ``\xi = \sqrt{\gamma}r = \sqrt{\mu\omega/\hbar}r`` are defined. The generalized Laguerre polynomials are defined as ``L_n^{(\alpha)}(x) = \frac{x^{-\alpha} \mathrm{e}^x}{n !} \frac{\mathrm{d}^n}{\mathrm{d} x^n}\left(\mathrm{e}^{-x} x^{n+\alpha}\right)``. The domain is $0\leq r \lt \infty$.
+""" R(model::SphericalOscillator, r; n=0, l=0)
 
 @doc raw"""
-`L(model::HarmonicOscillator3D, x; n=0, k=0)`
+`L(model::SphericalOscillator, x; n=0, α=0)`
 
 Rodrigues' formula & closed-form:
 ```math
 \begin{aligned}
-L_n^{k}(x)
-  &= \frac{\mathrm{d}^k}{\mathrm{d}x^k} L_n(x) \\
-  &= \frac{\mathrm{d}^k}{\mathrm{d}x^k} \frac{1}{n!} \mathrm{e}^x \frac{\mathrm{d}^n}{\mathrm{d}x ^n} \left( \mathrm{e}^{-x} x^n \right) \\
-  &= \sum_{m=0}^{n-k} (-1)^{m+k} \frac{n!}{m!(m+k)!(n-m-k)!} x^m \\
-  &= (-1)^k L_{n-k}^{(k)}(x),
+  L_n^{(\alpha)}(x)
+  &= \frac{x^{-\alpha}e^x}{n!} \frac{d^n}{dx^n}\left(x^{n+\alpha}e^{-x}\right) \\
+  &= \sum_{k=0}^n(-1)^k \left(\begin{array}{l} n+\alpha \\ n-k \end{array}\right) \frac{x^k}{k !} \\
+  &= \sum_{k=0}^n(-1)^k \frac{\Gamma(\alpha+n+1)}{\Gamma(\alpha+k+1)\Gamma(n-k+1)} \frac{x^k}{k !}.
 \end{aligned}
 ```
-where Laguerre polynomials are defined as ``L_n(x)=\frac{1}{n!}\mathrm{e}^x \frac{\mathrm{d}^n}{\mathrm{d}x ^n} \left( \mathrm{e}^{-x} x^n \right)``.
-
 Examples:
 ```math
 \begin{aligned}
-  L_0^0(x) &= 1, \\
-  L_1^0(x) &= 1 - x, \\
-  L_1^1(x) &= 1, \\
-  L_2^0(x) &= 1 - 2 x + 1/2 x^2, \\
-  L_2^1(x) &= 2 - x, \\
-  L_2^2(x) &= 1, \\
-  L_3^0(x) &= 1 - 3 x + 3/2 x^2 - 1/6 x^3, \\
-  L_3^1(x) &= 3 - 3 x + 1/2 x^2, \\
-  L_3^2(x) &= 3 - x, \\
-  L_3^3(x) &= 1, \\
-  L_4^0(x) &= 1 - 4 x + 3 x^2 - 2/3 x^3 + 5/12 x^4, \\
-  L_4^1(x) &= 4 - 6 x + 2 x^2 - 1/6 x^3, \\
-  L_4^2(x) &= 6 - 4 x + 1/2 x^2, \\
-  L_4^3(x) &= 4 - x, \\
-  L_4^4(x) &= 1, \\
+  L_0^{(0)}(x) &= 1, \\
+  L_1^{(0)}(x) &= 1 - x, \\
+  L_1^{(1)}(x) &= 2 - x, \\
+  L_2^{(0)}(x) &= 1 - 2 x + 1/2 x^{2}, \\
+  L_2^{(1)}(x) &= 3 - 3 x + 1/2 x^{2}, \\
+  L_2^{(2)}(x) &= 6 - 4 x + 1/2 x^{2}, \\
+  L_3^{(0)}(x) &= 1 - 3 x + 3/2 x^{2} - 1/6 x^{3}, \\
+  L_3^{(1)}(x) &= 4 - 6 x + 2 x^{2} - 1/6 x^{3}, \\
+  L_3^{(2)}(x) &= 10 - 10 x + 5/2 x^{2} - 1/6 x^{3}, \\
+  L_3^{(3)}(x) &= 20 - 15 x + 3 x^{2} - 1/6 x^{3}, \\
+  L_4^{(0)}(x) &= 1 - 4 x + 3 x^{2} - 2/3 x^{3} + 1/24 x^{4}, \\
+  L_4^{(1)}(x) &= 5 - 10 x + 5 x^{2} - 5/6 x^{3} + 1/24 x^{4}, \\
+  L_4^{(2)}(x) &= 15 - 20 x + 15/2 x^{2} - 1 x^{3} + 1/24 x^{4}, \\
+  L_4^{(3)}(x) &= 35 - 35 x + 21/2 x^{2} - 7/6 x^{3} + 1/24 x^{4}, \\
+  L_4^{(4)}(x) &= 70 - 56 x + 14 x^{2} - 4/3 x^{3} + 1/24 x^{4}, \\
   \vdots
 \end{aligned}
 ```
-""" L(model::HarmonicOscillator3D, x; n=0, k=0)
+""" L(model::SphericalOscillator, x; n=0, α=0)
 
 @doc raw"""
-`Y(model::HarmonicOscillator3D, θ, φ; l=0, m=0)`
+`Y(model::SphericalOscillator, θ, φ; l=0, m=0)`
 
 ```math
 Y_{lm}(\theta,\varphi) = (-1)^{\frac{|m|+m}{2}} \sqrt{\frac{2l+1}{4\pi} \frac{(l-|m|)!}{(l+|m|)!}} P_l^{|m|} (\cos\theta) \mathrm{e}^{im\varphi}.
@@ -175,10 +158,10 @@ The domain is $0\leq \theta \lt \pi, 0\leq \varphi \lt 2\pi$. Note that some var
 i^{|m|+m} \sqrt{\frac{(l-|m|)!}{(l+|m|)!}} P_l^{|m|} = (-1)^{\frac{|m|+m}{2}} \sqrt{\frac{(l-|m|)!}{(l+|m|)!}} P_l^{|m|} = (-1)^m \sqrt{\frac{(l-m)!}{(l+m)!}} P_l^{m}.
 ```
 
-""" Y(model::HarmonicOscillator3D, θ, φ; l=0, m=0)
+""" Y(model::SphericalOscillator, θ, φ; l=0, m=0)
 
 @doc raw"""
-`P(model::HarmonicOscillator3D, x; n=0, m=0)`
+`P(model::SphericalOscillator, x; n=0, m=0)`
 
 Rodrigues' formula & closed-form:
 ```math
@@ -212,4 +195,4 @@ Examples:
   & \vdots
 \end{aligned}
 ```
-""" P(model::HarmonicOscillator3D, x; n=0, m=0)
+""" P(model::SphericalOscillator, x; n=0, m=0)
