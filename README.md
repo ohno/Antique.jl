@@ -16,7 +16,13 @@ using Pkg; Pkg.add("Antique")
 
 ## Usage & Examples
 
-Install Antique.jl for the first use and run `using Antique` before each use. The energy `E()`, wavefunction `ψ()`, potential `V()` and some other functions are suppoted. Here are examples in hydrogen-like atom. The analytical notation of energy (eigen value of the Hamiltonian) is written as
+Install Antique.jl for the first use and run `using Antique` before each use.
+
+```julia
+using Antique
+```
+
+The energy `E()`, wavefunction `ψ()`, potential `V()` and some other functions are suppoted. Here are examples in hydrogen-like atom. The analytical notation of energy (eigen value of the Hamiltonian) is written as
 
 ```math
 E_n = -\frac{Z^2}{2n^2} E_\mathrm{h}.
@@ -25,7 +31,6 @@ E_n = -\frac{Z^2}{2n^2} E_\mathrm{h}.
 Hydrogen atom has symbol $\mathrm{H}$ and atomic number 1 ($Z=1$). Therefore the ground state ($n=1$) energy is $-\frac{1}{2} E_\mathrm{h}$.
 
 ```julia
-using Antique
 H = HydrogenAtom(Z=1)
 E(H)
 # output> -0.5
@@ -59,7 +64,7 @@ There are more examples on each model page.
 
 ## Developer's Guide
 
-This is the guideline for adding new models.
+This is the guideline for adding new models. Adding a new model may take from a few days to a week due to reference search, test implementation, and writing documentation.
 
 1. First, please submit a new issue [here](https://github.com/ohno/Antique.jl/issues). We need to find orthodox references (textbooks or papers, not Wikipedia) for the analytical solutions (eigenvalues and eigenfunctions) before the development. This will take more time than you think.
 2. Fork [the repository](https://github.com/ohno/Antique.jl) on GitHub.
@@ -72,13 +77,15 @@ This is the guideline for adding new models.
 | `test/ModelName.jl` | Write test code in this file. At a minimum, it is recommended to check the normalization and the orthogonality of wavefunction using QuadGK.jl. |
 | `docs/src/ModelName.md` | Write documnetation in this file. Include at least the definition of the Hamiltonian and the analytical solutions (eigenvalues and eigenfunctions). Calls a docstring in the source code. |
 
-5. Please rewrite 3 files:
+5. Please rewrite 5 files:
 
 | files | comments |
 | - | - |
 | `src/Antique.jl` | Add the new model name `:ModelName` to the `models = [...]` array in this file. `:` is required at the beginning. |
 | `docs/make.jl` | Add the new model into `pages=[...]` in this file. |
 | `test/runtests.jl` | Change `for model in [...]` in this file. Please test all models before pull requests. |
+| `README.md` | Add the new model to the list of supported models. |
+| `docs/index.md` | Add the new model to the list of supported models. |
 
 6. Execute `include("./developer/test.jl")` to run tests. It will take few minutes to complete.
 7. Execute `include("./developer/docs.jl")` to compile documents. HTML files (docs/build/*.html) will be generated. Please check them with Chrome or any other web browsers.
@@ -87,4 +94,4 @@ This is the guideline for adding new models.
 
 ## Acknowledgment
 
-This package was named by [@KB-satou](https://github.com/KB-satou) and [@ultimatile](https://github.com/ultimatile).
+Thanks to all contributors. This package was named by [@KB-satou](https://github.com/KB-satou) and [@ultimatile](https://github.com/ultimatile).
