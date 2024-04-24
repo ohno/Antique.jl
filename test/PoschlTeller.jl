@@ -81,3 +81,91 @@ end
 
 println("""```
 """)
+
+
+
+
+println(raw"""
+#### Eigen Values
+
+```math
+  \begin{aligned}
+    E_n
+    &=      \int \psi^\ast_n(x) \hat{H} \psi_n(x) \mathrm{d}x \\
+    &=      \int \psi^\ast_n(x) \left[ \hat{V} + \hat{T} \right] \psi(x) \mathrm{d}x \\
+    &=      \int \psi^\ast_n(x) \left[ V(x) - \frac{\hbar^2}{2m} \frac{\mathrm{d}^{2}}{\mathrm{d} x^{2}} \right] \psi(x) \mathrm{d}x \\
+    &\simeq \int \psi^\ast_n(x) \left[ V(x)\psi(x) -\frac{\hbar^2}{2m} \frac{\psi(x+\Delta x) - 2\psi(x) + \psi(x-\Delta x)}{\Delta x^{2}} \right] \mathrm{d}x.
+  \end{aligned}
+```
+
+Where, the difference formula for the 2nd-order derivative:
+
+```math
+\begin{aligned}
+  % 2\psi(x)
+  % + \frac{\mathrm{d}^{2} \psi(x)}{\mathrm{d} x^{2}} \Delta x^{2}
+  % + O\left(\Delta x^{4}\right)
+  % &=
+  % \psi(x+\Delta x)
+  % + \psi(x-\Delta x)
+  % \\
+  % \frac{\mathrm{d}^{2} \psi(x)}{\mathrm{d} x^{2}} \Delta x^{2}
+  % &=
+  % \psi(x+\Delta x)
+  % - 2\psi(x)
+  % + \psi(x-\Delta x)
+  % - O\left(\Delta x^{4}\right)
+  % \\
+  % \frac{\mathrm{d}^{2} \psi(x)}{\mathrm{d} x^{2}}
+  % &=
+  % \frac{\psi(x+\Delta x) - 2\psi(x) + \psi(x-\Delta x)}{\Delta x^{2}}
+  % - \frac{O\left(\Delta x^{4}\right)}{\Delta x^{2}}
+  % \\
+  \frac{\mathrm{d}^{2} \psi(x)}{\mathrm{d} x^{2}}
+  &=
+  \frac{\psi(x+\Delta x) - 2\psi(x) + \psi(x-\Delta x)}{\Delta x^{2}}
+  + O\left(\Delta x^{2}\right)
+\end{aligned}
+```
+
+are given by the sum of 2 Taylor series:
+
+```math
+\begin{aligned}
+\psi(x+\Delta x)
+&= \psi(x)
++ \frac{\mathrm{d} \psi(x)}{\mathrm{d} x} \Delta x
++ \frac{1}{2!} \frac{\mathrm{d}^{2} \psi(x)}{\mathrm{d} x^{2}} \Delta x^{2}
++ \frac{1}{3!} \frac{\mathrm{d}^{3} \psi(x)}{\mathrm{d} x^{3}} \Delta x^{3}
++ O\left(\Delta x^{4}\right),
+\\
+\psi(x-\Delta x)
+&= \psi(x)
+- \frac{\mathrm{d} \psi(x)}{\mathrm{d} x} \Delta x
++ \frac{1}{2!} \frac{\mathrm{d}^{2} \psi(x)}{\mathrm{d} x^{2}} \Delta x^{2}
+- \frac{1}{3!} \frac{\mathrm{d}^{3} \psi(x)}{\mathrm{d} x^{3}} \Delta x^{3}
++ O\left(\Delta x^{4}\right).
+\end{aligned}
+```
+
+```""")
+
+@testset "∫ψₙ*Hψₙdx = <ψₙ|H|ψₙ> = Eₙ" begin
+  ψHψ(PT, x; n=0, Δx=0.005) = V(PT,x)*ψ(PT,x,n=n)^2 - PT.ℏ^2/(2*PT.m)*conj(ψ(PT,x,n=n))*(ψ(PT,x+Δx,n=n)-2*ψ(PT,x,n=n)+ψ(PT,x-Δx,n=n))/Δx^2
+  println("  λ |  n |        analytical |         numerical ")
+  println("--- | -- | ----------------- | ----------------- ")
+  for λ in [1,2,3,5]
+  for n in 0:λ-1
+    PT = PoschlTeller(λ=λ)
+    analytical = E(PT, n=n)
+    numerical  = quadgk(x -> ψHψ(PT, x, n=n, Δx=0.001), -Inf, Inf, maxevals=10^3)[1]
+    acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-5) : isapprox(analytical, numerical, rtol=1e-5)
+    @test acceptance
+    @printf("%.1f | %2d | %17.12f | %17.12f %s\n", λ, n, analytical, numerical, acceptance ? "✔" : "✗")
+  end
+  end
+end
+PT = PoschlTeller(λ=1.0, m=1.0, ℏ=1.0)
+
+println("""```
+""")
