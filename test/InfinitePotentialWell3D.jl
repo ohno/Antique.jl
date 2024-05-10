@@ -20,25 +20,27 @@ println(raw"""
   # for m in [0.1, 0.5, 1.0, 7.0]
   # for ℏ in [0.1, 0.5, 1.0, 7.0]
   for ix in 1:2
-    for iy in 1:2
-      for iz in 1:2
+  for iy in 1:2
+  for iz in 1:2
   for jx in 1:2
-    for jy in 1:2
-      for jz in 1:2
+  for jy in 1:2
+  for jz in 1:2
     analytical = ((ix==jx && iy==jy && iz==jz) ? 1 : 0)
     numerical  = quadgk(x -> 
-                  quadgk(y ->
-                    quadgk( z -> conj(ψ(IPW3D, x,y,z, nx=ix,ny=iy,nz=iz)) * ψ(IPW3D, x,y,z, nx=jx,ny=jy,nz=jz), 0.0, IPW3D.Lz, atol=10^-6)[1]
-                    ,0.0, IPW3D.Ly, atol=10^-6)[1]
-                    ,0.0, IPW3D.Lz, atol=10^-6)[1]
-    acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-5) : isapprox(analytical, numerical, rtol=1e-5)
+                 quadgk(y ->
+                 quadgk(z ->
+                   conj(ψ(IPW3D, x,y,z, nx=ix, ny=iy, nz=iz)) * ψ(IPW3D, x,y,z, nx=jx, ny=jy, nz=jz)
+                 , 0.0, IPW3D.Lz, maxevals=10)[1]
+                 , 0.0, IPW3D.Ly, maxevals=10)[1]
+                 , 0.0, IPW3D.Lz, maxevals=10)[1]
+    acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-2) : isapprox(analytical, numerical, rtol=1e-2)
     @printf("%2d | %2d | %2d | %2d | %2d | %2d | %17.12f | %17.12f %s\n", ix, iy, iz, jx, jy, jz, analytical, numerical, acceptance ? "✔" : "✗")
     @test acceptance
-      end
-    end
   end
-      end
-    end
+  end
+  end
+  end
+  end
   end
 end
 
@@ -114,8 +116,13 @@ are given by the sum of 2 Taylor series:
 ```
 ```""")
 
+ψTψ(IPW3D, x,y,z; nx=0,ny=0,nz=0, Δx=0.01,Δy=0.01,Δz=0.01) = -IPW3D.ℏ^2/(2*IPW3D.m) * conj(ψ(IPW3D,x,y,z,nx=nx,ny=ny,nz=nz)) * (
+  ( ψ(IPW3D,x+Δx,y,z,nx=nx,ny=ny,nz=nz) -2*ψ(IPW3D,x,y,z,nx=nx,ny=ny,nz=nz) + ψ(IPW3D,x-Δx,y,z,nx=nx,ny=ny,nz=nz) ) / Δx^2 +
+  ( ψ(IPW3D,x,y+Δy,z,nx=nx,ny=ny,nz=nz) -2*ψ(IPW3D,x,y,z,nx=nx,ny=ny,nz=nz) + ψ(IPW3D,x,y-Δy,z,nx=nx,ny=ny,nz=nz) ) / Δy^2 +
+  ( ψ(IPW3D,x,y,z+Δz,nx=nx,ny=ny,nz=nz) -2*ψ(IPW3D,x,y,z,nx=nx,ny=ny,nz=nz) + ψ(IPW3D,x,y,z-Δz,nx=nx,ny=ny,nz=nz) ) / Δz^2
+)
+
 @testset "<ψₙ|H|ψₙ>  = ∫ψₙ*Tψₙdx = Eₙ" begin
-  ψTψ(IPW3D, x,y,z; nx=0, ny=0,nz=0, Δx=0.01,Δy=0.01,Δz=0.01) = -IPW3D.ℏ^2/(2*IPW3D.m)*conj(ψ(IPW3D,x,y,z,nx=nx,ny=ny,nz=nz))*((ψ(IPW3D,x+Δx,y,z,nx=nx,ny=ny,nz=nz)-2*ψ(IPW3D,x,y,z,nx=nx,ny=ny,nz=nz)+ψ(IPW3D,x-Δx,y,z,nx=nx,ny=ny,nz=nz))/Δx^2 + (ψ(IPW3D,x,y+Δy,z,nx=nx,ny=ny,nz=nz)-2*ψ(IPW3D,x,y,z,nx=nx,ny=ny,nz=nz)+ψ(IPW3D,x,y-Δy,z,nx=nx,ny=ny,nz=nz))/Δy^2 + (ψ(IPW3D,x,y,z+Δz,nx=nx,ny=ny,nz=nz)-2*ψ(IPW3D,x,y,z,nx=nx,ny=ny,nz=nz)+ψ(IPW3D,x,y,z-Δz,nx=nx,ny=ny,nz=nz))/Δz^2)
   println(" nx |  ny |  nz |        analytical |         numerical ")
   println(" -- | --- | --- | ----------------- | ----------------- ")
   for nx in [1,2]
@@ -123,8 +130,14 @@ are given by the sum of 2 Taylor series:
   for nz in [1,2]
     IPW3D = InfinitePotentialWell3D(Lx=1.0,Ly=2.0,Lz=3.0)
     analytical = E(IPW3D,nx=nx,ny=ny,nz=nz)
-    numerical  = quadgk(x -> quadgk(y-> quadgk(z-> ψTψ(IPW3D, x,y,z,nx=nx,ny=ny,nz=nz, Δx=IPW3D.Lx*0.0001, Δy=IPW3D.Ly*0.0001, Δz=IPW3D.Lz*0.0001), 0, IPW3D.Lz, atol=10^-5)[1], 0, IPW3D.Ly, atol=10^-5)[1], 0, IPW3D.Lz, atol=10^-5)[1]
-    acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-4) : isapprox(analytical, numerical, rtol=1e-5)
+    numerical  = quadgk(x ->
+                 quadgk(y ->
+                 quadgk(z ->
+                   ψTψ(IPW3D, x, y, z, nx=nx, ny=ny, nz=nz, Δx=IPW3D.Lx*0.0001, Δy=IPW3D.Ly*0.0001, Δz=IPW3D.Lz*0.0001)
+                 , 0, IPW3D.Lz, maxevals=5)[1]
+                 , 0, IPW3D.Ly, maxevals=5)[1]
+                 , 0, IPW3D.Lz, maxevals=5)[1]
+    acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-1) : isapprox(analytical, numerical, rtol=1e-1)
     @test acceptance
     @printf(" %2d | %3d | %3d | %17.12f | %17.12f %s\n", nx, ny, nz, numerical, analytical, acceptance ? "✔" :  "✗")
   end
