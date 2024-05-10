@@ -27,7 +27,7 @@ makedocs(;
     "Morse Potential"              => "MorsePotential.md"         ,
     "Pöschl-Teller Potential"      => "PoschlTeller.md"           ,
     "Rigid Rotor"                  => "RigidRotor.md"             ,
-    # "Infinite Potential Well 3D" => "InfinitePotentialWell3D.md",
+    "Infinite Potential Well 3D"   => "InfinitePotentialWell3D.md",
     "Spherical Oscillator"         => "SphericalOscillator.md"    ,
     "Hydrogen Atom"                => "HydrogenAtom.md"           ,
     "Coulomb 2-Body System"        => "CoulombTwoBody.md"         ,
