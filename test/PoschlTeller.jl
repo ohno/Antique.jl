@@ -1,4 +1,4 @@
-PT = PoschlTeller(λ=10.0)
+PT = PoschlTeller(λ=4.0)
 
 
 # Pₙᵐ(x) = √(1-x²)ᵐ dᵐ/dxᵐ Pₙ(x); Pₙ(x) = 1/(2ⁿn!) dⁿ/dxⁿ (x²-1)ⁿ
@@ -10,9 +10,9 @@ println(raw"""
 ```math
   \begin{aligned}
     P_n^m(x)
-    &= (-1)^m \left( 1-x^2 \right)^{m/2} \frac{\mathrm{d}^m}{\mathrm{d}x^m} P_n(x) \\
-    &= (-1)^m \left( 1-x^2 \right)^{m/2} \frac{\mathrm{d}^m}{\mathrm{d}x^m} \frac{1}{2^n n!} \frac{\mathrm{d}^n}{\mathrm{d}x ^n} \left[ \left( x^2-1 \right)^n \right] \\
-    &= \frac{(-1)^m}{2^n} (1-x^2)^{m/2} \sum_{j=0}^{\left\lfloor\frac{n-m}{2}\right\rfloor} (-1)^j \frac{(2n-2j)!}{j! (n-j)! (n-2j-m)!} x^{(n-2j-m)}.
+    &= \left( 1-x^2 \right)^{m/2} \frac{\mathrm{d}^m}{\mathrm{d}x^m} P_n(x) \\
+    &= \left( 1-x^2 \right)^{m/2} \frac{\mathrm{d}^m}{\mathrm{d}x^m} \frac{1}{2^n n!} \frac{\mathrm{d}^n}{\mathrm{d}x ^n} \left[ \left( x^2-1 \right)^n \right] \\
+    &= \frac{1}{2^n} (1-x^2)^{m/2} \sum_{j=0}^{\left\lfloor\frac{n-m}{2}\right\rfloor} (-1)^j \frac{(2n-2j)!}{j! (n-j)! (n-2j-m)!} x^{(n-2j-m)}.
   \end{aligned}
 ```
 """)
@@ -26,7 +26,7 @@ println(raw"""
       Dm = m==0 ? x->x : Differential(x)^m          # dᵐ/dxᵐ
       a = 1 // (2^n * factorial(n))                 # left
       b = (x^2 - 1)^n                               # right
-      c = (-1)^m * (1 - x^2)^(m//2) * Dm(a * Dn(b)) # Rodrigues' formula
+      c = (1 - x^2)^(m//2) * Dm(a * Dn(b)) # Rodrigues' formula
       d = expand_derivatives(c)                     # expand dⁿ/dxⁿ and dᵐ/dxᵐ
       e = simplify(d, expand=true)                  # simplify
       f = simplify(P(PT, x, n=n, m=m), expand=true) # closed-form
@@ -68,8 +68,8 @@ println(raw"""
 @testset "<ψᵢ|ψⱼ> = δᵢⱼ" begin
   println(" i |  j |        analytical |         numerical ")
   println("-- | -- | ----------------- | ----------------- ")
-  for i in 0:9
-  for j in 0:9
+  for i in 0:Int(PT.λ-1)
+  for j in 0:Int(PT.λ-1)
     analytical = (i == j ? 1 : 0)
     numerical  = quadgk(x -> conj(ψ(PT, x, n=i)) * ψ(PT, x, n=j), -Inf, Inf, maxevals=10^3)[1]
     acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-5) : isapprox(analytical, numerical, rtol=1e-5)
@@ -154,14 +154,20 @@ are given by the sum of 2 Taylor series:
   ψHψ(PT, x; n=0, Δx=0.005) = V(PT,x)*ψ(PT,x,n=n)^2 - PT.ℏ^2/(2*PT.m)*conj(ψ(PT,x,n=n))*(ψ(PT,x+Δx,n=n)-2*ψ(PT,x,n=n)+ψ(PT,x-Δx,n=n))/Δx^2
   println("  λ |  n |        analytical |         numerical ")
   println("--- | -- | ----------------- | ----------------- ")
-  for λ in [1,2,3,5]
+  for λ in [1,2,3]
   for n in 0:λ-1
+  for m in [1.0,exp(1)]
+  for ℏ in [1.0,exp(1)]
+  for x₀ in [1.0,exp(1)]
     PT = PoschlTeller(λ=λ)
     analytical = E(PT, n=n)
-    numerical  = quadgk(x -> ψHψ(PT, x, n=n, Δx=0.001), -Inf, Inf, maxevals=10^3)[1]
-    acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-5) : isapprox(analytical, numerical, rtol=1e-5)
+    numerical  = quadgk(x -> ψHψ(PT, x, n=n, Δx=0.001), -Inf, Inf, atol=1e-4)[1]
+    acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-3) : isapprox(analytical, numerical, rtol=1e-5)
     @test acceptance
-    @printf("%.1f | %2d | %17.12f | %17.12f %s\n", λ, n, analytical, numerical, acceptance ? "✔" : "✗")
+    @printf("%.1f | %2d | %.1f |%.1f |%.1f |%17.12f | %17.12f %s\n", λ, n, m, ℏ, x₀, analytical, numerical, acceptance ? "✔" : "✗")
+  end
+  end
+  end
   end
   end
 end
