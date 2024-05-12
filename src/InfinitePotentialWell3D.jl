@@ -8,6 +8,15 @@ export InfinitePotentialWell3D, V, E, ψ
   ℏ = 1.0
 end
 
+function inputchk(model::InfinitePotentialWell3D,nx,ny,nz)
+  if (nx ≈ round(nx)) == false || (ny ≈ round(ny)) == false || (nz ≈ round(nz)) == false
+    error("Error: nx,ny,nz are the quantum numbers for excitations in x,y,z-direction. They must be integers.")
+  end
+  if nx < 0 || ny < 0 || nz < 0
+    error("Error: nx,ny,nz are the quantum numbers for excitations in x,y,z-direction. They must be non-negative.")
+  end
+end
+
 function V(model::InfinitePotentialWell3D, x,y,z)
   Lx = model.Lx
   Ly = model.Ly
@@ -21,6 +30,7 @@ function E(model::InfinitePotentialWell3D; nx=1, ny=1, nz=1)
   Lz = model.Lz
   m = model.m
   ℏ = model.ℏ
+  inputchk(model,nx,ny,nz)
   return (ℏ^2*π^2) / (2*m) * (nx^2/Lx^2 + ny^2/Ly^2 + nz^2/Lz^2)
 end
 
@@ -28,6 +38,7 @@ function ψ(model::InfinitePotentialWell3D, x,y,z; nx=1, ny=1, nz=1)
   Lx = model.Lx
   Ly = model.Ly
   Lz = model.Lz
+  inputchk(model,nx,ny,nz)
   return (0<x<Lx&&0<y<Ly&&0<z<Lz) ? sqrt(8/(Lx*Ly*Lz))*sin(nx*π*x/Lx)*sin(ny*π*y/Ly)*sin(nz*π*z/Lz) : 0
 end
 
