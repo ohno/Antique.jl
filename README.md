@@ -67,16 +67,16 @@ There are more examples on each model page.
 
 This is the guideline for adding new models. Adding a new model may take from a few days to a week due to reference search, test implementation, and writing documentation.
 
-1. First, please submit a new issue [here](https://github.com/ohno/Antique.jl/issues). We need to find orthodox references (textbooks or papers, not Wikipedia) for the analytical solutions (eigenvalues and eigenfunctions) before the development. This will take more time than you think.
+1. First, please submit a new issue or or comment [here](https://github.com/ohno/Antique.jl/issues). I will assign you to the issue. We need to find orthodox references (textbooks or papers, not Wikipedia) for the analytical solutions (eigenvalues and eigenfunctions) before the development. This will take more time than you think.
 2. Fork [the repository](https://github.com/ohno/Antique.jl) on GitHub.
 3. Clone the forked repository to your local machine by Git.
 4. Please create 3 files:
 
 | files | comments |
 | --- | --- |
-| `src/ModelName.jl` | Write the source codes and docstrings in this file. The most helpful examples are harmonic oscillators for one-dimensional systems and hydrogen atoms for three-dimensional systems. We recommend that you copy these files. First we need to create a structure `struct ModelName` with the same name as the model name (The best way is Find & Replace). Because the function names conflict, you must always give the struct `ModelName` as the fisrt argument to V, E, ψ and other functions. Multi-dispatch avoids conflicts. We recommend using Revice.jl while coding. Run `include("./developer/revice.jl")` on the REPL or use dev.ipynb.  |
-| `test/ModelName.jl` | Write test code in this file. At a minimum, it is recommended to check the normalization and the orthogonality of wavefunction using QuadGK.jl. |
-| `docs/src/ModelName.md` | Write documnetation in this file. Include at least the definition of the Hamiltonian and the analytical solutions (eigenvalues and eigenfunctions). Calls a docstring in the source code. |
+| `src/ModelName.jl` | Write the source codes and docstrings in this file. The most helpful examples are harmonic oscillators for one-dimensional systems and hydrogen atoms for three-dimensional systems. We recommend that you copy these files. First we need to create a structure `struct ModelName` with the same name as the model name (The best way is Find & Replace). Because the function names conflict, you must always give the struct `ModelName` as the fisrt argument to V, E, ψ and other functions. Multi-dispatch avoids conflicts. We recommend using Revice.jl while coding. Run `include("./developer/revice.jl")` on the REPL or use dev.ipynb. |
+| `test/ModelName.jl` | Write test code in this file. At a minimum, please check the normalization and the orthogonality of eigenfunction using QuadGK.jl. Please also do tests for eigenvalue (for example, calculate the expectation values of the Hamiltonian (energy) using the eigenfunctions and check that these values match the eigenvalues). |
+| `docs/src/ModelName.md` | Write documnetation in this file. Include at least the definition of the Hamiltonian and the analytical solutions (eigenvalues and eigenfunctions). Calls a docstring in the source code (`src/ModelName.jl`) . |
 
 5. Please rewrite 5 files:
 
