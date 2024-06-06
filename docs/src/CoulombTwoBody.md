@@ -191,7 +191,7 @@ The hyperfine splitting of hydrogen atoms is given as
 \Delta E (\mathrm{H}) = -\frac{2}{3} \mu_0 \gamma_\mathrm{p} \gamma_\mathrm{e} \hbar^2 \langle\delta^3(\pmb{r})\rangle
 ```
 
-in [Griffiths(1982)](https://doi.org/10.1119/1.12733). This fomula is not available for deuterium (D) and positronium (Ps). Because of the different spin between the proton and the deuteron for D, the contribution of positron-electron pair annihilation for Ps. Note the definition of gyromagnetic ratio. The mass of protons is used for all nucleons and nuclei:
+in [Griffiths(1982)](https://doi.org/10.1119/1.12733). Note that this fomula is not available for deuterium (D) and positronium (Ps) because of the different spin between the proton and the deuteron for D, and the contribution of positron-electron pair annihilation for Ps. And also note that the mass of proton is used for the definitions of gyromagnetic ratio in all nucleons and nuclei:
 
 ```math
 \begin{aligned}

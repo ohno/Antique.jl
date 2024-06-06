@@ -67,7 +67,7 @@ Antique.P(::PoschlTeller, ::Any)
 
 ```@example PT
 using Antique
-PT = PoschlTeller(λ=4.0)
+PT = PoschlTeller(λ=4, m=1.0, ℏ=1.0, x₀=1.0)
 ; # hide
 ```
 
