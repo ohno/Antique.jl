@@ -12,9 +12,9 @@ export CoulombTwoBody, V, E, ψ, R, L, Y, P
 end
 
 function V(model::CoulombTwoBody, r)
-  # if r<0
-  #   throw(DomainError(r, "r=$r is out of the domain (0≦r)"))
-  # end
+  if !(0 ≤ r)
+    throw(DomainError("r = $r", "r must be non-negative: 0 ≤ r."))
+  end
   z₁ = model.z₁
   z₂ = model.z₂
   a₀ = model.a₀
@@ -22,10 +22,10 @@ function V(model::CoulombTwoBody, r)
   return Eₕ*z₁*z₂/abs(r/a₀)
 end
 
-function E(model::CoulombTwoBody; n=1)
-  # if zₑ*zₚ>0
-    # @warn "zₑ*zₚ must be negative in bound states."
-  # end
+function E(model::CoulombTwoBody; n::Int=1)
+  if !(1 ≤ n)
+    throw(DomainError("n = $n", "n must be 1 or more: 1 ≤ n."))
+  end
   z₁ = model.z₁
   z₂ = model.z₂
   m₁ = model.m₁
@@ -36,17 +36,17 @@ function E(model::CoulombTwoBody; n=1)
   return -(z₁*z₂)^2/(2*n^2) * μ/mₑ * Eₕ
 end
 
-function ψ(model::CoulombTwoBody, r, θ, φ; n=1, l=0, m=0)
-  # if r<0
-  #   throw(DomainError(r, "r=$r is out of the domain (0≦r)"))
-  # end
+function ψ(model::CoulombTwoBody, r, θ, φ; n::Int=1, l::Int=0, m::Int=0)
+  if !(1 ≤ n && 0 ≤ l < n && -l ≤ m ≤ l)
+    throw(DomainError("(n,l,m) = ($n,$l,$m)", "This function is defined for 1 ≤ n, 0 ≤ l < n and -l ≤ m ≤ l."))
+  end
+  if !(0 ≤ r && 0 ≤ θ < π && 0 ≤ φ < 2π)
+    throw(DomainError("(r,θ,φ) = ($r,$θ,$φ)", "This function is defined for 0 ≤ r, 0 ≤ θ < π, 0 ≤ φ < 2π."))
+  end
   return R(model, r, n=n, l=l) * Y(model, θ, φ, l=l, m=m)
 end
 
 function R(model::CoulombTwoBody, r; n=1, l=0)
-  # if r<0
-  #   throw(DomainError(r, "r=$r is out of the domain (0≦r)"))
-  # end
   z₁ = model.z₁
   z₂ = model.z₂
   a₀ = model.a₀

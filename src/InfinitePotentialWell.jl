@@ -11,14 +11,20 @@ function V(model::InfinitePotentialWell, x)
   return 0<x<L ? 0 : Inf
 end
 
-function E(model::InfinitePotentialWell; n=1)
+function E(model::InfinitePotentialWell; n::Int=1)
+  if !(1 ≤ n)
+    throw(DomainError("n = $n", "n must be 1 or more: 1 ≤ n."))
+  end
   L = model.L
   m = model.m
   ℏ = model.ℏ
   return (ℏ^2*n^2*π^2) / (2*m*L^2)
 end
 
-function ψ(model::InfinitePotentialWell, x; n=1)
+function ψ(model::InfinitePotentialWell, x; n::Int=1)
+  if !(1 ≤ n)
+    throw(DomainError("n = $n", "n must be 1 or more: 1 ≤ n."))
+  end
   L = model.L
   return 0<x<L ? sqrt(2/L) * sin(n*π*x/L) : 0
 end

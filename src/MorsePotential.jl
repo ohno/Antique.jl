@@ -13,17 +13,21 @@ using SpecialFunctions
 end
 
 function V(model::MorsePotential, r)
+  if !(0 ≤ r)
+    throw(DomainError("r = $r", "r must be non-negative: 0 ≤ r."))
+  end
   rₑ = model.rₑ
   Dₑ = model.Dₑ
   k = model.k
   a = sqrt(k/(2*Dₑ))
-  if r<0
-    throw(DomainError(r, "r=$r is out of the domain (0≦r)"))
-  end
   return Dₑ*( exp(-2*a*(r-rₑ)) -2*exp(-a*(r-rₑ)) )
 end
 
-function E(model::MorsePotential; n=0)
+function E(model::MorsePotential; n::Int=0)
+  n_max = nₘₐₓ(model)
+  if !(0 ≤ n ≤ n_max)
+    throw(DomainError("n = $n, n_max = $n_max", "n must be non-negative and smaller than n_max: 0 ≤ n ≤ n_max."))
+  end
   Dₑ = model.Dₑ
   k = model.k
   µ = model.µ
@@ -41,9 +45,13 @@ function nₘₐₓ(model::MorsePotential)
   return Int(floor((2*Dₑ - ω)/ω))
 end
 
-function ψ(model::MorsePotential, r; n=0)
-  if r<0
-    throw(DomainError(r, "r=$r is out of the domain (0≦r)"))
+function ψ(model::MorsePotential, r; n::Int=0)
+  n_max = nₘₐₓ(model)
+  if !(0 ≤ n ≤ n_max)
+    throw(DomainError("n = $n, n_max = $n_max", "n must be non-negative and smaller than n_max: 0 ≤ n ≤ n_max."))
+  end
+  if !(0 ≤ r)
+    throw(DomainError("r = $r", "r must be non-negative: 0 ≤ r."))
   end
   rₑ = model.rₑ
   Dₑ = model.Dₑ

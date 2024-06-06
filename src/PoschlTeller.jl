@@ -1,29 +1,11 @@
 export PoschlTeller, V, E, ψ
 
 @kwdef struct PoschlTeller
-  λ = 1.0
+  λ::Int = 1 # Currently only integer values for λ are supported.
   m = 1.0
   ℏ = 1.0
   x₀ = 1.0
 end
-
-function inputchk(model::PoschlTeller,λ,n,n_max)
-  if (λ ≈ round(λ)) == false
-    @show(λ,round(λ),λ ≈ round(λ))
-    error("Error: Currently only integer values for λ are supported.")
-  end
-  
-  if (n ≈ round(n)) == false
-    @show(n,round(n),n ≈ round(n))
-    error("Error: n is the index of the n-th excited state. It must be an integer.")
-  end
-  
-  if n < 0 || n > n_max
-    @show(n,n_max)
-    error("Error: n must be non-negative and smaller than n_max: 0 <= n <= n_max")
-  end
-end
-
 
 function V(model::PoschlTeller, x)
   λ = model.λ
@@ -35,25 +17,27 @@ function nₘₐₓ(model::PoschlTeller)
   return Int(floor(λ-1)) # if counting n from zero
 end
 
-function E(model::PoschlTeller; n=0)
+function E(model::PoschlTeller; n::Int=0)
+  n_max = nₘₐₓ(model)
+  if !(0 ≤ n ≤ n_max)
+    throw(DomainError("(n,n_max) = ($n,$n_max)", "This function is defined for 0 ≤ n ≤ n_max."))
+  end
   λ = model.λ
   m = model.m
   ℏ = model.ℏ
   x₀ = model.x₀
-  
-  n_max = nₘₐₓ(model)
-  mu = n_max-n+1
-  inputchk(model,λ,n,n_max)
+  mu = n_max - n + 1
   return -(mu)^2/2 * ℏ^2/(m*x₀^2)
 end
 
-function ψ(model::PoschlTeller, x; n=0)
-  λ = model.λ
+function ψ(model::PoschlTeller, x; n::Int=0)
   n_max = nₘₐₓ(model)
-  mu = n_max-n+1
-  
-  inputchk(model,λ,n,n_max)
-  return (-1)^mu * P(model,tanh(x),n=Int64(λ),m=mu)*sqrt(mu*gamma(λ-mu+1)/gamma(λ+mu+1))
+  if !(0 ≤ n ≤ n_max)
+    throw(DomainError("(n,n_max) = ($n,$n_max)", "This function is defined for 0 ≤ n ≤ n_max."))
+  end
+  λ = model.λ
+  mu = n_max - n + 1
+  return (-1)^mu * P(model,tanh(x),n=Int64(λ),m=mu) * sqrt(mu*gamma(λ-mu+1)/gamma(λ+mu+1))
 end
 
 function P(model::PoschlTeller, x; n=0, m=0) # same definition as in hydrogen atom: additional factor (-1)^m taken out
@@ -64,7 +48,7 @@ end
 @doc raw"""
 `PoschlTeller(λ=1.0, m=1.0, ℏ=1.0, x₀=1.0)`
 
-``\lambda`` determines the potential strength.
+``\lambda`` determines the potential strength. Currently only integer values for ``\lambda`` are supported.
 """ PoschlTeller
 
 @doc raw"""

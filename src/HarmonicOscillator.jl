@@ -11,7 +11,10 @@ function V(model::HarmonicOscillator, x)
   return 1//2 * k * x^2
 end
 
-function E(model::HarmonicOscillator; n=0)
+function E(model::HarmonicOscillator; n::Int=0)
+  if !(0 ≤ n)
+    throw(DomainError("n = $n", "n must be non-negative: 0 ≤ n."))
+  end
   k = model.k
   m = model.m
   ℏ = model.ℏ
@@ -19,7 +22,10 @@ function E(model::HarmonicOscillator; n=0)
   return ℏ * ω * (n+1//2)
 end
 
-function ψ(model::HarmonicOscillator, x; n=0)
+function ψ(model::HarmonicOscillator, x; n::Int=0)
+  if !(0 ≤ n)
+    throw(DomainError("n = $n", "n must be non-negative: 0 ≤ n."))
+  end
   k = model.k
   m = model.m
   ℏ = model.ℏ
@@ -29,7 +35,7 @@ function ψ(model::HarmonicOscillator, x; n=0)
   return A * H(model,ξ,n=n) * exp(-ξ^2/2)
 end
 
-function H(model::HarmonicOscillator, x; n=0)
+function H(model::HarmonicOscillator, x; n::Int=0)
   return factorial(n) * sum(i -> (-1)^i // (factorial(i)  * factorial(n-2*i)) * (2*x)^(n-2*i), 0:Int(floor(n/2)))
 end
 
