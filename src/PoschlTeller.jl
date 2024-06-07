@@ -20,7 +20,7 @@ function inputchk(model::PoschlTeller,λ,n,n_max)
   
   if n < 0 || n > n_max
     @show(n,n_max)
-    error("Error: n must be non-negative and smaller than n_max: 0 <= n <= n_max")
+    error("Error: n must be non-negative and smaller than or equal n_max: 0 <= n <= n_max")
   end
 end
 
@@ -111,13 +111,13 @@ where ``\mu = \mu(n) = n_\mathrm{max}-n+1``, and ``n_\mathrm{max} = \left\lfloor
 
 Associated Legendre polynomials are the associated Legendre functions for integer indices. Here we use the same notation of the associated Legendre functions as in the model HydrogenAtom.
   
-  ```math
-  \begin{aligned}
-  P_n^m(x)
-  &= \left( 1-x^2 \right)^{m/2} \frac{\mathrm{d}^m}{\mathrm{d}x^m} P_n(x) \\
-  &=  \left( 1-x^2 \right)^{m/2} \frac{\mathrm{d}^m}{\mathrm{d}x^m} \frac{1}{2^n n!} \frac{\mathrm{d}^n}{\mathrm{d}x ^n} \left[ \left( x^2-1 \right)^n \right] \\
-  &= \frac{1}{2^n} (1-x^2)^{m/2} \sum_{j=0}^{\left\lfloor\frac{n-m}{2}\right\rfloor} (-1)^j \frac{(2n-2j)!}{j! (n-j)! (n-2j-m)!} x^{(n-2j-m)}.
-  \end{aligned}
-  ```
+```math
+\begin{aligned}
+ P_n^m(x)
+ &= \left( 1-x^2 \right)^{m/2} \frac{\mathrm{d}^m}{\mathrm{d}x^m} P_n(x) \\
+ &=  \left( 1-x^2 \right)^{m/2} \frac{\mathrm{d}^m}{\mathrm{d}x^m} \frac{1}{2^n n!} \frac{\mathrm{d}^n}{\mathrm{d}x ^n} \left[ \left( x^2-1 \right)^n \right] \\
+ &= \frac{1}{2^n} (1-x^2)^{m/2} \sum_{j=0}^{\left\lfloor\frac{n-m}{2}\right\rfloor} (-1)^j \frac{(2n-2j)!}{j! (n-j)! (n-2j-m)!} x^{(n-2j-m)}.
+\end{aligned}
+```
   
   """ P(model::PoschlTeller, x; n=0, m=0)
