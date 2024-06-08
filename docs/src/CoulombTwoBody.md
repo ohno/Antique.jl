@@ -163,12 +163,13 @@ The lifetime $\tau$ of positronium (Ps, $\mathrm{e}^+\mathrm{e}^-$) is written a
 \Gamma = 4 \pi \alpha^4 c {a_0}^2 \langle\delta^3(\pmb{r})\rangle.
 ```
 
-where $\langle\delta^3(\pmb{r})\rangle = \langle\psi|\delta^3(\pmb{r})|\psi\rangle = |\psi(\pmb{0})|^2 = \frac{1}{8\pi} a_0^{-3} \simeq 2.685\times10^{29}~\mathrm{m}^{-3}$ is the value of probability density at the origin ($r=0$). Reference:
-- (7.169) in D. J. Griffiths, Introduction to Elementary Particles (John Wiley & Sons, Inc. 1987) ISBN 0-471-60386-4
-- [S. Berko, H. N. Pendleton, Annual Review of Nuclear and Particle Science, 30, 543 (1980)](https://doi.org/10.1146/annurev.ns.30.120180.002551)
-- [A. M. Frolov, S. I. Kryuchkov, and V. H. Smith, Jr., Phys. Rev. A, 51, 4514 (1995)](https://doi.org/10.1103/PhysRevA.51.4514)
+where $\langle\delta^3(\pmb{r})\rangle = \langle\psi|\delta^3(\pmb{r})|\psi\rangle = |\psi(\pmb{0})|^2 = \frac{1}{8\pi} a_0^{-3} \simeq 2.685\times10^{29}~\mathrm{m}^{-3}$ is the value of probability density at the origin ($r=0$).
 
 ```@example CTB
+# (7.169) in D. J. Griffiths, Introduction to Elementary Particles (John Wiley & Sons, Inc. 1987) ISBN 0-471-60386-4
+# S. Berko, H. N. Pendleton, Annual Review of Nuclear and Particle Science, 30, 543 (1980) https://doi.org/10.1146/annurev.ns.30.120180.002551)
+# A. M. Frolov, S. I. Kryuchkov, and V. H. Smith, Jr., Phys. Rev. A, 51, 4514 (1995) https://doi.org/10.1103/PhysRevA.51.4514
+
 α  = 7.2973525693e-3    #       # https://physics.nist.gov/cgi-bin/cuu/Value?alph
 c   = 299792458         # m s-1 # https://physics.nist.gov/cgi-bin/cuu/Value?c
 a₀  = 5.29177210903e-11 # m     # https://physics.nist.gov/cgi-bin/cuu/Value?bohrrada0
