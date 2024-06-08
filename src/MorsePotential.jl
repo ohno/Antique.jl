@@ -1,7 +1,9 @@
 export MorsePotential, V, E, nₘₐₓ, ψ, L
 
+# packages
 using SpecialFunctions
 
+# parameters
 @kwdef struct MorsePotential
   # F. M. Fernández, J. Garcia, ChemistrySelect, 6, 9527−9534(2021) https://doi.org/10.1002/slct.202102509
   # CODATA recommended values of the fundamental physical constants: 2018 https://physics.nist.gov/cgi-bin/cuu/Value?mpsme
@@ -12,6 +14,7 @@ using SpecialFunctions
   ℏ = 1.0
 end
 
+# potential
 function V(model::MorsePotential, r)
   if !(0 ≤ r)
     throw(DomainError("r = $r", "r must be non-negative: 0 ≤ r."))
@@ -23,6 +26,7 @@ function V(model::MorsePotential, r)
   return Dₑ*( exp(-2*a*(r-rₑ)) -2*exp(-a*(r-rₑ)) )
 end
 
+# eigenvalue
 function E(model::MorsePotential; n::Int=0)
   n_max = nₘₐₓ(model)
   if !(0 ≤ n ≤ n_max)
@@ -37,6 +41,7 @@ function E(model::MorsePotential; n::Int=0)
   return - Dₑ + ℏ*ω*(n+1/2) - χ*ℏ*ω*(n+1/2)^2
 end
 
+# maximum quantum number
 function nₘₐₓ(model::MorsePotential)
   Dₑ = model.Dₑ
   k = model.k
@@ -45,6 +50,7 @@ function nₘₐₓ(model::MorsePotential)
   return Int(floor((2*Dₑ - ω)/ω))
 end
 
+# eigenfunction
 function ψ(model::MorsePotential, r; n::Int=0)
   n_max = nₘₐₓ(model)
   if !(0 ≤ n ≤ n_max)
@@ -66,6 +72,7 @@ function ψ(model::MorsePotential, r; n::Int=0)
   return N * ξ^(s/2) * exp(-ξ/2) * L(model, ξ, n=n, α=s)
 end
 
+# generalized Laguerre polynomials
 function L(model::MorsePotential, x; n=0, α=0)
   if isinteger(α)
     return sum(k -> (-1)^(k) * (Int(gamma(α+n+1)) // Int((gamma(α+1+k)*gamma(n-k+1)))) * x^k * 1 // factorial(k), 0:n)
@@ -73,6 +80,8 @@ function L(model::MorsePotential, x; n=0, α=0)
     return sum(k -> (-1)^(k) * (gamma(α+n+1) / (gamma(α+1+k)*gamma(n-k+1))) * x^k / factorial(k), 0:n)
   end
 end
+
+# docstrings
 
 @doc raw"""
 `MP = MorsePotential(rₑ=2.0, Dₑ=0.1, k=0.1, µ=918.1, ℏ=1.0)`

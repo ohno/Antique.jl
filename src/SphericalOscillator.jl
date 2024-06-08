@@ -1,11 +1,13 @@
 export SphericalOscillator, V, E, ψ
 
+# parameters
 @kwdef struct SphericalOscillator
   k = 1.0
   μ = 1.0
   ℏ = 1.0
 end
 
+# potential
 function V(model::SphericalOscillator, r)
   if !(0 ≤ r)
     throw(DomainError("r = $r", "r must be non-negative: 0 ≤ r."))
@@ -14,6 +16,7 @@ function V(model::SphericalOscillator, r)
   return 1/2 * k * r^2
 end
 
+# eigenvalue
 function E(model::SphericalOscillator; n::Int=0, l::Int=0)
   if !(0 ≤ n && 0 ≤ l)
     throw(DomainError("(n,l) = ($n,$l)", "This function is defined for 0 ≤ n and 0 ≤ l"))
@@ -25,6 +28,7 @@ function E(model::SphericalOscillator; n::Int=0, l::Int=0)
   return (2*n + l + 3/2) * ℏ * ω
 end
 
+# eigenfunction
 function ψ(model::SphericalOscillator, r, θ, φ; n::Int=0, l::Int=0, m::Int=0)
   if !(0 ≤ n && 0 ≤ l && -l ≤ m ≤ l)
     throw(DomainError("(n,l,m) = ($n,$l,$m)", "This function is defined for 0 ≤ n, 0 ≤ l and -l ≤ m ≤ l."))
@@ -35,6 +39,7 @@ function ψ(model::SphericalOscillator, r, θ, φ; n::Int=0, l::Int=0, m::Int=0)
   return R(model, r, n=n, l=l) * Y(model, θ, φ, l=l, m=m)
 end
 
+# radial function
 function R(model::SphericalOscillator, r; n=0, l=0)
   ℏ = model.ℏ
   μ = model.μ
@@ -48,6 +53,7 @@ function R(model::SphericalOscillator, r; n=0, l=0)
   return N * ξ^l * exp(-ξ^2/2) * L(model, ξ^2, n=n, α=l+1/2)
 end
 
+# generalized Laguerre polynomials
 function L(model::SphericalOscillator, x; n=0, α=0)
   if isinteger(α)
     return sum(k -> (-1)^(k) * (Int(gamma(α+n+1)) // Int((gamma(α+1+k)*gamma(n-k+1)))) * x^k * 1 // factorial(k), 0:n)
@@ -56,15 +62,18 @@ function L(model::SphericalOscillator, x; n=0, α=0)
   end
 end
 
+# spherical harmonics
 function Y(model::SphericalOscillator, θ, φ; l=0, m=0)
   N = (im)^(m+abs(m)) * sqrt( (2*l+1)*factorial(l-Int(abs(m))) / (2*factorial(l+Int(abs(m)))) )
   return N * P(model,cos(θ), n=l, m=Int(abs(m))) * exp(im*m*φ) / sqrt(2*π)
 end
 
+# associated Legendre polynomials
 function P(model::SphericalOscillator, x; n=0, m=0)
   return (1//2)^n * (1-x^2)^(m//2) * sum(j -> (-1)^j * factorial(2*n-2*j) // (factorial(j) * factorial(n-j) * factorial(n-2*j-m)) * x^(n-2*j-m), 0:Int(floor((n-m)/2)))
 end
 
+# docstrings
 
 @doc raw"""
 `SphericalOscillator(k=1.0, μ=1.0, ℏ=1.0)`

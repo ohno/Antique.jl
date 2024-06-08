@@ -1,16 +1,19 @@
 export HarmonicOscillator, V, E, ψ, H
 
+# parameters
 @kwdef struct HarmonicOscillator
   k = 1.0
   m = 1.0
   ℏ = 1.0
 end
 
+# potential
 function V(model::HarmonicOscillator, x)
   k = model.k
   return 1//2 * k * x^2
 end
 
+# eigenvalue
 function E(model::HarmonicOscillator; n::Int=0)
   if !(0 ≤ n)
     throw(DomainError("n = $n", "n must be non-negative: 0 ≤ n."))
@@ -22,6 +25,7 @@ function E(model::HarmonicOscillator; n::Int=0)
   return ℏ * ω * (n+1//2)
 end
 
+# eigenfunction
 function ψ(model::HarmonicOscillator, x; n::Int=0)
   if !(0 ≤ n)
     throw(DomainError("n = $n", "n must be non-negative: 0 ≤ n."))
@@ -35,9 +39,12 @@ function ψ(model::HarmonicOscillator, x; n::Int=0)
   return A * H(model,ξ,n=n) * exp(-ξ^2/2)
 end
 
+# Hermite polynomials
 function H(model::HarmonicOscillator, x; n::Int=0)
   return factorial(n) * sum(i -> (-1)^i // (factorial(i)  * factorial(n-2*i)) * (2*x)^(n-2*i), 0:Int(floor(n/2)))
 end
+
+# docstrings
 
 @doc raw"""
 `HarmonicOscillator(k=1.0, m=1.0, ℏ=1.0)`

@@ -1,5 +1,6 @@
 export HydrogenAtom, V, E, ψ, R, L, Y, P
 
+# parameters
 @kwdef struct HydrogenAtom
   Z = 1
   mₑ = 1.0
@@ -8,6 +9,7 @@ export HydrogenAtom, V, E, ψ, R, L, Y, P
   ℏ = 1.0
 end
 
+# potential
 function V(model::HydrogenAtom, r)
   if !(0 ≤ r)
     throw(DomainError("r = $r", "r must be non-negative: 0 ≤ r."))
@@ -18,6 +20,7 @@ function V(model::HydrogenAtom, r)
   return Eₕ*-1*Z/abs(r/a₀)
 end
 
+# eigenvalue
 function E(model::HydrogenAtom; n::Int=1)
   if !(1 ≤ n)
     throw(DomainError("n = $n", "n must be 1 or more: 1 ≤ n."))
@@ -27,6 +30,7 @@ function E(model::HydrogenAtom; n::Int=1)
   return -Z^2/(2*n^2) * Eₕ
 end
 
+# eigenfunction
 function ψ(model::HydrogenAtom, r, θ, φ; n::Int=1, l::Int=0, m::Int=0)
   if !(1 ≤ n && 0 ≤ l < n && -l ≤ m ≤ l)
     throw(DomainError("(n,l,m) = ($n,$l,$m)", "This function is defined for 1 ≤ n, 0 ≤ l < n and -l ≤ m ≤ l."))
@@ -37,6 +41,7 @@ function ψ(model::HydrogenAtom, r, θ, φ; n::Int=1, l::Int=0, m::Int=0)
   return R(model, r, n=n, l=l) * Y(model, θ, φ, l=l, m=m)
 end
 
+# radial function
 function R(model::HydrogenAtom, r; n=1, l=0)
   Z = model.Z
   a₀ = model.a₀
@@ -45,18 +50,23 @@ function R(model::HydrogenAtom, r; n=1, l=0)
   return N*ρ^l * exp(-ρ/2) * L(model, ρ, n=n+l, k=2*l+1)
 end
 
+# associated Laguerre polynomials
 function L(model::HydrogenAtom, x; n=0, k=0)
   return sum(m -> (-1)^(m+k) * factorial(n) // (factorial(m) * factorial(m+k) * factorial(n-m-k)) * x^m, 0:n-k)
 end      
 
+# spherical harmonics
 function Y(model::HydrogenAtom, θ, φ; l=0, m=0)
   N = (im)^(m+abs(m)) * sqrt( (2*l+1)*factorial(l-Int(abs(m))) / (2*factorial(l+Int(abs(m)))) )
   return N * P(model,cos(θ), n=l, m=Int(abs(m))) * exp(im*m*φ) / sqrt(2*π)
 end
 
+# associated Legendre polynomials
 function P(model::HydrogenAtom, x; n=0, m=0)
   return (1//2)^n * (1-x^2)^(m//2) * sum(j -> (-1)^j * factorial(2*n-2*j) // (factorial(j) * factorial(n-j) * factorial(n-2*j-m)) * x^(n-2*j-m), 0:Int(floor((n-m)/2)))
 end
+
+# docstrings
 
 @doc raw"""
 `HydrogenAtom(Z=1, mₑ=1.0, a₀=1.0, Eₕ=1.0, ℏ=1.0)`

@@ -1,5 +1,6 @@
 export PoschlTeller, V, E, ψ
 
+# parameters
 @kwdef struct PoschlTeller
   λ::Int = 1 # Currently only integer values for λ are supported.
   m = 1.0
@@ -7,16 +8,19 @@ export PoschlTeller, V, E, ψ
   x₀ = 1.0
 end
 
+# potential
 function V(model::PoschlTeller, x)
   λ = model.λ
   return -λ*(λ+1)/2/cosh(x)^2
 end
 
+# maximum quantum number
 function nₘₐₓ(model::PoschlTeller)
   λ = model.λ
   return Int(floor(λ-1)) # if counting n from zero
 end
 
+# eigenvalue
 function E(model::PoschlTeller; n::Int=0)
   n_max = nₘₐₓ(model)
   if !(0 ≤ n ≤ n_max)
@@ -30,6 +34,7 @@ function E(model::PoschlTeller; n::Int=0)
   return -(mu)^2/2 * ℏ^2/(m*x₀^2)
 end
 
+# eigenfunction
 function ψ(model::PoschlTeller, x; n::Int=0)
   n_max = nₘₐₓ(model)
   if !(0 ≤ n ≤ n_max)
@@ -40,11 +45,13 @@ function ψ(model::PoschlTeller, x; n::Int=0)
   return (-1)^mu * P(model,tanh(x),n=Int64(λ),m=mu) * sqrt(mu*gamma(λ-mu+1)/gamma(λ+mu+1))
 end
 
+# associated Legendre polynomials
 function P(model::PoschlTeller, x; n=0, m=0) # same definition as in hydrogen atom: additional factor (-1)^m taken out
   return (1//2)^n * (1-x^2)^(m//2) * sum(j -> (-1)^j * factorial(2*n-2*j) // (factorial(j) * factorial(n-j) * factorial(n-2*j-m)) * x^(n-2*j-m), 0:Int(floor((n-m)/2)))
 end
 
-# docstrings:
+# docstrings
+
 @doc raw"""
 `PoschlTeller(λ=1.0, m=1.0, ℏ=1.0, x₀=1.0)`
 

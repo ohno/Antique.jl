@@ -1,5 +1,6 @@
 export InfinitePotentialWell3D, V, E, ψ
 
+# parameters
 @kwdef struct InfinitePotentialWell3D
   Lx = 1.0
   Ly = 1.0
@@ -8,6 +9,7 @@ export InfinitePotentialWell3D, V, E, ψ
   ℏ = 1.0
 end
 
+# potential
 function V(model::InfinitePotentialWell3D, x,y,z)
   Lx = model.Lx
   Ly = model.Ly
@@ -15,6 +17,7 @@ function V(model::InfinitePotentialWell3D, x,y,z)
   return (0<x<Lx&&0<y<Ly&&0<z<Lz) ? 0 : Inf
 end
 
+# eigenvalue
 function E(model::InfinitePotentialWell3D; nx::Int=1, ny::Int=1, nz::Int=1)
   if !(1 ≤ nx && 1 ≤ ny && 1 ≤ nz)
     throw(DomainError("(nx,ny,nz) = ($nx,$ny,$nz)", "This function is defined for 1 ≤ nx, 1 ≤ ny and 1 ≤ nz."))
@@ -27,6 +30,7 @@ function E(model::InfinitePotentialWell3D; nx::Int=1, ny::Int=1, nz::Int=1)
   return (ℏ^2*π^2) / (2*m) * (nx^2/Lx^2 + ny^2/Ly^2 + nz^2/Lz^2)
 end
 
+# eigenfunction
 function ψ(model::InfinitePotentialWell3D, x,y,z; nx::Int=1, ny::Int=1, nz::Int=1)
   if !(1 ≤ nx && 1 ≤ ny && 1 ≤ nz)
     throw(DomainError("(nx,ny,nz) = ($nx,$ny,$nz)", "This function is defined for 1 ≤ nx, 1 ≤ ny and 1 ≤ nz."))
@@ -36,6 +40,8 @@ function ψ(model::InfinitePotentialWell3D, x,y,z; nx::Int=1, ny::Int=1, nz::Int
   Lz = model.Lz
   return (0<x<Lx&&0<y<Ly&&0<z<Lz) ? sqrt(8/(Lx*Ly*Lz))*sin(nx*π*x/Lx)*sin(ny*π*y/Ly)*sin(nz*π*z/Lz) : 0
 end
+
+# docstrings
 
 @doc raw"""
 `InfinitePotentialWell3D(Lx=1.0, Ly=1.0, Lz=1.0, m=1.0, ℏ=1.0)`
