@@ -121,6 +121,9 @@ where ``\omega = \sqrt{k/µ}`` is defined.
 @doc raw"""
 `L(model::MorsePotential, x; n=0, α=0)`
 
+!!! note
+    The generalized Laguerre polynomials $L_n^{(\alpha)}(x)$, not the associated Laguerre polynomials $L_n^{k}(x)$, are used in this model.
+
 Rodrigues' formula & closed-form:
 ```math
 \begin{aligned}

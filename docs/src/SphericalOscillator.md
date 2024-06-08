@@ -44,8 +44,6 @@ Antique.R(::SphericalOscillator, ::Any)
 ```
 
 #### Generalized Laguerre Polynomials
-!!! note
-    The generalized Laguerre polynomials $L_n^{(\alpha)}(x)$, not the associated Laguerre polynomials $L_n^{k}(x)$, are used in this model. 
 
 ```@docs; canonical=false
 Antique.L(::SphericalOscillator, ::Any)

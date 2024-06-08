@@ -115,6 +115,9 @@ where ``\gamma = \mu\omega/\hbar`` and ``\xi = \sqrt{\gamma}r = \sqrt{\mu\omega/
 @doc raw"""
 `L(model::SphericalOscillator, x; n=0, α=0)`
 
+!!! note
+    The generalized Laguerre polynomials $L_n^{(\alpha)}(x)$, not the associated Laguerre polynomials $L_n^{k}(x)$, are used in this model.
+
 Rodrigues' formula & closed-form:
 ```math
 \begin{aligned}
