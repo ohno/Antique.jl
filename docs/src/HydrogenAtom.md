@@ -177,31 +177,6 @@ axislegend(ax, ws, ls, position=:rt)
 f
 ```
 
-Wave functions (electron density in $n=5,l=2,m=1$):
-
-```@example HA
-using Antique
-H = HydrogenAtom(Z=1, Eₕ=1.0, a₀=1.0, mₑ=1.0, ℏ=1.0)
-loop(x) = x<-1 ? loop(x+2) : (1<x ? loop(x-2) : x)
-myacos(x) = acos(loop(x))
-r(x,y,z)  = sqrt(x^2+y^2+z^2)
-θ(x,y,z) = x^2+y^2<1e-9 ? 0 : myacos(z/r(x,y,z)) 
-φ(x,y,z) = y^2<1e-9 ? 0 : sign(y)*myacos(x/sqrt(x^2+y^2))
-P(x,y,z) = abs(ψ(H,r(x,y,z),θ(x,y,z),φ(x,y,z),n=5,l=2,m=1))^2
-
-using CairoMakie
-f = Figure(size=(500,500), backgroundcolor=:transparent)
-a = Axis(f[1,1], aspect=1)
-hidespines!(a)
-hidedecorations!(a)
-heatmap!(a, -40:0.1:40, -40:0.1:40, (y,z) -> P(0,y,z), colorrange=(0.0,0.00001))
-f
-save("assets/fig/HydrogenAtom.png", f) # hide
-; # hide
-```
-
-![](assets/fig/HydrogenAtom.png)
-
 ## Testing
 
 Unit testing and Integration testing were done using computer algebra system ([Symbolics.jl](https://symbolics.juliasymbolics.org/stable/)) and numerical integration ([QuadGK.jl](https://juliamath.github.io/QuadGK.jl/stable/)). The test script is [here](https://github.com/ohno/Antique.jl/blob/main/test/HydrogenAtom.jl).
