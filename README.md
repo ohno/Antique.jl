@@ -93,8 +93,8 @@ f
 ```
 
 ```
-energy: -0.49927840566748566
-exact : -0.5
+Numerical : -0.49927840566748566
+Analytical: -0.5
 ```
 
 ![](docs/src/assets/fig/demonstration.png)
