@@ -61,6 +61,44 @@ There are more examples on each model page.
 - [Hydrogen Atom](https://ohno.github.io/Antique.jl/stable/HydrogenAtom/) `HydrogenAtom`
 - [Coulomb 2-Body System](https://ohno.github.io/Antique.jl/stable/HydrogenAtom/) `CoulombTwoBody`
 
+## Demonstration
+
+This is an example of a variational calculation for the hydrogen atom based on [Thijssen(2007)](https://doi.org/10.1017/CBO9781139171397). We check the accuracy of the numerical solution by comparison with the analytical solution. Comparing wavefunctions is a little tough, but Antique.jl makes it easy. You can extend it to excited states ($n>1$) as well as ground state ($n=1$). Thus, Antique.jl is useful for testing numerical methods. We hope many numerical methods to be developed using Antique.jl.
+
+```@example demonstration
+# calculations based on Thijssen(2007) https://doi.org/10.1017/CBO9781139171397
+using LinearAlgebra
+α = [13.00773, 1.962079, 0.444529, 0.1219492] 
+nₘₐₓ = length(α)
+S = [(pi/(α[i]+α[j]))^(3/2) for i=1:nₘₐₓ, j=1:nₘₐₓ]
+T = [3*pi^(3/2)*α[i]*α[j]/(α[i]+α[j])^(5/2) for i=1:nₘₐₓ, j=1:nₘₐₓ]
+V = [-2*pi/(α[i]+α[j]) for i=1:nₘₐₓ, j=1:nₘₐₓ]
+H = T + V
+E, C = eigen(Symmetric(H),Symmetric(S))
+
+# energy
+using Antique: E as energy, ψ, HydrogenAtom
+HA = HydrogenAtom(Z=1, Eₕ=1.0, a₀=1.0, mₑ=1.0, ℏ=1.0)
+println("Numerical : ", E[1])
+println("Analytical: ", energy(HA,n=1))
+
+# wave function
+using CairoMakie
+f = Figure()
+ax = Axis(f[1,1], xlabel=L"$r$", ylabel=L"$\psi(r,0,0)$",  limits=(0,4,0,0.6))
+l1 = lines!(ax, 0:0.01:10, r -> sum(C[:,1] .* exp.(-α*r^2)))
+l2 = lines!(ax, 0:0.01:10, r -> real(ψ(HA,r,0,0)), color=:black, linestyle=:dash, label="Antique.jl")
+axislegend(ax, [l1,l2], ["Numerical, Thijssen(2007)","Analytical, Antique.jl"], position=:rt)
+f
+```
+
+```
+energy: -0.49927840566748566
+exact : -0.5
+```
+
+![](docs/src/assets/fig/demonstration.png)
+
 ## Future Works
 
 [List of quantum-mechanical systems with analytical solutions](https://en.wikipedia.org/wiki/List_of_quantum-mechanical_systems_with_analytical_solutions)
