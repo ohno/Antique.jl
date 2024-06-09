@@ -12,7 +12,7 @@ function V(model::DeltaPotential, x)
   return x==0 ? -Inf : 0
 end
 
-# eigenvalue
+# eigenvalues
 function E(model::DeltaPotential)
   α = model.α
   m = model.m
@@ -20,7 +20,7 @@ function E(model::DeltaPotential)
   return -(m*α^2)/(2*ℏ^2)
 end
 
-# eigenfunction
+# eigenfunctions
 function ψ(model::DeltaPotential, x)
   α = model.α
   m = model.m

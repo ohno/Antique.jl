@@ -13,7 +13,7 @@ function V(model::InfinitePotentialWell, x)
   return 0<x<L ? 0 : Inf
 end
 
-# eigenvalue
+# eigenvalues
 function E(model::InfinitePotentialWell; n::Int=1)
   if !(1 ≤ n)
     throw(DomainError("n = $n", "n must be 1 or more: 1 ≤ n."))
@@ -24,7 +24,7 @@ function E(model::InfinitePotentialWell; n::Int=1)
   return (ℏ^2*n^2*π^2) / (2*m*L^2)
 end
 
-# eigenfunction
+# eigenfunctions
 function ψ(model::InfinitePotentialWell, x; n::Int=1)
   if !(1 ≤ n)
     throw(DomainError("n = $n", "n must be 1 or more: 1 ≤ n."))

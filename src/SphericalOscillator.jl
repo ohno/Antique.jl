@@ -16,7 +16,7 @@ function V(model::SphericalOscillator, r)
   return 1/2 * k * r^2
 end
 
-# eigenvalue
+# eigenvalues
 function E(model::SphericalOscillator; n::Int=0, l::Int=0)
   if !(0 ≤ n && 0 ≤ l)
     throw(DomainError("(n,l) = ($n,$l)", "This function is defined for 0 ≤ n and 0 ≤ l"))
@@ -28,7 +28,7 @@ function E(model::SphericalOscillator; n::Int=0, l::Int=0)
   return (2*n + l + 3/2) * ℏ * ω
 end
 
-# eigenfunction
+# eigenfunctions
 function ψ(model::SphericalOscillator, r, θ, φ; n::Int=0, l::Int=0, m::Int=0)
   if !(0 ≤ n && 0 ≤ l && -l ≤ m ≤ l)
     throw(DomainError("(n,l,m) = ($n,$l,$m)", "This function is defined for 0 ≤ n, 0 ≤ l and -l ≤ m ≤ l."))

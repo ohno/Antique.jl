@@ -20,7 +20,7 @@ function nₘₐₓ(model::PoschlTeller)
   return Int(floor(λ-1)) # if counting n from zero
 end
 
-# eigenvalue
+# eigenvalues
 function E(model::PoschlTeller; n::Int=0)
   n_max = nₘₐₓ(model)
   if !(0 ≤ n ≤ n_max)
@@ -34,7 +34,7 @@ function E(model::PoschlTeller; n::Int=0)
   return -(mu)^2/2 * ℏ^2/(m*x₀^2)
 end
 
-# eigenfunction
+# eigenfunctions
 function ψ(model::PoschlTeller, x; n::Int=0)
   n_max = nₘₐₓ(model)
   if !(0 ≤ n ≤ n_max)

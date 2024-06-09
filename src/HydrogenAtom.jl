@@ -20,7 +20,7 @@ function V(model::HydrogenAtom, r)
   return Eₕ*-1*Z/abs(r/a₀)
 end
 
-# eigenvalue
+# eigenvalues
 function E(model::HydrogenAtom; n::Int=1)
   if !(1 ≤ n)
     throw(DomainError("n = $n", "n must be 1 or more: 1 ≤ n."))
@@ -30,7 +30,7 @@ function E(model::HydrogenAtom; n::Int=1)
   return -Z^2/(2*n^2) * Eₕ
 end
 
-# eigenfunction
+# eigenfunctions
 function ψ(model::HydrogenAtom, r, θ, φ; n::Int=1, l::Int=0, m::Int=0)
   if !(1 ≤ n && 0 ≤ l < n && -l ≤ m ≤ l)
     throw(DomainError("(n,l,m) = ($n,$l,$m)", "This function is defined for 1 ≤ n, 0 ≤ l < n and -l ≤ m ≤ l."))

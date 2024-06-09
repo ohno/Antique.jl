@@ -26,7 +26,7 @@ function V(model::MorsePotential, r)
   return Dₑ*( exp(-2*a*(r-rₑ)) -2*exp(-a*(r-rₑ)) )
 end
 
-# eigenvalue
+# eigenvalues
 function E(model::MorsePotential; n::Int=0)
   n_max = nₘₐₓ(model)
   if !(0 ≤ n ≤ n_max)
@@ -50,7 +50,7 @@ function nₘₐₓ(model::MorsePotential)
   return Int(floor((2*Dₑ - ω)/ω))
 end
 
-# eigenfunction
+# eigenfunctions
 function ψ(model::MorsePotential, r; n::Int=0)
   n_max = nₘₐₓ(model)
   if !(0 ≤ n ≤ n_max)

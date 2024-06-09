@@ -13,7 +13,7 @@ function V(model::HarmonicOscillator, x)
   return 1//2 * k * x^2
 end
 
-# eigenvalue
+# eigenvalues
 function E(model::HarmonicOscillator; n::Int=0)
   if !(0 ≤ n)
     throw(DomainError("n = $n", "n must be non-negative: 0 ≤ n."))
@@ -25,7 +25,7 @@ function E(model::HarmonicOscillator; n::Int=0)
   return ℏ * ω * (n+1//2)
 end
 
-# eigenfunction
+# eigenfunctions
 function ψ(model::HarmonicOscillator, x; n::Int=0)
   if !(0 ≤ n)
     throw(DomainError("n = $n", "n must be non-negative: 0 ≤ n."))

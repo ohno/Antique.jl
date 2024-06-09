@@ -17,7 +17,7 @@ function V(model::InfinitePotentialWell3D, x,y,z)
   return (0<x<Lx&&0<y<Ly&&0<z<Lz) ? 0 : Inf
 end
 
-# eigenvalue
+# eigenvalues
 function E(model::InfinitePotentialWell3D; nx::Int=1, ny::Int=1, nz::Int=1)
   if !(1 ≤ nx && 1 ≤ ny && 1 ≤ nz)
     throw(DomainError("(nx,ny,nz) = ($nx,$ny,$nz)", "This function is defined for 1 ≤ nx, 1 ≤ ny and 1 ≤ nz."))
@@ -30,7 +30,7 @@ function E(model::InfinitePotentialWell3D; nx::Int=1, ny::Int=1, nz::Int=1)
   return (ℏ^2*π^2) / (2*m) * (nx^2/Lx^2 + ny^2/Ly^2 + nz^2/Lz^2)
 end
 
-# eigenfunction
+# eigenfunctions
 function ψ(model::InfinitePotentialWell3D, x,y,z; nx::Int=1, ny::Int=1, nz::Int=1)
   if !(1 ≤ nx && 1 ≤ ny && 1 ≤ nz)
     throw(DomainError("(nx,ny,nz) = ($nx,$ny,$nz)", "This function is defined for 1 ≤ nx, 1 ≤ ny and 1 ≤ nz."))

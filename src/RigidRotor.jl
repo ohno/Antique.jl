@@ -16,7 +16,7 @@ function V(model::RigidRotor, r)
   return 0
 end
 
-# eigenvalue
+# eigenvalues
 function E(model::RigidRotor; l::Int=0)
   if !(0 ≤ l)
     throw(DomainError("l = $l", "l must be non-negative: 0 ≤ l."))
@@ -30,7 +30,7 @@ function E(model::RigidRotor; l::Int=0)
   return ℏ^2/(2*I) *l*(l+1)
 end
 
-# eigenfunction
+# eigenfunctions
 function ψ(model::RigidRotor, θ, φ; l::Int=0, m::Int=0)
   if !(0 ≤ l && -l ≤ m ≤ l)
     throw(DomainError("(l,m) = ($l,$m)", "This function is defined for 0 ≤ l and -l ≤ m ≤ l."))
