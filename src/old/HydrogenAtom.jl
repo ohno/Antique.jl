@@ -31,7 +31,7 @@ module OldHydrogenAtom
 
     # Spherical Harmonics
     function Y(θ, φ; l=0, m=0)
-        N = (im)^(m+abs(m)) * sqrt( (2*l+1)*factorial(l-Int(abs(m))) / (2*factorial(l+Int(abs(m)))) )
+        N = (-1)^((abs(m)+m)/2) * sqrt( (2*l+1)*factorial(l-Int(abs(m))) / (2*factorial(l+Int(abs(m)))) )
         return N * P(cos(θ),n=l,m=Int(abs(m))) * exp(im*m*φ) / sqrt(2*π)
     end
 
