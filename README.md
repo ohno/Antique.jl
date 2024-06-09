@@ -76,7 +76,7 @@ This is the guideline for adding new models. Adding a new model may take from a 
 
 | files | comments |
 | --- | --- |
-| `src/ModelName.jl` | Write the source codes and docstrings in this file. The most helpful examples are harmonic oscillators for one-dimensional systems and hydrogen atoms for three-dimensional systems. We recommend that you copy these files. First we need to create a structure `struct ModelName` with the same name as the model name (The best way is Find & Replace). Because the function names conflict, you must always give the struct `ModelName` as the fisrt argument to V, E, ψ and other functions. Multi-dispatch avoids conflicts. We recommend using Revice.jl while coding. Run `include("./developer/revice.jl")` on the REPL or use dev.ipynb. |
+| `src/ModelName.jl` | Write the source codes and docstrings in this file. The most helpful examples are harmonic oscillators for one-dimensional systems and hydrogen atoms for three-dimensional systems. We recommend that you copy these files. First we need to create a structure `struct ModelName` with the same name as the model name (The best way is Find & Replace). Because the function names conflict, you must always give the struct `ModelName` as the fisrt argument to V, E, ψ and other functions. Multi-dispatch avoids conflicts. We recommend using Revice.jl while coding. Run `include("./dev/revice.jl")` on the REPL or use dev.ipynb. |
 | `test/ModelName.jl` | Write test code in this file. At a minimum, please check the normalization and the orthogonality of eigenfunction using QuadGK.jl. Please also do tests for eigenvalue (for example, calculate the expectation values of the Hamiltonian (energy) using the eigenfunctions and check that these values match the eigenvalues). |
 | `docs/src/ModelName.md` | Write documnetation in this file. Include at least the definition of the Hamiltonian and the analytical solutions (eigenvalues and eigenfunctions). Calls a docstring in the source code (`src/ModelName.jl`) . |
 
@@ -90,8 +90,8 @@ This is the guideline for adding new models. Adding a new model may take from a 
 | `README.md` | Add the new model to the list of supported models. |
 | `docs/index.md` | Add the new model to the list of supported models. |
 
-6. Execute `include("./developer/test.jl")` to run tests. It will take few minutes to complete.
-7. Execute `include("./developer/docs.jl")` to compile documents. HTML files (docs/build/*.html) will be generated. Please check them with Chrome or any other web browsers.
+6. Execute `include("./dev/test.jl")` to run tests. It will take few minutes to complete.
+7. Execute `include("./dev/docs.jl")` to compile documents. HTML files (docs/build/*.html) will be generated. Please check them with Chrome or any other web browsers.
 8. Commit and Push the codes.
 9. Submit a pull request on GitHub.
 

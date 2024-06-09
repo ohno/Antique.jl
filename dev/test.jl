@@ -1,4 +1,4 @@
-# Please run `include("./developer/test.jl")` on RELP.
+# Please run `include("./dev/test.jl")` on RELP.
 
 dir = dirname(@__FILE__) * "/../"
 cd(dir)

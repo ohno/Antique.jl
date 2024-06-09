@@ -1,4 +1,4 @@
-# Please run `include("./developer/docs.jl")` on RELP.
+# Please run `include("./dev/docs.jl")` on RELP.
 
 # run(`julia --project=docs/ -e 'try; using CairoMakie; catch; using Pkg; Pkg.add("CairoMakie"); end;'`)
 # run(`julia --project=docs/ -e 'try; using Documenter; catch; using Pkg; Pkg.add("Documenter"); end;'`)
