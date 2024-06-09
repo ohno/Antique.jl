@@ -57,7 +57,7 @@ DP.m
 DP.ℏ
 ```
 
-Eigen values:
+Eigenvalues:
 
 ```@repl DP
 E(DP)

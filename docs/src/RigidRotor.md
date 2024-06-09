@@ -76,7 +76,7 @@ RR.R
 RR.ℏ
 ```
 
-Eigen values:
+Eigenvalues:
 
 ```@repl RR
 E(RR, l=0)

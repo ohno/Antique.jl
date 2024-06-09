@@ -58,7 +58,7 @@ IPW3D.m
 IPW3D.ℏ
 ```
 
-Eigen values:
+Eigenvalues:
 
 ```@repl IPW3D
 E(IPW3D, nx=1, ny=1, nz=1)

@@ -60,7 +60,7 @@ IPW.m
 IPW.ℏ
 ```
 
-Eigen values:
+Eigenvalues:
 
 ```@repl IPW
 E(IPW, n=1)

@@ -77,7 +77,7 @@ SO.μ
 SO.ℏ
 ```
 
-Eigen values:
+Eigenvalues:
 
 ```@repl SO
 E(SO, n=0)

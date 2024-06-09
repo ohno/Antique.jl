@@ -86,7 +86,7 @@ Number of bound states:
 nₘₐₓ(PT)
 ```
 
-Eigen values:
+Eigenvalues:
 
 ```@repl PT
 E(PT, n=0)

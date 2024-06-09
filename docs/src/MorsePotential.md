@@ -85,13 +85,13 @@ MP.µ
 MP.ℏ
 ```
 
-Number of bound states:
+Maximum quantum number:
 
 ```@repl MP
 nₘₐₓ(MP)
 ```
 
-Eigen values:
+Eigenvalues:
 
 ```@repl MP
 E(MP, n=0)

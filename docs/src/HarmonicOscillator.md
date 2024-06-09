@@ -74,7 +74,7 @@ HO.m
 HO.ℏ
 ```
 
-Eigen values:
+Eigenvalues:
 
 ```@repl HO
 E(HO, n=0)

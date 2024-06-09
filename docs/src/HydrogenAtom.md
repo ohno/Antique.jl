@@ -90,7 +90,7 @@ H.a₀
 H.ℏ
 ```
 
-Eigen values:
+Eigenvalues:
 
 ```@repl HA
 E(H, n=1)
