@@ -28,12 +28,12 @@ Antique.HydrogenAtom
 Antique.V(::HydrogenAtom, ::Any)
 ```
 
-#### Eigen Values
+#### Eigenvalues
 ```@docs; canonical=false
 Antique.E(::HydrogenAtom)
 ```
 
-#### Eigen Functions
+#### Eigenfunctions
 ```@docs; canonical=false
 Antique.ψ(::HydrogenAtom, ::Any, ::Any, ::Any)
 ```

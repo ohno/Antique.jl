@@ -28,12 +28,12 @@ Antique.InfinitePotentialWell3D
 Antique.V(::InfinitePotentialWell3D, ::Any, ::Any, ::Any)
 ```
 
-#### Eigen Values
+#### Eigenvalues
 ```@docs; canonical=false
 Antique.E(::InfinitePotentialWell3D)
 ```
 
-#### Eigen Functions
+#### Eigenfunctions
 ```@docs; canonical=false
 Antique.ψ(::InfinitePotentialWell3D, ::Any, ::Any, ::Any)
 ```

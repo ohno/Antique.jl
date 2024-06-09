@@ -28,7 +28,7 @@ Antique.MorsePotential
 Antique.V(::MorsePotential, ::Any)
 ```
 
-#### Eigen Values
+#### Eigenvalues
 ```@docs; canonical=false
 Antique.E(::MorsePotential)
 ```
@@ -38,7 +38,7 @@ Antique.E(::MorsePotential)
 Antique.nₘₐₓ(::MorsePotential)
 ```
 
-#### Eigen Functions
+#### Eigenfunctions
 ```@docs; canonical=false
 Antique.ψ(::MorsePotential, ::Any)
 ```

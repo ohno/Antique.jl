@@ -9,7 +9,7 @@ ix | iy | iz | jx | jy | jz |        analytical |         numerical
 -- | -- | -- | -- | -- | -- | ----------------- | ----------------- 
 ```
 
-#### Eigen Values
+#### Eigenvalues
 
 ```math
   \begin{aligned}

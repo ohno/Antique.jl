@@ -32,12 +32,12 @@ Antique.RigidRotor
 Antique.V(::RigidRotor, ::Any)
 ```
 
-#### Eigen Values
+#### Eigenvalues
 ```@docs; canonical=false
 Antique.E(::RigidRotor)
 ```
 
-#### Eigen Functions
+#### Eigenfunctions
 ```@docs; canonical=false
 Antique.ψ(::RigidRotor, ::Any, ::Any)
 ```

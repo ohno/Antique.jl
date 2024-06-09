@@ -46,12 +46,12 @@ Antique.V(::PoschlTeller, ::Any)
 Antique.nₘₐₓ(::PoschlTeller)
 ```
 
-#### Eigen Values
+#### Eigenvalues
 ```@docs; canonical=false
 Antique.E(::PoschlTeller)
 ```
 
-#### Eigen Functions
+#### Eigenfunctions
 ```@docs; canonical=false
 Antique.ψ(::PoschlTeller, ::Any)
 ```

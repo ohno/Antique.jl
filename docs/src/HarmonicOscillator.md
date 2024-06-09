@@ -28,12 +28,12 @@ Antique.HarmonicOscillator
 Antique.V(::HarmonicOscillator, ::Any)
 ```
 
-#### Eigen Values
+#### Eigenvalues
 ```@docs; canonical=false
 Antique.E(::HarmonicOscillator)
 ```
 
-#### Eigen Functions
+#### Eigenfunctions
 ```@docs; canonical=false
 Antique.ψ(::HarmonicOscillator, ::Any)
 ```

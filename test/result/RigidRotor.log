@@ -619,7 +619,7 @@ l₁ | l₂ | m₁ | m₂ |        analytical |         numerical
  2 |  2 |  2 |  2 |    1.000000000000 |    1.000000000000 ✔
 ```
 
-#### Eigen Values
+#### Eigenvalues
 
 ```math
   \begin{aligned}

@@ -29,12 +29,12 @@ Antique.DeltaPotential
 Antique.V(::DeltaPotential, ::Any)
 ```
 
-#### Eigen Values
+#### Eigenvalues
 ```@docs; canonical=false
 Antique.E(::DeltaPotential)
 ```
 
-#### Eigen Functions
+#### Eigenfunctions
 ```@docs; canonical=false
 Antique.ψ(::DeltaPotential, ::Any)
 ```

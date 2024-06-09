@@ -130,7 +130,7 @@ println("""```
 # <ψₙ|H|ψₙ>  = ∫ψₙ*Tψₙdx = Eₙ
 
 println(raw"""
-#### Eigen Values
+#### Eigenvalues
 
 ```math
   \begin{aligned}

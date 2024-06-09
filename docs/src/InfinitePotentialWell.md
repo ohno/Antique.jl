@@ -28,12 +28,12 @@ Antique.InfinitePotentialWell
 Antique.V(::InfinitePotentialWell, ::Any)
 ```
 
-#### Eigen Values
+#### Eigenvalues
 ```@docs; canonical=false
 Antique.E(::InfinitePotentialWell)
 ```
 
-#### Eigen Functions
+#### Eigenfunctions
 ```@docs; canonical=false
 Antique.ψ(::InfinitePotentialWell, ::Any)
 ```

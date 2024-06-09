@@ -28,12 +28,12 @@ Antique.CoulombTwoBody
 Antique.V(::CoulombTwoBody, ::Any)
 ```
 
-#### Eigen Values
+#### Eigenvalues
 ```@docs; canonical=false
 Antique.E(::CoulombTwoBody)
 ```
 
-#### Eigen Functions
+#### Eigenfunctions
 ```@docs; canonical=false
 Antique.ψ(::CoulombTwoBody, ::Any, ::Any, ::Any)
 ```
@@ -81,7 +81,7 @@ Ps.Eₕ
 Ps.ℏ
 ```
 
-#### Eigen Values
+#### Eigenvalues
 
 Examples of [positronium](https://en.wikipedia.org/wiki/Positronium#Energy_levels):
 

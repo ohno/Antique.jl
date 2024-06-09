@@ -117,7 +117,7 @@ println("""```
 
 
 println(raw"""
-#### Eigen Values
+#### Eigenvalues
 
 ```math
   \begin{aligned}

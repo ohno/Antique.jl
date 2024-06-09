@@ -28,12 +28,12 @@ Antique.SphericalOscillator
 Antique.V(::SphericalOscillator, ::Any)
 ```
 
-#### Eigen Values
+#### Eigenvalues
 ```@docs; canonical=false
 Antique.E(::SphericalOscillator)
 ```
 
-#### Eigen Functions
+#### Eigenfunctions
 ```@docs; canonical=false
 Antique.ψ(::SphericalOscillator, ::Any, ::Any, ::Any)
 ```
