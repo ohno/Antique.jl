@@ -8,11 +8,13 @@ Self-contained, Well-Tested, Well-Documented **An**aly**ti**cal Solutions of **Q
 
 ## Install
 
-To install this package, run the following code in your Jupyter Notebook:
+Run the following code on the REPL or Jupyter Notebook to install this package.
 
 ```julia
-using Pkg; Pkg.add("Antique")
+]add Antique
 ```
+
+Or specify the version like `]add Antique@0.7.0` to install a specific version.
 
 ## Usage & Examples
 
