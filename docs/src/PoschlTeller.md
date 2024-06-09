@@ -41,7 +41,7 @@ Antique.PoschlTeller
 Antique.V(::PoschlTeller, ::Any)
 ```
 
-#### Number of Bound States
+#### Maximum Quantum Number
 ```@docs; canonical=false
 Antique.nₘₐₓ(::PoschlTeller)
 ```

@@ -33,7 +33,7 @@ Antique.V(::MorsePotential, ::Any)
 Antique.E(::MorsePotential)
 ```
 
-#### Number of Bound States
+#### Maximum Quantum Number
 ```@docs; canonical=false
 Antique.nₘₐₓ(::MorsePotential)
 ```
