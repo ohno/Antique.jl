@@ -21,10 +21,10 @@ function nₘₐₓ(model::PoschlTeller)
 end
 
 # eigenvalues
-function E(model::PoschlTeller; n::Int=0)
+function E(model::PoschlTeller; n::Int=0, nocheck=false)
   n_max = nₘₐₓ(model)
-  if !(0 ≤ n ≤ n_max)
-    throw(DomainError("(n,n_max) = ($n,$n_max)", "This function is defined for 0 ≤ n ≤ n_max."))
+  if !(0 ≤ n ≤ nₘₐₓ(model) || nocheck)
+    throw(DomainError("(n,nₘₐₓ(model)) = ($n,$(nₘₐₓ(model)))", "This function is defined for 0 ≤ n ≤ nₘₐₓ(model)."))
   end
   λ = model.λ
   m = model.m
@@ -37,8 +37,8 @@ end
 # eigenfunctions
 function ψ(model::PoschlTeller, x; n::Int=0)
   n_max = nₘₐₓ(model)
-  if !(0 ≤ n ≤ n_max)
-    throw(DomainError("(n,n_max) = ($n,$n_max)", "This function is defined for 0 ≤ n ≤ n_max."))
+  if !(0 ≤ n ≤ nₘₐₓ(model))
+    throw(DomainError("(n,nₘₐₓ(model)) = ($n,$(nₘₐₓ(model)))", "This function is defined for 0 ≤ n ≤ nₘₐₓ(model)."))
   end
   λ = model.λ
   mu = n_max - n + 1

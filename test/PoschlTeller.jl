@@ -152,8 +152,8 @@ are given by the sum of 2 Taylor series:
 
 @testset "∫ψₙ*Hψₙdx = <ψₙ|H|ψₙ> = Eₙ" begin
   ψHψ(PT, x; n=0, Δx=0.005) = V(PT,x)*ψ(PT,x,n=n)^2 - PT.ℏ^2/(2*PT.m)*conj(ψ(PT,x,n=n))*(ψ(PT,x+Δx,n=n)-2*ψ(PT,x,n=n)+ψ(PT,x-Δx,n=n))/Δx^2
-  println("  λ |  n |        analytical |         numerical ")
-  println("--- | -- | ----------------- | ----------------- ")
+  println("  λ |  n |   m |   ℏ |  x₀ |        analytical |         numerical ")
+  println("--- | -- | --- | --- | --- | ----------------- | ----------------- ")
   for λ in [1,2,3]
   for n in 0:λ-1
   for m in [1.0,exp(1)]
@@ -164,7 +164,7 @@ are given by the sum of 2 Taylor series:
     numerical  = quadgk(x -> ψHψ(PT, x, n=n, Δx=0.001), -Inf, Inf, atol=1e-4)[1]
     acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-3) : isapprox(analytical, numerical, rtol=1e-5)
     @test acceptance
-    @printf("%.1f | %2d | %.1f |%.1f |%.1f |%17.12f | %17.12f %s\n", λ, n, m, ℏ, x₀, analytical, numerical, acceptance ? "✔" : "✗")
+    @printf("%.1f | %2d | %.1f | %.1f | %.1f |%17.12f | %17.12f %s\n", λ, n, m, ℏ, x₀, analytical, numerical, acceptance ? "✔" : "✗")
   end
   end
   end
@@ -172,6 +172,68 @@ are given by the sum of 2 Taylor series:
   end
 end
 PT = PoschlTeller(λ=1.0, m=1.0, ℏ=1.0)
+
+println("""```
+""")
+
+
+# 0 < Eₙ₊₁ - Eₙ for 0 ≤ n ≤ nₘₐₓ
+
+
+println(raw"""
+#### Recurrence Relation between $E_{n+1}$ and $E_n$
+
+```math
+\begin{equation}
+\left\{ \,
+  \begin{aligned}
+    0 < \Delta E && 0 \leq n \leq n_\mathrm{max} \\
+    \Delta E < 0 && \mathrm{otherwise}
+  \end{aligned}
+\right.
+\end{equation}
+```
+
+```math
+\Delta E =  E_{n+1} - E_n
+```
+
+```math
+n_\mathrm{max} = \left\lfloor \lambda \right\rfloor - 1
+```
+
+```""")
+
+@testset "0 < Eₙ₊₁ - Eₙ for 0 ≤ n ≤ nₘₐₓ" begin
+  for PT in [
+    PoschlTeller(λ=2, m=1.0, ℏ=1.0, x₀=1.0),
+    PoschlTeller(λ=3, m=1.0, ℏ=1.0, x₀=1.0),
+    PoschlTeller(λ=4, m=1.0, ℏ=1.0, x₀=1.0),
+    PoschlTeller(λ=10, m=1.0, ℏ=1.0, x₀=1.0),
+  ]
+    @show PT
+    println(" n  Eₙ          ΔE")
+    for n in 0:nₘₐₓ(PT)+5
+      Eₙ₊₁ = E(PT, n=n+1, nocheck=true)
+      Eₙ   = E(PT, n=n, nocheck=true)
+      ΔE  = Eₙ₊₁ - Eₙ
+      @printf("%2d  %+9.6f  %+9.6f  ", n, Eₙ, ΔE)
+      if n ≤ nₘₐₓ(PT)
+        print("0 < ΔE  ")
+        acceptance = 0 < ΔE
+      else
+        print("ΔE < 0  ")
+        acceptance = ΔE < 0
+      end
+      @test acceptance
+      println(acceptance ? "✔" : "✗")
+      if n == nₘₐₓ(PT)
+        println("-----------------------------------  nₘₐₓ(PT) = ", nₘₐₓ(PT))
+      end
+    end
+    println()
+  end
+end
 
 println("""```
 """)

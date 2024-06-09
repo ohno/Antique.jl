@@ -10,7 +10,7 @@ using LaTeXStrings
 using SpecialFunctions
 
 @testset "Antique.jl" begin
-	for model in [:HydrogenAtom, :CoulombTwoBody] # Antique.models
+	for model in [:MorsePotential, :PoschlTeller] # [:HydrogenAtom, :CoulombTwoBody] # Antique.models
 		result = @capture_out begin
 			include("./$(model).jl")
 		end
