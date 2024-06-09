@@ -17,7 +17,7 @@ function V(model::HydrogenAtom, r)
   Z = model.Z
   a₀ = model.a₀
   Eₕ = model.Eₕ
-  return Eₕ*-1*Z/abs(r/a₀)
+  return -Z/abs(r/a₀) * Eₕ
 end
 
 # eigenvalues

@@ -21,7 +21,7 @@ function V(model::CoulombTwoBody, r)
   z₂ = model.z₂
   a₀ = model.a₀
   Eₕ = model.Eₕ
-  return Eₕ*z₁*z₂/abs(r/a₀)
+  return z₁*z₂/abs(r/a₀) * Eₕ
 end
 
 # eigenvalues
@@ -58,8 +58,8 @@ function R(model::CoulombTwoBody, r; n=1, l=0)
   m₁ = model.m₁
   m₂ = model.m₂
   mₑ = model.mₑ
-  μ⁻¹ = 1/m₁ + 1/m₂
-  aμ = a₀ * mₑ * μ⁻¹
+  μ  = (1/m₁ + 1/m₂)^(-1)
+  aμ = a₀ * mₑ / μ
   ρ = 2*(-z₁*z₂)*abs(r)/(n*aμ)
   N = -sqrt( factorial(n-l-1)/(2*n*factorial(n+l)) * (2*(-z₁*z₂)/(n*aμ))^3 )
   return N*ρ^l * exp(-ρ/2) * L(model, ρ, n=n+l, k=2*l+1)
@@ -90,7 +90,7 @@ end
 ``z₁`` is the charge number of particle 2, 
 ``m₁`` is the mass of particle 1, 
 ``m₂`` is the mass of particle 2,
-``m_\mathrm{e}`` is the electron mass (the unit of ``m₁`` and ``m₂``),
+``m_\mathrm{e}`` is the electron mass (use the same unit as ``m₁`` and ``m₂``. For example of hydrogen atom, use ``m_\mathrm{e}=9.1093837139\times10^{-31}\mathrm{kg}``, ``m_1=9.1093837139\times10^{-31}\mathrm{kg}`` and ``m_2=1.67262192595\times10^{-27}\mathrm{kg}`` in the IS unit system, use ``~m_\mathrm{e}=1.0~m_\mathrm{e}``, ``m_1=1.0~m_\mathrm{e}`` and ``m_2=1836.152673426~m_\mathrm{e}`` in the atomic unit.),
 ``a_0`` is the Bohr radius,
 ``E_\mathrm{h}`` is the Hartree energy and
 ``\hbar`` is the reduced Planck constant (Dirac's constant).
