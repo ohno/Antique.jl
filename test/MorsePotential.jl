@@ -117,15 +117,15 @@ println("""```
 
 
 println(raw"""
-#### Eigen Values
+#### Eigenvalues
 
 ```math
   \begin{aligned}
     E_n
-    &=      \int \psi^\ast_n(r) \hat{H} \psi_n(r) \mathrm{d}x \\
-    &=      \int \psi^\ast_n(r) \left[ \hat{V} + \hat{T} \right] \psi(r) \mathrm{d}x \\
-    &=      \int \psi^\ast_n(r) \left[ V(r) - \frac{\hbar^2}{2m} \frac{\mathrm{d}^{2}}{\mathrm{d} r^{2}} \right] \psi(r) \mathrm{d}x \\
-    &\simeq \int \psi^\ast_n(r) \left[ V(r)\psi(r) -\frac{\hbar^2}{2m} \frac{\psi(r+\Delta r) - 2\psi(r) + \psi(r-\Delta r)}{\Delta r^{2}} \right] \mathrm{d}x.
+    &=      \int \psi^\ast_n(r) \hat{H} \psi_n(r) \mathrm{d}r \\
+    &=      \int \psi^\ast_n(r) \left[ \hat{V} + \hat{T} \right] \psi(r) \mathrm{d}r \\
+    &=      \int \psi^\ast_n(r) \left[ V(r) - \frac{\hbar^2}{2m} \frac{\mathrm{d}^{2}}{\mathrm{d} r^{2}} \right] \psi(r) \mathrm{d}r \\
+    &\simeq \int \psi^\ast_n(r) \left[ V(r)\psi(r) -\frac{\hbar^2}{2m} \frac{\psi(r+\Delta r) - 2\psi(r) + \psi(r-\Delta r)}{\Delta r^{2}} \right] \mathrm{d}r.
   \end{aligned}
 ```
 
@@ -199,3 +199,57 @@ end
 
 println("""```
 """)
+
+
+# 0 < Eₙ₊₁ - Eₙ for 0 ≤ n ≤ nₘₐₓ
+
+
+println(raw"""
+#### Recurrence Relation between $E_{n+1}$ and $E_n$
+
+```math
+\begin{equation}
+\left\{ \,
+  \begin{aligned}
+    0 < \Delta E && 0 \leq n \leq n_\mathrm{max} \\
+    \Delta E < 0 && \mathrm{otherwise}
+  \end{aligned}
+\right.
+\end{equation}
+```
+
+```math
+\Delta E =  E_{n+1} - E_n
+```
+
+```math
+n_\mathrm{max} = \left\lfloor\frac{2 D_{\mathrm{e}}-h \nu_0}{h \nu_0}\right\rfloor
+```
+
+```""")
+
+@testset "0 < Eₙ₊₁ - Eₙ for 0 ≤ n ≤ nₘₐₓ" begin
+  println(" n  Eₙ          ΔE")
+  for n in 0:nₘₐₓ(MP)+5
+    Eₙ₊₁ = E(MP, n=n+1, nocheck=true)
+    Eₙ   = E(MP, n=n, nocheck=true)
+    ΔE  = Eₙ₊₁ - Eₙ
+    @printf("%2d  %+9.6f  %+9.6f  ", n, Eₙ, ΔE)
+    if n ≤ nₘₐₓ(MP)
+      print("0 < ΔE  ")
+      acceptance = 0 < ΔE
+    else
+      print("ΔE < 0  ")
+      acceptance = ΔE < 0
+    end
+    @test acceptance
+    println(acceptance ? "✔" : "✗")
+    if nₘₐₓ(MP) == n
+      println("-----------------------------------  nₘₐₓ(MP) = ", nₘₐₓ(MP))
+    end
+  end
+end
+
+println("""```
+""")
+

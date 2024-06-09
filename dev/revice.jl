@@ -1,4 +1,4 @@
-# Please run `include("./developer/revice.jl")` on RELP.
+# Please run `include("./dev/revice.jl")` on RELP.
 
 using Pkg
 # Pkg.instantiate()

@@ -1,5 +1,6 @@
 export CoulombTwoBody, V, E, ψ, R, L, Y, P
 
+# parameters
 @kwdef struct CoulombTwoBody
   z₁ = -1
   z₂ = 1
@@ -11,21 +12,23 @@ export CoulombTwoBody, V, E, ψ, R, L, Y, P
   ℏ = 1.0
 end
 
+# potential
 function V(model::CoulombTwoBody, r)
-  # if r<0
-  #   throw(DomainError(r, "r=$r is out of the domain (0≦r)"))
-  # end
+  if !(0 ≤ r)
+    throw(DomainError("r = $r", "r must be non-negative: 0 ≤ r."))
+  end
   z₁ = model.z₁
   z₂ = model.z₂
   a₀ = model.a₀
   Eₕ = model.Eₕ
-  return Eₕ*z₁*z₂/abs(r/a₀)
+  return z₁*z₂/abs(r/a₀) * Eₕ
 end
 
-function E(model::CoulombTwoBody; n=1)
-  # if zₑ*zₚ>0
-    # @warn "zₑ*zₚ must be negative in bound states."
-  # end
+# eigenvalues
+function E(model::CoulombTwoBody; n::Int=1)
+  if !(1 ≤ n)
+    throw(DomainError("n = $n", "n must be 1 or more: 1 ≤ n."))
+  end
   z₁ = model.z₁
   z₂ = model.z₂
   m₁ = model.m₁
@@ -36,42 +39,49 @@ function E(model::CoulombTwoBody; n=1)
   return -(z₁*z₂)^2/(2*n^2) * μ/mₑ * Eₕ
 end
 
-function ψ(model::CoulombTwoBody, r, θ, φ; n=1, l=0, m=0)
-  # if r<0
-  #   throw(DomainError(r, "r=$r is out of the domain (0≦r)"))
-  # end
+# eigenfunctions
+function ψ(model::CoulombTwoBody, r, θ, φ; n::Int=1, l::Int=0, m::Int=0)
+  if !(1 ≤ n && 0 ≤ l < n && -l ≤ m ≤ l)
+    throw(DomainError("(n,l,m) = ($n,$l,$m)", "This function is defined for 1 ≤ n, 0 ≤ l < n and -l ≤ m ≤ l."))
+  end
+  if !(0 ≤ r && 0 ≤ θ < π && 0 ≤ φ < 2π)
+    throw(DomainError("(r,θ,φ) = ($r,$θ,$φ)", "This function is defined for 0 ≤ r, 0 ≤ θ < π, 0 ≤ φ < 2π."))
+  end
   return R(model, r, n=n, l=l) * Y(model, θ, φ, l=l, m=m)
 end
 
+# radial function
 function R(model::CoulombTwoBody, r; n=1, l=0)
-  # if r<0
-  #   throw(DomainError(r, "r=$r is out of the domain (0≦r)"))
-  # end
   z₁ = model.z₁
   z₂ = model.z₂
   a₀ = model.a₀
   m₁ = model.m₁
   m₂ = model.m₂
   mₑ = model.mₑ
-  μ⁻¹ = 1/m₁ + 1/m₂
-  aμ = a₀ * mₑ * μ⁻¹
+  μ  = (1/m₁ + 1/m₂)^(-1)
+  aμ = a₀ * mₑ / μ
   ρ = 2*(-z₁*z₂)*abs(r)/(n*aμ)
   N = -sqrt( factorial(n-l-1)/(2*n*factorial(n+l)) * (2*(-z₁*z₂)/(n*aμ))^3 )
   return N*ρ^l * exp(-ρ/2) * L(model, ρ, n=n+l, k=2*l+1)
 end
 
+# associated Laguerre polynomials
 function L(model::CoulombTwoBody, x; n=0, k=0)
   return sum(m -> (-1)^(m+k) * factorial(n) // (factorial(m) * factorial(m+k) * factorial(n-m-k)) * x^m, 0:n-k)
 end      
 
+# spherical harmonics
 function Y(model::CoulombTwoBody, θ, φ; l=0, m=0)
-  N = (im)^(m+abs(m)) * sqrt( (2*l+1)*factorial(l-Int(abs(m))) / (2*factorial(l+Int(abs(m)))) )
+  N = (-1)^((abs(m)+m)/2) * sqrt( (2*l+1)*factorial(l-Int(abs(m))) / (2*factorial(l+Int(abs(m)))) )
   return N * P(model,cos(θ), n=l, m=Int(abs(m))) * exp(im*m*φ) / sqrt(2*π)
 end
 
+# associated Legendre polynomials
 function P(model::CoulombTwoBody, x; n=0, m=0)
   return (1//2)^n * (1-x^2)^(m//2) * sum(j -> (-1)^j * factorial(2*n-2*j) // (factorial(j) * factorial(n-j) * factorial(n-2*j-m)) * x^(n-2*j-m), 0:Int(floor((n-m)/2)))
 end
+
+# docstrings
 
 @doc raw"""
 `CoulombTwoBody(z₁=-1, z₂=1, m₁=1.0, m₂=1.0, mₑ=1.0, a₀=1.0, Eₕ=1.0, ℏ=1.0)`
@@ -80,7 +90,7 @@ end
 ``z₁`` is the charge number of particle 2, 
 ``m₁`` is the mass of particle 1, 
 ``m₂`` is the mass of particle 2,
-``m_\mathrm{e}`` is the electron mass (the unit of ``m₁`` and ``m₂``),
+``m_\mathrm{e}`` is the electron mass (use the same unit as ``m₁`` and ``m₂``. For example of hydrogen atom, use ``m_\mathrm{e}=9.1093837139\times10^{-31}\mathrm{kg}``, ``m_1=9.1093837139\times10^{-31}\mathrm{kg}`` and ``m_2=1.67262192595\times10^{-27}\mathrm{kg}`` in the IS unit system, use ``~m_\mathrm{e}=1.0~m_\mathrm{e}``, ``m_1=1.0~m_\mathrm{e}`` and ``m_2=1836.152673426~m_\mathrm{e}`` in the atomic unit.),
 ``a_0`` is the Bohr radius,
 ``E_\mathrm{h}`` is the Hartree energy and
 ``\hbar`` is the reduced Planck constant (Dirac's constant).

@@ -383,7 +383,7 @@ The virial theorem $\langle T \rangle = \langle V \rangle$ and the definition of
 5.0 |  9 |    9.500000000000 |    9.500000000000 ✔
 ```
 
-#### Eigen Values
+#### Eigenvalues
 
 ```math
   \begin{aligned}

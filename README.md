@@ -8,11 +8,13 @@ Self-contained, Well-Tested, Well-Documented **An**aly**ti**cal Solutions of **Q
 
 ## Install
 
-To install this package, run the following code in your Jupyter Notebook:
+Run the following code on the REPL or Jupyter Notebook to install this package.
 
 ```julia
-using Pkg; Pkg.add("Antique")
+]add Antique
 ```
+
+Or specify the version like `]add Antique@0.7.0` to install a specific version.
 
 ## Usage & Examples
 
@@ -22,7 +24,7 @@ Install Antique.jl for the first use and run `using Antique` before each use.
 using Antique
 ```
 
-The energy `E()`, wavefunction `ψ()`, potential `V()` and some other functions are suppoted. Here are examples in hydrogen-like atom. The analytical notation of energy (eigen value of the Hamiltonian) is written as
+The energy `E()`, wavefunction `ψ()`, potential `V()` and some other functions will be exported. Try giving other function names like `using Antique: V as potential, E as energy, ψ as wavefuntion, HydrogenAtom` if you want to avoid a function names conflict. Here are examples in hydrogen-like atom. The analytical notation of energy (eigen value of the Hamiltonian) is written as
 
 ```math
 E_n = -\frac{Z^2}{2n^2} E_\mathrm{h}.
@@ -59,24 +61,62 @@ There are more examples on each model page.
 - [Hydrogen Atom](https://ohno.github.io/Antique.jl/stable/HydrogenAtom/) `HydrogenAtom`
 - [Coulomb 2-Body System](https://ohno.github.io/Antique.jl/stable/HydrogenAtom/) `CoulombTwoBody`
 
+## Demonstration
+
+This is an example of a variational calculation for the hydrogen atom based on [Thijssen(2007)](https://doi.org/10.1017/CBO9781139171397). We check the accuracy of the numerical solution by comparison with the analytical solution. Comparing wavefunctions is a little tough, but Antique.jl makes it easy. You can extend it to excited states ($n>1$) as well as ground state ($n=1$). Thus, Antique.jl is useful for testing numerical methods. We hope many numerical methods to be developed using Antique.jl.
+
+```julia
+# calculations based on Thijssen(2007) https://doi.org/10.1017/CBO9781139171397
+using LinearAlgebra
+α = [13.00773, 1.962079, 0.444529, 0.1219492] 
+nₘₐₓ = length(α)
+S = [(pi/(α[i]+α[j]))^(3/2) for i=1:nₘₐₓ, j=1:nₘₐₓ]
+T = [3*pi^(3/2)*α[i]*α[j]/(α[i]+α[j])^(5/2) for i=1:nₘₐₓ, j=1:nₘₐₓ]
+V = [-2*pi/(α[i]+α[j]) for i=1:nₘₐₓ, j=1:nₘₐₓ]
+H = T + V
+E, C = eigen(Symmetric(H),Symmetric(S))
+
+# energy
+using Antique: E as energy, ψ, HydrogenAtom
+HA = HydrogenAtom(Z=1, Eₕ=1.0, a₀=1.0, mₑ=1.0, ℏ=1.0)
+println("Numerical : ", E[1])
+println("Analytical: ", energy(HA,n=1))
+
+# wave function
+using CairoMakie
+f = Figure()
+ax = Axis(f[1,1], xlabel=L"$r$", ylabel=L"$\psi(r,0,0)$",  limits=(0,4,0,0.6))
+l1 = lines!(ax, 0:0.01:10, r -> sum(C[:,1] .* exp.(-α*r^2)))
+l2 = lines!(ax, 0:0.01:10, r -> real(ψ(HA,r,0,0)), color=:black, linestyle=:dash, label="Antique.jl")
+axislegend(ax, [l1,l2], ["Numerical, Thijssen(2007)","Analytical, Antique.jl"], position=:rt)
+f
+```
+
+```
+Numerical : -0.49927840566748566
+Analytical: -0.5
+```
+
+![](docs/src/assets/fig/demonstration.png)
+
 ## Future Works
 
-[List of quantum-mechanical systems with analytical solutions](https://en.wikipedia.org/wiki/List_of_quantum-mechanical_systems_with_analytical_solutions)
+The candidate models are listed on the Wikipedia page of [List of quantum-mechanical systems with analytical solutions](https://en.wikipedia.org/wiki/List_of_quantum-mechanical_systems_with_analytical_solutions). Please submit your requests and suggestions as [issues on GitHub](https://github.com/ohno/Antique.jl/issues).
 
 ## Developer's Guide
 
-This is the guideline for adding new models. Adding a new model may take from a few days to a week due to reference search, test implementation, and writing documentation.
+This is the guideline for adding new models. Adding a new model may take from a few days to a few week due to reference search, test implementation, and writing documentation.
 
-1. First, please submit a new issue [here](https://github.com/ohno/Antique.jl/issues). We need to find orthodox references (textbooks or papers, not Wikipedia) for the analytical solutions (eigenvalues and eigenfunctions) before the development. This will take more time than you think.
+1. First, please submit a new issue or or comment [here](https://github.com/ohno/Antique.jl/issues). I will assign you to the issue. We need to find orthodox references (textbooks or papers, not Wikipedia) for the analytical solutions (eigenvalues and eigenfunctions) before the development. This will take more time than you think.
 2. Fork [the repository](https://github.com/ohno/Antique.jl) on GitHub.
 3. Clone the forked repository to your local machine by Git.
 4. Please create 3 files:
 
 | files | comments |
 | --- | --- |
-| `src/ModelName.jl` | Write the source codes and docstrings in this file. The most helpful examples are harmonic oscillators for one-dimensional systems and hydrogen atoms for three-dimensional systems. We recommend that you copy these files. First we need to create a structure `struct ModelName` with the same name as the model name (The best way is Find & Replace). Because the function names conflict, you must always give the struct `ModelName` as the fisrt argument to V, E, ψ and other functions. Multi-dispatch avoids conflicts. We recommend using Revice.jl while coding. Run `include("./developer/revice.jl")` on the REPL or use dev.ipynb.  |
-| `test/ModelName.jl` | Write test code in this file. At a minimum, it is recommended to check the normalization and the orthogonality of wavefunction using QuadGK.jl. |
-| `docs/src/ModelName.md` | Write documnetation in this file. Include at least the definition of the Hamiltonian and the analytical solutions (eigenvalues and eigenfunctions). Calls a docstring in the source code. |
+| `src/ModelName.jl` | Write the source codes and docstrings in this file. The most helpful examples are harmonic oscillators for one-dimensional systems and hydrogen atoms for three-dimensional systems. We recommend that you copy these files. First we need to create a structure `struct ModelName` with the same name as the model name (The best way is Find & Replace). Because the function names conflict, you must always give the struct `ModelName` as the fisrt argument to V, E, ψ and other functions. Multi-dispatch avoids conflicts. We recommend using Revice.jl while coding. Run `include("./dev/revice.jl")` on the REPL or use dev.ipynb. |
+| `test/ModelName.jl` | Write test code in this file. At a minimum, please check the normalization and the orthogonality of eigenfunction using QuadGK.jl. Please also do tests for eigenvalue (for example, calculate the expectation values of the Hamiltonian (energy) using the eigenfunctions and check that these values match the eigenvalues). |
+| `docs/src/ModelName.md` | Write documnetation in this file. Include at least the definition of the Hamiltonian and the analytical solutions (eigenvalues and eigenfunctions). Calls a docstring in the source code (`src/ModelName.jl`) . |
 
 5. Please rewrite 5 files:
 
@@ -88,11 +128,11 @@ This is the guideline for adding new models. Adding a new model may take from a 
 | `README.md` | Add the new model to the list of supported models. |
 | `docs/index.md` | Add the new model to the list of supported models. |
 
-6. Execute `include("./developer/test.jl")` to run tests. It will take few minutes to complete.
-7. Execute `include("./developer/docs.jl")` to compile documents. HTML files (docs/build/*.html) will be generated. Please check them with Chrome or any other web browsers.
+6. Execute `include("./dev/test.jl")` to run tests. It will take few minutes to complete.
+7. Execute `include("./dev/docs.jl")` to compile documents. HTML files (docs/build/*.html) will be generated. Please check them with Chrome or any other web browsers.
 8. Commit and Push the codes.
 9. Submit a pull request on GitHub.
 
 ## Acknowledgment
 
-Thanks to all contributors. This package was named by [@KB-satou](https://github.com/KB-satou) and [@ultimatile](https://github.com/ultimatile).
+Thanks to all contributors. This package was named by [@KB-satou](https://github.com/KB-satou) and [@ultimatile](https://github.com/ultimatile). [@MartinMikkelsen](https://github.com/MartinMikkelsen) contributed to writing docstrings. Special thanks to [@hyrodium](https://github.com/hyrodium) for his help with managing the documentation and advice on coding style. [@lhapp27](https://github.com/lhapp27) implemented 2 models, and [@ajarifi](https://github.com/ajarifi) implemented 3 models.

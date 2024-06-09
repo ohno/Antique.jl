@@ -1,20 +1,26 @@
 export RigidRotor, V, E, ψ, Y, P
 
+# parameters
 @kwdef struct RigidRotor
   m₁ = 1.0
   m₂ = 1.0
   R  = 1.0
   ℏ  = 1.0
 end
-  
+
+# potential
 function V(model::RigidRotor, r)
-  # if r<0
-  #   throw(DomainError(r, "r=$r is out of the domain (0≦r)"))
-  # end
+  if !(0 ≤ r)
+    throw(DomainError("r = $r", "r must be non-negative: 0 ≤ r."))
+  end
   return 0
 end
 
-function E(model::RigidRotor; l=0)
+# eigenvalues
+function E(model::RigidRotor; l::Int=0)
+  if !(0 ≤ l)
+    throw(DomainError("l = $l", "l must be non-negative: 0 ≤ l."))
+  end
   m₁ = model.m₁
   m₂ = model.m₂
   R = model.R
@@ -24,18 +30,29 @@ function E(model::RigidRotor; l=0)
   return ℏ^2/(2*I) *l*(l+1)
 end
 
-function ψ(model::RigidRotor, θ, φ; l=0, m=0)
+# eigenfunctions
+function ψ(model::RigidRotor, θ, φ; l::Int=0, m::Int=0)
+  if !(0 ≤ l && -l ≤ m ≤ l)
+    throw(DomainError("(l,m) = ($l,$m)", "This function is defined for 0 ≤ l and -l ≤ m ≤ l."))
+  end
+  if !(0 ≤ θ < π && 0 ≤ φ < 2π)
+    throw(DomainError("(θ,φ) = ($θ,$φ)", "This function is defined for 0 ≤ θ < π and 0 ≤ φ < 2π."))
+  end
   return Y(model, θ, φ; l=l, m=m)
 end
 
+# spherical harmonics
 function Y(model::RigidRotor, θ, φ; l=0, m=0)
-  N = (im)^(m+abs(m)) * sqrt( (2*l+1)*factorial(l-Int(abs(m))) / (2*factorial(l+Int(abs(m)))) )
+  N = (-1)^((abs(m)+m)/2) * sqrt( (2*l+1)*factorial(l-Int(abs(m))) / (2*factorial(l+Int(abs(m)))) )
   return N * P(model,cos(θ), n=l, m=Int(abs(m))) * exp(im*m*φ) / sqrt(2*π)
 end
 
+# associated Legendre polynomials
 function P(model::RigidRotor, x; n=0, m=0)
   return (1//2)^n * (1-x^2)^(m//2) * sum(j -> (-1)^j * factorial(2*n-2*j) // (factorial(j) * factorial(n-j) * factorial(n-2*j-m)) * x^(n-2*j-m), 0:Int(floor((n-m)/2)))
 end
+
+# docstrings
 
 @doc raw"""
 `RigidRotor(m₁=1.0, m₂=1.0, R=1.0, ℏ=1.0)`

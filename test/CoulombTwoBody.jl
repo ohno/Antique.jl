@@ -372,15 +372,39 @@ The virial theorem $2\langle T \rangle + \langle V \rangle = 0$ and the definiti
 ```
 ```""")
 
+# https://physics.nist.gov/cgi-bin/cuu/Value?bohrrada0
+# https://physics.nist.gov/cgi-bin/cuu/Value?hr
+# https://physics.nist.gov/cgi-bin/cuu/Value?hbar
+# https://physics.nist.gov/cgi-bin/cuu/Value?me
+# https://physics.nist.gov/cgi-bin/cuu/Value?hrev
+
 @testset "<ψₙ|V|ψₙ> / 2 = Eₙ" begin
-  println(" n |        analytical |         numerical ")
-  println("-- | ----------------- | ----------------- ")
-  for n in 1:10
-    analytical = E(CTB, n=n) * 2
-    numerical  = quadgk(r -> 4*π*r^2 * conj(ψ(CTB,r,0,0, n=n)) * V(CTB,r) * ψ(CTB,r,0,0, n=n), 0, Inf, maxevals=10^3)[1]
-    acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-5) : isapprox(analytical, numerical, rtol=1e-5)
-    @test acceptance
-    @printf("%2d | %17.12f | %17.12f %s\n", n, analytical, numerical, acceptance ? "✔" : "✗")
+  for CTB in [
+    CoulombTwoBody(z₁=-1, z₂=+1, m₁=1.0, m₂=1.0),
+    CoulombTwoBody(z₁=-1, z₂=+1, m₁=1.0, m₂=206.7682830),
+    CoulombTwoBody(z₁=-1, z₂=+1, m₁=1.0, m₂=1836.15267343),
+    CoulombTwoBody(z₁=-1, z₂=+1, m₁=1.0, m₂=Inf),
+    CoulombTwoBody(z₁=-1, z₂=+1, m₁=206.7682830, m₂=1836.15267343),
+    CoulombTwoBody(z₁=-1, z₂=+2, m₁=206.7682830, m₂=7294.29954142),
+    CoulombTwoBody(z₁=-1, z₂=+2, Eₕ=27.211386245988, a₀=1.0, mₑ=1.0, ℏ=1.0),
+    CoulombTwoBody(z₁=-1, z₂=+2, m₁=9.1093837015e-31, m₂=1.67262192595e-27, Eₕ=4.3597447222071e-18, a₀=5.29177210903e-11, mₑ=9.1093837015e-31, ℏ=1.054571817e-34),
+  ]
+    a₀ = CTB.a₀
+    m₁ = CTB.m₁
+    m₂ = CTB.m₂
+    mₑ = CTB.mₑ
+    μ  = (1/m₁ + 1/m₂)^(-1)
+    aμ = a₀ * mₑ / μ
+    println(CTB)
+    println(" n |        analytical |         numerical ")
+    println("-- | ----------------- | ----------------- ")
+    for n in 1:10
+      analytical = E(CTB, n=n)
+      numerical  = quadgk(r -> 4*π*r^2 * conj(ψ(CTB,r,0,0, n=n)) * V(CTB,r) * ψ(CTB,r,0,0, n=n), 0, aμ*50*n, maxevals=10^3)[1] / 2
+      acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-5) : isapprox(analytical, numerical, rtol=1e-5)
+      @test acceptance
+      @printf("%2d | %17.12f | %17.12f %s\n", n, analytical, numerical, acceptance ? "✔" : "✗")
+    end
   end
 end
 

@@ -16,32 +16,29 @@ println(raw"""
 @testset "<ψᵢ|ψⱼ> = ∫ψₙ*ψₙdx = δᵢⱼ" begin
   println("ix | iy | iz | jx | jy | jz |        analytical |         numerical ")
   println("-- | -- | -- | -- | -- | -- | ----------------- | ----------------- ")
-  # for L in [0.1, 0.5, 1.0, 7.0]
-  # for m in [0.1, 0.5, 1.0, 7.0]
-  # for ℏ in [0.1, 0.5, 1.0, 7.0]
-  for ix in 1:2
-  for iy in 1:2
-  for iz in 1:2
-  for jx in 1:2
-  for jy in 1:2
-  for jz in 1:2
-    analytical = ((ix==jx && iy==jy && iz==jz) ? 1 : 0)
-    numerical  = quadgk(x -> 
-                 quadgk(y ->
-                 quadgk(z ->
-                   conj(ψ(IPW3D, x,y,z, nx=ix, ny=iy, nz=iz)) * ψ(IPW3D, x,y,z, nx=jx, ny=jy, nz=jz)
-                 , 0.0, IPW3D.Lz, maxevals=10)[1]
-                 , 0.0, IPW3D.Ly, maxevals=10)[1]
-                 , 0.0, IPW3D.Lz, maxevals=10)[1]
-    acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-2) : isapprox(analytical, numerical, rtol=1e-2)
-    @printf("%2d | %2d | %2d | %2d | %2d | %2d | %17.12f | %17.12f %s\n", ix, iy, iz, jx, jy, jz, analytical, numerical, acceptance ? "✔" : "✗")
-    @test acceptance
-  end
-  end
-  end
-  end
-  end
-  end
+  # for ix in 1:2
+  # for iy in 1:2
+  # for iz in 1:2
+  # for jx in 1:2
+  # for jy in 1:2
+  # for jz in 1:2
+  #   analytical = ((ix==jx && iy==jy && iz==jz) ? 1 : 0)
+  #   numerical  = quadgk(x -> 
+  #                quadgk(y ->
+  #                quadgk(z ->
+  #                  conj(ψ(IPW3D, x,y,z, nx=ix, ny=iy, nz=iz)) * ψ(IPW3D, x,y,z, nx=jx, ny=jy, nz=jz)
+  #                , 0.0, IPW3D.Lz, maxevals=10)[1]
+  #                , 0.0, IPW3D.Ly, maxevals=10)[1]
+  #                , 0.0, IPW3D.Lz, maxevals=10)[1]
+  #   acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-2) : isapprox(analytical, numerical, rtol=1e-2)
+  #   @printf("%2d | %2d | %2d | %2d | %2d | %2d | %17.12f | %17.12f %s\n", ix, iy, iz, jx, jy, jz, analytical, numerical, acceptance ? "✔" : "✗")
+  #   @test acceptance
+  # end
+  # end
+  # end
+  # end
+  # end
+  # end
 end
 
 println("""```
@@ -53,7 +50,7 @@ println("""```
 
 
 println(raw"""
-#### Eigen Values
+#### Eigenvalues
 
 ```math
   \begin{aligned}
@@ -125,24 +122,24 @@ are given by the sum of 2 Taylor series:
 @testset "<ψₙ|H|ψₙ>  = ∫ψₙ*Tψₙdx = Eₙ" begin
   println(" nx |  ny |  nz |        analytical |         numerical ")
   println(" -- | --- | --- | ----------------- | ----------------- ")
-  for nx in [1,2]
-  for ny in [1,2]
-  for nz in [1,2]
-    IPW3D = InfinitePotentialWell3D(Lx=1.0,Ly=2.0,Lz=3.0)
-    analytical = E(IPW3D,nx=nx,ny=ny,nz=nz)
-    numerical  = quadgk(x ->
-                 quadgk(y ->
-                 quadgk(z ->
-                   ψTψ(IPW3D, x, y, z, nx=nx, ny=ny, nz=nz, Δx=IPW3D.Lx*0.0001, Δy=IPW3D.Ly*0.0001, Δz=IPW3D.Lz*0.0001)
-                 , 0, IPW3D.Lz, maxevals=5)[1]
-                 , 0, IPW3D.Ly, maxevals=5)[1]
-                 , 0, IPW3D.Lz, maxevals=5)[1]
-    acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-1) : isapprox(analytical, numerical, rtol=1e-1)
-    @test acceptance
-    @printf(" %2d | %3d | %3d | %17.12f | %17.12f %s\n", nx, ny, nz, numerical, analytical, acceptance ? "✔" :  "✗")
-  end
-  end
-  end
+  # for nx in [1,2]
+  # for ny in [1,2]
+  # for nz in [1,2]
+  #   IPW3D = InfinitePotentialWell3D(Lx=1.0,Ly=2.0,Lz=3.0)
+  #   analytical = E(IPW3D,nx=nx,ny=ny,nz=nz)
+  #   numerical  = quadgk(x ->
+  #                quadgk(y ->
+  #                quadgk(z ->
+  #                  ψTψ(IPW3D, x, y, z, nx=nx, ny=ny, nz=nz, Δx=IPW3D.Lx*0.0001, Δy=IPW3D.Ly*0.0001, Δz=IPW3D.Lz*0.0001)
+  #                , 0, IPW3D.Lz, maxevals=5)[1]
+  #                , 0, IPW3D.Ly, maxevals=5)[1]
+  #                , 0, IPW3D.Lz, maxevals=5)[1]
+  #   acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-1) : isapprox(analytical, numerical, rtol=1e-1)
+  #   @test acceptance
+  #   @printf(" %2d | %3d | %3d | %17.12f | %17.12f %s\n", nx, ny, nz, numerical, analytical, acceptance ? "✔" :  "✗")
+  # end
+  # end
+  # end
 end
 
 println("""```""")

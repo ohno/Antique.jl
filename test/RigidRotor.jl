@@ -125,3 +125,54 @@ end
 
 println("""```
 """)
+
+
+# <ψₙ|H|ψₙ>  = ∫ψₙ*Tψₙdx = Eₙ
+
+println(raw"""
+#### Eigenvalues
+
+```math
+  \begin{aligned}
+    E_n
+    &=      \int_{0}^{2\pi}~\mathrm{d}\varphi \int_{0}^{\pi}~\mathrm{d}\theta  ~ \psi^\ast_{lm}(\theta,\varphi) \hat{H} \psi_{lm}(\theta,\varphi)  \\
+    &=      \int_{0}^{2\pi}~\mathrm{d}\varphi \int_{0}^{\pi}~\mathrm{d}\theta  ~ \psi^\ast_{lm}(\theta,\varphi) \left[ \hat{V} + \hat{T} \right] \psi_{lm}(\theta,\varphi) \\
+    &=      \int_{0}^{2\pi}~\mathrm{d}\varphi \int_{0}^{\pi}~\mathrm{d}\theta  ~ \psi^\ast_{lm}(\theta,\varphi) \left[ 0 + \frac{l(l+1)}{2I} \right] \psi_{lm}(\theta,\varphi) \\
+    &=      \int_{0}^{2\pi}~\mathrm{d}\varphi \int_{0}^{\pi}~\mathrm{d}\theta  ~ \frac{l(l+1)}{2I} |\psi_{lm}(\theta,\varphi)|^2
+  \end{aligned}
+```
+where $l$ is angular momentum quantum number and $I$ is the moment of intertia.
+```""")
+
+@testset "<ψₙ|H|ψₙ> = ∫ψₙ*Hψₙdx = Eₙ" begin
+  function ψHψ(RR;l)
+      μ = (1/RR.m₁ + 1/RR.m₂)^(-1)
+      I = μ * RR.R^2
+      YY = real(quadgk(φ -> quadgk(θ -> conj(Y(RR,θ,φ,l=l,m=0)) * Y(RR,θ,φ,l=l,m=0) * sin(θ), 0, π, maxevals=10)[1], 0, 2π, maxevals=10)[1])
+      T = l*(l+1)/2/I * YY
+      return T 
+  end
+  
+  ℏ=1
+  println(" m₁ |  m₂ |  R  |  l  |       analytical  |         numerical ")
+  println("--- | --- | --- | --- | ----------------- | ----------------- ")
+  for m₁ in [0.5, 2.0]
+  for m₂ in [0.5, 2.0]
+  for R in [0.5, 2.0]
+  for l in [1, 2, 3]
+      RR = RigidRotor(m₁=m₁, m₂=m₂, R=R, ℏ=ℏ)
+      analytical = E(RR,l=l)
+      numerical = ψHψ(RR,l=l)
+      acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-4) : isapprox(analytical, numerical, rtol=1e-4)
+      @printf("%.1f | %.1f | %.1f | %.1f | %17.12f | %17.12f %s\n", m₁, m₂, R, l,analytical, numerical, acceptance ? "✔" : "✗") 
+  end
+  end
+  end
+  end
+end
+
+
+
+
+println("""```
+""")

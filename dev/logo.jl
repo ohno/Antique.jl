@@ -1,4 +1,4 @@
-# Please run `include("./developer/logo.jl")` on RELP.
+# Please run `include("./dev/logo.jl")` on RELP.
 
 # https://github.com/JuliaLang/julia-logo-graphics
 # https://products.aspose.app/imaging/conversion/svg-to-ico
