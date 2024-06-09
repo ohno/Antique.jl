@@ -105,7 +105,7 @@ The candidate models are listed on the Wikipedia page of [List of quantum-mechan
 
 ## Developer's Guide
 
-This is the guideline for adding new models. Adding a new model may take from a few days to a week due to reference search, test implementation, and writing documentation.
+This is the guideline for adding new models. Adding a new model may take from a few days to a few week due to reference search, test implementation, and writing documentation.
 
 1. First, please submit a new issue or or comment [here](https://github.com/ohno/Antique.jl/issues). I will assign you to the issue. We need to find orthodox references (textbooks or papers, not Wikipedia) for the analytical solutions (eigenvalues and eigenfunctions) before the development. This will take more time than you think.
 2. Fork [the repository](https://github.com/ohno/Antique.jl) on GitHub.
