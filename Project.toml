@@ -1,7 +1,7 @@
 name = "Antique"
 uuid = "be6e5d0e-34a5-4c8f-af83-e1b5389203d8"
 authors = ["Shuhei Ohno"]
-version = "0.9.3"
+version = "0.9.4"
 
 [deps]
 SpecialFunctions = "276daf66-3868-5448-9aa4-cd146d93841b"
