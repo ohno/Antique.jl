@@ -65,7 +65,7 @@ There are more examples on each model page.
 
 This is an example of a variational calculation for the hydrogen atom based on [Thijssen(2007)](https://doi.org/10.1017/CBO9781139171397). We check the accuracy of the numerical solution by comparison with the analytical solution. Comparing wavefunctions is a little tough, but Antique.jl makes it easy. You can extend it to excited states ($n>1$) as well as ground state ($n=1$). Thus, Antique.jl is useful for testing numerical methods. We hope many numerical methods to be developed using Antique.jl.
 
-```@example demonstration
+```julia
 # calculations based on Thijssen(2007) https://doi.org/10.1017/CBO9781139171397
 using LinearAlgebra
 α = [13.00773, 1.962079, 0.444529, 0.1219492] 
