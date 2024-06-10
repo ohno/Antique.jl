@@ -45,7 +45,6 @@ Antique.V(::PoschlTeller, ::Any)
 ```@docs; canonical=false
 Antique.nₘₐₓ(::PoschlTeller)
 ```
-Note that the number of bound states is `nₘₐₓ + 1`, since we count the ground state from `n=0`.
 
 #### Eigenvalues
 ```@docs; canonical=false
@@ -86,7 +85,6 @@ Maximum quantum number:
 ```@repl PT
 nₘₐₓ(PT)
 ```
-Note that the number of bound states is `nₘₐₓ + 1`, since we count the ground state from `n=0`.
 
 Eigenvalues:
 

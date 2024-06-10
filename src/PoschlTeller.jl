@@ -94,6 +94,7 @@ V(x)
 ```math
 n_\mathrm{max} = \left\lfloor \lambda \right\rfloor - 1.
 ```
+Note that the number of bound states is `nₘₐₓ + 1`, since we count the ground state from `n=0`.
 """ nₘₐₓ(model::PoschlTeller)
 
 @doc raw"""
