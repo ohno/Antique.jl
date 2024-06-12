@@ -76,11 +76,15 @@ V = [-2*pi/(α[i]+α[j]) for i=1:nₘₐₓ, j=1:nₘₐₓ]
 H = T + V
 E, C = eigen(Symmetric(H),Symmetric(S))
 
-# energy
+# norm & energy
 using Antique: E as energy, ψ, HydrogenAtom
 HA = HydrogenAtom(Z=1, Eₕ=1.0, a₀=1.0, mₑ=1.0, ℏ=1.0)
-println("Numerical : ", E[1])
-println("Analytical: ", energy(HA,n=1))
+println("Norm")
+println("  numerical : ", transpose(C[:,1]) * S * C[:,1])
+println("  analytical: ", 1)
+println("Energy")
+println("  numerical : ", E[1])
+println("  analytical: ", energy(HA,n=1))
 
 # wave function
 using CairoMakie
@@ -93,8 +97,12 @@ f
 ```
 
 ```
-Numerical : -0.49927840566748566
-Analytical: -0.5
+Norm
+  numerical : 0.9999999999999997
+  analytical: 1
+Energy
+  numerical : -0.49927840566748566
+  analytical: -0.5
 ```
 
 ![](docs/src/assets/fig/demonstration.png)
