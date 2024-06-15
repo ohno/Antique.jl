@@ -124,7 +124,7 @@ This is the guideline for adding new models. Adding a new model may take from a 
 | --- | --- |
 | `src/ModelName.jl` | Write the source codes and docstrings in this file. The most helpful examples are harmonic oscillators for one-dimensional systems and hydrogen atoms for three-dimensional systems. We recommend that you copy these files. First we need to create a structure `struct ModelName` with the same name as the model name (The best way is Find & Replace). Because the function names conflict, you must always give the struct `ModelName` as the fisrt argument to V, E, ψ and other functions. Multi-dispatch avoids conflicts. We recommend using Revice.jl while coding. Run `include("./dev/revice.jl")` on the REPL or use dev.ipynb. |
 | `test/ModelName.jl` | Write test code in this file. At a minimum, please check the normalization and the orthogonality of eigenfunction using QuadGK.jl. Please also do tests for eigenvalue (for example, calculate the expectation values of the Hamiltonian (energy) using the eigenfunctions and check that these values match the eigenvalues). |
-| `docs/src/ModelName.md` | Write documnetation in this file. Include at least the definition of the Hamiltonian and the analytical solutions (eigenvalues and eigenfunctions). Calls a docstring in the source code (`src/ModelName.jl`) . |
+| `docs/src/ModelName.md` | Write documentation in this file. Include at least the definition of the Hamiltonian and the analytical solutions (eigenvalues and eigenfunctions). Call a docstring in the source code (`src/ModelName.jl`) . |
 
 5. Please rewrite 5 files:
 
