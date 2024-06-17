@@ -106,11 +106,15 @@ V = [-2*pi/(α[i]+α[j]) for i=1:nₘₐₓ, j=1:nₘₐₓ]
 H = T + V
 E, C = eigen(Symmetric(H),Symmetric(S))
 
-# energy
+# norm & energy
 using Antique: E as energy, ψ, HydrogenAtom
 HA = HydrogenAtom(Z=1, Eₕ=1.0, a₀=1.0, mₑ=1.0, ℏ=1.0)
-println("Numerical : ", E[1])
-println("Analytical: ", energy(HA,n=1))
+println("Norm")
+println("  numerical : ", transpose(C[:,1]) * S * C[:,1])
+println("  analytical: ", 1)
+println("Energy")
+println("  numerical : ", E[1])
+println("  analytical: ", energy(HA,n=1))
 
 # wave function
 using CairoMakie
@@ -136,4 +140,4 @@ The candidate models are listed on the Wikipedia page of [List of quantum-mechan
 
 ## Acknowledgment
 
-This package was named by [@KB-satou](https://github.com/KB-satou) and [@ultimatile](https://github.com/ultimatile).
+Thanks to all contributors. This package was named by [@KB-satou](https://github.com/KB-satou) and [@ultimatile](https://github.com/ultimatile). [@MartinMikkelsen](https://github.com/MartinMikkelsen) contributed to writing docstrings. Special thanks to [@hyrodium](https://github.com/hyrodium) for his help with managing the documentation and advice on coding style. [@lhapp27](https://github.com/lhapp27) implemented 2 models, and [@ajarifi](https://github.com/ajarifi) implemented 3 models.

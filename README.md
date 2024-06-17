@@ -76,11 +76,15 @@ V = [-2*pi/(α[i]+α[j]) for i=1:nₘₐₓ, j=1:nₘₐₓ]
 H = T + V
 E, C = eigen(Symmetric(H),Symmetric(S))
 
-# energy
+# norm & energy
 using Antique: E as energy, ψ, HydrogenAtom
 HA = HydrogenAtom(Z=1, Eₕ=1.0, a₀=1.0, mₑ=1.0, ℏ=1.0)
-println("Numerical : ", E[1])
-println("Analytical: ", energy(HA,n=1))
+println("Norm")
+println("  numerical : ", transpose(C[:,1]) * S * C[:,1])
+println("  analytical: ", 1)
+println("Energy")
+println("  numerical : ", E[1])
+println("  analytical: ", energy(HA,n=1))
 
 # wave function
 using CairoMakie
@@ -93,8 +97,12 @@ f
 ```
 
 ```
-Numerical : -0.49927840566748566
-Analytical: -0.5
+Norm
+  numerical : 0.9999999999999997
+  analytical: 1
+Energy
+  numerical : -0.49927840566748566
+  analytical: -0.5
 ```
 
 ![](docs/src/assets/fig/demonstration.png)
@@ -116,7 +124,7 @@ This is the guideline for adding new models. Adding a new model may take from a 
 | --- | --- |
 | `src/ModelName.jl` | Write the source codes and docstrings in this file. The most helpful examples are harmonic oscillators for one-dimensional systems and hydrogen atoms for three-dimensional systems. We recommend that you copy these files. First we need to create a structure `struct ModelName` with the same name as the model name (The best way is Find & Replace). Because the function names conflict, you must always give the struct `ModelName` as the fisrt argument to V, E, ψ and other functions. Multi-dispatch avoids conflicts. We recommend using Revice.jl while coding. Run `include("./dev/revice.jl")` on the REPL or use dev.ipynb. |
 | `test/ModelName.jl` | Write test code in this file. At a minimum, please check the normalization and the orthogonality of eigenfunction using QuadGK.jl. Please also do tests for eigenvalue (for example, calculate the expectation values of the Hamiltonian (energy) using the eigenfunctions and check that these values match the eigenvalues). |
-| `docs/src/ModelName.md` | Write documnetation in this file. Include at least the definition of the Hamiltonian and the analytical solutions (eigenvalues and eigenfunctions). Calls a docstring in the source code (`src/ModelName.jl`) . |
+| `docs/src/ModelName.md` | Write documentation in this file. Include at least the definition of the Hamiltonian and the analytical solutions (eigenvalues and eigenfunctions). Call a docstring in the source code (`src/ModelName.jl`) . |
 
 5. Please rewrite 5 files:
 
