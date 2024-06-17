@@ -8,24 +8,7 @@ export PoschlTeller, V, E, ψ
   x₀ = 1.0
 end
 
-function inputchk(model::PoschlTeller,λ,n,n_max)
-  if (λ ≈ round(λ)) == false
-    @show(λ,round(λ),λ ≈ round(λ))
-    error("Error: Currently only integer values for λ are supported.")
-  end
-  
-  if (n ≈ round(n)) == false
-    @show(n,round(n),n ≈ round(n))
-    error("Error: n is the index of the n-th excited state. It must be an integer.")
-  end
-  
-  if n < 0 || n > n_max
-    @show(n,n_max)
-    error("Error: n must be non-negative and smaller than or equal n_max: 0 <= n <= n_max")
-  end
-end
-
-
+# potential
 function V(model::PoschlTeller, x)
   λ = model.λ
   return -λ*(λ+1)/2/cosh(x)^2
