@@ -107,21 +107,21 @@ H = T + V
 E, C = eigen(Symmetric(H),Symmetric(S))
 
 # norm & energy
-using Antique: E as energy, ψ, HydrogenAtom
-HA = HydrogenAtom(Z=1, Eₕ=1.0, a₀=1.0, mₑ=1.0, ℏ=1.0)
+import Antique
+HA = Antique.HydrogenAtom(Z=1, Eₕ=1.0, a₀=1.0, mₑ=1.0, ℏ=1.0)
 println("Norm")
 println("  numerical : ", transpose(C[:,1]) * S * C[:,1])
 println("  analytical: ", 1)
 println("Energy")
 println("  numerical : ", E[1])
-println("  analytical: ", energy(HA,n=1))
+println("  analytical: ", Antique.E(HA,n=1))
 
 # wave function
 using CairoMakie
-f = Figure()
-ax = Axis(f[1,1], xlabel=L"$r$", ylabel=L"$\psi(r,0,0)$",  limits=(0,4,0,0.6))
+f = Figure(size=(420,300), fontsize=11.5)
+ax = Axis(f[1,1], xlabel=L"$r$", ylabel=L"$\psi(r,0,0)$", limits=(0,4,0,0.6), ylabelsize=16.5, xlabelsize=16.5)
 l1 = lines!(ax, 0:0.01:10, r -> sum(C[:,1] .* exp.(-α*r^2)))
-l2 = lines!(ax, 0:0.01:10, r -> real(ψ(HA,r,0,0)), color=:black, linestyle=:dash, label="Antique.jl")
+l2 = lines!(ax, 0:0.01:10, r -> real(Antique.ψ(HA,r,0,0)), color=:black, linestyle=:dash, label="Antique.jl")
 axislegend(ax, [l1,l2], ["Numerical, Thijssen(2007)","Analytical, Antique.jl"], position=:rt)
 f
 save("assets/fig/demonstration.png", f) # hide
