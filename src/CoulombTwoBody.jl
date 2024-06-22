@@ -87,7 +87,7 @@ end
 `CoulombTwoBody(z₁=-1, z₂=1, m₁=1.0, m₂=1.0, mₑ=1.0, a₀=1.0, Eₕ=1.0, ℏ=1.0)`
 
 ``z₁`` is the charge number of particle 1, 
-``z₁`` is the charge number of particle 2, 
+``z₂`` is the charge number of particle 2, 
 ``m₁`` is the mass of particle 1, 
 ``m₂`` is the mass of particle 2,
 ``m_\mathrm{e}`` is the electron mass (use the same unit as ``m₁`` and ``m₂``. For example of hydrogen atom, use ``m_\mathrm{e}=9.1093837139\times10^{-31}\mathrm{kg}``, ``m_1=9.1093837139\times10^{-31}\mathrm{kg}`` and ``m_2=1.67262192595\times10^{-27}\mathrm{kg}`` in the IS unit system, use ``~m_\mathrm{e}=1.0~m_\mathrm{e}``, ``m_1=1.0~m_\mathrm{e}`` and ``m_2=1836.152673426~m_\mathrm{e}`` in the atomic unit.),
