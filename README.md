@@ -4,7 +4,7 @@
 [![Stable](https://img.shields.io/badge/docs-stable-blue.svg)](https://ohno.github.io/Antique.jl/stable/)
 [![Dev](https://img.shields.io/badge/docs-dev-blue.svg)](https://ohno.github.io/Antique.jl/dev/)
 
-Self-contained, Well-Tested, Well-Documented **An**aly**ti**cal Solutions of **Qu**antum Mechanical **E**quations.
+Self-contained, well-tested, well-documented **An**aly**ti**cal Solutions of **Qu**antum Mechanical **E**quations.
 
 ## Install
 
@@ -24,13 +24,15 @@ Install Antique.jl for the first use and run `using Antique` before each use.
 using Antique
 ```
 
-The energy `E()`, wavefunction `ψ()`, potential `V()` and some other functions will be exported. Try giving other function names like `using Antique: V as potential, E as energy, ψ as wavefuntion, HydrogenAtom` if you want to avoid a function names conflict. Here are examples in hydrogen-like atom. The analytical notation of energy (eigen value of the Hamiltonian) is written as
+The energy `E()`, wavefunction `ψ()`, potential `V()` and some other functions will be exported. Try giving other function names like `using Antique: V as potential, E as energy, ψ as wavefuntion, HydrogenAtom` if you want to avoid a function name conflict.
+
+Here are examples for the hydrogen-like atom. The analytical notation of energy (eigen value of the Hamiltonian) is written as
 
 ```math
 E_n = -\frac{Z^2}{2n^2} E_\mathrm{h}.
 ```
 
-Hydrogen atom has symbol $\mathrm{H}$ and atomic number 1 ($Z=1$). Therefore the ground state ($n=1$) energy is $-\frac{1}{2} E_\mathrm{h}$.
+The Hydrogen atom has the symbol $\mathrm{H}$ and atomic number 1 ($Z=1$). Therefore the ground state ($n=1$) energy is $-\frac{1}{2} E_\mathrm{h}$.
 
 ```julia
 H = HydrogenAtom(Z=1)
@@ -38,7 +40,7 @@ E(H)
 # output> -0.5
 ```
 
-Helium cation has symbol $\mathrm{He}^+$ and atomic number 2 ($Z=2$). Therefore the ground state ($n=1$) energy is $-2 E_\mathrm{h}$.
+The Helium cation has the symbol $\mathrm{He}^+$ and atomic number 2 ($Z=2$). Therefore the ground state ($n=1$) energy is $-2 E_\mathrm{h}$.
 
 ```julia
 He⁺ = HydrogenAtom(Z=2)
@@ -63,7 +65,7 @@ There are more examples on each model page.
 
 ## Demonstration
 
-This is an example of a variational calculation for the hydrogen atom based on [Thijssen(2007)](https://doi.org/10.1017/CBO9781139171397). We check the accuracy of the numerical solution by comparison with the analytical solution. Comparing wavefunctions is a little tough, but Antique.jl makes it easy. You can extend it to excited states ($n>1$) as well as ground state ($n=1$). Thus, Antique.jl is useful for testing numerical methods. We hope many numerical methods to be developed using Antique.jl.
+This is an example of a variational calculation for the hydrogen atom based on [Thijssen(2007)](https://doi.org/10.1017/CBO9781139171397). We check the accuracy of the numerical solution by comparison with the analytical solution. Comparing wavefunctions can be difficult, but Antique.jl makes it easy. You can extend it to excited states ($n>1$) as well as the ground state ($n=1$). Thus, Antique.jl is useful for testing numerical methods. We hope many numerical methods to be developed using Antique.jl.
 
 ```julia
 # calculations based on Thijssen(2007) https://doi.org/10.1017/CBO9781139171397
@@ -113,17 +115,17 @@ The candidate models are listed on the Wikipedia page of [List of quantum-mechan
 
 ## Developer's Guide
 
-This is the guideline for adding new models. Adding a new model may take from a few days to a few week due to reference search, test implementation, and writing documentation.
+This is the guideline for adding new models. Adding a new model may take from a few days to a few weeks due to reference search, test implementation, and writing documentation.
 
-1. First, please submit a new issue or or comment [here](https://github.com/ohno/Antique.jl/issues). I will assign you to the issue. We need to find orthodox references (textbooks or papers, not Wikipedia) for the analytical solutions (eigenvalues and eigenfunctions) before the development. This will take more time than you think.
+1. First, please submit a new issue or comment [here](https://github.com/ohno/Antique.jl/issues). I will assign you to the issue. We need to find orthodox references (textbooks or papers, not Wikipedia) for the analytical solutions (eigenvalues and eigenfunctions) before the development. This will take more time than you think.
 2. Fork [the repository](https://github.com/ohno/Antique.jl) on GitHub.
 3. Clone the forked repository to your local machine by Git.
 4. Please create 3 files:
 
 | files | comments |
 | --- | --- |
-| `src/ModelName.jl` | Write the source codes and docstrings in this file. The most helpful examples are harmonic oscillators for one-dimensional systems and hydrogen atoms for three-dimensional systems. We recommend that you copy these files. First we need to create a structure `struct ModelName` with the same name as the model name (The best way is Find & Replace). Because the function names conflict, you must always give the struct `ModelName` as the fisrt argument to V, E, ψ and other functions. Multi-dispatch avoids conflicts. We recommend using Revice.jl while coding. Run `include("./dev/revice.jl")` on the REPL or use dev.ipynb. |
-| `test/ModelName.jl` | Write test code in this file. At a minimum, please check the normalization and the orthogonality of eigenfunction using QuadGK.jl. Please also do tests for eigenvalue (for example, calculate the expectation values of the Hamiltonian (energy) using the eigenfunctions and check that these values match the eigenvalues). |
+| `src/ModelName.jl` | Write the source codes and docstrings in this file. The most helpful examples are the harmonic oscillator for one-dimensional systems and the hydrogen atom for three-dimensional systems. We recommend that you copy these files. First create a structure `struct ModelName` with the same name as the model name (The best way is Find & Replace). Because the function names conflict, you must always give the struct `ModelName` as the first argument to V, E, ψ and other functions. Multi-dispatch avoids conflicts. We recommend using Revice.jl while coding. Run `include("./dev/revice.jl")` on the REPL or use dev.ipynb. |
+| `test/ModelName.jl` | Write test code in this file. At a minimum, please check the normalization and the orthogonality of the eigenfunctions using QuadGK.jl. Please also do tests for the eigenvalues (for example, calculate the expectation values of the Hamiltonian (energy) using the eigenfunctions and check that these values match the eigenvalues). |
 | `docs/src/ModelName.md` | Write documentation in this file. Include at least the definition of the Hamiltonian and the analytical solutions (eigenvalues and eigenfunctions). Call a docstring in the source code (`src/ModelName.jl`) . |
 
 5. Please rewrite 5 files:

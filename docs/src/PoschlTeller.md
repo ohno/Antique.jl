@@ -80,7 +80,7 @@ PT.ℏ
 PT.x₀
 ```
 
-Number of bound states:
+Maximum quantum number:
 
 ```@repl PT
 nₘₐₓ(PT)
