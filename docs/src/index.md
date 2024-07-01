@@ -14,7 +14,7 @@ Run the following code on the REPL or Jupyter Notebook to install this package.
 ]add Antique
 ```
 
-Or specify the version like `]add Antique@0.7.0` to install a specific version.
+Or specify the version like `]add Antique@0.9.4` to install a specific version.
 
 ## Usage & Examples
 
@@ -24,22 +24,23 @@ Or specify the version like `]add Antique@0.7.0` to install a specific version.
 using Antique
 ```
 
-The energy `E()`, wavefunction `ψ()`, potential `V()` and some other functions will be exported. Try giving other function names like `using Antique: V as potential, E as energy, ψ as wavefuntion, HydrogenAtom` if you want to avoid a function names conflict. Here are examples in hydrogen-like atom. The analytical notation of energy (eigen value of the Hamiltonian) is written as
+The energy `E()`, the wave function `ψ()`, the potential `V()` and some other functions will be exported. There are two ways to avoid function name conflicts. Run `import Antique` instead of `using Antique`, and use the energy `Antique.E()`, the wave function `Antique.ψ()` and the potential `Antique.V()`. Or try giving other function names like `using Antique: V as potential, E as energy, ψ as wavefuntion, HydrogenAtom`.
+
+Here are examples for the hydrogen-like atom. The analytical notation of the energy (the eigen value of the Hamiltonian) is written as
 
 ```math
 E_n = -\frac{Z^2}{2n^2} E_\mathrm{h}.
 ```
 
-Hydrogen atom has symbol $\mathrm{H}$ and atomic number 1 ($Z=1$). Therefore the ground state ($n=1$) energy is $-\frac{1}{2} E_\mathrm{h}$.
+The Hydrogen atom has the symbol $\mathrm{H}$ and atomic number 1 ($Z=1$). Therefore the ground state ($n=1$) energy is $-\frac{1}{2} E_\mathrm{h}$.
 
 ```julia
-using Antique
 H = HydrogenAtom(Z=1)
 E(H)
 # output> -0.5
 ```
 
-Helium cation has symbol $\mathrm{He}^+$ and atomic number 2 ($Z=2$). Therefore the ground state ($n=1$) energy is $-2 E_\mathrm{h}$.
+The Helium cation has the symbol $\mathrm{He}^+$ and atomic number 2 ($Z=2$). Therefore the ground state ($n=1$) energy is $-2 E_\mathrm{h}$.
 
 ```julia
 He⁺ = HydrogenAtom(Z=2)
@@ -93,7 +94,7 @@ There are more examples on each model page.
 
 ## Demonstration
 
-This is an example of a variational calculation for the hydrogen atom based on [Thijssen(2007)](https://doi.org/10.1017/CBO9781139171397). We check the accuracy of the numerical solution by comparison with the analytical solution. Comparing wavefunctions is a little tough, but Antique.jl makes it easy. You can extend it to excited states ($n>1$) as well as ground state ($n=1$). Thus, Antique.jl is useful for testing numerical methods. We hope many numerical methods to be developed using Antique.jl.
+This is an example of a variational calculation for the hydrogen atom based on [Thijssen(2007)](https://doi.org/10.1017/CBO9781139171397). We check the accuracy of the numerical solution by comparison with the analytical solution. Comparing wavefunctions can be difficult, but Antique.jl makes it easy. You can extend it to excited states ($n>1$) as well as the ground state ($n=1$). Thus, Antique.jl is useful for testing numerical methods. We hope many numerical methods to be developed using Antique.jl.
 
 ```@example demonstration
 # calculations based on Thijssen(2007) https://doi.org/10.1017/CBO9781139171397

@@ -14,7 +14,7 @@ Run the following code on the REPL or Jupyter Notebook to install this package.
 ]add Antique
 ```
 
-Or specify the version like `]add Antique@0.7.0` to install a specific version.
+Or specify the version like `]add Antique@0.9.4` to install a specific version.
 
 ## Usage & Examples
 
@@ -24,9 +24,9 @@ Install Antique.jl for the first use and run `using Antique` before each use.
 using Antique
 ```
 
-The energy `E()`, wavefunction `ψ()`, potential `V()` and some other functions will be exported. Try giving other function names like `using Antique: V as potential, E as energy, ψ as wavefuntion, HydrogenAtom` if you want to avoid a function name conflict.
+The energy `E()`, the wave function `ψ()`, the potential `V()` and some other functions will be exported. There are two ways to avoid function name conflicts. Run `import Antique` instead of `using Antique`, and use the energy `Antique.E()`, the wave function `Antique.ψ()` and the potential `Antique.V()`. Or try giving other function names like `using Antique: V as potential, E as energy, ψ as wavefuntion, HydrogenAtom`.
 
-Here are examples for the hydrogen-like atom. The analytical notation of energy (eigen value of the Hamiltonian) is written as
+Here are examples for the hydrogen-like atom. The analytical notation of the energy (the eigen value of the Hamiltonian) is written as
 
 ```math
 E_n = -\frac{Z^2}{2n^2} E_\mathrm{h}.
