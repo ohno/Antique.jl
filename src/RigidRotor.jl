@@ -73,23 +73,23 @@ end
 """ V(model::RigidRotor, r)
 
 @doc raw"""
-`E(model::RigidRotor; l=0)`
+`E(model::RigidRotor; l::Int=0)`
 
 ```math
 E_l
 = \frac{\hbar^2}{2I}l(l+1),
 ```
 where ``I=\mu R^2`` is the moment of inertia, ``R`` is the distance, and ``\mu`` is the reduced mass of the two particles.
-""" E(model::RigidRotor; l=0)
+""" E(model::RigidRotor; l::Int=0)
 
 @doc raw"""
-`ψ(model::RigidRotor, θ, φ; l=0, m=0)`
+`ψ(model::RigidRotor, θ, φ; l::Int=0, m::Int=0)`
 
 ```math
 \psi_{lm}(\theta,\varphi) = Y_{lm}(\theta,\varphi)
 ```
 The wave function is the spherical harmonics. The domain is $0\leq \theta \lt \pi$ and $0\leq \varphi \lt 2\pi$.
-""" ψ(model::RigidRotor, θ, φ; l=0, m=0)
+""" ψ(model::RigidRotor, θ, φ; l::Int=0, m::Int=0)
 
 @doc raw"""
 `Y(model::RigidRotor, θ, φ; l=0, m=0)`

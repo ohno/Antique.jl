@@ -94,23 +94,23 @@ where ``\omega = \sqrt{k/\mu}`` is the angular frequency and ``\xi = \sqrt{\frac
 """ V(model::SphericalOscillator, x)
 
 @doc raw"""
-`E(model::SphericalOscillator; n=0, l=0)`
+`E(model::SphericalOscillator; n::Int=0, l::Int=0)`
 
 ```math
 E_{nl}
 = \left(2n + l + \frac{3}{2}\right)\hbar \omega,
 ```
 where ``\omega = \sqrt{k/\mu}``.
-""" E(model::SphericalOscillator; n=0, l=0)
+""" E(model::SphericalOscillator; n::Int=0, l::Int=0)
 
 @doc raw"""
-`ψ(model::SphericalOscillator, r, θ, φ; n=0, l=0, m=0)`
+`ψ(model::SphericalOscillator, r, θ, φ; n::Int=0, l::Int=0, m::Int=0)`
 
 ```math
 \psi_{nlm}(\pmb{r}) = R_{nl}(r) Y_{lm}(\theta,\varphi)
 ```
 The domain is $0\leq r \lt \infty, 0\leq \theta \lt \pi, 0\leq \varphi \lt 2\pi$.
-""" ψ(model::SphericalOscillator, r, θ, φ; n=0, l=0, m=0)
+""" ψ(model::SphericalOscillator, r, θ, φ; n::Int=0, l::Int=0, m::Int=0)
 
 @doc raw"""
 `R(model::SphericalOscillator, r; n=0, l=0)`

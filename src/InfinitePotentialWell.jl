@@ -56,17 +56,17 @@ V(x) =
 """ V(model::InfinitePotentialWell, x)
 
 @doc raw"""
-`E(model::InfinitePotentialWell; n=1)`
+`E(model::InfinitePotentialWell; n::Int=1)`
 
 ```math
 E_n = \frac{\hbar^2 n^2 \pi^2}{2 m L^2}
 ```
-""" E(model::InfinitePotentialWell; n=1)
+""" E(model::InfinitePotentialWell; n::Int=1)
 
 @doc raw"""
-`ψ(model::InfinitePotentialWell, x; n=1)`
+`ψ(model::InfinitePotentialWell, x; n::Int=1)`
 
 ```math
 \psi_n(x) = \sqrt{\frac{2}{L}} \sin \frac{n\pi x}{L}
 ```
-""" ψ(model::InfinitePotentialWell, x; n=1)
+""" ψ(model::InfinitePotentialWell, x; n::Int=1)

@@ -64,19 +64,19 @@ V(x,y,z) =
 """ V(model::InfinitePotentialWell3D, x,y,z)
 
 @doc raw"""
-`E(model::InfinitePotentialWell3D; nx=1, ny=1, nz=1)`
+`E(model::InfinitePotentialWell3D; nx::Int=1, ny::Int=1, nz::Int=1)`
 
 ```math
 E_{n_x,n_y,n_z} = \frac{\hbar^2 \pi^2}{2 m} \left(\frac{n_x^2}{L_x^2} + \frac{n_y^2}{L_y^2} + \frac{n_z^2}{L_z^2}\right)
 ```
-""" E(model::InfinitePotentialWell3D; nx=1, ny=1, nz=1)
+""" E(model::InfinitePotentialWell3D; nx::Int=1, ny::Int=1, nz::Int=1)
 
 @doc raw"""
-`ψ(model::InfinitePotentialWell3D, x,y,z; nx=1, ny=1, nz=1)`
+`ψ(model::InfinitePotentialWell3D, x,y,z; nx::Int=1, ny::Int=1, nz::Int=1)`
 
 The wave functions can be expressed as products of wave functions in a one-dimensional box.
 
 ```math
 \psi_{n_x,n_y,n_z}(x,y,z) = \psi_{n_x}(x)\psi_{n_y}(y)\psi_{n_z}(z) = \sqrt{\frac{8}{L_xL_yL_z}} \sin\left(\frac{n_x\pi x}{L_x}\right) \sin\left(\frac{n_y\pi y}{L_y}\right) \sin\left(\frac{n_z\pi z}{L_z}\right)
 ```
-""" ψ(model::InfinitePotentialWell3D, x,y,z; nx=1, ny=1, nz=1)
+""" ψ(model::InfinitePotentialWell3D, x,y,z; nx::Int=1, ny::Int=1, nz::Int=1)

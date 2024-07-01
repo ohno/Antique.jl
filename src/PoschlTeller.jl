@@ -81,22 +81,22 @@ Note that the number of bound states is `nₘₐₓ + 1`, since we count the gro
 """ nₘₐₓ(model::PoschlTeller)
 
 @doc raw"""
-`E(model::PoschlTeller; n=0)`
+`E(model::PoschlTeller; n::Int=0, nocheck=false)`
 
 ```math
 E_n = -\frac{\hbar^2}{m x_0^2}\frac{\mu^2}{2},
 ```
 where ``\mu = \mu(n) = n_\mathrm{max}-n+1``, and ``n_\mathrm{max} = \left\lfloor \lambda \right\rfloor - 1``.
-""" E(model::PoschlTeller; n=0)
+""" E(model::PoschlTeller; n::Int=0, nocheck=false)
 
 @doc raw"""
-`ψ(model::PoschlTeller, x; n=0)`
+`ψ(model::PoschlTeller, x; n::Int=0)`
 
 ```math
 \psi_n(x) = P_\lambda^{\mu}(\mathrm{tanh}(x/x_0)) \sqrt{\mu\frac{\Gamma(\lambda-\mu+1)}{\Gamma(\lambda+\mu+1)}},
 ```
 where ``\mu = \mu(n) = n_\mathrm{max}-n+1``, and ``n_\mathrm{max} = \left\lfloor \lambda \right\rfloor - 1`` and ``P_\lambda^{\mu}`` are the associated Legendre functions.
-""" ψ(model::PoschlTeller, x; n=0)
+""" ψ(model::PoschlTeller, x; n::Int=0)
 
 @doc raw"""
 `P(model::PoschlTeller, x; n=0, m=0)`

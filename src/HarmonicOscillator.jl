@@ -40,7 +40,7 @@ function ψ(model::HarmonicOscillator, x; n::Int=0)
 end
 
 # Hermite polynomials
-function H(model::HarmonicOscillator, x; n::Int=0)
+function H(model::HarmonicOscillator, x; n=0)
   return factorial(n) * sum(i -> (-1)^i // (factorial(i)  * factorial(n-2*i)) * (2*x)^(n-2*i), 0:Int(floor(n/2)))
 end
 
@@ -65,22 +65,22 @@ where ``\omega = \sqrt{k/m}`` is the angular frequency and ``\xi = \sqrt{\frac{m
 """ V(model::HarmonicOscillator, x)
 
 @doc raw"""
-`E(model::HarmonicOscillator; n=0)`
+`E(model::HarmonicOscillator; n::Int=0)`
 
 ```math
 E_n = \hbar \omega \left( n + \frac{1}{2} \right),
 ```
 where ``\omega = \sqrt{k/m}`` is the angular frequency.
-""" E(model::HarmonicOscillator; n=0)
+""" E(model::HarmonicOscillator; n::Int=0)
 
 @doc raw"""
-`ψ(model::HarmonicOscillator, x; n=0)`
+`ψ(model::HarmonicOscillator, x; n::Int=0)`
 
 ```math
 \psi_n(x) = A_n H_n(\xi) \exp{\left( -\frac{\xi^2}{2} \right)},
 ```
 where ``\omega = \sqrt{k/m}``, ``\xi = \sqrt{\frac{m\omega}{\hbar}}x``, ``A_n = \sqrt{\frac{1}{n! 2^n} \sqrt{\frac{m\omega}{\pi\hbar}}}``, ``H_n(x) = (-1)^n \mathrm{e}^{x^2} \frac{\mathrm{d}^n}{\mathrm{d}x^n} \mathrm{e}^{-x^2}`` are defined.
-""" ψ(model::HarmonicOscillator, x; n=0)
+""" ψ(model::HarmonicOscillator, x; n::Int=0)
 
 @doc raw"""
 `H(model::HarmonicOscillator, x; n=0)`
