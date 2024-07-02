@@ -55,6 +55,8 @@ end
 # docstrings
 
 @doc raw"""
+## Model
+
 This model is described with the time-independent Schrödinger equation
 ```math
   \hat{H} \psi(\theta,\varphi) = E \psi(\theta,\varphi),
@@ -75,7 +77,8 @@ RR = RigidRotor(m₁=1.0, m₂=1.0, R=1.0, ℏ=1.0)
 
 ``m₁`` and ``m₂`` are mass of two particles, ``R`` is the distance, and ``\hbar`` is the reduced Planck constant (Dirac's constant).
 
-References:
+## References
+
 - [D. A. McQuarrie, J. D. Simon, _Physical chemistry : a molecular approach_ (University Science Books, 1997)](https://uscibooks.aip.org/books/physical-chemistry-a-molecular-approach/) p.173, 5.8 The Energy Levels of a Rigid Rotator Are ``E = \hbar^2 J(J+1) / 2I``
 - [Chemistry Libre Texts](https://chem.libretexts.org/Bookshelves/Physical_and_Theoretical_Chemistry_Textbook_Maps/Physical_Chemistry_(LibreTexts)/05%3A_The_Harmonic_Oscillator_and_the_Rigid_Rotor/5.08%3A_The_Energy_Levels_of_a_Rigid_Rotor)
 """ RigidRotor

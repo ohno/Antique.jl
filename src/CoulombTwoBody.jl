@@ -101,6 +101,8 @@ end
 # docstrings
 
 @doc raw"""
+## Model
+
 This model is described with the time-independent Schrödinger equation
 ```math
   \hat{H} \psi(\pmb{r}) = E \psi(\pmb{r}),
@@ -124,7 +126,8 @@ CTB = CoulombTwoBody(z₁=-1, z₂=1, m₁=1.0, m₂=1.0, mₑ=1.0, a₀=1.0, E�
 ``E_\mathrm{h}`` is the Hartree energy and
 ``\hbar`` is the reduced Planck constant (Dirac's constant).
 
-References:
+## References
+
 - _The Digital Library of Mathematical Functions_ (DLMF), [18.3 Table1](https://dlmf.nist.gov/18.3#T1), [18.5 Table1](https://dlmf.nist.gov/18.5#T1), [18.5.16](https://dlmf.nist.gov/18.5#E16), [18.5.17](https://dlmf.nist.gov/18.5#E17)
 - _cpprefjp_, [assoc_legendre](https://cpprefjp.github.io/reference/cmath/assoc_legendre.html), [assoc_laguerre](https://cpprefjp.github.io/reference/cmath/assoc_laguerre.html)
 - A. Messiah, _Quanfum Mechanics_ **VOLUME Ⅰ** (North-Holland Publishing Company, 1961), p.412 I. THE HYDROGEN ATOM

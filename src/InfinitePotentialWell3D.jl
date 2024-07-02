@@ -44,6 +44,8 @@ end
 # docstrings
 
 @doc raw"""
+## Model
+
 This model is described with the time-independent Schrödinger equation
 ```math
   \hat{H} \psi(x,y,z) = E \psi(x,y,z),
@@ -60,7 +62,8 @@ IPW3D = InfinitePotentialWell3D(Lx=1.0, Ly=1.0, Lz=1.0, m=1.0, ℏ=1.0)
 
 ``L_x,L_y,L_z`` are the lengths of the box in ``x``,``y``,``z``-direction, ``m`` is the mass of particle and ``\hbar`` is the reduced Planck constant (Dirac's constant).
 
-Reference:
+## References
+
 - [D. A. McQuarrie, J. D. Simon, _Physical chemistry : a molecular approach_ (University Science Books, 1997)](https://uscibooks.aip.org/books/physical-chemistry-a-molecular-approach/) p.90, 3-9. The Problem of a Particle in a Three-Dimensional Box Is a Simple Extension of the One-Dimensional Case
 """ InfinitePotentialWell3D
 

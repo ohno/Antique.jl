@@ -47,6 +47,8 @@ end
 # docstrings
 
 @doc raw"""
+## Model
+
 This model is described with the time-independent Schrödinger equation
 ```math
   \hat{H} \psi(x) = E \psi(x),
@@ -63,12 +65,14 @@ HO = HarmonicOscillator(k=1.0, m=1.0, ℏ=1.0)
 
 ``k`` is the force constant, ``m`` is the mass of particle and ``\hbar`` is the reduced Planck constant (Dirac's constant).
 
-Main references:
+## References
+
+Main:
 - _The Digital Library of Mathematical Functions_ (DLMF) [18.5.18](https://dlmf.nist.gov/18.5#E18)
 - _cpprefjp_, [hermite](https://cpprefjp.github.io/reference/cmath/hermite.html)
 - [D. J. Griffiths, D. F. Schroeter, _Introduction to Quantum Mechanics_ **Third Edition** (Cambridge University Press, 2018)](https://doi.org/10.1017/9781316995433) p.48, 2.3.2 Analytic Method
 
-Supplemental references:
+Supplemental:
 - The Digital Library of Mathematical Functions (DLMF)                                                    [18.3 Table1](https://dlmf.nist.gov/18.3#T1), [18.5 Table1](https://dlmf.nist.gov/18.5#T1), [18.5.13](https://dlmf.nist.gov/18.5#E13), [18.5.18](https://dlmf.nist.gov/18.5#E18)
 - L. D. Landau, E. M. Lifshitz, Quantum Mechanics (Pergamon Press, 1965)                                  [p.595 (a.4), (a.6)](https://archive.org/details/ost-physics-landaulifshitz-quantummechanics/page/n607/mode/2up)
 - L. I. Schiff, Quantum Mechanics (McGraw-Hill Book Company, 1968)                                        [p.71 (13.12)](https://archive.org/details/ost-physics-schiff-quantummechanics/page/n87/mode/2up)

@@ -31,6 +31,8 @@ end
 # docstrings
 
 @doc raw"""
+## Model
+
 This model is described with the time-independent Schrödinger equation
 ```math
   \hat{H} \psi(x) = E \psi(x),
@@ -47,7 +49,8 @@ DP = DeltaPotential(α=1.0, m=1.0, ℏ=1.0)
 
 ``\alpha`` is the potential strength, ``m`` is the mass of particle and ``\hbar`` is the reduced Planck constant (Dirac's constant).
 
-References:
+## References
+
 - [D. J. Griffiths, D. F. Schroeter, _Introduction to Quantum Mechanics_ **Third Edition** (Cambridge University Press, 2018)](https://doi.org/10.1017/9781316995433) p.63, 2.5.2 The Delta-Function Well
 - [UCSD Physics 130, Quantum Physics](https://quantummechanics.ucsd.edu/ph130a/130_notes/node154.html)
 """ DeltaPotential
