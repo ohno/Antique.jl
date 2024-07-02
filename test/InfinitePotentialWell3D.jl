@@ -1,4 +1,3 @@
-IPW3D = InfinitePotentialWell3D(Lx=1.0, Ly=1.1, Lz=1.2, m=1.0, ℏ=1.0)
 
 
 # <ψᵢ|ψⱼ> = ∫ψₙ*ψₙdx = δᵢⱼ
@@ -14,31 +13,40 @@ println(raw"""
 ```""")
 
 @testset "<ψᵢ|ψⱼ> = ∫ψₙ*ψₙdx = δᵢⱼ" begin
-  println("ix | iy | iz | jx | jy | jz |        analytical |         numerical ")
-  println("-- | -- | -- | -- | -- | -- | ----------------- | ----------------- ")
-  # for ix in 1:2
-  # for iy in 1:2
-  # for iz in 1:2
-  # for jx in 1:2
-  # for jy in 1:2
-  # for jz in 1:2
-  #   analytical = ((ix==jx && iy==jy && iz==jz) ? 1 : 0)
-  #   numerical  = quadgk(x -> 
-  #                quadgk(y ->
-  #                quadgk(z ->
-  #                  conj(ψ(IPW3D, x,y,z, nx=ix, ny=iy, nz=iz)) * ψ(IPW3D, x,y,z, nx=jx, ny=jy, nz=jz)
-  #                , 0.0, IPW3D.Lz, maxevals=10)[1]
-  #                , 0.0, IPW3D.Ly, maxevals=10)[1]
-  #                , 0.0, IPW3D.Lz, maxevals=10)[1]
-  #   acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-2) : isapprox(analytical, numerical, rtol=1e-2)
-  #   @printf("%2d | %2d | %2d | %2d | %2d | %2d | %17.12f | %17.12f %s\n", ix, iy, iz, jx, jy, jz, analytical, numerical, acceptance ? "✔" : "✗")
-  #   @test acceptance
-  # end
-  # end
-  # end
-  # end
-  # end
-  # end
+  for IPW3D  in [
+    InfinitePotentialWell3D(L=[1.0,1.0,1.0], m=1.0, ℏ=1.0)
+    InfinitePotentialWell3D(L=[1.2,3.4,4.5], m=1.0, ℏ=1.0)
+    InfinitePotentialWell3D(L=[1.2,3.4,4.5], m=2.0, ℏ=1.0)
+    InfinitePotentialWell3D(L=[1.2,3.4,4.5], m=1.0, ℏ=2.0)
+  ]
+    @show IPW3D
+    println("ix | iy | iz | jx | jy | jz |        analytical |         numerical ")
+    println("-- | -- | -- | -- | -- | -- | ----------------- | ----------------- ")
+    for ix in 1:2
+    for iy in 1:2
+    for iz in 1:2
+    for jx in 1:2
+    for jy in 1:2
+    for jz in 1:2
+      analytical = ((ix==jx && iy==jy && iz==jz) ? 1 : 0)
+      numerical  = quadgk(x -> 
+                   quadgk(y ->
+                   quadgk(z ->
+                     conj(ψ(IPW3D, x,y,z, n=[ix,iy,iz])) * ψ(IPW3D, x,y,z, n=[jx,jy,jz])
+                   , 0.0, IPW3D.L[3], maxevals=10)[1]
+                   , 0.0, IPW3D.L[2], maxevals=10)[1]
+                   , 0.0, IPW3D.L[1], maxevals=10)[1]
+      acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-5) : isapprox(analytical, numerical, rtol=1e-5)
+      @printf("%2d | %2d | %2d | %2d | %2d | %2d | %17.12f | %17.12f %s\n", ix, iy, iz, jx, jy, jz, analytical, numerical, acceptance ? "✔" : "✗")
+      @test acceptance
+    end
+    end
+    end
+    end
+    end
+    end
+    println()
+  end
 end
 
 println("""```
@@ -113,33 +121,41 @@ are given by the sum of 2 Taylor series:
 ```
 ```""")
 
-ψTψ(IPW3D, x,y,z; nx=0,ny=0,nz=0, Δx=0.01,Δy=0.01,Δz=0.01) = -IPW3D.ℏ^2/(2*IPW3D.m) * conj(ψ(IPW3D,x,y,z,nx=nx,ny=ny,nz=nz)) * (
-  ( ψ(IPW3D,x+Δx,y,z,nx=nx,ny=ny,nz=nz) -2*ψ(IPW3D,x,y,z,nx=nx,ny=ny,nz=nz) + ψ(IPW3D,x-Δx,y,z,nx=nx,ny=ny,nz=nz) ) / Δx^2 +
-  ( ψ(IPW3D,x,y+Δy,z,nx=nx,ny=ny,nz=nz) -2*ψ(IPW3D,x,y,z,nx=nx,ny=ny,nz=nz) + ψ(IPW3D,x,y-Δy,z,nx=nx,ny=ny,nz=nz) ) / Δy^2 +
-  ( ψ(IPW3D,x,y,z+Δz,nx=nx,ny=ny,nz=nz) -2*ψ(IPW3D,x,y,z,nx=nx,ny=ny,nz=nz) + ψ(IPW3D,x,y,z-Δz,nx=nx,ny=ny,nz=nz) ) / Δz^2
+ψTψ(IPW3D, x, y, z; n=[1,1,1], Δx=0.01, Δy=0.01, Δz=0.01) = -IPW3D.ℏ^2/(2*IPW3D.m) * conj(ψ(IPW3D,x,y,z,n=n)) * (
+  ( ψ(IPW3D,x+Δx,y,z,n=n) -2*ψ(IPW3D,x,y,z,n=n) + ψ(IPW3D,x-Δx,y,z,n=n) ) / Δx^2 +
+  ( ψ(IPW3D,x,y+Δy,z,n=n) -2*ψ(IPW3D,x,y,z,n=n) + ψ(IPW3D,x,y-Δy,z,n=n) ) / Δy^2 +
+  ( ψ(IPW3D,x,y,z+Δz,n=n) -2*ψ(IPW3D,x,y,z,n=n) + ψ(IPW3D,x,y,z-Δz,n=n) ) / Δz^2
 )
 
 @testset "<ψₙ|H|ψₙ>  = ∫ψₙ*Tψₙdx = Eₙ" begin
-  println(" nx |  ny |  nz |        analytical |         numerical ")
-  println(" -- | --- | --- | ----------------- | ----------------- ")
-  # for nx in [1,2]
-  # for ny in [1,2]
-  # for nz in [1,2]
-  #   IPW3D = InfinitePotentialWell3D(Lx=1.0,Ly=2.0,Lz=3.0)
-  #   analytical = E(IPW3D,nx=nx,ny=ny,nz=nz)
-  #   numerical  = quadgk(x ->
-  #                quadgk(y ->
-  #                quadgk(z ->
-  #                  ψTψ(IPW3D, x, y, z, nx=nx, ny=ny, nz=nz, Δx=IPW3D.Lx*0.0001, Δy=IPW3D.Ly*0.0001, Δz=IPW3D.Lz*0.0001)
-  #                , 0, IPW3D.Lz, maxevals=5)[1]
-  #                , 0, IPW3D.Ly, maxevals=5)[1]
-  #                , 0, IPW3D.Lz, maxevals=5)[1]
-  #   acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-1) : isapprox(analytical, numerical, rtol=1e-1)
-  #   @test acceptance
-  #   @printf(" %2d | %3d | %3d | %17.12f | %17.12f %s\n", nx, ny, nz, numerical, analytical, acceptance ? "✔" :  "✗")
-  # end
-  # end
-  # end
+  for IPW3D  in [
+    InfinitePotentialWell3D(L=[1.0,1.0,1.0], m=1.0, ℏ=1.0)
+    InfinitePotentialWell3D(L=[1.2,3.4,4.5], m=1.0, ℏ=1.0)
+    InfinitePotentialWell3D(L=[1.2,3.4,4.5], m=2.0, ℏ=1.0)
+    InfinitePotentialWell3D(L=[1.2,3.4,4.5], m=1.0, ℏ=2.0)
+  ]
+    @show IPW3D
+    println(" nx | ny | nz |        analytical |         numerical ")
+    println(" -- | -- | -- | ----------------- | ----------------- ")
+    for nx in [1,2]
+    for ny in [1,2]
+    for nz in [1,2]
+      analytical = E(IPW3D,n=[nx,ny,nz])
+      numerical  = quadgk(x ->
+                   quadgk(y ->
+                   quadgk(z ->
+                     ψTψ(IPW3D, x, y, z, n=[nx,ny,nz], Δx=IPW3D.L[1]*0.0001, Δy=IPW3D.L[2]*0.0001, Δz=IPW3D.L[3]*0.0001)
+                   , 0, IPW3D.L[3], maxevals=5)[1]
+                   , 0, IPW3D.L[2], maxevals=5)[1]
+                   , 0, IPW3D.L[1], maxevals=5)[1]
+      acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-5) : isapprox(analytical, numerical, rtol=1e-5)
+      @test acceptance
+      @printf(" %2d | %2d | %2d | %17.12f | %17.12f %s\n", nx, ny, nz, numerical, analytical, acceptance ? "✔" :  "✗")
+    end
+    end
+    end
+    println()
+  end
 end
 
 println("""```""")

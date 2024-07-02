@@ -14,7 +14,7 @@ Antique.InfinitePotentialWell3D
 
 #### Potential
 ```@docs; canonical=false
-Antique.V(::InfinitePotentialWell3D, ::Any, ::Any, ::Any)
+Antique.V(::InfinitePotentialWell3D, ::Any...)
 ```
 
 #### Eigenvalues
@@ -24,7 +24,7 @@ Antique.E(::InfinitePotentialWell3D)
 
 #### Eigenfunctions
 ```@docs; canonical=false
-Antique.ψ(::InfinitePotentialWell3D, ::Any, ::Any, ::Any)
+Antique.ψ(::InfinitePotentialWell3D, ::Any...)
 ```
 
 ## Usage & Examples
@@ -33,16 +33,14 @@ Antique.ψ(::InfinitePotentialWell3D, ::Any, ::Any, ::Any)
 
 ```@example IPW3D
 using Antique
-IPW3D = InfinitePotentialWell3D(Lx=1.0, Ly=1.0, Lz=1.0, m=1.0, ℏ=1.0)
+IPW3D = InfinitePotentialWell3D(L=[1.0,1.0,1.0], m=1.0, ℏ=1.0)
 ; #hide
 ```
 
 Parameters:
 
 ```@repl IPW3D
-IPW3D.Lx
-IPW3D.Ly
-IPW3D.Lz
+IPW3D.L
 IPW3D.m
 IPW3D.ℏ
 ```
@@ -50,14 +48,36 @@ IPW3D.ℏ
 Eigenvalues:
 
 ```@repl IPW3D
-E(IPW3D, nx=1, ny=1, nz=1)
-E(IPW3D, nx=2, ny=1, nz=1)
-E(IPW3D, nx=1, ny=2, nz=1)
-E(IPW3D, nx=1, ny=1, nz=2)
-E(IPW3D, nx=2, ny=2, nz=1)
-E(IPW3D, nx=2, ny=1, nz=2)
-E(IPW3D, nx=1, ny=2, nz=2)
-E(IPW3D, nx=2, ny=2, nz=2)
+E(IPW3D, n=[1,1,1])
+E(IPW3D, n=[2,1,1])
+E(IPW3D, n=[1,2,1])
+E(IPW3D, n=[1,1,2])
+E(IPW3D, n=[2,2,1])
+E(IPW3D, n=[2,1,2])
+E(IPW3D, n=[1,2,2])
+E(IPW3D, n=[2,2,2])
+```
+
+Wave functions:
+
+```@example IPW3D
+using CairoMakie
+
+# settings
+f = Figure()
+ax = Axis(f[1,1], xlabel=L"$x$", ylabel=L"$\psi(x,0.5,0.5)$")
+
+# plot
+w1 = lines!(ax, 0..1, x -> ψ(IPW3D, x,0.5,0.5, n=[1,1,1]))
+w2 = lines!(ax, 0..1, x -> ψ(IPW3D, x,0.5,0.5, n=[2,1,1]))
+w3 = lines!(ax, 0..1, x -> ψ(IPW3D, x,0.5,0.5, n=[1,2,1]))
+w4 = lines!(ax, 0..1, x -> ψ(IPW3D, x,0.5,0.5, n=[3,1,1]))
+w5 = lines!(ax, 0..1, x -> ψ(IPW3D, x,0.5,0.5, n=[4,1,1]))
+
+# legend
+axislegend(ax, [w1, w2, w3, w4, w5], [L"n=[1,1,1]", L"n=[2,1,1]", L"n=[1,2,1]", L"n=[3,1,1]", L"n=[4,1,1]"], position=:lb)
+
+f
 ```
 
 ## Testing
