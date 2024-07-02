@@ -8,17 +8,6 @@ The spherical oscillator (3D isotropic harmonic oscillator) is the most frequent
 
 ## Definitions
 
-This model is described with the time-independent Schrödinger equation
-```math
-  \hat{H} \psi(\pmb{r}) = E \psi(\pmb{r}),
-```
-and the Hamiltonian
-```math
-  \hat{H} = - \frac{\hbar^2}{2\mu} \nabla^2 + V(r).
-```
-Parameters are specified with the following struct.
-
-#### Parameters
 ```@docs; canonical=false
 Antique.SphericalOscillator
 ```
@@ -58,11 +47,6 @@ Antique.Y(::SphericalOscillator, ::Any, ::Any)
 ```@docs; canonical=false
 Antique.P(::SphericalOscillator, ::Any)
 ```
-
-#### Reference
-- [S. Flügge, _Practical Quantum Mechanics_ (Springer Berlin Heidelberg, 1999)](https://doi.org/10.1007/978-3-642-61995-3) [p.166, Problem 65. Spherical oscillator](https://archive.org/details/PracticalQuantumMechanicsS.Flgge/page/n183/mode/2up).
-- [Quantum harmonic oscillator](https://beit.tech/blog/quantum-harmonic-oscillator.html)
-- [UCSD Physics 130, Quantum Physics](https://quantummechanics.ucsd.edu/ph130a/130_notes/node244.html)
 
 ## Usage & Examples
 

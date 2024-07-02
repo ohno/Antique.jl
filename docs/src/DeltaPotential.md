@@ -4,22 +4,10 @@ CurrentModule = Antique
 
 # Delta Potential
 
-The Delta potential is one of the simplest models for quantum mechanical system in 1D.
-It always has one bound state and its wave function has a cusp at the origin.
+The Delta potential is one of the simplest models for quantum mechanical system in 1D. It always has one bound state and its wave function has a cusp at the origin.
 
 ## Definitions
 
-This model is described with the time-independent Schrödinger equation
-```math
-  \hat{H} \psi(x) = E \psi(x),
-```
-and the Hamiltonian
-```math
-  \hat{H} = - \frac{\hbar^2}{2m} \frac{\mathrm{d}^2}{\mathrm{d}x ^2} + V(x).
-```
-Parameters are specified with the following struct.
-
-#### Parameters
 ```@docs; canonical=false
 Antique.DeltaPotential
 ```
@@ -38,10 +26,6 @@ Antique.E(::DeltaPotential)
 ```@docs; canonical=false
 Antique.ψ(::DeltaPotential, ::Any)
 ```
-
-#### Reference
-- [D. J. Griffiths, D. F. Schroeter, _Introduction to Quantum Mechanics_ **Third Edition** (Cambridge University Press, 2018)](https://doi.org/10.1017/9781316995433) p.63, 2.5.2 The Delta-Function Well
-- [UCSD Physics 130, Quantum Physics](https://quantummechanics.ucsd.edu/ph130a/130_notes/node154.html)
 
 ## Usage & Examples
 

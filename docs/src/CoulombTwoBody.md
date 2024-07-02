@@ -8,17 +8,6 @@ This is the model of two particles interacting through Coulomb forces such as po
 
 ## Definitions
 
-This model is described with the time-independent Schrödinger equation
-```math
-  \hat{H} \psi(\pmb{r}) = E \psi(\pmb{r}),
-```
-and the Hamiltonian
-```math
-  \hat{H} = - \frac{\hbar^2}{2\mu} \nabla^2 + V(r),
-```
-where $\mu=\left(\frac{1}{m_1}+\frac{1}{m_2}\right)^{-1}$ is the reduced mass of particle 1 and particle 2. The potential includes only Coulomb interaction and it does not include fine or hyperfine interactions in this model. Parameters are specified with the following struct.
-
-#### Parameters
 ```@docs; canonical=false
 Antique.CoulombTwoBody
 ```
@@ -57,13 +46,6 @@ Antique.Y(::CoulombTwoBody, ::Any, ::Any)
 ```@docs; canonical=false
 Antique.P(::CoulombTwoBody, ::Any)
 ```
-
-#### Reference
-- _The Digital Library of Mathematical Functions_ (DLMF), [18.3 Table1](https://dlmf.nist.gov/18.3#T1), [18.5 Table1](https://dlmf.nist.gov/18.5#T1), [18.5.16](https://dlmf.nist.gov/18.5#E16), [18.5.17](https://dlmf.nist.gov/18.5#E17)
-- _cpprefjp_, [assoc_legendre](https://cpprefjp.github.io/reference/cmath/assoc_legendre.html), [assoc_laguerre](https://cpprefjp.github.io/reference/cmath/assoc_laguerre.html)
-- A. Messiah, _Quanfum Mechanics_ **VOLUME Ⅰ** (North-Holland Publishing Company, 1961), p.412 I. THE HYDROGEN ATOM
-- [D. J. Griffiths, D. F. Schroeter, _Introduction to Quantum Mechanics_ **Third Edition** (Cambridge University Press, 2018)](https://doi.org/10.1017/9781316995433) p.143 4.2 THE HYDROGEN ATOM, p.200 Problem 5.1, p.200 Problem 5.2
-- [W. Greiner, _Quantum Mechanics: An Introduction_ **Forth Edition** (Springer, 2001)](https://doi.org/10.1007/978-3-642-56826-8) p.217 The Hydrogen Atom, p.236 9.5 Spectrum of a Diatomic Molecule
 
 ## Usage & Examples
 

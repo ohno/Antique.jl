@@ -8,17 +8,6 @@ The three-dimensional infinite potential well (particle in a 3D-box) is one of t
 
 ## Definitions
 
-This model is described with the time-independent Schrödinger equation
-```math
-  \hat{H} \psi(x,y,z) = E \psi(x,y,z),
-```
-and the Hamiltonian
-```math
-  \hat{H} = - \frac{\hbar^2}{2m} \left(\frac{\partial^2}{\partial x ^2} + \frac{\partial^2}{\partial y ^2} + \frac{\partial^2}{\partial z ^2}\right) + V(x,y,z).
-```
-Parameters are specified with the following struct.
-
-#### Parameters
 ```@docs; canonical=false
 Antique.InfinitePotentialWell3D
 ```
@@ -37,9 +26,6 @@ Antique.E(::InfinitePotentialWell3D)
 ```@docs; canonical=false
 Antique.ψ(::InfinitePotentialWell3D, ::Any, ::Any, ::Any)
 ```
-
-#### Reference
-- [D. A. McQuarrie, J. D. Simon, _Physical chemistry : a molecular approach_ (University Science Books, 1997)](https://uscibooks.aip.org/books/physical-chemistry-a-molecular-approach/) p.90, 3-9. The Problem of a Particle in a Three-Dimensional Box Is a Simple Extension of the One-Dimensional Case
 
 ## Usage & Examples
 
@@ -73,13 +59,6 @@ E(IPW3D, nx=2, ny=1, nz=2)
 E(IPW3D, nx=1, ny=2, nz=2)
 E(IPW3D, nx=2, ny=2, nz=2)
 ```
-
-Wave functions:
-
-The wave functions of the 3D infinite potential well can be expressed as a product of wave functions in 1D infinite potential wells for each of the three directions ``x``,``y``,``z``.
-As the representation of 3D (non-spherical) wave functions easily becomes unclear, we refer to the documentation of the one-dimensional counterpart: InfinitePotentialWell (...)
-
-
 
 ## Testing
 

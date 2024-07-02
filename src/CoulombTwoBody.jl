@@ -14,21 +14,18 @@ end
 
 # potential
 function V(model::CoulombTwoBody, r)
-  if !(0 ≤ r)
-    throw(DomainError("r = $r", "r must be non-negative: 0 ≤ r."))
-  end
   z₁ = model.z₁
   z₂ = model.z₂
   a₀ = model.a₀
   Eₕ = model.Eₕ
+  if !(0 ≤ r)
+    throw(DomainError("r = $r", "r must be non-negative: 0 ≤ r."))
+  end
   return z₁*z₂/abs(r/a₀) * Eₕ
 end
 
 # eigenvalues
 function E(model::CoulombTwoBody; n::Int=1)
-  if !(1 ≤ n)
-    throw(DomainError("n = $n", "n must be 1 or more: 1 ≤ n."))
-  end
   z₁ = model.z₁
   z₂ = model.z₂
   m₁ = model.m₁
@@ -36,16 +33,35 @@ function E(model::CoulombTwoBody; n::Int=1)
   mₑ = model.mₑ
   μ = (1/m₁ + 1/m₂)^(-1)
   Eₕ = model.Eₕ
+  if !(1 ≤ n)
+    throw(DomainError("n = $n", "n must be 1 or more: 1 ≤ n."))
+  end
+  if !(z₁*z₂ < 0)
+    throw(DomainError("(z₁,z₂) = ($z₁,$z₂)", "This function is defined for z₁*z₂ < 0."))
+  end
+  if !(0 < m₁ && 0 < m₂)
+    throw(DomainError("(m₁,m₂) = ($m₁,$m₂)", "This function is defined for 0 < m₁, 0 < m₂."))
+  end
   return -(z₁*z₂)^2/(2*n^2) * μ/mₑ * Eₕ
 end
 
 # eigenfunctions
 function ψ(model::CoulombTwoBody, r, θ, φ; n::Int=1, l::Int=0, m::Int=0)
+  z₁ = model.z₁
+  z₂ = model.z₂
+  m₁ = model.m₁
+  m₂ = model.m₂
   if !(1 ≤ n && 0 ≤ l < n && -l ≤ m ≤ l)
     throw(DomainError("(n,l,m) = ($n,$l,$m)", "This function is defined for 1 ≤ n, 0 ≤ l < n and -l ≤ m ≤ l."))
   end
   if !(0 ≤ r && 0 ≤ θ < π && 0 ≤ φ < 2π)
     throw(DomainError("(r,θ,φ) = ($r,$θ,$φ)", "This function is defined for 0 ≤ r, 0 ≤ θ < π, 0 ≤ φ < 2π."))
+  end
+  if !(z₁*z₂ < 0)
+    throw(DomainError("(z₁,z₂) = ($z₁,$z₂)", "This function is defined for z₁*z₂ < 0."))
+  end
+  if !(0 < m₁ && 0 < m₂)
+    throw(DomainError("(m₁,m₂) = ($m₁,$m₂)", "This function is defined for 0 < m₁, 0 < m₂."))
   end
   return R(model, r, n=n, l=l) * Y(model, θ, φ, l=l, m=m)
 end
@@ -60,8 +76,9 @@ function R(model::CoulombTwoBody, r; n=1, l=0)
   mₑ = model.mₑ
   μ  = (1/m₁ + 1/m₂)^(-1)
   aμ = a₀ * mₑ / μ
-  ρ = 2*(-z₁*z₂)*abs(r)/(n*aμ)
-  N = -sqrt( factorial(n-l-1)/(2*n*factorial(n+l)) * (2*(-z₁*z₂)/(n*aμ))^3 )
+  Z  = -z₁*z₂
+  ρ = 2*Z*r/(n*aμ)
+  N = -sqrt( factorial(n-l-1)/(2*n*factorial(n+l)) * (2*Z/(n*aμ))^3 )
   return N*ρ^l * exp(-ρ/2) * L(model, ρ, n=n+l, k=2*l+1)
 end
 
@@ -84,6 +101,16 @@ end
 # docstrings
 
 @doc raw"""
+This model is described with the time-independent Schrödinger equation
+```math
+  \hat{H} \psi(\pmb{r}) = E \psi(\pmb{r}),
+```
+and the Hamiltonian
+```math
+  \hat{H} = - \frac{\hbar^2}{2\mu} \nabla^2 + \frac{z_1 z_2}{r/a_0} E_\mathrm{h},
+```
+where $\mu=\left(\frac{1}{m_1}+\frac{1}{m_2}\right)^{-1}$ is the reduced mass of particle 1 and particle 2. The potential includes only Coulomb interaction and it does not include fine or hyperfine interactions in this model. Parameters are specified with the following struct:
+
 `CoulombTwoBody(z₁=-1, z₂=1, m₁=1.0, m₂=1.0, mₑ=1.0, a₀=1.0, Eₕ=1.0, ℏ=1.0)`
 
 ``z₁`` is the charge number of particle 1, 
@@ -94,6 +121,13 @@ end
 ``a_0`` is the Bohr radius,
 ``E_\mathrm{h}`` is the Hartree energy and
 ``\hbar`` is the reduced Planck constant (Dirac's constant).
+
+References:
+- _The Digital Library of Mathematical Functions_ (DLMF), [18.3 Table1](https://dlmf.nist.gov/18.3#T1), [18.5 Table1](https://dlmf.nist.gov/18.5#T1), [18.5.16](https://dlmf.nist.gov/18.5#E16), [18.5.17](https://dlmf.nist.gov/18.5#E17)
+- _cpprefjp_, [assoc_legendre](https://cpprefjp.github.io/reference/cmath/assoc_legendre.html), [assoc_laguerre](https://cpprefjp.github.io/reference/cmath/assoc_laguerre.html)
+- A. Messiah, _Quanfum Mechanics_ **VOLUME Ⅰ** (North-Holland Publishing Company, 1961), p.412 I. THE HYDROGEN ATOM
+- [D. J. Griffiths, D. F. Schroeter, _Introduction to Quantum Mechanics_ **Third Edition** (Cambridge University Press, 2018)](https://doi.org/10.1017/9781316995433) p.143 4.2 THE HYDROGEN ATOM, p.200 Problem 5.1, p.200 Problem 5.2
+- [W. Greiner, _Quantum Mechanics: An Introduction_ **Forth Edition** (Springer, 2001)](https://doi.org/10.1007/978-3-642-56826-8) p.217 The Hydrogen Atom, p.236 9.5 Spectrum of a Diatomic Molecule
 """ CoulombTwoBody
 
 @doc raw"""
@@ -135,8 +169,7 @@ The domain is $0\leq r \lt \infty, 0\leq \theta \lt \pi, 0\leq \varphi \lt 2\pi$
 ```math
 R_{nl}(r) = -\sqrt{\frac{(n-l-1)!}{2n(n+l)!} \left(\frac{2Z}{n a_\mu}\right)^3} \left(\frac{2Zr}{n a_\mu}\right)^l \exp \left(-\frac{Zr}{n a_\mu}\right) L_{n+l}^{2l+1} \left(\frac{2Zr}{n a_\mu}\right),
 ```
-where ``\frac{1}{\mu} = \frac{1}{m_1}+\frac{1}{m_2}``, ``a_\mu = a_0 \frac{m_\mathrm{e}}{\mu}``, Laguerre polynomials are defined as ``L_n(x) = \frac{1}{n!} \mathrm{e}^x \frac{\mathrm{d}^n}{\mathrm{d}x ^n} \left( \mathrm{e}^{-x} x^n \right)``, and associated Laguerre polynomials are defined as ``L_n^{k}(x) = \frac{\mathrm{d}^k}{\mathrm{d}x^k} L_n(x)``. Note that replace ``2n(n+l)!`` with ``2n[(n+l)!]^3`` if Laguerre polynomials are defined as ``L_n(x) = \mathrm{e}^x \frac{\mathrm{d}^n}{\mathrm{d}x ^n} \left( \mathrm{e}^{-x} x^n \right)``. 
-The domain is $0\leq r \lt \infty$.
+where ``\frac{1}{\mu} = \frac{1}{m_1}+\frac{1}{m_2}``, ``a_\mu = a_0 \frac{m_\mathrm{e}}{\mu}``, ``Z = - z_1 z_2``, Laguerre polynomials are defined as ``L_n(x) = \frac{1}{n!} \mathrm{e}^x \frac{\mathrm{d}^n}{\mathrm{d}x ^n} \left( \mathrm{e}^{-x} x^n \right)``, and associated Laguerre polynomials are defined as ``L_n^{k}(x) = \frac{\mathrm{d}^k}{\mathrm{d}x^k} L_n(x)``. Note that replace ``2n(n+l)!`` with ``2n[(n+l)!]^3`` if Laguerre polynomials are defined as ``L_n(x) = \mathrm{e}^x \frac{\mathrm{d}^n}{\mathrm{d}x ^n} \left( \mathrm{e}^{-x} x^n \right)``. The domain is $0\leq r \lt \infty$.
 """ R(model::CoulombTwoBody, r; n=1, l=0)
 
 @doc raw"""
