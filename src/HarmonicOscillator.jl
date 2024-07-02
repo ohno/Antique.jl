@@ -1,4 +1,4 @@
-export HarmonicOscillator, V, E, ψ, H
+export HarmonicOscillator, V, E, ψ
 
 # parameters
 @kwdef struct HarmonicOscillator

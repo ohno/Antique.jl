@@ -1,4 +1,4 @@
-export PoschlTeller, V, E, ψ
+export PoschlTeller, V, E, ψ, nₘₐₓ
 
 # parameters
 @kwdef struct PoschlTeller

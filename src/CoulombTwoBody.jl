@@ -1,4 +1,4 @@
-export CoulombTwoBody, V, E, ψ, R, L, Y, P
+export CoulombTwoBody, V, E, ψ
 
 # parameters
 @kwdef struct CoulombTwoBody

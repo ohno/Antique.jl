@@ -22,14 +22,14 @@ println(raw"""
   for m in 0:n
       # Rodrigues' formula
       @variables x
-      Dn = n==0 ? x->x : Differential(x)^n          # dⁿ/dxⁿ
-      Dm = m==0 ? x->x : Differential(x)^m          # dᵐ/dxᵐ
-      a = 1 // (2^n * factorial(n))                 # left
-      b = (x^2 - 1)^n                               # right
-      c = (1 - x^2)^(m//2) * Dm(a * Dn(b))          # Rodrigues' formula
-      d = expand_derivatives(c)                     # expand dⁿ/dxⁿ and dᵐ/dxᵐ
-      e = simplify(d, expand=true)                  # simplify
-      f = simplify(P(SO, x, n=n, m=m), expand=true) # closed-form
+      Dn = n==0 ? x->x : Differential(x)^n                  # dⁿ/dxⁿ
+      Dm = m==0 ? x->x : Differential(x)^m                  # dᵐ/dxᵐ
+      a = 1 // (2^n * factorial(n))                         # left
+      b = (x^2 - 1)^n                                       # right
+      c = (1 - x^2)^(m//2) * Dm(a * Dn(b))                  # Rodrigues' formula
+      d = expand_derivatives(c)                             # expand dⁿ/dxⁿ and dᵐ/dxᵐ
+      e = simplify(d, expand=true)                          # simplify
+      f = simplify(Antique.P(SO, x, n=n, m=m), expand=true) # closed-form
       # latexify
       eq1 = latexify(e, env=:raw)
       eq2 = latexify(f, env=:raw)
@@ -71,7 +71,7 @@ println(raw"""
   for i in m:9
   for j in m:9
     analytical = 2*factorial(j+m)/(2*j+1)/factorial(j-m)*(i == j ? 1 : 0)
-    numerical  = quadgk(x -> P(SO, x, n=i, m=m) * P(SO, x, n=j, m=m), -1, 1, maxevals=10^3)[1]
+    numerical  = quadgk(x -> Antique.P(SO, x, n=i, m=m) * Antique.P(SO, x, n=j, m=m), -1, 1, maxevals=10^3)[1]
     acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-5) : isapprox(analytical, numerical, rtol=1e-5)
     @test acceptance
     @printf("%2d | %2d | %2d | %17.12f | %17.12f %s\n", m, i, j, analytical, numerical, acceptance ? "✔" : "✗")
@@ -110,7 +110,7 @@ Y_{lm}(\theta,\varphi)^* Y_{l'm'}(\theta,\varphi) \sin(\theta)
     numerical  = real(
       quadgk(φ ->
       quadgk(θ ->
-        conj(Y(SO,θ,φ,l=l1,m=m1)) * Y(SO,θ,φ,l=l2,m=m2) * sin(θ)
+        conj(Antique.Y(SO,θ,φ,l=l1,m=m1)) * Antique.Y(SO,θ,φ,l=l2,m=m2) * sin(θ)
       , 0, π, maxevals=50)[1]
       , 0, 2π, maxevals=100)[1]
     )
@@ -147,13 +147,13 @@ println(raw"""
   for α in 0:n
     # Rodriguesの公式の展開
     @variables x
-    D = n==0 ? x->x : Differential(x)^n           # dⁿ/dxⁿ
-    a = exp(x) * x^(-α) / factorial(n)            # left
-    b = exp(-x) * x^(n+α)                         # right
-    c = a * D(b)                                  # Rodrigues' formula
-    d = expand_derivatives(c)                     # expand dⁿ/dxⁿ
-    e = simplify(d, expand=true)                  # simplify
-    f = simplify(L(SO, x, n=n, α=α), expand=true) # closed-form
+    D = n==0 ? x->x : Differential(x)^n                   # dⁿ/dxⁿ
+    a = exp(x) * x^(-α) / factorial(n)                    # left
+    b = exp(-x) * x^(n+α)                                 # right
+    c = a * D(b)                                          # Rodrigues' formula
+    d = expand_derivatives(c)                             # expand dⁿ/dxⁿ
+    e = simplify(d, expand=true)                          # simplify
+    f = simplify(Antique.L(SO, x, n=n, α=α), expand=true) # closed-form
     # latexify
     eq1 = latexify(e, env=:raw)
     eq2 = latexify(f, env=:raw)
@@ -196,7 +196,7 @@ println(raw"""
   for i in 0:9
   for j in 0:9
     analytical = gamma(i+α+1)/factorial(i)*(i == j ? 1 : 0)
-    numerical  = quadgk(x -> real(L(SO, x, n=i, α=α)) * real(L(SO, x, n=j, α=α)) * x^α * exp(-x), 0, Inf, maxevals=10^3)[1]
+    numerical  = quadgk(x -> real(Antique.L(SO, x, n=i, α=α)) * real(Antique.L(SO, x, n=j, α=α)) * x^α * exp(-x), 0, Inf, maxevals=10^3)[1]
     acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-5) : isapprox(analytical, numerical, rtol=1e-5)
     @test acceptance
     @printf("%4.2f | %2d | %2d | %17.12f | %17.12f %s\n", α, i, j, analytical, numerical, acceptance ? "✔" : "✗")
@@ -226,7 +226,7 @@ println(raw"""
   for n in 0:5
   for l in 0:n
     analytical = 1
-    numerical  = quadgk(r -> R(SO,r,n=n,l=l)^2 * r^2, 0, Inf, maxevals=10^3)[1]
+    numerical  = quadgk(r ->Antique.R(SO,r,n=n,l=l)^2 * r^2, 0, Inf, maxevals=10^3)[1]
     acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-5) : isapprox(analytical, numerical, rtol=1e-5)
     @test acceptance
     @printf("%2d | %2d | %17.12f | %17.12f %s\n", n, l, analytical, numerical, acceptance ? "✔" : "✗")
@@ -285,7 +285,7 @@ println("""```
   for n in 0:5
     for l in 0:n
       analytical = E(SO, n=n, l=l)
-      numerical  = 2 * quadgk(r -> V(SO,r) * R(SO,r,n=n,l=l)^2 * r^2, 0, Inf, maxevals=10^3)[1]
+      numerical  = 2 * quadgk(r -> V(SO,r) *Antique.R(SO,r,n=n,l=l)^2 * r^2, 0, Inf, maxevals=10^3)[1]
       acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-5) : isapprox(analytical, numerical, rtol=1e-5)
       @test acceptance
       @printf("%2d | %2d | %17.12f | %17.12f %s\n", n, l, analytical, numerical, acceptance ? "✔" : "✗")

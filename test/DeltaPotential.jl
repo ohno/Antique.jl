@@ -1,6 +1,6 @@
 DP = DeltaPotential(α=1.0, m=1.0, ℏ=1.0)
 
-# <ψᵢ|ψⱼ> = ∫ψ*ψdx = δᵢⱼ
+# <ψᵢ|ψⱼ> = ∫ψ(x)*ψ(x)dx = δᵢⱼ
 
 println(raw"""
 #### Normalization of $\psi(x)$
@@ -11,7 +11,7 @@ println(raw"""
 
 ```""")
 
-@testset "<ψ|ψ> = ∫ψ*ψdx = 1" begin
+@testset "<ψ|ψ> = ∫ψ(x)*ψ(x)dx = 1" begin
   println("  α |   m |   ℏ |        analytical |         numerical ")
   println("--- | --- | --- | ----------------- | ----------------- ")
   for α in [0.1, 1.0, 7.0]

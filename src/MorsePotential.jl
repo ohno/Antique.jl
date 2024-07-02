@@ -1,4 +1,4 @@
-export MorsePotential, V, E, nₘₐₓ, ψ, L
+export MorsePotential, V, E, ψ, nₘₐₓ
 
 # packages
 using SpecialFunctions

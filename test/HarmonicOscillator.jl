@@ -20,13 +20,13 @@ println(raw"""
   for n in 0:9
     # Rodrigues' formula
     @variables x
-    D = n==0 ? x->x : Differential(x)^n     # dⁿ/dxⁿ
-    a = (-1)^n * exp(x^2)                   # left
-    b = exp(-x^2)                           # right
-    c = a * D(b)                            # Rodrigues' formula
-    d = expand_derivatives(c)               # expand dⁿ/dxⁿ
-    e = simplify(d, expand=true)            # simplify
-    f = simplify(H(HO, x, n=n), expand=true) # closed-form
+    D = n==0 ? x->x : Differential(x)^n              # dⁿ/dxⁿ
+    a = (-1)^n * exp(x^2)                            # left
+    b = exp(-x^2)                                    # right
+    c = a * D(b)                                     # Rodrigues' formula
+    d = expand_derivatives(c)                        # expand dⁿ/dxⁿ
+    e = simplify(d, expand=true)                     # simplify
+    f = simplify(Antique.H(HO, x, n=n), expand=true) # closed-form
     # latexify
     eq1 = latexify(e, env=:raw)
     eq2 = latexify(f, env=:raw)
@@ -67,7 +67,7 @@ println(raw"""
   for i in 0:9
   for j in 0:9
     analytical = sqrt(π)*2^j*factorial(j)*(i == j ? 1 : 0)
-    numerical  = quadgk(x -> H(HO, x, n=j) * H(HO, x, n=i)* exp(-x^2), -Inf, Inf, maxevals=10^3)[1]
+    numerical  = quadgk(x -> Antique.H(HO, x, n=j) * Antique.H(HO, x, n=i)* exp(-x^2), -Inf, Inf, maxevals=10^3)[1]
     acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-5) : isapprox(analytical, numerical, rtol=1e-5)
     @test acceptance
     @printf("%2d | %2d | %17.12f | %17.12f %s\n", i, j, analytical, numerical, acceptance ? "✔" : "✗")

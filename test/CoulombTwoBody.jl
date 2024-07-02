@@ -23,14 +23,14 @@ println(raw"""
   for m in 0:n
       # Rodrigues' formula
       @variables x
-      Dn = n==0 ? x->x : Differential(x)^n         # dⁿ/dxⁿ
-      Dm = m==0 ? x->x : Differential(x)^m         # dᵐ/dxᵐ
-      a = 1 // (2^n * factorial(n))                # left
-      b = (x^2 - 1)^n                              # right
-      c = (1 - x^2)^(m//2) * Dm(a * Dn(b))         # Rodrigues' formula
-      d = expand_derivatives(c)                    # expand dⁿ/dxⁿ and dᵐ/dxᵐ
-      e = simplify(d, expand=true)                 # simplify
-      f = simplify(P(CTB, x, n=n, m=m), expand=true) # closed-form
+      Dn = n==0 ? x->x : Differential(x)^n                   # dⁿ/dxⁿ
+      Dm = m==0 ? x->x : Differential(x)^m                   # dᵐ/dxᵐ
+      a = 1 // (2^n * factorial(n))                          # left
+      b = (x^2 - 1)^n                                        # right
+      c = (1 - x^2)^(m//2) * Dm(a * Dn(b))                   # Rodrigues' formula
+      d = expand_derivatives(c)                              # expand dⁿ/dxⁿ and dᵐ/dxᵐ
+      e = simplify(d, expand=true)                           # simplify
+      f = simplify(Antique.P(CTB, x, n=n, m=m), expand=true) # closed-form
       # latexify
       eq1 = latexify(e, env=:raw)
       eq2 = latexify(f, env=:raw)
@@ -72,7 +72,7 @@ println(raw"""
   for i in m:9
   for j in m:9
     analytical = 2*factorial(j+m)/(2*j+1)/factorial(j-m)*(i == j ? 1 : 0)
-    numerical  = quadgk(x -> P(CTB, x, n=i, m=m) * P(CTB, x, n=j, m=m), -1, 1, maxevals=10^3)[1]
+    numerical  = quadgk(x -> Antique.P(CTB, x, n=i, m=m) * Antique.P(CTB, x, n=j, m=m), -1, 1, maxevals=10^3)[1]
     acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-5) : isapprox(analytical, numerical, rtol=1e-5)
     @test acceptance
     @printf("%2d | %2d | %2d | %17.12f | %17.12f %s\n", m, i, j, analytical, numerical, acceptance ? "✔" : "✗")
@@ -111,7 +111,7 @@ Y_{lm}(\theta,\varphi)^* Y_{l'm'}(\theta,\varphi) \sin(\theta)
     numerical  = real(
       quadgk(φ ->
       quadgk(θ ->
-        conj(Y(CTB,θ,φ,l=l1,m=m1)) * Y(CTB,θ,φ,l=l2,m=m2) * sin(θ)
+        conj(Antique.Y(CTB,θ,φ,l=l1,m=m1)) * Antique.Y(CTB,θ,φ,l=l2,m=m2) * sin(θ)
       , 0, π, maxevals=50)[1]
       , 0, 2π, maxevals=100)[1]
     )
@@ -150,15 +150,15 @@ println(raw"""
   for k in 0:n
     # Rodriguesの公式の展開
     @variables x
-    Dn = n==0 ? x->x : Differential(x)^n                     # dⁿ/dxⁿ
-    Dk = k==0 ? x->x : Differential(x)^k                     # dᵐ/dxᵐ
-    a = exp(x) / factorial(n)                                # left
-    b = exp(-x) * x^n                                        # right
-    c = Dk(a * Dn(b))                                        # Rodrigues' formula
-    d = expand_derivatives(c)                                # expand dⁿ/dxⁿ and dᵐ/dxᵐ
-    e = simplify(d, expand=true)                             # simplify
-    f = simplify(L(CTB, x, n=n, k=k), expand=true)           # closed-form
-    g = simplify((-1)^k * L(MP, x, n=n-k, α=k), expand=true) # closed-form
+    Dn = n==0 ? x->x : Differential(x)^n                             # dⁿ/dxⁿ
+    Dk = k==0 ? x->x : Differential(x)^k                             # dᵐ/dxᵐ
+    a = exp(x) / factorial(n)                                        # left
+    b = exp(-x) * x^n                                                # right
+    c = Dk(a * Dn(b))                                                # Rodrigues' formula
+    d = expand_derivatives(c)                                        # expand dⁿ/dxⁿ and dᵐ/dxᵐ
+    e = simplify(d, expand=true)                                     # simplify
+    f = simplify(Antique.L(CTB, x, n=n, k=k), expand=true)           # closed-form
+    g = simplify((-1)^k * Antique.L(MP, x, n=n-k, α=k), expand=true) # closed-form
     # latexify
     eq1 = latexify(e, env=:raw)
     eq2 = latexify(f, env=:raw)
@@ -204,7 +204,7 @@ Replace $n+k$ with $n$ for [the definition of Wolfram MathWorld](https://mathwor
   for j in 0:7
   for k in 0:min(i,j)
     analytical = factorial(i) / factorial(i-k) * (i == j ? 1 : 0)
-    numerical  = quadgk(x -> exp(-x) * x^k * L(CTB, x, n=i, k=k) * L(CTB, x, n=j, k=k), 0, Inf, maxevals=10^3)[1]
+    numerical  = quadgk(x -> exp(-x) * x^k * Antique.L(CTB, x, n=i, k=k) * Antique.L(CTB, x, n=j, k=k), 0, Inf, maxevals=10^3)[1]
     acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-5) : isapprox(analytical, numerical, rtol=1e-5)
     @test acceptance
     @printf("%2d | %2d | %2d | %17.12f | %17.12f %s\n", i, j, k, analytical, numerical, acceptance ? "✔" : "✗")
@@ -234,7 +234,7 @@ println(raw"""
   for n in 1:9
   for l in 0:n-1
     analytical = 1
-    numerical  = quadgk(r -> r^2 * R(CTB,r,n=n,l=l)^2, 0, Inf, maxevals=10^3)[1]
+    numerical  = quadgk(r -> r^2 *Antique.R(CTB,r,n=n,l=l)^2, 0, Inf, maxevals=10^3)[1]
     acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-5) : isapprox(analytical, numerical, rtol=1e-5)
     @test acceptance
     @printf("%2d | %2d | %17.12f | %17.12f %s\n", n, l, analytical, numerical, acceptance ? "✔" : "✗")
@@ -290,7 +290,7 @@ Reference:
       aμ = a₀ * mₑ/μ
       Z = abs(z₁*z₂)
       analytical =  aμ/2/Z * (3*n^2-l*(l+1))
-      numerical  = quadgk(r -> r^3 * R(CTB,r,n=n,l=l)^2, 0, Inf, maxevals=10^3)[1]
+      numerical  = quadgk(r -> r^3 *Antique.R(CTB,r,n=n,l=l)^2, 0, Inf, maxevals=10^3)[1]
       acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-5) : isapprox(analytical, numerical, rtol=1e-5)
       @test acceptance
       @printf("%2d | %2d | %17.12f | %17.12f %s\n", n, l, analytical, numerical, acceptance ? "✔" : "✗")
@@ -346,7 +346,7 @@ Reference:
       aμ = a₀ * mₑ/μ
       Z = abs(z₁*z₂)
       analytical =  aμ^2/2/Z^2 * n^2 * (5*n^2+1-3*l*(l+1))
-      numerical  = quadgk(r -> r^4 * R(CTB,r,n=n,l=l)^2, 0, Inf, maxevals=10^3)[1]
+      numerical  = quadgk(r -> r^4 *Antique.R(CTB,r,n=n,l=l)^2, 0, Inf, maxevals=10^3)[1]
       acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-5) : isapprox(analytical, numerical, rtol=1e-5)
       @test acceptance
       @printf("%2d | %2d | %17.12f | %17.12f %s\n", n, l, analytical, numerical, acceptance ? "✔" : "✗")

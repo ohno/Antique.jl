@@ -22,14 +22,14 @@ println(raw"""
   for m in 0:n
       # Rodrigues' formula
       @variables x
-      Dn = n==0 ? x->x : Differential(x)^n         # dⁿ/dxⁿ
-      Dm = m==0 ? x->x : Differential(x)^m         # dᵐ/dxᵐ
-      a = 1 // (2^n * factorial(n))                # left
-      b = (x^2 - 1)^n                              # right
-      c = (1 - x^2)^(m//2) * Dm(a * Dn(b))         # Rodrigues' formula
-      d = expand_derivatives(c)                    # expand dⁿ/dxⁿ and dᵐ/dxᵐ
-      e = simplify(d, expand=true)                 # simplify
-      f = simplify(P(RR, x, n=n, m=m), expand=true) # closed-form
+      Dn = n==0 ? x->x : Differential(x)^n                  # dⁿ/dxⁿ
+      Dm = m==0 ? x->x : Differential(x)^m                  # dᵐ/dxᵐ
+      a = 1 // (2^n * factorial(n))                         # left
+      b = (x^2 - 1)^n                                       # right
+      c = (1 - x^2)^(m//2) * Dm(a * Dn(b))                  # Rodrigues' formula
+      d = expand_derivatives(c)                             # expand dⁿ/dxⁿ and dᵐ/dxᵐ
+      e = simplify(d, expand=true)                          # simplify
+      f = simplify(Antique.P(RR, x, n=n, m=m), expand=true) # closed-form
       # latexify
       eq1 = latexify(e, env=:raw)
       eq2 = latexify(f, env=:raw)
@@ -71,7 +71,7 @@ println(raw"""
   for i in m:9
   for j in m:9
     analytical = 2*factorial(j+m)/(2*j+1)/factorial(j-m)*(i == j ? 1 : 0)
-    numerical  = quadgk(x -> P(RR, x, n=i, m=m) * P(RR, x, n=j, m=m), -1, 1, maxevals=10^3)[1]
+    numerical  = quadgk(x -> Antique.P(RR, x, n=i, m=m) * Antique.P(RR, x, n=j, m=m), -1, 1, maxevals=10^3)[1]
     acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-5) : isapprox(analytical, numerical, rtol=1e-5)
     @test acceptance
     @printf("%2d | %2d | %2d | %17.12f | %17.12f %s\n", m, i, j, analytical, numerical, acceptance ? "✔" : "✗")
@@ -110,7 +110,7 @@ Y_{lm}(\theta,\varphi)^* Y_{l'm'}(\theta,\varphi) \sin(\theta)
     numerical  = real(
       quadgk(φ ->
       quadgk(θ ->
-        conj(Y(RR,θ,φ,l=l1,m=m₁)) * Y(RR,θ,φ,l=l2,m=m₂) * sin(θ)
+        conj(Antique.Y(RR,θ,φ,l=l1,m=m₁)) * Antique.Y(RR,θ,φ,l=l2,m=m₂) * sin(θ)
       , 0, π, maxevals=50)[1]
       , 0, 2π, maxevals=100)[1]
     )
@@ -148,7 +148,7 @@ where $l$ is angular momentum quantum number and $I$ is the moment of intertia.
   function ψHψ(RR;l)
       μ = (1/RR.m₁ + 1/RR.m₂)^(-1)
       I = μ * RR.R^2
-      YY = real(quadgk(φ -> quadgk(θ -> conj(Y(RR,θ,φ,l=l,m=0)) * Y(RR,θ,φ,l=l,m=0) * sin(θ), 0, π, maxevals=10)[1], 0, 2π, maxevals=10)[1])
+      YY = real(quadgk(φ -> quadgk(θ -> conj(Antique.Y(RR,θ,φ,l=l,m=0)) * Antique.Y(RR,θ,φ,l=l,m=0) * sin(θ), 0, π, maxevals=10)[1], 0, 2π, maxevals=10)[1])
       T = l*(l+1)/2/I * YY
       return T 
   end

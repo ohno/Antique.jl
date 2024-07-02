@@ -136,7 +136,7 @@ for n in 1:3
     w = lines!(
         ax,
         0..20,
-        r -> r^2 * R(H,r,n=n,l=l)^2,
+        r -> r^2 * Antique.R(H,r,n=n,l=l)^2,
         linewidth = 2,
         linestyle = [:solid,:dash,:dot,:dashdot,:dashdotdot][l+1],
         color = n,

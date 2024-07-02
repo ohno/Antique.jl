@@ -1,4 +1,4 @@
-export HydrogenAtom, V, E, ψ, R, L, Y, P
+export HydrogenAtom, V, E, ψ
 
 # parameters
 @kwdef struct HydrogenAtom

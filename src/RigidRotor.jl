@@ -1,4 +1,4 @@
-export RigidRotor, V, E, ψ, Y, P
+export RigidRotor, V, E, ψ
 
 # parameters
 @kwdef struct RigidRotor

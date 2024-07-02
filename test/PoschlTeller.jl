@@ -22,14 +22,14 @@ println(raw"""
   for m in 0:n
       # Rodrigues' formula
       @variables x
-      Dn = n==0 ? x->x : Differential(x)^n          # dⁿ/dxⁿ
-      Dm = m==0 ? x->x : Differential(x)^m          # dᵐ/dxᵐ
-      a = 1 // (2^n * factorial(n))                 # left
-      b = (x^2 - 1)^n                               # right
-      c = (1 - x^2)^(m//2) * Dm(a * Dn(b)) # Rodrigues' formula
-      d = expand_derivatives(c)                     # expand dⁿ/dxⁿ and dᵐ/dxᵐ
-      e = simplify(d, expand=true)                  # simplify
-      f = simplify(P(PT, x, n=n, m=m), expand=true) # closed-form
+      Dn = n==0 ? x->x : Differential(x)^n                  # dⁿ/dxⁿ
+      Dm = m==0 ? x->x : Differential(x)^m                  # dᵐ/dxᵐ
+      a = 1 // (2^n * factorial(n))                         # left
+      b = (x^2 - 1)^n                                       # right
+      c = (1 - x^2)^(m//2) * Dm(a * Dn(b))                  # Rodrigues' formula
+      d = expand_derivatives(c)                             # expand dⁿ/dxⁿ and dᵐ/dxᵐ
+      e = simplify(d, expand=true)                          # simplify
+      f = simplify(Antique.P(PT, x, n=n, m=m), expand=true) # closed-form
       # latexify
       eq1 = latexify(e, env=:raw)
       eq2 = latexify(f, env=:raw)
