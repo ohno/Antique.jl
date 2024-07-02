@@ -66,22 +66,30 @@ println(raw"""
 ```""")
 
 @testset "<ψᵢ|ψⱼ> = δᵢⱼ" begin
-  println(" i |  j |        analytical |         numerical ")
-  println("-- | -- | ----------------- | ----------------- ")
-  for i in 0:Int(PT.λ-1)
-  for j in 0:Int(PT.λ-1)
-    analytical = (i == j ? 1 : 0)
-    numerical  = quadgk(x -> conj(ψ(PT, x, n=i)) * ψ(PT, x, n=j), -Inf, Inf, maxevals=10^3)[1]
-    acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-5) : isapprox(analytical, numerical, rtol=1e-5)
-    @test acceptance
-    @printf("%2d | %2d | %17.12f | %17.12f %s\n", i, j, analytical, numerical, acceptance ? "✔" : "✗")
+  println("  λ |   m |   ℏ |  x₀ |  i |  j |        analytical |         numerical ")
+  println("--- | --- | --- | --- | -- | -- | ----------------- | ----------------- ")
+  for λ in [1,2,3]
+  for m in [1.0,2.0,exp(1)]
+  for ℏ in [1.0,2.0,exp(1)]
+  for x₀ in [1.0,2.0,exp(1)]
+    PT = PoschlTeller(λ=λ, m=m, ℏ=ℏ, x₀=x₀)
+    for i in 0:nₘₐₓ(PT)
+    for j in 0:nₘₐₓ(PT)
+      analytical = (i == j ? 1 : 0)
+      numerical  = quadgk(x -> conj(ψ(PT, x, n=i)) * ψ(PT, x, n=j), -Inf, Inf, maxevals=10^3)[1]
+      acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-5) : isapprox(analytical, numerical, rtol=1e-5)
+      @test acceptance
+      @printf("%.1f | %.1f | %.1f | %.1f | %2d | %2d | %17.12f | %17.12f %s\n", λ, m, ℏ, x₀, i, j, analytical, numerical, acceptance ? "✔" : "✗")
+    end
+    end
+  end
+  end
   end
   end
 end
 
 println("""```
 """)
-
 
 
 
@@ -152,20 +160,20 @@ are given by the sum of 2 Taylor series:
 
 @testset "∫ψₙ*Hψₙdx = <ψₙ|H|ψₙ> = Eₙ" begin
   ψHψ(PT, x; n=0, Δx=0.005) = V(PT,x)*ψ(PT,x,n=n)^2 - PT.ℏ^2/(2*PT.m)*conj(ψ(PT,x,n=n))*(ψ(PT,x+Δx,n=n)-2*ψ(PT,x,n=n)+ψ(PT,x-Δx,n=n))/Δx^2
-  println("  λ |  n |   m |   ℏ |  x₀ |        analytical |         numerical ")
-  println("--- | -- | --- | --- | --- | ----------------- | ----------------- ")
+  println("  λ |   m |   ℏ |  x₀ |  n |        analytical |         numerical ")
+  println("--- | --- | --- | --- | -- | ----------------- | ----------------- ")
   for λ in [1,2,3]
-  for n in 0:λ-1
-  for m in [1.0,exp(1)]
-  for ℏ in [1.0,exp(1)]
-  for x₀ in [1.0,exp(1)]
-    PT = PoschlTeller(λ=λ)
-    analytical = E(PT, n=n)
-    numerical  = quadgk(x -> ψHψ(PT, x, n=n, Δx=0.001), -Inf, Inf, atol=1e-4)[1]
-    acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-3) : isapprox(analytical, numerical, rtol=1e-5)
-    @test acceptance
-    @printf("%.1f | %2d | %.1f | %.1f | %.1f |%17.12f | %17.12f %s\n", λ, n, m, ℏ, x₀, analytical, numerical, acceptance ? "✔" : "✗")
-  end
+  for m in [1.0,2.0,exp(1)]
+  for ℏ in [1.0,2.0,exp(1)]
+  for x₀ in [1.0,2.0,exp(1)]
+    PT = PoschlTeller(λ=λ, m=m, ℏ=ℏ, x₀=x₀)
+    for n in 0:λ-1
+      analytical = E(PT, n=n)
+      numerical  = quadgk(x -> ψHψ(PT, x, n=n, Δx=0.001), -Inf, Inf, atol=1e-5)[1]
+      acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-3) : isapprox(analytical, numerical, rtol=1e-5)
+      @test acceptance
+      @printf("%.1f | %.1f | %.1f | %.1f | %2d | %17.12f | %17.12f %s\n", λ, m, ℏ, x₀, n, analytical, numerical, acceptance ? "✔" : "✗")
+    end
   end
   end
   end

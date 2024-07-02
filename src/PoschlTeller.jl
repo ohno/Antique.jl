@@ -10,8 +10,11 @@ end
 
 # potential
 function V(model::PoschlTeller, x)
-  λ = model.λ
-  return -λ*(λ+1)/2/cosh(x)^2
+  λ  = model.λ
+  m  = model.m
+  ℏ  = model.ℏ
+  x₀ = model.x₀
+  return -ℏ^2/(m*x₀^2) * λ*(λ+1)/2 / cosh(x/x₀)^2
 end
 
 # maximum quantum number
@@ -26,12 +29,12 @@ function E(model::PoschlTeller; n::Int=0, nocheck=false)
   if !(0 ≤ n ≤ nₘₐₓ(model) || nocheck)
     throw(DomainError("(n,nₘₐₓ(model)) = ($n,$(nₘₐₓ(model)))", "This function is defined for 0 ≤ n ≤ nₘₐₓ(model)."))
   end
-  λ = model.λ
-  m = model.m
-  ℏ = model.ℏ
+  λ  = model.λ
+  m  = model.m
+  ℏ  = model.ℏ
   x₀ = model.x₀
-  mu = n_max - n + 1
-  return -(mu)^2/2 * ℏ^2/(m*x₀^2)
+  μ  = n_max - n + 1
+  return -ℏ^2/(m*x₀^2) * μ^2/2
 end
 
 # eigenfunctions
@@ -40,9 +43,10 @@ function ψ(model::PoschlTeller, x; n::Int=0)
   if !(0 ≤ n ≤ nₘₐₓ(model))
     throw(DomainError("(n,nₘₐₓ(model)) = ($n,$(nₘₐₓ(model)))", "This function is defined for 0 ≤ n ≤ nₘₐₓ(model)."))
   end
-  λ = model.λ
-  mu = n_max - n + 1
-  return (-1)^mu * P(model,tanh(x),n=Int64(λ),m=mu) * sqrt(mu*gamma(λ-mu+1)/gamma(λ+mu+1))
+  λ  = model.λ
+  x₀ = model.x₀
+  μ  = n_max - n + 1
+  return (-1)^μ / sqrt(x₀) * P(model,tanh(x/x₀),n=Int64(λ),m=μ) * sqrt(μ*gamma(λ-μ+1)/gamma(λ+μ+1))
 end
 
 # associated Legendre polynomials
@@ -53,7 +57,7 @@ end
 # docstrings
 
 @doc raw"""
-`PoschlTeller(λ=1.0, m=1.0, ℏ=1.0, x₀=1.0)`
+`PoschlTeller(λ::Int=1, m=1.0, ℏ=1.0, x₀=1.0)`
 
 ``\lambda`` determines the potential strength. Currently only integer values for ``\lambda`` are supported.
 """ PoschlTeller
@@ -64,12 +68,11 @@ end
 ```math
 \begin{aligned}
 V(x)
-&= -\frac{\hbar^2}{m x_0^2} \frac{\lambda(\lambda+1)}{2}  \mathrm{sech}(x)^2
-&= -\frac{\hbar^2}{m x_0^2} \frac{\lambda(\lambda+1)}{2}  \frac{1}{\mathrm{cosh}(x)^2}.
+&= -\frac{\hbar^2}{m x_0^2} \frac{\lambda(\lambda+1)}{2} \mathrm{sech}^2(x/x_0) \\
+&= -\frac{\hbar^2}{m x_0^2} \frac{\lambda(\lambda+1)}{2} \frac{1}{\mathrm{cosh}^2(x/x_0)} .
 \end{aligned}
 ```
 """ V(model::PoschlTeller, x)
-
 
 @doc raw"""
 `nₘₐₓ(model::PoschlTeller)`
@@ -93,7 +96,7 @@ where ``\mu = \mu(n) = n_\mathrm{max}-n+1``, and ``n_\mathrm{max} = \left\lfloor
 `ψ(model::PoschlTeller, x; n::Int=0)`
 
 ```math
-\psi_n(x) = P_\lambda^{\mu}(\mathrm{tanh}(x/x_0)) \sqrt{\mu\frac{\Gamma(\lambda-\mu+1)}{\Gamma(\lambda+\mu+1)}},
+\psi_n(x) = \frac{(-1)^μ}{\sqrt{x_0}} P_\lambda^{\mu}(\mathrm{tanh}(x/x_0)) \sqrt{\mu\frac{\Gamma(\lambda-\mu+1)}{\Gamma(\lambda+\mu+1)}},
 ```
 where ``\mu = \mu(n) = n_\mathrm{max}-n+1``, and ``n_\mathrm{max} = \left\lfloor \lambda \right\rfloor - 1`` and ``P_\lambda^{\mu}`` are the associated Legendre functions.
 """ ψ(model::PoschlTeller, x; n::Int=0)
@@ -107,7 +110,7 @@ Associated Legendre polynomials are the associated Legendre functions for intege
 \begin{aligned}
 P_n^m(x)
 &= \left( 1-x^2 \right)^{m/2} \frac{\mathrm{d}^m}{\mathrm{d}x^m} P_n(x) \\
-&=  \left( 1-x^2 \right)^{m/2} \frac{\mathrm{d}^m}{\mathrm{d}x^m} \frac{1}{2^n n!} \frac{\mathrm{d}^n}{\mathrm{d}x ^n} \left[ \left( x^2-1 \right)^n \right] \\
+&= \left( 1-x^2 \right)^{m/2} \frac{\mathrm{d}^m}{\mathrm{d}x^m} \frac{1}{2^n n!} \frac{\mathrm{d}^n}{\mathrm{d}x ^n} \left[ \left( x^2-1 \right)^n \right] \\
 &= \frac{1}{2^n} (1-x^2)^{m/2} \sum_{j=0}^{\left\lfloor\frac{n-m}{2}\right\rfloor} (-1)^j \frac{(2n-2j)!}{j! (n-j)! (n-2j-m)!} x^{(n-2j-m)}.
 \end{aligned}
 ```
