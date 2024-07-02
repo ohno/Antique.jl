@@ -82,7 +82,9 @@ with
 ```
 Parameters are specified within the following struct:
 
-`PoschlTeller(λ::Int=1, m=1.0, ℏ=1.0, x₀=1.0)`
+```
+PT = PoschlTeller(λ=1, m=1.0, ℏ=1.0, x₀=1.0)
+```
 
 ``\lambda`` determines the potential strength. Currently only integer values for ``\lambda`` are supported.
 

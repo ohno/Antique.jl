@@ -69,7 +69,9 @@ and the Hamiltonian
 ```
 where $I=\mu R^2$ is the moment of intertia, $\mu=\left(\frac{1}{m_1}+\frac{1}{m_2}\right)^{-1}$ is the reduced mass of two particles, $R$ is the distance between the two particles, and $L^2$ is the angular momentum operator. Parameters are specified with the following struct:
 
-`RigidRotor(m₁=1.0, m₂=1.0, R=1.0, ℏ=1.0)`
+```
+RR = RigidRotor(m₁=1.0, m₂=1.0, R=1.0, ℏ=1.0)
+```
 
 ``m₁`` and ``m₂`` are mass of two particles, ``R`` is the distance, and ``\hbar`` is the reduced Planck constant (Dirac's constant).
 

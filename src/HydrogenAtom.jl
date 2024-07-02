@@ -79,7 +79,9 @@ and the Hamiltonian
 ```
 where $\mu=\left(\frac{1}{m_\mathrm{e}}+\frac{1}{m_\mathrm{p}}\right)^{-1}$ is the reduced mass of electron $\mathrm{e}$ and proton $\mathrm{p}$. $\mu = m_\mathrm{e}$ holds in the limit $m_\mathrm{p}\rightarrow\infty$. The potential includes only Coulomb interaction and it does not include fine or hyperfine interactions in this model. Parameters are specified with the following struct:
 
-`HydrogenAtom(Z=1, mₑ=1.0, a₀=1.0, Eₕ=1.0, ℏ=1.0)`
+```
+HA = HydrogenAtom(Z=1, mₑ=1.0, a₀=1.0, Eₕ=1.0, ℏ=1.0)
+```
 
 ``Z`` is the atomic number, ``m_\mathrm{e}`` is the electron mass, ``a_0``is the Bohr radius, ``E_\mathrm{h}`` is the Hartree energy and ``\hbar`` is the reduced Planck constant (Dirac's constant).
 

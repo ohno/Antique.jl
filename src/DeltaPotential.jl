@@ -41,7 +41,9 @@ and the Hamiltonian
 ```
 Parameters are specified with the following struct:
 
-`DeltaPotential(α=1.0, m=1.0, ℏ=1.0)`
+```
+DP = DeltaPotential(α=1.0, m=1.0, ℏ=1.0)
+```
 
 ``\alpha`` is the potential strength, ``m`` is the mass of particle and ``\hbar`` is the reduced Planck constant (Dirac's constant).
 
