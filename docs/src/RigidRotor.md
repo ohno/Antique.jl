@@ -10,7 +10,7 @@ The linear rigid rotor model can be used in quantum mechanics to predict the rot
 
 This model is described with the time-independent Schrödinger equation
 ```math
-  \hat{H} \psi(\pmb{r}) = E \psi(\pmb{r}),
+  \hat{H} \psi(\theta,\varphi) = E \psi(\theta,\varphi),
 ```
 and the Hamiltonian
 ```math
@@ -52,10 +52,9 @@ Antique.Y(::RigidRotor, ::Any, ::Any)
 Antique.P(::RigidRotor, ::Any)
 ```
 
-#### References
-- Anderson, J.M. Introduction to Quantum Chemistry, 1969, W.A. Benjamin, Inc, p.91-100
+#### Reference
+- [D. A. McQuarrie, J. D. Simon, _Physical chemistry : a molecular approach_ (University Science Books, 1997)](https://uscibooks.aip.org/books/physical-chemistry-a-molecular-approach/) p.173, 5.8 The Energy Levels of a Rigid Rotator Are ``E = \hbar^2 J(J+1) / 2I``
 - [Chemistry Libre Texts](https://chem.libretexts.org/Bookshelves/Physical_and_Theoretical_Chemistry_Textbook_Maps/Physical_Chemistry_(LibreTexts)/05%3A_The_Harmonic_Oscillator_and_the_Rigid_Rotor/5.08%3A_The_Energy_Levels_of_a_Rigid_Rotor)
-
 
 ## Usage & Examples
 
@@ -95,8 +94,8 @@ Wave functions:
 ```@example RR
 using CairoMakie
 
-f = Figure(size=(400,400))
-ax = PolarAxis(f[1,1], title=L"$\theta\mapsto|\psi_{2,1}(\theta,0)|^2$", rticklabelsvisible=false)
+f = Figure(size=(420,300))
+ax = PolarAxis(f[1,1], title=L"$\theta\mapsto|\psi_{2,1}(\theta,0)|^2$", rticklabelsvisible=false, thetalimits=(0,pi))
 lines!(ax, 0..2pi, θ->abs(ψ(RR,θ,0,l=2,m=1))^2, linewidth=2)
 
 f
@@ -105,8 +104,8 @@ f
 ```@example RR
 using CairoMakie
 
-f = Figure(size=(400,400))
-ax = PolarAxis(f[1,1], title=L"$\theta\mapsto|\psi_{lm}(\theta,0)|^2$", rticklabelsvisible=false)
+f = Figure(size=(420,300))
+ax = PolarAxis(f[1,1], title=L"$\theta\mapsto|\psi_{lm}(\theta,0)|^2$", rticklabelsvisible=false, thetalimits=(0,pi))
 l1 = lines!(ax, 0..2pi, θ->abs(ψ(RR,θ,0,l=0,m=0))^2, linewidth=2)
 l2 = lines!(ax, 0..2pi, θ->abs(ψ(RR,θ,0,l=1,m=0))^2, linewidth=2)
 l3 = lines!(ax, 0..2pi, θ->abs(ψ(RR,θ,0,l=1,m=1))^2, linewidth=2)

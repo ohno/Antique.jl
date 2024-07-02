@@ -49,11 +49,11 @@ Antique.ψ(::MorsePotential, ::Any)
 Antique.L(::MorsePotential, ::Any)
 ```
 
-#### References
-- [P. M. Morse, Phys. Rev. 34, 57 (1929)](https://doi.org/10.1103/PhysRev.34.57)
-- [J. P. Dahl, M. Springborg, J. Chem. Phys. 88, 4535 (1988). (62), (63)](https://doi.org/10.1063/1.453761)
-- [W. K. Shao, Y. He, J. Pan, J. Nonlinear Sci. Appl., 9, 5, 3388 (2016). (1.6)](http://dx.doi.org/10.22436/jnsa.009.05.124) 
-- The Digital Library of Mathematical Functions (DLMF) [18.3 Table1](https://dlmf.nist.gov/18.3#T1), [18.5 Table1](https://dlmf.nist.gov/18.5#T1), [18.5.12](https://dlmf.nist.gov/18.5#E12)
+#### Reference
+- [P. M. Morse, _Phys. Rev._, **34**, 57 (1929)](https://doi.org/10.1103/PhysRev.34.57)
+- [J. P. Dahl, M. Springborg, _J. Chem. Phys._, **88**, 4535 (1988). (62), (63)](https://doi.org/10.1063/1.453761)
+- [W. K. Shao, Y. He, J. Pan, _J. Nonlinear Sci. Appl._, **9**, 5, 3388 (2016). (1.6)](http://dx.doi.org/10.22436/jnsa.009.05.124) 
+- The Digital Library of Mathematical Functions (DLMF) [18.3 Table1](https://dlmf.nist.gov/18.3#T1), [18.5 Table1](https://dlmf.nist.gov/18.5#T1), [18.5.12](https://dlmf.nist.gov/18.5#E12), [18.5.17_5](https://dlmf.nist.gov/18.5#E17_5)
 
 ## Usage & Examples
 
