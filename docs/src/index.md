@@ -14,7 +14,7 @@ Run the following code on the REPL or Jupyter Notebook to install this package.
 ]add Antique
 ```
 
-Or specify the version like `]add Antique@0.9.5` to install a specific version. The version of this package can be found at `]status Antique`.
+Or specify the version like `]add Antique@0.9.6` to install a specific version. The version of this package can be found at `]status Antique`.
 
 ## Usage & Examples
 
