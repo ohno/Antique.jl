@@ -296,6 +296,7 @@ Reference:
       @printf("%2d | %2d | %17.12f | %17.12f %s\n", n, l, analytical, numerical, acceptance ? "✔" : "✗")
     end
     end
+    println()
   end
 end
 
@@ -352,6 +353,7 @@ Reference:
       @printf("%2d | %2d | %17.12f | %17.12f %s\n", n, l, analytical, numerical, acceptance ? "✔" : "✗")
     end
     end
+    println()
   end
 end
 
@@ -405,6 +407,7 @@ The virial theorem $2\langle T \rangle + \langle V \rangle = 0$ and the definiti
       @test acceptance
       @printf("%2d | %17.12f | %17.12f %s\n", n, analytical, numerical, acceptance ? "✔" : "✗")
     end
+    println()
   end
 end
 

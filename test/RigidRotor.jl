@@ -152,7 +152,7 @@ where $l$ is angular momentum quantum number and $I$ is the moment of intertia.
       T = l*(l+1)/2/I * YY
       return T 
   end
-  
+
   ℏ=1
   println(" m₁ |  m₂ |  R  |  l  |       analytical  |         numerical ")
   println("--- | --- | --- | --- | ----------------- | ----------------- ")

@@ -55,7 +55,7 @@ where the $\kappa=m\alpha/\hbar^2$ and the integration with the delta function y
       V = -DP.α * ψ(DP, 0)^2
       return T + V
   end
-  
+
   println("  α |   m |   ℏ |        analytical |         numerical ")
   println("--- | --- | --- | ----------------- | ----------------- ")
   for α in [0.1, 0.5, 2.0]
@@ -70,5 +70,5 @@ where the $\kappa=m\alpha/\hbar^2$ and the integration with the delta function y
   end
   end
   end
-  
+
   println("""```""")

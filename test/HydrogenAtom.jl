@@ -358,6 +358,7 @@ The virial theorem $2\langle T \rangle + \langle V \rangle = 0$ and the definiti
       @test acceptance
       @printf("%2d | %17.12e | %17.12e %s\n", n, analytical, numerical, acceptance ? "✔" : "✗")
     end
+    println()
   end
 end
 
