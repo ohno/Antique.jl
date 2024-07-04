@@ -237,20 +237,25 @@ pμ = CoulombTwoBody(z₁=-1, z₂=+1, m₁=mµ, m₂=mp, mₑ=me, a₀=a₀, E�
 ΔE_he = 2/3 / 4 * µ₀ * ℏ^2 * e^2 * ge / me * gh / mp * abs(ψ(he,0,0,0))^2
 ΔE_pµ = 2/3 / 4 * µ₀ * ℏ^2 * e^2 * gµ / mµ * gp / mp * abs(ψ(pµ,0,0,0))^2
 
-println("H \t", ΔE_H  / h / 1e6,  " MHz (Antique.jl + CODATA2018)")
-println("  \t", "1420.405751768(1)  MHz (https://doi.org/10.48550/arXiv.hep-ph/0109128)")
-println("D \t", ΔE_D  / h / 1e6,  " MHz (Antique.jl + CODATA2018)")
-println("  \t", "327.384352522(2)   MHz (https://doi.org/10.48550/arXiv.hep-ph/0109128)")
-println("T \t", ΔE_T  / h / 1e6,  " MHz (Antique.jl + CODATA2018)")
-println("  \t", "1516.701470773(8)  MHz (https://doi.org/10.48550/arXiv.hep-ph/0109128)")
-println("Ps\t", ΔE_Ps / h / 1e6,  " MHz (Antique.jl + CODATA2018)")
-println("  \t", "203391.7(6)        MHz (https://doi.org/10.48550/arXiv.hep-ph/0310099)")
-println("Mu\t", ΔE_Mu / h / 1e6,  "  MHz (Antique.jl + CODATA2018)")
-println("  \t", "4463.30278(5)      MHz (https://doi.org/10.48550/arXiv.hep-ph/0109128)")
-println("³He⁺\t", ΔE_he / h / 1e6,  " MHz (Antique.jl + CODATA2018)")
-println("  \t", "-8665.649867(10)   MHz (https://doi.org/10.48550/arXiv.hep-ph/0109128)")
-println("µp\t", ΔE_pµ / h / 1e12, "  THz (Antique.jl + CODATA2018)")
-println("  \t", 0.182725*eV / h / 1e12 ,"  THz (https://doi.org/10.1119/1.12733, https://doi.org/10.1016/j.nimb.2012.04.001)")
+# Karshenboim(2001) https://doi.org/10.48550/arXiv.hep-ph/0109128
+# Karshenboim(2003) https://doi.org/10.48550/arXiv.hep-ph/0310099
+# Griffiths(1982)   https://doi.org/10.1119/1.12733
+# Adamczak(2012)    https://doi.org/10.1016/j.nimb.2012.04.001
+
+println("H \t", ΔE_H  / h / 1e6,  " MHz\t  Antique.jl + CODATA2018")
+println("  \t", "1420.405751768(1)  MHz\t  Karshenboim(2001)")
+println("D \t", ΔE_D  / h / 1e6,  " MHz\t  Antique.jl + CODATA2018")
+println("  \t", "327.384352522(2)   MHz\t  Karshenboim(2001)")
+println("T \t", ΔE_T  / h / 1e6,  " MHz\t  Antique.jl + CODATA2018")
+println("  \t", "1516.701470773(8)  MHz\t  Karshenboim(2001)")
+println("Ps\t", ΔE_Ps / h / 1e6, "  MHz\t  Antique.jl + CODATA2018")
+println("  \t", "203391.7(6)        MHz\t  Karshenboim(2003)")
+println("Mu\t", ΔE_Mu / h / 1e6, "  MHz\t  Antique.jl + CODATA2018")
+println("  \t", "4463.30278(5)      MHz\t  Karshenboim(2001)")
+println("³He⁺\t", ΔE_he / h / 1e6, " MHz\t  Antique.jl + CODATA2018")
+println("  \t", "-8665.649867(10)   MHz\t  Karshenboim(2001)")
+println("µp\t", ΔE_pµ / h / 1e12, "  THz\t  Antique.jl + CODATA2018")
+println("  \t", 0.182725*eV / h / 1e12 , "  THz\t  Griffiths(1982), Adamczak(2012)")
 ```
 
 ## Testing
