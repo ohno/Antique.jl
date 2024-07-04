@@ -38,7 +38,7 @@ module Antique
   for model in oldmodels
     include("./old/$(model).jl")
   end
-  
+
   # I/O function
   function save(path, text)
     mkpath(dirname(path))

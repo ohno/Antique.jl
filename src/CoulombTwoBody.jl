@@ -85,7 +85,7 @@ end
 # associated Laguerre polynomials
 function L(model::CoulombTwoBody, x; n=0, k=0)
   return sum(m -> (-1)^(m+k) * factorial(n) // (factorial(m) * factorial(m+k) * factorial(n-m-k)) * x^m, 0:n-k)
-end      
+end
 
 # spherical harmonics
 function Y(model::CoulombTwoBody, θ, φ; l=0, m=0)

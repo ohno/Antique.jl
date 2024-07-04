@@ -53,7 +53,7 @@ end
 # associated Laguerre polynomials
 function L(model::HydrogenAtom, x; n=0, k=0)
   return sum(m -> (-1)^(m+k) * factorial(n) // (factorial(m) * factorial(m+k) * factorial(n-m-k)) * x^m, 0:n-k)
-end      
+end
 
 # spherical harmonics
 function Y(model::HydrogenAtom, θ, φ; l=0, m=0)

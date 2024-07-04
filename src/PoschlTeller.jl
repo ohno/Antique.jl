@@ -139,7 +139,7 @@ where ``\mu = \mu(n) = n_\mathrm{max}-n+1``, and ``n_\mathrm{max} = \left\lfloor
 `P(model::PoschlTeller, x; n=0, m=0)`
 
 Associated Legendre polynomials are the associated Legendre functions for integer indices. Here we use the same notation of the associated Legendre functions as in the model HydrogenAtom.
-  
+
 ```math
 \begin{aligned}
 P_n^m(x)
@@ -148,5 +148,5 @@ P_n^m(x)
 &= \frac{1}{2^n} (1-x^2)^{m/2} \sum_{j=0}^{\left\lfloor\frac{n-m}{2}\right\rfloor} (-1)^j \frac{(2n-2j)!}{j! (n-j)! (n-2j-m)!} x^{(n-2j-m)}.
 \end{aligned}
 ```
-  
+
 """ P(model::PoschlTeller, x; n=0, m=0)
