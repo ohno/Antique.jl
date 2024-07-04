@@ -34,7 +34,7 @@ The Hydrogen atom has the symbol $\mathrm{H}$ and atomic number 1 ($Z=1$). There
 
 ```julia
 H = HydrogenAtom(Z=1)
-E(H)
+E(H, n=1)
 # output> -0.5
 ```
 
@@ -42,7 +42,7 @@ The Helium cation has the symbol $\mathrm{He}^+$ and atomic number 2 ($Z=2$). Th
 
 ```julia
 He⁺ = HydrogenAtom(Z=2)
-E(He⁺)
+E(He⁺, n=1)
 # output> -2.0
 ```
 
