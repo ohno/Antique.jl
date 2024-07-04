@@ -3,7 +3,7 @@
 # https://github.com/JuliaLang/julia-logo-graphics
 # https://products.aspose.app/imaging/conversion/svg-to-ico
 
-dir = dirname(@__FILE__) * "/../"
+dir = "$(@__DIR__)/../"
 cd(dir)
 @show pwd()
 using Pkg
@@ -20,13 +20,13 @@ function XY2path(X,Y)
     return path
 end
 
-HA = antique(:HydrogenAtom, Z=1, Eₕ=1.0, a₀=1.0, mₑ=1.0, ℏ=1.0)
+HA = HydrogenAtom(Z=1, Eₕ=1.0, a₀=1.0, mₑ=1.0, ℏ=1.0)
 paths = Dict()
 X = 0.0:0.01:8
-Y1 = X .^2 .* HA.R.(X,n=1) .^2
-Y2 = X .^2 .* HA.R.(X,n=2,l=0) .^2
-Y3 = X .^2 .* HA.R.(X,n=2,l=1) .^2
-Y4 = X .^2 .* HA.R.(X,n=3,l=0) .^2
+Y1 = [x^2 * Antique.R(HA,x,n=1,l=0)^2 for x in X]
+Y2 = [x^2 * Antique.R(HA,x,n=2,l=0)^2 for x in X]
+Y3 = [x^2 * Antique.R(HA,x,n=2,l=1)^2 for x in X]
+Y4 = [x^2 * Antique.R(HA,x,n=3,l=0)^2 for x in X]
 paths[1] = XY2path(X,Y1)
 paths[2] = XY2path(X,Y2)
 paths[3] = XY2path(X,Y3)

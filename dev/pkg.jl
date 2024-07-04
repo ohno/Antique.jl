@@ -1,21 +1,17 @@
 # run on REPL # https://qiita.com/SatoshiTerasaki/items/7dbb809c962e794a9df6
 
-try
-  using PkgTemplates
-catch
-  using Pkg
-  Pkg.add("PkgTemplates")
-  using PkgTemplates
-end
+# using Pkg
+# Pkg.add("PkgTemplates")
+using PkgTemplates
 
 t = Template(;
-  user="ohno",
+  user = "ohno",
   authors = ["Shuhei Ohno"]
   dir = pwd(),
-  julia=v"1",
+  julia = v"1",
   plugins = [
     License(; name = "MIT"),
-    ProjectFile(; version=v"0.0.1"),
+    ProjectFile(; version = v"0.0.1"),
     Git(; manifest = false, ssh = true),
     GitHubActions(;
       extra_versions = ["1.7"]
