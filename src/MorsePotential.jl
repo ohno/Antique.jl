@@ -5,13 +5,14 @@ using SpecialFunctions
 
 # parameters
 @kwdef struct MorsePotential
+  # The simplified parameters for H₂⁺
   # F. M. Fernández, J. Garcia, ChemistrySelect, 6, 9527−9534(2021) https://doi.org/10.1002/slct.202102509
   # CODATA recommended values of the fundamental physical constants: 2018 https://physics.nist.gov/cgi-bin/cuu/Value?mpsme
-  rₑ =  1.997193319969992120068298141276
-  Dₑ = - 0.5 - (-0.602634619106539878727562156289)
-  k = 2*((-1.1026342144949464615+1/2.00) - (-0.602634619106539878727562156289)) / (2.00 - rₑ)^2
-  µ = 1/(1/1836.15267343 + 1/1836.15267343)
-  ℏ = 1.0
+  rₑ = 2.0   # 1.997193319969992120068298141276
+  Dₑ = 0.1   # - 0.5 - (-0.602634619106539878727562156289)
+  k  = 0.1   # 2*((-1.1026342144949464615+1/2.00) - (-0.602634619106539878727562156289)) / (2.00 - rₑ)^2
+  µ  = 918.1 # 1/(1/1836.15267343 + 1/1836.15267343)
+  ℏ  = 1.0
 end
 
 # potential
