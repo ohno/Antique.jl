@@ -133,7 +133,7 @@ ax = Axis(f[1,1], xlabel=L"$r$", ylabel=L"$V(r),~E_n,~\psi_n(r) \times 5 + E_n$"
 # hidespines!(ax)
 # hidedecorations!(ax)
 
-println(nₘₐₓ(MP))
+@show nₘₐₓ(MP)
 
 for n in 0:nₘₐₓ(MP)
   # energy
