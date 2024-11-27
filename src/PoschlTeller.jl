@@ -111,10 +111,12 @@ V(x)
 @doc raw"""
 `nₘₐₓ(model::PoschlTeller)`
 
+!!! note
+    Note that the number of bound states `nₘₐₓ + 1` is not equal to the maximum quantum number `nₘₐₓ`, since we count the ground state from `n=0` in this model.
+
 ```math
 n_\mathrm{max} = \left\lfloor \lambda \right\rfloor - 1.
 ```
-Note that the number of bound states is `nₘₐₓ + 1`, since we count the ground state from `n=0`.
 """ nₘₐₓ(model::PoschlTeller)
 
 @doc raw"""
