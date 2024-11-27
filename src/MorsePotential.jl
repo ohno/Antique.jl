@@ -129,6 +129,9 @@ where ``\omega = \sqrt{k/µ}`` and ``\chi = \frac{\hbar\omega}{4D_\mathrm{e}}`` 
 @doc raw"""
 `nₘₐₓ(model::MorsePotential)`
 
+!!! note
+    Note that the number of bound states is equal to the maximum quantum number `nₘₐₓ`, since we count the ground state from `n=1` in this model.
+
 ```math
 n_\mathrm{max} = \left\lfloor \frac{2 D_e - \omega}{\omega} \right\rfloor,
 ```
