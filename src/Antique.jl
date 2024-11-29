@@ -22,6 +22,12 @@ module Antique
     include("./$(model).jl")
   end
 
+  # override Base.string and Base.show
+  for model in Antique.models
+    Base.string(t::eval(Symbol(model))) = "Antique.$(typeof(t))(" * join(["$(symbol)=$(getproperty(t,symbol))" for symbol in fieldnames(typeof(t))], ", ") * ")"
+    Base.show(io::IO, t::eval(Symbol(model))) = print(io, Base.string(t))
+  end
+
   # --------------- for old version ---------------
 
   export antique
