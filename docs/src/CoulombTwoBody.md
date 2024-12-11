@@ -258,6 +258,39 @@ println("µp\t", ΔE_pµ / h / 1e12, "  THz\t  Antique.jl + CODATA2018")
 println("  \t", 0.182725*eV / h / 1e12 , "  THz\t  Griffiths(1982), Adamczak(2012)")
 ```
 
+
+1S wave function of Ps:
+
+```@example HA
+import Antique
+Ps = Antique.CoulombTwoBody(z₁=-1, z₂=1, m₁=1.0, m₂=1.0, mₑ=1.0, a₀=1.0, Eₕ=1.0, ℏ=1.0)
+@show Antique.E(Ps)
+
+using CairoMakie
+
+fig = Figure(
+    size = (420,300),
+    fontsize = 11.5,
+    backgroundcolor = :transparent
+)
+
+ax = Axis(
+    fig[1,1],
+    xlabel = L"$r / a_0$",
+    ylabel = L"$\psi(r) / a_0^{-3/2}$",
+    ylabelsize = 16.5,
+    xlabelsize = 16.5,
+)
+
+lines!(ax, 0..10, r -> exp(-r/2)/sqrt(8π), label="exp(-r/2)/sqrt(8π)")
+lines!(ax, 0..2, r -> (1-r/2)/sqrt(8π), label="(1-r/2)/sqrt(8π)")
+lines!(ax, 0..10, r -> abs(Antique.ψ(Ps,r,0,0)), linestyle=:dash, color=:black, label="Antique.jl")
+
+axislegend(ax, position=:rt, framevisible=false)
+
+fig
+```
+
 ## Testing
 
 Unit testing and Integration testing were done using computer algebra system ([Symbolics.jl](https://symbolics.juliasymbolics.org/stable/)) and numerical integration ([QuadGK.jl](https://juliamath.github.io/QuadGK.jl/stable/)). The test script is [here](https://github.com/ohno/Antique.jl/blob/main/test/CoulombTwoBody.jl).

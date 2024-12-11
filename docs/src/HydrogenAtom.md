@@ -118,6 +118,38 @@ lines!(ax, 0.1:0.01:20, r -> V(H, r))
 f
 ```
 
+1S wave function:
+
+```@example HA
+import Antique
+H = Antique.HydrogenAtom(Z=1, mₑ=1.0, a₀=1.0, Eₕ=1.0, ℏ=1.0)
+@show Antique.E(H)
+
+using CairoMakie
+
+fig = Figure(
+    size = (420,300),
+    fontsize = 11.5,
+    backgroundcolor = :transparent
+)
+
+ax = Axis(
+    fig[1,1],
+    xlabel = L"$r / a_0$",
+    ylabel = L"$\psi(r) / a_0^{-3/2}$",
+    ylabelsize = 16.5,
+    xlabelsize = 16.5,
+)
+
+lines!(ax, 0..5, r -> exp(-r)/sqrt(π), label="exp(-r)/sqrt(π)")
+lines!(ax, 0..1, r -> (1-r)/sqrt(π), label="(1-r)/sqrt(π)")
+lines!(ax, 0..5, r -> abs(Antique.ψ(H,r,0,0)), linestyle=:dash, color=:black, label="Antique.jl")
+
+axislegend(ax, position=:rt, framevisible=false)
+
+fig
+```
+
 Radial functions:
 
 ```@example HA
