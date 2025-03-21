@@ -154,6 +154,9 @@ The domain is $0\leq r \lt \infty$.
 @doc raw"""
 `L(model::HydrogenAtom, x; n=0, k=0)`
 
+!!! note
+    The associated Laguerre polynomials $L_n^{k}(x)$, not the generalized Laguerre polynomials $L_n^{(\alpha)}(x)$, are used in this model.
+
 Rodrigues' formula & closed-form:
 ```math
 \begin{aligned}

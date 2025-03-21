@@ -180,6 +180,9 @@ where ``\frac{1}{\mu} = \frac{1}{m_1}+\frac{1}{m_2}``, ``a_\mu = a_0 \frac{m_\ma
 @doc raw"""
 `L(model::CoulombTwoBody, x; n=0, k=0)`
 
+!!! note
+    The associated Laguerre polynomials $L_n^{k}(x)$, not the generalized Laguerre polynomials $L_n^{(\alpha)}(x)$, are used in this model.
+
 Rodrigues' formula & closed-form:
 ```math
 \begin{aligned}
