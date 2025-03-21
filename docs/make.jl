@@ -1,6 +1,7 @@
 using Antique
-using Documenter
 using CairoMakie
+using Documenter
+using LaTeXStrings
 
 DocMeta.setdocmeta!(Antique, :DocTestSetup, :(using Antique); recursive=true)
 
@@ -16,11 +17,11 @@ makedocs(;
     repolink="https://github.com/ohno/Antique.jl",
     assets=String[
       "./assets/fig/logo.ico",
-      "./assets/css/catalog.css"
+      "./assets/css/catalog.css",
     ],
   ),
   pages=[
-    "Home" => "index.md",
+    "Home"                         => "index.md"                  ,
     "Delta Potential"              => "DeltaPotential.md"         ,
     "Infinite Potential Well"      => "InfinitePotentialWell.md"  ,
     "Harmonic Oscillator"          => "HarmonicOscillator.md"     ,
@@ -31,7 +32,7 @@ makedocs(;
     "Spherical Oscillator"         => "SphericalOscillator.md"    ,
     "Hydrogen Atom"                => "HydrogenAtom.md"           ,
     "Coulomb 2-Body System"        => "CoulombTwoBody.md"         ,
-    # "API reference"              => "API.md"                    ,
+    "API reference"                => "API.md"                    ,
   ],
 )
 
