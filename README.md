@@ -71,9 +71,7 @@ using LinearAlgebra
 α = [13.00773, 1.962079, 0.444529, 0.1219492] 
 nₘₐₓ = length(α)
 S = [(pi/(α[i]+α[j]))^(3/2) for i=1:nₘₐₓ, j=1:nₘₐₓ]
-T = [3*pi^(3/2)*α[i]*α[j]/(α[i]+α[j])^(5/2) for i=1:nₘₐₓ, j=1:nₘₐₓ]
-V = [-2*pi/(α[i]+α[j]) for i=1:nₘₐₓ, j=1:nₘₐₓ]
-H = T + V
+H = [3*pi^(3/2)*α[i]*α[j]/(α[i]+α[j])^(5/2) - 2*pi/(α[i]+α[j]) for i=1:nₘₐₓ, j=1:nₘₐₓ]
 E, C = eigen(Symmetric(H),Symmetric(S))
 
 # norm & energy
