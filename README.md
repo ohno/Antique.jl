@@ -4,7 +4,7 @@
 [![Stable](https://img.shields.io/badge/docs-stable-blue.svg)](https://ohno.github.io/Antique.jl/stable/)
 [![Dev](https://img.shields.io/badge/docs-dev-blue.svg)](https://ohno.github.io/Antique.jl/dev/)
 
-Self-contained, well-tested, well-documented **An**aly**ti**cal Solutions of **Qu**antum Mechanical **E**quations.
+Antique.jl provides self-contained, well-tested, and well-documented implementations of **an**aly**ti**cal solutions to solvable **qu**antum m**e**chanical models. Analytical solutions are the most reliable benchmarks for software testing in the development of numerical methods. In addition to testing numerical methods, this package is useful for teaching quantum mechanics. We aim to support researchers, lecturers, students, and any person who is interested in quantum mechanics.
 
 ## Install
 
