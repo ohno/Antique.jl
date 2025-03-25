@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Rigid Rotor · Antique.jl</title><meta name="title" content="Rigid Rotor · Antique.jl"/><meta property="og:title" content="Rigid Rotor · Antique.jl"/><meta property="twitter:title" content="Rigid Rotor · Antique.jl"/><meta name="description" content="Documentation for Antique.jl."/><meta property="og:description" content="Documentation for Antique.jl."/><meta property="twitter:description" content="Documentation for Antique.jl."/><meta property="og:url" content="https://ohno.github.io/Antique.jl/RigidRotor/"/><meta property="twitter:url" content="https://ohno.github.io/Antique.jl/RigidRotor/"/><link rel="canonical" href="https://ohno.github.io/Antique.jl/RigidRotor/"/><script data-outdated-warner src="../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.050/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL=".."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../assets/documenter.js"></script><script src="../search_index.js"></script><script src="../siteinfo.js"></script><script src="../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-mocha.css" data-theme-name="catppuccin-mocha"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-macchiato.css" data-theme-name="catppuccin-macchiato"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-frappe.css" data-theme-name="catppuccin-frappe"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-latte.css" data-theme-name="catppuccin-latte"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../assets/themeswap.js"></script><link href="../assets/fig/logo.ico" rel="icon" type="image/x-icon"/><link href="../assets/css/catalog.css" rel="stylesheet" type="text/css"/></head><body><div id="documenter"><nav class="docs-sidebar"><a class="docs-logo" href="../"><img src="../assets/logo.svg" alt="Antique.jl logo"/></a><div class="docs-package-name"><span class="docs-autofit"><a href="../">Antique.jl</a></span></div><button class="docs-search-query input is-rounded is-small is-clickable my-2 mx-auto py-1 px-2" id="documenter-search-query">Search docs (Ctrl + /)</button><ul class="docs-menu"><li><a class="tocitem" href="../">Home</a></li><li><a class="tocitem" href="../DeltaPotential/">Delta Potential</a></li><li><a class="tocitem" href="../InfinitePotentialWell/">Infinite Potential Well</a></li><li><a class="tocitem" href="../HarmonicOscillator/">Harmonic Oscillator</a></li><li><a class="tocitem" href="../MorsePotential/">Morse Potential</a></li><li><a class="tocitem" href="../PoschlTeller/">Pöschl-Teller Potential</a></li><li class="is-active"><a class="tocitem" href>Rigid Rotor</a><ul class="internal"><li><a class="tocitem" href="#Definitions"><span>Definitions</span></a></li><li><a class="tocitem" href="#Usage-and-Examples"><span>Usage &amp; Examples</span></a></li><li><a class="tocitem" href="#Testing"><span>Testing</span></a></li></ul></li><li><a class="tocitem" href="../InfinitePotentialWell3D/">Infinite Potential Well 3D</a></li><li><a class="tocitem" href="../SphericalOscillator/">Spherical Oscillator</a></li><li><a class="tocitem" href="../HydrogenAtom/">Hydrogen Atom</a></li><li><a class="tocitem" href="../CoulombTwoBody/">Coulomb 2-Body System</a></li><li><a class="tocitem" href="../API/">API reference</a></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><a class="docs-sidebar-button docs-navbar-link fa-solid fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a><nav class="breadcrumb"><ul class="is-hidden-mobile"><li class="is-active"><a href>Rigid Rotor</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Rigid Rotor</a></li></ul></nav><div class="docs-right"><a class="docs-navbar-link" href="https://github.com/ohno/Antique.jl" title="View the repository on GitHub"><span class="docs-icon fa-brands"></span><span class="docs-label is-hidden-touch">GitHub</span></a><a class="docs-navbar-link" href="https://github.com/ohno/Antique.jl/blob/main/docs/src/RigidRotor.md#" title="Edit source on GitHub"><span class="docs-icon fa-solid"></span></a><a class="docs-settings-button docs-navbar-link fa-solid fa-gear" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-article-toggle-button fa-solid fa-chevron-up" id="documenter-article-toggle-button" href="javascript:;" title="Collapse all docstrings"></a></div></header><article class="content" id="documenter-page"><h1 id="Rigid-rotor"><a class="docs-heading-anchor" href="#Rigid-rotor">Rigid rotor</a><a id="Rigid-rotor-1"></a><a class="docs-heading-anchor-permalink" href="#Rigid-rotor" title="Permalink"></a></h1><p>The linear rigid rotor model can be used in quantum mechanics to predict the rotational energy of a diatomic molecule. The rotational energy depends on the moment of inertia for the system, <span>$I$</span>.</p><h2 id="Definitions"><a class="docs-heading-anchor" href="#Definitions">Definitions</a><a id="Definitions-1"></a><a class="docs-heading-anchor-permalink" href="#Definitions" title="Permalink"></a></h2><article class="docstring"><header><a class="docstring-article-toggle-button fa-solid fa-chevron-down" href="javascript:;" title="Collapse docstring"></a><a class="docstring-binding" id="Antique.RigidRotor-RigidRotor" href="#Antique.RigidRotor-RigidRotor"><code>Antique.RigidRotor</code></a> — <span class="docstring-category">Type</span><span class="is-flex-grow-1 docstring-article-toggle-button" title="Collapse docstring"></span></header><section><div><p><strong>Model</strong></p><p>This model is described with the time-independent Schrödinger equation</p><p class="math-container">\[  \hat{H} \psi(\theta,\varphi) = E \psi(\theta,\varphi),\]</p><p>and the Hamiltonian</p><p class="math-container">\[\begin{aligned}
+  \hat{H} &amp;= - \frac{\hbar^2}{2\mu} \nabla^2 + V(r), \\
+          &amp;= - \frac{\hbar^2}{2I} \left[ \frac{1}{\sin\theta} \frac{\partial}{\partial\theta} \left(\sin\theta \frac{\partial}{\partial\theta}\right) + \frac{1}{\sin^2\theta} \frac{\partial^2}{\partial\phi^2}  \right], \\
+          &amp;= \frac{L^2}{2I}
+\end{aligned}\]</p><p>where <span>$I=\mu R^2$</span> is the moment of intertia, <span>$\mu=\left(\frac{1}{m_1}+\frac{1}{m_2}\right)^{-1}$</span> is the reduced mass of two particles, <span>$R$</span> is the distance between the two particles, and <span>$L^2$</span> is the angular momentum operator. Parameters are specified with the following struct:</p><pre><code class="nohighlight hljs">RR = RigidRotor(m₁=1.0, m₂=1.0, R=1.0, ℏ=1.0)</code></pre><p><span>$m₁$</span> and <span>$m₂$</span> are mass of two particles, <span>$R$</span> is the distance, and <span>$\hbar$</span> is the reduced Planck constant (Dirac&#39;s constant).</p><p><strong>References</strong></p><ul><li><a href="https://uscibooks.aip.org/books/physical-chemistry-a-molecular-approach/">D. A. McQuarrie, J. D. Simon, <em>Physical chemistry : a molecular approach</em> (University Science Books, 1997)</a> p.173, 5.8 The Energy Levels of a Rigid Rotator Are <span>$E = \hbar^2 J(J+1) / 2I$</span></li><li><a href="https://chem.libretexts.org/Bookshelves/Physical_and_Theoretical_Chemistry_Textbook_Maps/Physical_Chemistry_(LibreTexts)/05%3A_The_Harmonic_Oscillator_and_the_Rigid_Rotor/5.08%3A_The_Energy_Levels_of_a_Rigid_Rotor">Chemistry Libre Texts</a></li></ul></div><a class="docs-sourcelink" target="_blank" href="https://github.com/ohno/Antique.jl/blob/652244e77c5369ca02b40020bbfc51a1c55f45d6/src/RigidRotor.jl#L57-L84">source</a></section></article><h4 id="Potential"><a class="docs-heading-anchor" href="#Potential">Potential</a><a id="Potential-1"></a><a class="docs-heading-anchor-permalink" href="#Potential" title="Permalink"></a></h4><article class="docstring"><header><a class="docstring-article-toggle-button fa-solid fa-chevron-down" href="javascript:;" title="Collapse docstring"></a><a class="docstring-binding" id="Antique.V-Tuple{RigidRotor, Any}-RigidRotor" href="#Antique.V-Tuple{RigidRotor, Any}-RigidRotor"><code>Antique.V</code></a> — <span class="docstring-category">Method</span><span class="is-flex-grow-1 docstring-article-toggle-button" title="Collapse docstring"></span></header><section><div><p><code>V(model::RigidRotor, r)</code></p><p class="math-container">\[\begin{aligned}
+  V(r)
+  &amp;= 0,
+\end{aligned}\]</p></div><a class="docs-sourcelink" target="_blank" href="https://github.com/ohno/Antique.jl/blob/652244e77c5369ca02b40020bbfc51a1c55f45d6/src/RigidRotor.jl#L86-L95">source</a></section></article><h4 id="Eigenvalues"><a class="docs-heading-anchor" href="#Eigenvalues">Eigenvalues</a><a id="Eigenvalues-1"></a><a class="docs-heading-anchor-permalink" href="#Eigenvalues" title="Permalink"></a></h4><article class="docstring"><header><a class="docstring-article-toggle-button fa-solid fa-chevron-down" href="javascript:;" title="Collapse docstring"></a><a class="docstring-binding" id="Antique.E-Tuple{RigidRotor}-RigidRotor" href="#Antique.E-Tuple{RigidRotor}-RigidRotor"><code>Antique.E</code></a> — <span class="docstring-category">Method</span><span class="is-flex-grow-1 docstring-article-toggle-button" title="Collapse docstring"></span></header><section><div><p><code>E(model::RigidRotor; l::Int=0)</code></p><p class="math-container">\[E_l
+= \frac{\hbar^2}{2I}l(l+1),\]</p><p>where <span>$I=\mu R^2$</span> is the moment of inertia, <span>$R$</span> is the distance, and <span>$\mu$</span> is the reduced mass of the two particles.</p></div><a class="docs-sourcelink" target="_blank" href="https://github.com/ohno/Antique.jl/blob/652244e77c5369ca02b40020bbfc51a1c55f45d6/src/RigidRotor.jl#L97-L105">source</a></section></article><h4 id="Eigenfunctions"><a class="docs-heading-anchor" href="#Eigenfunctions">Eigenfunctions</a><a id="Eigenfunctions-1"></a><a class="docs-heading-anchor-permalink" href="#Eigenfunctions" title="Permalink"></a></h4><article class="docstring"><header><a class="docstring-article-toggle-button fa-solid fa-chevron-down" href="javascript:;" title="Collapse docstring"></a><a class="docstring-binding" id="Antique.ψ-Tuple{RigidRotor, Any, Any}-RigidRotor" href="#Antique.ψ-Tuple{RigidRotor, Any, Any}-RigidRotor"><code>Antique.ψ</code></a> — <span class="docstring-category">Method</span><span class="is-flex-grow-1 docstring-article-toggle-button" title="Collapse docstring"></span></header><section><div><p><code>ψ(model::RigidRotor, θ, φ; l::Int=0, m::Int=0)</code></p><p class="math-container">\[\psi_{lm}(\theta,\varphi) = Y_{lm}(\theta,\varphi)\]</p><p>The wave function is the spherical harmonics. The domain is <span>$0\leq \theta \lt \pi$</span> and <span>$0\leq \varphi \lt 2\pi$</span>.</p></div><a class="docs-sourcelink" target="_blank" href="https://github.com/ohno/Antique.jl/blob/652244e77c5369ca02b40020bbfc51a1c55f45d6/src/RigidRotor.jl#L107-L114">source</a></section></article><h4 id="Spherical-Harmonics"><a class="docs-heading-anchor" href="#Spherical-Harmonics">Spherical Harmonics</a><a id="Spherical-Harmonics-1"></a><a class="docs-heading-anchor-permalink" href="#Spherical-Harmonics" title="Permalink"></a></h4><article class="docstring"><header><a class="docstring-article-toggle-button fa-solid fa-chevron-down" href="javascript:;" title="Collapse docstring"></a><a class="docstring-binding" id="Antique.Y-Tuple{RigidRotor, Any, Any}-RigidRotor" href="#Antique.Y-Tuple{RigidRotor, Any, Any}-RigidRotor"><code>Antique.Y</code></a> — <span class="docstring-category">Method</span><span class="is-flex-grow-1 docstring-article-toggle-button" title="Collapse docstring"></span></header><section><div><p><code>Y(model::RigidRotor, θ, φ; l=0, m=0)</code></p><p class="math-container">\[Y_{lm}(\theta,\varphi) = (-1)^{\frac{|m|+m}{2}} \sqrt{\frac{2l+1}{4\pi} \frac{(l-|m|)!}{(l+|m|)!}} P_l^{|m|} (\cos\theta) \mathrm{e}^{im\varphi}.\]</p><p>The domain is <span>$0\leq \theta \lt \pi, 0\leq \varphi \lt 2\pi$</span>. Note that some variants are connected by </p><p class="math-container">\[i^{|m|+m} \sqrt{\frac{(l-|m|)!}{(l+|m|)!}} P_l^{|m|} = (-1)^{\frac{|m|+m}{2}} \sqrt{\frac{(l-|m|)!}{(l+|m|)!}} P_l^{|m|} = (-1)^m \sqrt{\frac{(l-m)!}{(l+m)!}} P_l^{m}.\]</p></div><a class="docs-sourcelink" target="_blank" href="https://github.com/ohno/Antique.jl/blob/652244e77c5369ca02b40020bbfc51a1c55f45d6/src/RigidRotor.jl#L116-L127">source</a></section></article><h4 id="Associated-Legendre-Polynomials"><a class="docs-heading-anchor" href="#Associated-Legendre-Polynomials">Associated Legendre Polynomials</a><a id="Associated-Legendre-Polynomials-1"></a><a class="docs-heading-anchor-permalink" href="#Associated-Legendre-Polynomials" title="Permalink"></a></h4><article class="docstring"><header><a class="docstring-article-toggle-button fa-solid fa-chevron-down" href="javascript:;" title="Collapse docstring"></a><a class="docstring-binding" id="Antique.P-Tuple{RigidRotor, Any}-RigidRotor" href="#Antique.P-Tuple{RigidRotor, Any}-RigidRotor"><code>Antique.P</code></a> — <span class="docstring-category">Method</span><span class="is-flex-grow-1 docstring-article-toggle-button" title="Collapse docstring"></span></header><section><div><p><code>P(model::RigidRotor, x; n=0, m=0)</code></p><p>Rodrigues&#39; formula &amp; closed-form:</p><p class="math-container">\[\begin{aligned}
+  P_n^m(x)
+  &amp;= \left( 1-x^2 \right)^{m/2} \frac{\mathrm{d}^m}{\mathrm{d}x^m} P_n(x) \\
+  &amp;= \left( 1-x^2 \right)^{m/2} \frac{\mathrm{d}^m}{\mathrm{d}x^m} \frac{1}{2^n n!} \frac{\mathrm{d}^n}{\mathrm{d}x ^n} \left[ \left( x^2-1 \right)^n \right] \\
+  &amp;= \frac{1}{2^n} (1-x^2)^{m/2} \sum_{j=0}^{\left\lfloor\frac{n-m}{2}\right\rfloor} (-1)^j \frac{(2n-2j)!}{j! (n-j)! (n-2j-m)!} x^{(n-2j-m)}.
+\end{aligned},\]</p><p>where Legendre polynomials are defined as <span>$P_n(x) = \frac{1}{2^n n!} \frac{\mathrm{d}^n}{\mathrm{d}x ^n} \left[ \left( x^2-1 \right)^n \right]$</span>. Note that <span>$P_l^{-m} = (-1)^m \frac{(l-m)!}{(l+m)!} P_l^m$</span> for <span>$m&lt;0$</span>. (It is not compatible with <span>$P_k^m(t) = (-1)^m\left( 1-t^2 \right)^{m/2} \frac{\mathrm{d}^m P_k(t)}{\mathrm{d}t^m}$</span> caused by <span>$(-1)^m$</span>.) The specific formulae are given below.</p><p>Examples:</p><p class="math-container">\[\begin{aligned}
+  P_{0}^{0}(x) &amp;= 1, \\
+  P_{1}^{0}(x) &amp;= x, \\
+  P_{1}^{1}(x) &amp;= \left(+1\right)\sqrt{1-x^2}, \\
+  P_{2}^{0}(x) &amp;= -1/2 + 3/2 x^{2}, \\
+  P_{2}^{1}(x) &amp;= \left(-3 x\right)\sqrt{1-x^2}, \\
+  P_{2}^{2}(x) &amp;= 3 - 6 x, \\
+  P_{3}^{0}(x) &amp;= -3/2 x + 5/2 x^{3}, \\
+  P_{3}^{1}(x) &amp;= \left(3/2 - 15/2 x^{2}\right)\sqrt{1-x^2}, \\
+  P_{3}^{2}(x) &amp;= 15 x - 30 x^{2}, \\
+  P_{3}^{3}(x) &amp;= \left(15 - 30 x\right)\sqrt{1-x^2}, \\
+  P_{4}^{0}(x) &amp;= 3/8 - 15/4 x^{2} + 35/8 x^{4}, \\
+  P_{4}^{1}(x) &amp;= \left(- 15/2 x + 35/2 x^{3}\right)\sqrt{1-x^2}, \\
+  P_{4}^{2}(x) &amp;= -15/2 + 15 x + 105/2 x^{2} - 105 x^{3}, \\
+  P_{4}^{3}(x) &amp;= \left(105 x - 210 x^{2}\right)\sqrt{1-x^2}, \\
+  P_{4}^{4}(x) &amp;= 105 - 420 x + 420 x^{2}, \\
+  &amp; \vdots
+\end{aligned}\]</p></div><a class="docs-sourcelink" target="_blank" href="https://github.com/ohno/Antique.jl/blob/652244e77c5369ca02b40020bbfc51a1c55f45d6/src/RigidRotor.jl#L129-L164">source</a></section></article><h2 id="Usage-and-Examples"><a class="docs-heading-anchor" href="#Usage-and-Examples">Usage &amp; Examples</a><a id="Usage-and-Examples-1"></a><a class="docs-heading-anchor-permalink" href="#Usage-and-Examples" title="Permalink"></a></h2><p><a href="../#Install">Install Antique.jl</a> for the first use and run <code>using Antique</code> before each use. The energy <code>E()</code>, wavefunction <code>ψ()</code> and potential <code>V()</code> will be exported. In this system, the model is generated by <code>RigidRotor</code> and several parameters <code>m₁</code>, <code>m₂</code>, <code>R</code> and <code>ℏ</code> are set as optional arguments.</p><pre><code class="language-julia hljs">using Antique
+RR = RigidRotor(m₁=1.0, m₂=1.0, R=1.0, ℏ=1.0)</code></pre><p>Parameters:</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; RR.m₁</code><code class="nohighlight hljs ansi" style="display:block;">1.0</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; RR.m₂</code><code class="nohighlight hljs ansi" style="display:block;">1.0</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; RR.R</code><code class="nohighlight hljs ansi" style="display:block;">1.0</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; RR.ℏ</code><code class="nohighlight hljs ansi" style="display:block;">1.0</code></pre><p>Eigenvalues:</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; E(RR, l=0)</code><code class="nohighlight hljs ansi" style="display:block;">0.0</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; E(RR, l=1)</code><code class="nohighlight hljs ansi" style="display:block;">2.0</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; E(RR, l=2)</code><code class="nohighlight hljs ansi" style="display:block;">6.0</code></pre><p>Wave functions:</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; ψ(RR, 0, 0, l=2, m=1)</code><code class="nohighlight hljs ansi" style="display:block;">-0.0 - 0.0im</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; ψ(RR, π/4, 0, l=2, m=1)</code><code class="nohighlight hljs ansi" style="display:block;">-0.38627420202318963 - 0.0im</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; ψ(RR, π/4, π/2, l=2, m=1)</code><code class="nohighlight hljs ansi" style="display:block;">-2.3652473255044865e-17 - 0.38627420202318963im</code></pre><pre><code class="language-julia hljs">using CairoMakie
+
+f = Figure(size=(420,300))
+ax = PolarAxis(f[1,1], title=L&quot;$\theta\mapsto|\psi_{2,1}(\theta,0)|^2$&quot;, rticklabelsvisible=false, thetalimits=(0,pi))
+lines!(ax, 0..2pi, θ-&gt;abs(ψ(RR,θ,0,l=2,m=1))^2, linewidth=2)
+
+f</code></pre><img src="45688de5.png" alt="Example block output"/><pre><code class="language-julia hljs">using CairoMakie
+
+f = Figure(size=(420,300))
+ax = PolarAxis(f[1,1], title=L&quot;$\theta\mapsto|\psi_{lm}(\theta,0)|^2$&quot;, rticklabelsvisible=false, thetalimits=(0,pi))
+l1 = lines!(ax, 0..2pi, θ-&gt;abs(ψ(RR,θ,0,l=0,m=0))^2, linewidth=2)
+l2 = lines!(ax, 0..2pi, θ-&gt;abs(ψ(RR,θ,0,l=1,m=0))^2, linewidth=2)
+l3 = lines!(ax, 0..2pi, θ-&gt;abs(ψ(RR,θ,0,l=1,m=1))^2, linewidth=2)
+l4 = lines!(ax, 0..2pi, θ-&gt;abs(ψ(RR,θ,0,l=2,m=1))^2, linewidth=2)
+Legend(f[2,1], [l1,l2,l3,l4], [L&quot;(l,m)=(0,0)&quot;,L&quot;(1,0)&quot;,L&quot;(1,1)&quot;,L&quot;(2,1)&quot;], framevisible=false, orientation=:horizontal, tellwidth=false, tellheight=true)
+
+f</code></pre><p><img src="../assets/fig/RigidRotor.png" alt/></p><h2 id="Testing"><a class="docs-heading-anchor" href="#Testing">Testing</a><a id="Testing-1"></a><a class="docs-heading-anchor-permalink" href="#Testing" title="Permalink"></a></h2><p>Unit testing and Integration testing were done using computer algebra system (<a href="https://symbolics.juliasymbolics.org/stable/">Symbolics.jl</a>) and numerical integration (<a href="https://juliamath.github.io/QuadGK.jl/stable/">QuadGK.jl</a>). The test script is <a href="https://github.com/ohno/Antique.jl/blob/main/test/RigidRotor.jl">here</a>.</p><h4>Associated Legendre Polynomials <span>$P_n^m(x)$</span></h4><p class="math-container">\[  \begin{aligned}
+    P_n^m(x)
+    &amp;= \left( 1-x^2 \right)^{m/2} \frac{\mathrm{d}^m}{\mathrm{d}x^m} P_n(x) \\
+    &amp;= \left( 1-x^2 \right)^{m/2} \frac{\mathrm{d}^m}{\mathrm{d}x^m} \frac{1}{2^n n!} \frac{\mathrm{d}^n}{\mathrm{d}x ^n} \left[ \left( x^2-1 \right)^n \right] \\
+    &amp;= \frac{1}{2^n} (1-x^2)^{m/2} \sum_{j=0}^{\left\lfloor\frac{n-m}{2}\right\rfloor} (-1)^j \frac{(2n-2j)!}{j! (n-j)! (n-2j-m)!} x^{(n-2j-m)}.
+  \end{aligned}\]</p><p><span>$n=0, m=0:$</span> ✔</p><p class="math-container">\[\begin{aligned}
+  P_{0}^{0}(x)
+    = 1
+  &amp;= 1 \\
+  &amp;= 1
+\end{aligned}\]</p><p><span>$n=1, m=0:$</span> ✔</p><p class="math-container">\[\begin{aligned}
+  P_{1}^{0}(x)
+    = \frac{1}{2} \frac{\mathrm{d}}{\mathrm{d}x} \left( -1 + x^{2} \right)
+  &amp;= x \\
+  &amp;= x
+\end{aligned}\]</p><p><span>$n=1, m=1:$</span> ✔</p><p class="math-container">\[\begin{aligned}
+  P_{1}^{1}(x)
+    = \left( 1 - x^{2} \right)^{\frac{1}{2}} \frac{\mathrm{d}}{\mathrm{d}x} \frac{1}{2} \frac{\mathrm{d}}{\mathrm{d}x} \left( -1 + x^{2} \right)
+  &amp;= \left( 1 - x^{2} \right)^{\frac{1}{2}} \\
+  &amp;= \left( 1 - x^{2} \right)^{\frac{1}{2}}
+\end{aligned}\]</p><p><span>$n=2, m=0:$</span> ✔</p><p class="math-container">\[\begin{aligned}
+  P_{2}^{0}(x)
+    = \frac{1}{8} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \left( -1 + x^{2} \right)^{2}
+  &amp;= \frac{-1}{2} + \frac{3}{2} x^{2} \\
+  &amp;= \frac{-1}{2} + \frac{3}{2} x^{2}
+\end{aligned}\]</p><p><span>$n=2, m=1:$</span> ✔</p><p class="math-container">\[\begin{aligned}
+  P_{2}^{1}(x)
+    = \left( 1 - x^{2} \right)^{\frac{1}{2}} \frac{\mathrm{d}}{\mathrm{d}x} \frac{1}{8} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \left( -1 + x^{2} \right)^{2}
+  &amp;= 3 \left( 1 - x^{2} \right)^{\frac{1}{2}} x \\
+  &amp;= 3 \left( 1 - x^{2} \right)^{\frac{1}{2}} x
+\end{aligned}\]</p><p><span>$n=2, m=2:$</span> ✔</p><p class="math-container">\[\begin{aligned}
+  P_{2}^{2}(x)
+    = \left( 1 - x^{2} \right) \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{1}{8} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \left( -1 + x^{2} \right)^{2}
+  &amp;= 3 - 3 x^{2} \\
+  &amp;= 3 - 3 x^{2}
+\end{aligned}\]</p><p><span>$n=3, m=0:$</span> ✔</p><p class="math-container">\[\begin{aligned}
+  P_{3}^{0}(x)
+    = \frac{1}{48} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \left( -1 + x^{2} \right)^{3}
+  &amp;=  - \frac{3}{2} x + \frac{5}{2} x^{3} \\
+  &amp;=  - \frac{3}{2} x + \frac{5}{2} x^{3}
+\end{aligned}\]</p><p><span>$n=3, m=1:$</span> ✔</p><p class="math-container">\[\begin{aligned}
+  P_{3}^{1}(x)
+    = \left( 1 - x^{2} \right)^{\frac{1}{2}} \frac{\mathrm{d}}{\mathrm{d}x} \frac{1}{48} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \left( -1 + x^{2} \right)^{3}
+  &amp;=  - \frac{3}{2} \left( 1 - x^{2} \right)^{\frac{1}{2}} + \frac{15}{2} x^{2} \left( 1 - x^{2} \right)^{\frac{1}{2}} \\
+  &amp;=  - \frac{3}{2} \left( 1 - x^{2} \right)^{\frac{1}{2}} + \frac{15}{2} x^{2} \left( 1 - x^{2} \right)^{\frac{1}{2}}
+\end{aligned}\]</p><p><span>$n=3, m=2:$</span> ✔</p><p class="math-container">\[\begin{aligned}
+  P_{3}^{2}(x)
+    = \left( 1 - x^{2} \right) \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{1}{48} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \left( -1 + x^{2} \right)^{3}
+  &amp;= 15 x - 15 x^{3} \\
+  &amp;= 15 x - 15 x^{3}
+\end{aligned}\]</p><p><span>$n=3, m=3:$</span> ✔</p><p class="math-container">\[\begin{aligned}
+  P_{3}^{3}(x)
+    = \left( 1 - x^{2} \right)^{\frac{3}{2}} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{1}{48} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \left( -1 + x^{2} \right)^{3}
+  &amp;= 15 \left( 1 - x^{2} \right)^{\frac{3}{2}} \\
+  &amp;= 15 \left( 1 - x^{2} \right)^{\frac{3}{2}}
+\end{aligned}\]</p><p><span>$n=4, m=0:$</span> ✔</p><p class="math-container">\[\begin{aligned}
+  P_{4}^{0}(x)
+    = \frac{1}{384} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \left( -1 + x^{2} \right)^{4}
+  &amp;= \frac{3}{8} - \frac{15}{4} x^{2} + \frac{35}{8} x^{4} \\
+  &amp;= \frac{3}{8} - \frac{15}{4} x^{2} + \frac{35}{8} x^{4}
+\end{aligned}\]</p><p><span>$n=4, m=1:$</span> ✔</p><p class="math-container">\[\begin{aligned}
+  P_{4}^{1}(x)
+    = \left( 1 - x^{2} \right)^{\frac{1}{2}} \frac{\mathrm{d}}{\mathrm{d}x} \frac{1}{384} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \left( -1 + x^{2} \right)^{4}
+  &amp;=  - \frac{15}{2} \left( 1 - x^{2} \right)^{\frac{1}{2}} x + \frac{35}{2} x^{3} \left( 1 - x^{2} \right)^{\frac{1}{2}} \\
+  &amp;=  - \frac{15}{2} \left( 1 - x^{2} \right)^{\frac{1}{2}} x + \frac{35}{2} x^{3} \left( 1 - x^{2} \right)^{\frac{1}{2}}
+\end{aligned}\]</p><p><span>$n=4, m=2:$</span> ✔</p><p class="math-container">\[\begin{aligned}
+  P_{4}^{2}(x)
+    = \left( 1 - x^{2} \right) \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{1}{384} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \left( -1 + x^{2} \right)^{4}
+  &amp;= \frac{-15}{2} + 60 x^{2} - \frac{105}{2} x^{4} \\
+  &amp;= \frac{-15}{2} + 60 x^{2} - \frac{105}{2} x^{4}
+\end{aligned}\]</p><p><span>$n=4, m=3:$</span> ✔</p><p class="math-container">\[\begin{aligned}
+  P_{4}^{3}(x)
+    = \left( 1 - x^{2} \right)^{\frac{3}{2}} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{1}{384} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \left( -1 + x^{2} \right)^{4}
+  &amp;= 105 \left( 1 - x^{2} \right)^{\frac{3}{2}} x \\
+  &amp;= 105 \left( 1 - x^{2} \right)^{\frac{3}{2}} x
+\end{aligned}\]</p><p><span>$n=4, m=4:$</span> ✔</p><p class="math-container">\[\begin{aligned}
+  P_{4}^{4}(x)
+    = \left( 1 - x^{2} \right)^{2} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{1}{384} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \left( -1 + x^{2} \right)^{4}
+  &amp;= 105 \left( 1 - x^{2} \right)^{2} \\
+  &amp;= 105 \left( 1 - x^{2} \right)^{2}
+\end{aligned}\]</p><h4>Normalization &amp; Orthogonality of <span>$P_n^m(x)$</span></h4><p class="math-container">\[\int_{-1}^{1} P_i^m(x) P_j^m(x) \mathrm{d}x = \frac{2(j+m)!}{(2j+1)(j-m)!} \delta_{ij}\]</p><pre><code class="nohighlight hljs"> m |  i |  j |        analytical |         numerical 
+-- | -- | -- | ----------------- | ----------------- 
+ 0 |  0 |  0 |    2.000000000000 |    2.000000000000 ✔
+ 0 |  0 |  1 |    0.000000000000 |    0.000000000000 ✔
+ 0 |  0 |  2 |    0.000000000000 |    0.000000000000 ✔
+ 0 |  0 |  3 |    0.000000000000 |   -0.000000000000 ✔
+ 0 |  0 |  4 |    0.000000000000 |    0.000000000000 ✔
+ 0 |  0 |  5 |    0.000000000000 |    0.000000000000 ✔
+ 0 |  0 |  6 |    0.000000000000 |    0.000000000000 ✔
+ 0 |  0 |  7 |    0.000000000000 |    0.000000000000 ✔
+ 0 |  0 |  8 |    0.000000000000 |    0.000000000000 ✔
+ 0 |  0 |  9 |    0.000000000000 |   -0.000000000000 ✔
+ 0 |  1 |  0 |    0.000000000000 |    0.000000000000 ✔
+ 0 |  1 |  1 |    0.666666666667 |    0.666666666667 ✔
+ 0 |  1 |  2 |    0.000000000000 |    0.000000000000 ✔
+ 0 |  1 |  3 |    0.000000000000 |   -0.000000000000 ✔
+ 0 |  1 |  4 |    0.000000000000 |    0.000000000000 ✔
+ 0 |  1 |  5 |    0.000000000000 |    0.000000000000 ✔
+ 0 |  1 |  6 |    0.000000000000 |    0.000000000000 ✔
+ 0 |  1 |  7 |    0.000000000000 |    0.000000000000 ✔
+ 0 |  1 |  8 |    0.000000000000 |    0.000000000000 ✔
+ 0 |  1 |  9 |    0.000000000000 |   -0.000000000000 ✔
+ 0 |  2 |  0 |    0.000000000000 |    0.000000000000 ✔
+ 0 |  2 |  1 |    0.000000000000 |    0.000000000000 ✔
+ 0 |  2 |  2 |    0.400000000000 |    0.400000000000 ✔
+ 0 |  2 |  3 |    0.000000000000 |    0.000000000000 ✔
+ 0 |  2 |  4 |    0.000000000000 |    0.000000000000 ✔
+ 0 |  2 |  5 |    0.000000000000 |    0.000000000000 ✔
+ 0 |  2 |  6 |    0.000000000000 |    0.000000000000 ✔
+ 0 |  2 |  7 |    0.000000000000 |    0.000000000000 ✔
+ 0 |  2 |  8 |    0.000000000000 |    0.000000000000 ✔
+ 0 |  2 |  9 |    0.000000000000 |   -0.000000000000 ✔
+ 0 |  3 |  0 |    0.000000000000 |   -0.000000000000 ✔
+ 0 |  3 |  1 |    0.000000000000 |   -0.000000000000 ✔
+ 0 |  3 |  2 |    0.000000000000 |    0.000000000000 ✔
+ 0 |  3 |  3 |    0.285714285714 |    0.285714285714 ✔
+ 0 |  3 |  4 |    0.000000000000 |    0.000000000000 ✔
+ 0 |  3 |  5 |    0.000000000000 |   -0.000000000000 ✔
+ 0 |  3 |  6 |    0.000000000000 |    0.000000000000 ✔
+ 0 |  3 |  7 |    0.000000000000 |    0.000000000000 ✔
+ 0 |  3 |  8 |    0.000000000000 |   -0.000000000000 ✔
+ 0 |  3 |  9 |    0.000000000000 |   -0.000000000000 ✔
+ 0 |  4 |  0 |    0.000000000000 |    0.000000000000 ✔
+ 0 |  4 |  1 |    0.000000000000 |    0.000000000000 ✔
+ 0 |  4 |  2 |    0.000000000000 |    0.000000000000 ✔
+ 0 |  4 |  3 |    0.000000000000 |    0.000000000000 ✔
+ 0 |  4 |  4 |    0.222222222222 |    0.222222222222 ✔
+ 0 |  4 |  5 |    0.000000000000 |   -0.000000000000 ✔
+ 0 |  4 |  6 |    0.000000000000 |   -0.000000000000 ✔
+ 0 |  4 |  7 |    0.000000000000 |   -0.000000000000 ✔
+ 0 |  4 |  8 |    0.000000000000 |    0.000000000000 ✔
+ 0 |  4 |  9 |    0.000000000000 |    0.000000000000 ✔
+ 0 |  5 |  0 |    0.000000000000 |    0.000000000000 ✔
+ 0 |  5 |  1 |    0.000000000000 |    0.000000000000 ✔
+ 0 |  5 |  2 |    0.000000000000 |    0.000000000000 ✔
+ 0 |  5 |  3 |    0.000000000000 |   -0.000000000000 ✔
+ 0 |  5 |  4 |    0.000000000000 |   -0.000000000000 ✔
+ 0 |  5 |  5 |    0.181818181818 |    0.181818181818 ✔
+ 0 |  5 |  6 |    0.000000000000 |    0.000000000000 ✔
+ 0 |  5 |  7 |    0.000000000000 |    0.000000000000 ✔
+ 0 |  5 |  8 |    0.000000000000 |   -0.000000000000 ✔
+ 0 |  5 |  9 |    0.000000000000 |   -0.000000000000 ✔
+ 0 |  6 |  0 |    0.000000000000 |    0.000000000000 ✔
+ 0 |  6 |  1 |    0.000000000000 |    0.000000000000 ✔
+ 0 |  6 |  2 |    0.000000000000 |    0.000000000000 ✔
+ 0 |  6 |  3 |    0.000000000000 |    0.000000000000 ✔
+ 0 |  6 |  4 |    0.000000000000 |   -0.000000000000 ✔
+ 0 |  6 |  5 |    0.000000000000 |    0.000000000000 ✔
+ 0 |  6 |  6 |    0.153846153846 |    0.153846153846 ✔
+ 0 |  6 |  7 |    0.000000000000 |   -0.000000000000 ✔
+ 0 |  6 |  8 |    0.000000000000 |    0.000000000000 ✔
+ 0 |  6 |  9 |    0.000000000000 |    0.000000000000 ✔
+ 0 |  7 |  0 |    0.000000000000 |    0.000000000000 ✔
+ 0 |  7 |  1 |    0.000000000000 |    0.000000000000 ✔
+ 0 |  7 |  2 |    0.000000000000 |    0.000000000000 ✔
+ 0 |  7 |  3 |    0.000000000000 |    0.000000000000 ✔
+ 0 |  7 |  4 |    0.000000000000 |   -0.000000000000 ✔
+ 0 |  7 |  5 |    0.000000000000 |    0.000000000000 ✔
+ 0 |  7 |  6 |    0.000000000000 |   -0.000000000000 ✔
+ 0 |  7 |  7 |    0.133333333333 |    0.133333333333 ✔
+ 0 |  7 |  8 |    0.000000000000 |    0.000000000000 ✔
+ 0 |  7 |  9 |    0.000000000000 |   -0.000000000000 ✔
+ 0 |  8 |  0 |    0.000000000000 |    0.000000000000 ✔
+ 0 |  8 |  1 |    0.000000000000 |    0.000000000000 ✔
+ 0 |  8 |  2 |    0.000000000000 |    0.000000000000 ✔
+ 0 |  8 |  3 |    0.000000000000 |   -0.000000000000 ✔
+ 0 |  8 |  4 |    0.000000000000 |    0.000000000000 ✔
+ 0 |  8 |  5 |    0.000000000000 |   -0.000000000000 ✔
+ 0 |  8 |  6 |    0.000000000000 |    0.000000000000 ✔
+ 0 |  8 |  7 |    0.000000000000 |    0.000000000000 ✔
+ 0 |  8 |  8 |    0.117647058824 |    0.117647058824 ✔
+ 0 |  8 |  9 |    0.000000000000 |    0.000000000000 ✔
+ 0 |  9 |  0 |    0.000000000000 |   -0.000000000000 ✔
+ 0 |  9 |  1 |    0.000000000000 |   -0.000000000000 ✔
+ 0 |  9 |  2 |    0.000000000000 |   -0.000000000000 ✔
+ 0 |  9 |  3 |    0.000000000000 |   -0.000000000000 ✔
+ 0 |  9 |  4 |    0.000000000000 |    0.000000000000 ✔
+ 0 |  9 |  5 |    0.000000000000 |   -0.000000000000 ✔
+ 0 |  9 |  6 |    0.000000000000 |    0.000000000000 ✔
+ 0 |  9 |  7 |    0.000000000000 |   -0.000000000000 ✔
+ 0 |  9 |  8 |    0.000000000000 |    0.000000000000 ✔
+ 0 |  9 |  9 |    0.105263157895 |    0.105263157895 ✔
+ 1 |  1 |  1 |    1.333333333333 |    1.333333333333 ✔
+ 1 |  1 |  2 |    0.000000000000 |    0.000000000000 ✔
+ 1 |  1 |  3 |    0.000000000000 |    0.000000000000 ✔
+ 1 |  1 |  4 |    0.000000000000 |    0.000000000000 ✔
+ 1 |  1 |  5 |    0.000000000000 |    0.000000000000 ✔
+ 1 |  1 |  6 |    0.000000000000 |   -0.000000000000 ✔
+ 1 |  1 |  7 |    0.000000000000 |    0.000000000000 ✔
+ 1 |  1 |  8 |    0.000000000000 |    0.000000000000 ✔
+ 1 |  1 |  9 |    0.000000000000 |    0.000000000000 ✔
+ 1 |  2 |  1 |    0.000000000000 |    0.000000000000 ✔
+ 1 |  2 |  2 |    2.400000000000 |    2.400000000000 ✔
+ 1 |  2 |  3 |    0.000000000000 |    0.000000000000 ✔
+ 1 |  2 |  4 |    0.000000000000 |    0.000000000000 ✔
+ 1 |  2 |  5 |    0.000000000000 |   -0.000000000000 ✔
+ 1 |  2 |  6 |    0.000000000000 |    0.000000000000 ✔
+ 1 |  2 |  7 |    0.000000000000 |    0.000000000000 ✔
+ 1 |  2 |  8 |    0.000000000000 |   -0.000000000000 ✔
+ 1 |  2 |  9 |    0.000000000000 |    0.000000000000 ✔
+ 1 |  3 |  1 |    0.000000000000 |    0.000000000000 ✔
+ 1 |  3 |  2 |    0.000000000000 |    0.000000000000 ✔
+ 1 |  3 |  3 |    3.428571428571 |    3.428571428571 ✔
+ 1 |  3 |  4 |    0.000000000000 |    0.000000000000 ✔
+ 1 |  3 |  5 |    0.000000000000 |   -0.000000000000 ✔
+ 1 |  3 |  6 |    0.000000000000 |   -0.000000000000 ✔
+ 1 |  3 |  7 |    0.000000000000 |    0.000000000000 ✔
+ 1 |  3 |  8 |    0.000000000000 |   -0.000000000000 ✔
+ 1 |  3 |  9 |    0.000000000000 |   -0.000000000000 ✔
+ 1 |  4 |  1 |    0.000000000000 |    0.000000000000 ✔
+ 1 |  4 |  2 |    0.000000000000 |    0.000000000000 ✔
+ 1 |  4 |  3 |    0.000000000000 |    0.000000000000 ✔
+ 1 |  4 |  4 |    4.444444444444 |    4.444444444444 ✔
+ 1 |  4 |  5 |    0.000000000000 |    0.000000000000 ✔
+ 1 |  4 |  6 |    0.000000000000 |    0.000000000000 ✔
+ 1 |  4 |  7 |    0.000000000000 |    0.000000000000 ✔
+ 1 |  4 |  8 |    0.000000000000 |   -0.000000000000 ✔
+ 1 |  4 |  9 |    0.000000000000 |    0.000000000000 ✔
+ 1 |  5 |  1 |    0.000000000000 |    0.000000000000 ✔
+ 1 |  5 |  2 |    0.000000000000 |   -0.000000000000 ✔
+ 1 |  5 |  3 |    0.000000000000 |   -0.000000000000 ✔
+ 1 |  5 |  4 |    0.000000000000 |    0.000000000000 ✔
+ 1 |  5 |  5 |    5.454545454545 |    5.454545454545 ✔
+ 1 |  5 |  6 |    0.000000000000 |    0.000000000000 ✔
+ 1 |  5 |  7 |    0.000000000000 |   -0.000000000000 ✔
+ 1 |  5 |  8 |    0.000000000000 |   -0.000000000000 ✔
+ 1 |  5 |  9 |    0.000000000000 |   -0.000000000000 ✔
+ 1 |  6 |  1 |    0.000000000000 |   -0.000000000000 ✔
+ 1 |  6 |  2 |    0.000000000000 |    0.000000000000 ✔
+ 1 |  6 |  3 |    0.000000000000 |   -0.000000000000 ✔
+ 1 |  6 |  4 |    0.000000000000 |    0.000000000000 ✔
+ 1 |  6 |  5 |    0.000000000000 |    0.000000000000 ✔
+ 1 |  6 |  6 |    6.461538461538 |    6.461538461538 ✔
+ 1 |  6 |  7 |    0.000000000000 |    0.000000000000 ✔
+ 1 |  6 |  8 |    0.000000000000 |    0.000000000000 ✔
+ 1 |  6 |  9 |    0.000000000000 |    0.000000000000 ✔
+ 1 |  7 |  1 |    0.000000000000 |    0.000000000000 ✔
+ 1 |  7 |  2 |    0.000000000000 |    0.000000000000 ✔
+ 1 |  7 |  3 |    0.000000000000 |    0.000000000000 ✔
+ 1 |  7 |  4 |    0.000000000000 |    0.000000000000 ✔
+ 1 |  7 |  5 |    0.000000000000 |   -0.000000000000 ✔
+ 1 |  7 |  6 |    0.000000000000 |    0.000000000000 ✔
+ 1 |  7 |  7 |    7.466666666667 |    7.466666666667 ✔
+ 1 |  7 |  8 |    0.000000000000 |    0.000000000000 ✔
+ 1 |  7 |  9 |    0.000000000000 |    0.000000000000 ✔
+ 1 |  8 |  1 |    0.000000000000 |    0.000000000000 ✔
+ 1 |  8 |  2 |    0.000000000000 |   -0.000000000000 ✔
+ 1 |  8 |  3 |    0.000000000000 |   -0.000000000000 ✔
+ 1 |  8 |  4 |    0.000000000000 |   -0.000000000000 ✔
+ 1 |  8 |  5 |    0.000000000000 |   -0.000000000000 ✔
+ 1 |  8 |  6 |    0.000000000000 |    0.000000000000 ✔
+ 1 |  8 |  7 |    0.000000000000 |    0.000000000000 ✔
+ 1 |  8 |  8 |    8.470588235294 |    8.470588235294 ✔
+ 1 |  8 |  9 |    0.000000000000 |   -0.000000000000 ✔
+ 1 |  9 |  1 |    0.000000000000 |    0.000000000000 ✔
+ 1 |  9 |  2 |    0.000000000000 |    0.000000000000 ✔
+ 1 |  9 |  3 |    0.000000000000 |   -0.000000000000 ✔
+ 1 |  9 |  4 |    0.000000000000 |    0.000000000000 ✔
+ 1 |  9 |  5 |    0.000000000000 |   -0.000000000000 ✔
+ 1 |  9 |  6 |    0.000000000000 |    0.000000000000 ✔
+ 1 |  9 |  7 |    0.000000000000 |    0.000000000000 ✔
+ 1 |  9 |  8 |    0.000000000000 |   -0.000000000000 ✔
+ 1 |  9 |  9 |    9.473684210526 |    9.473684210526 ✔
+ 2 |  2 |  2 |    9.600000000000 |    9.600000000000 ✔
+ 2 |  2 |  3 |    0.000000000000 |    0.000000000000 ✔
+ 2 |  2 |  4 |    0.000000000000 |    0.000000000000 ✔
+ 2 |  2 |  5 |    0.000000000000 |    0.000000000000 ✔
+ 2 |  2 |  6 |    0.000000000000 |   -0.000000000000 ✔
+ 2 |  2 |  7 |    0.000000000000 |    0.000000000000 ✔
+ 2 |  2 |  8 |    0.000000000000 |    0.000000000000 ✔
+ 2 |  2 |  9 |    0.000000000000 |    0.000000000000 ✔
+ 2 |  3 |  2 |    0.000000000000 |    0.000000000000 ✔
+ 2 |  3 |  3 |   34.285714285714 |   34.285714285714 ✔
+ 2 |  3 |  4 |    0.000000000000 |    0.000000000000 ✔
+ 2 |  3 |  5 |    0.000000000000 |    0.000000000000 ✔
+ 2 |  3 |  6 |    0.000000000000 |    0.000000000000 ✔
+ 2 |  3 |  7 |    0.000000000000 |   -0.000000000000 ✔
+ 2 |  3 |  8 |    0.000000000000 |    0.000000000000 ✔
+ 2 |  3 |  9 |    0.000000000000 |   -0.000000000000 ✔
+ 2 |  4 |  2 |    0.000000000000 |    0.000000000000 ✔
+ 2 |  4 |  3 |    0.000000000000 |    0.000000000000 ✔
+ 2 |  4 |  4 |   80.000000000000 |   80.000000000000 ✔
+ 2 |  4 |  5 |    0.000000000000 |    0.000000000000 ✔
+ 2 |  4 |  6 |    0.000000000000 |   -0.000000000000 ✔
+ 2 |  4 |  7 |    0.000000000000 |   -0.000000000000 ✔
+ 2 |  4 |  8 |    0.000000000000 |    0.000000000000 ✔
+ 2 |  4 |  9 |    0.000000000000 |   -0.000000000000 ✔
+ 2 |  5 |  2 |    0.000000000000 |    0.000000000000 ✔
+ 2 |  5 |  3 |    0.000000000000 |    0.000000000000 ✔
+ 2 |  5 |  4 |    0.000000000000 |    0.000000000000 ✔
+ 2 |  5 |  5 |  152.727272727273 |  152.727272727273 ✔
+ 2 |  5 |  6 |    0.000000000000 |   -0.000000000000 ✔
+ 2 |  5 |  7 |    0.000000000000 |   -0.000000000000 ✔
+ 2 |  5 |  8 |    0.000000000000 |    0.000000000000 ✔
+ 2 |  5 |  9 |    0.000000000000 |   -0.000000000000 ✔
+ 2 |  6 |  2 |    0.000000000000 |   -0.000000000000 ✔
+ 2 |  6 |  3 |    0.000000000000 |    0.000000000000 ✔
+ 2 |  6 |  4 |    0.000000000000 |   -0.000000000000 ✔
+ 2 |  6 |  5 |    0.000000000000 |   -0.000000000000 ✔
+ 2 |  6 |  6 |  258.461538461538 |  258.461538461538 ✔
+ 2 |  6 |  7 |    0.000000000000 |    0.000000000000 ✔
+ 2 |  6 |  8 |    0.000000000000 |    0.000000000000 ✔
+ 2 |  6 |  9 |    0.000000000000 |   -0.000000000000 ✔
+ 2 |  7 |  2 |    0.000000000000 |    0.000000000000 ✔
+ 2 |  7 |  3 |    0.000000000000 |   -0.000000000000 ✔
+ 2 |  7 |  4 |    0.000000000000 |   -0.000000000000 ✔
+ 2 |  7 |  5 |    0.000000000000 |   -0.000000000000 ✔
+ 2 |  7 |  6 |    0.000000000000 |    0.000000000000 ✔
+ 2 |  7 |  7 |  403.200000000000 |  403.200000000000 ✔
+ 2 |  7 |  8 |    0.000000000000 |   -0.000000000000 ✔
+ 2 |  7 |  9 |    0.000000000000 |   -0.000000000000 ✔
+ 2 |  8 |  2 |    0.000000000000 |    0.000000000000 ✔
+ 2 |  8 |  3 |    0.000000000000 |    0.000000000000 ✔
+ 2 |  8 |  4 |    0.000000000000 |    0.000000000000 ✔
+ 2 |  8 |  5 |    0.000000000000 |    0.000000000000 ✔
+ 2 |  8 |  6 |    0.000000000000 |    0.000000000000 ✔
+ 2 |  8 |  7 |    0.000000000000 |   -0.000000000000 ✔
+ 2 |  8 |  8 |  592.941176470588 |  592.941176470588 ✔
+ 2 |  8 |  9 |    0.000000000000 |    0.000000000000 ✔
+ 2 |  9 |  2 |    0.000000000000 |    0.000000000000 ✔
+ 2 |  9 |  3 |    0.000000000000 |   -0.000000000000 ✔
+ 2 |  9 |  4 |    0.000000000000 |   -0.000000000000 ✔
+ 2 |  9 |  5 |    0.000000000000 |   -0.000000000000 ✔
+ 2 |  9 |  6 |    0.000000000000 |   -0.000000000000 ✔
+ 2 |  9 |  7 |    0.000000000000 |   -0.000000000000 ✔
+ 2 |  9 |  8 |    0.000000000000 |    0.000000000000 ✔
+ 2 |  9 |  9 |  833.684210526316 |  833.684210526316 ✔
+ 3 |  3 |  3 |  205.714285714286 |  205.714285714286 ✔
+ 3 |  3 |  4 |    0.000000000000 |   -0.000000000000 ✔
+ 3 |  3 |  5 |    0.000000000000 |   -0.000000000000 ✔
+ 3 |  3 |  6 |    0.000000000000 |    0.000000000000 ✔
+ 3 |  3 |  7 |    0.000000000000 |   -0.000000000000 ✔
+ 3 |  3 |  8 |    0.000000000000 |    0.000000000000 ✔
+ 3 |  3 |  9 |    0.000000000000 |    0.000000000000 ✔
+ 3 |  4 |  3 |    0.000000000000 |   -0.000000000000 ✔
+ 3 |  4 |  4 | 1120.000000000000 | 1120.000000000000 ✔
+ 3 |  4 |  5 |    0.000000000000 |    0.000000000000 ✔
+ 3 |  4 |  6 |    0.000000000000 |    0.000000000000 ✔
+ 3 |  4 |  7 |    0.000000000000 |    0.000000000000 ✔
+ 3 |  4 |  8 |    0.000000000000 |   -0.000000000000 ✔
+ 3 |  4 |  9 |    0.000000000000 |   -0.000000000000 ✔
+ 3 |  5 |  3 |    0.000000000000 |   -0.000000000000 ✔
+ 3 |  5 |  4 |    0.000000000000 |    0.000000000000 ✔
+ 3 |  5 |  5 | 3665.454545454545 | 3665.454545454545 ✔
+ 3 |  5 |  6 |    0.000000000000 |    0.000000000000 ✔
+ 3 |  5 |  7 |    0.000000000000 |   -0.000000000000 ✔
+ 3 |  5 |  8 |    0.000000000000 |   -0.000000000000 ✔
+ 3 |  5 |  9 |    0.000000000000 |   -0.000000000000 ✔
+ 3 |  6 |  3 |    0.000000000000 |    0.000000000000 ✔
+ 3 |  6 |  4 |    0.000000000000 |    0.000000000000 ✔
+ 3 |  6 |  5 |    0.000000000000 |    0.000000000000 ✔
+ 3 |  6 |  6 | 9304.615384615385 | 9304.615384615387 ✔
+ 3 |  6 |  7 |    0.000000000000 |   -0.000000000000 ✔
+ 3 |  6 |  8 |    0.000000000000 |   -0.000000000000 ✔
+ 3 |  6 |  9 |    0.000000000000 |   -0.000000000002 ✔
+ 3 |  7 |  3 |    0.000000000000 |   -0.000000000000 ✔
+ 3 |  7 |  4 |    0.000000000000 |    0.000000000000 ✔
+ 3 |  7 |  5 |    0.000000000000 |   -0.000000000000 ✔
+ 3 |  7 |  6 |    0.000000000000 |   -0.000000000000 ✔
+ 3 |  7 |  7 | 20160.000000000000 | 20160.000000000004 ✔
+ 3 |  7 |  8 |    0.000000000000 |    0.000000000000 ✔
+ 3 |  7 |  9 |    0.000000000000 |   -0.000000000003 ✔
+ 3 |  8 |  3 |    0.000000000000 |    0.000000000000 ✔
+ 3 |  8 |  4 |    0.000000000000 |   -0.000000000000 ✔
+ 3 |  8 |  5 |    0.000000000000 |   -0.000000000000 ✔
+ 3 |  8 |  6 |    0.000000000000 |   -0.000000000000 ✔
+ 3 |  8 |  7 |    0.000000000000 |    0.000000000000 ✔
+ 3 |  8 |  8 | 39134.117647058825 | 39134.117647058825 ✔
+ 3 |  8 |  9 |    0.000000000000 |    0.000000000000 ✔
+ 3 |  9 |  3 |    0.000000000000 |    0.000000000000 ✔
+ 3 |  9 |  4 |    0.000000000000 |   -0.000000000000 ✔
+ 3 |  9 |  5 |    0.000000000000 |   -0.000000000000 ✔
+ 3 |  9 |  6 |    0.000000000000 |   -0.000000000002 ✔
+ 3 |  9 |  7 |    0.000000000000 |   -0.000000000003 ✔
+ 3 |  9 |  8 |    0.000000000000 |    0.000000000000 ✔
+ 3 |  9 |  9 | 70029.473684210534 | 70029.473684210505 ✔
+ 4 |  4 |  4 | 8960.000000000000 | 8960.000000000002 ✔
+ 4 |  4 |  5 |    0.000000000000 |   -0.000000000002 ✔
+ 4 |  4 |  6 |    0.000000000000 |   -0.000000000001 ✔
+ 4 |  4 |  7 |    0.000000000000 |   -0.000000000000 ✔
+ 4 |  4 |  8 |    0.000000000000 |    0.000000000007 ✔
+ 4 |  4 |  9 |    0.000000000000 |    0.000000000000 ✔
+ 4 |  5 |  4 |    0.000000000000 |   -0.000000000002 ✔
+ 4 |  5 |  5 | 65978.181818181823 | 65978.181818181838 ✔
+ 4 |  5 |  6 |    0.000000000000 |   -0.000000000001 ✔
+ 4 |  5 |  7 |    0.000000000000 |   -0.000000000058 ✔
+ 4 |  5 |  8 |    0.000000000000 |   -0.000000000002 ✔
+ 4 |  5 |  9 |    0.000000000000 |   -0.000000000007 ✔
+ 4 |  6 |  4 |    0.000000000000 |   -0.000000000001 ✔
+ 4 |  6 |  5 |    0.000000000000 |   -0.000000000001 ✔
+ 4 |  6 |  6 | 279138.461538461561 | 279138.461538461503 ✔
+ 4 |  6 |  7 |    0.000000000000 |   -0.000000000018 ✔
+ 4 |  6 |  8 |    0.000000000000 |    0.000000000055 ✔
+ 4 |  6 |  9 |    0.000000000000 |    0.000000000029 ✔
+ 4 |  7 |  4 |    0.000000000000 |   -0.000000000000 ✔
+ 4 |  7 |  5 |    0.000000000000 |   -0.000000000058 ✔
+ 4 |  7 |  6 |    0.000000000000 |   -0.000000000018 ✔
+ 4 |  7 |  7 | 887040.000000000000 | 887040.000000000000 ✔
+ 4 |  7 |  8 |    0.000000000000 |    0.000000000031 ✔
+ 4 |  7 |  9 |    0.000000000000 |    0.000000000104 ✔
+ 4 |  8 |  4 |    0.000000000000 |    0.000000000007 ✔
+ 4 |  8 |  5 |    0.000000000000 |   -0.000000000002 ✔
+ 4 |  8 |  6 |    0.000000000000 |    0.000000000055 ✔
+ 4 |  8 |  7 |    0.000000000000 |    0.000000000031 ✔
+ 4 |  8 |  8 | 2348047.058823529165 | 2348047.058823529631 ✔
+ 4 |  8 |  9 |    0.000000000000 |   -0.000000000015 ✔
+ 4 |  9 |  4 |    0.000000000000 |    0.000000000000 ✔
+ 4 |  9 |  5 |    0.000000000000 |   -0.000000000007 ✔
+ 4 |  9 |  6 |    0.000000000000 |    0.000000000029 ✔
+ 4 |  9 |  7 |    0.000000000000 |    0.000000000104 ✔
+ 4 |  9 |  8 |    0.000000000000 |   -0.000000000015 ✔
+ 4 |  9 |  9 | 5462298.947368421592 | 5462298.947368418798 ✔
+ 5 |  5 |  5 | 659781.818181818235 | 659781.818181818351 ✔
+ 5 |  5 |  6 |    0.000000000000 |   -0.000000000002 ✔
+ 5 |  5 |  7 |    0.000000000000 |    0.000000000233 ✔
+ 5 |  5 |  8 |    0.000000000000 |    0.000000000567 ✔
+ 5 |  5 |  9 |    0.000000000000 |    0.000000000000 ✔
+ 5 |  6 |  5 |    0.000000000000 |   -0.000000000002 ✔
+ 5 |  6 |  6 | 6141046.153846153989 | 6141046.153846156783 ✔
+ 5 |  6 |  7 |    0.000000000000 |    0.000000000250 ✔
+ 5 |  6 |  8 |    0.000000000000 |    0.000000001630 ✔
+ 5 |  6 |  9 |    0.000000000000 |    0.000000000931 ✔
+ 5 |  7 |  5 |    0.000000000000 |    0.000000000233 ✔
+ 5 |  7 |  6 |    0.000000000000 |    0.000000000250 ✔
+ 5 |  7 |  7 | 31933440.000000000000 | 31933440.000000000000 ✔
+ 5 |  7 |  8 |    0.000000000000 |    0.000000002503 ✔
+ 5 |  7 |  9 |    0.000000000000 |    0.000000003725 ✔
+ 5 |  8 |  5 |    0.000000000000 |    0.000000000567 ✔
+ 5 |  8 |  6 |    0.000000000000 |    0.000000001630 ✔
+ 5 |  8 |  7 |    0.000000000000 |    0.000000002503 ✔
+ 5 |  8 |  8 | 122098447.058823525906 | 122098447.058823525906 ✔
+ 5 |  8 |  9 |    0.000000000000 |   -0.000000001397 ✔
+ 5 |  9 |  5 |    0.000000000000 |    0.000000000000 ✔
+ 5 |  9 |  6 |    0.000000000000 |    0.000000000931 ✔
+ 5 |  9 |  7 |    0.000000000000 |    0.000000003725 ✔
+ 5 |  9 |  8 |    0.000000000000 |   -0.000000001397 ✔
+ 5 |  9 |  9 | 382360926.315789461136 | 382360926.315789461136 ✔</code></pre><h4>Normalization &amp; Orthogonality of <span>$Y_{lm}(\theta,\varphi)$</span></h4><p class="math-container">\[\int_0^{2\pi}
+\int_0^\pi
+Y_{lm}(\theta,\varphi)^* Y_{l&#39;m&#39;}(\theta,\varphi) \sin(\theta)
+~\mathrm{d}\theta \mathrm{d}\varphi
+= \delta_{ll&#39;} \delta_{mm&#39;}\]</p><pre><code class="nohighlight hljs">l₁ | l₂ | m₁ | m₂ |        analytical |         numerical 
+-- | -- | -- | -- | ----------------- | ----------------- 
+ 0 |  0 |  0 |  0 |    1.000000000000 |    1.000000000000 ✔
+ 0 |  1 |  0 | -1 |    0.000000000000 |    0.000000000000 ✔
+ 0 |  1 |  0 |  0 |    0.000000000000 |   -0.000000000000 ✔
+ 0 |  1 |  0 |  1 |    0.000000000000 |    0.000000000000 ✔
+ 0 |  2 |  0 | -2 |    0.000000000000 |   -0.000000000000 ✔
+ 0 |  2 |  0 | -1 |    0.000000000000 |    0.000000000000 ✔
+ 0 |  2 |  0 |  0 |    0.000000000000 |    0.000000000000 ✔
+ 0 |  2 |  0 |  1 |    0.000000000000 |   -0.000000000000 ✔
+ 0 |  2 |  0 |  2 |    0.000000000000 |   -0.000000000000 ✔
+ 1 |  0 | -1 |  0 |    0.000000000000 |    0.000000000000 ✔
+ 1 |  0 |  0 |  0 |    0.000000000000 |   -0.000000000000 ✔
+ 1 |  0 |  1 |  0 |    0.000000000000 |    0.000000000000 ✔
+ 1 |  1 | -1 | -1 |    1.000000000000 |    1.000000000000 ✔
+ 1 |  1 | -1 |  0 |    0.000000000000 |    0.000000000000 ✔
+ 1 |  1 | -1 |  1 |    0.000000000000 |    0.000000000000 ✔
+ 1 |  1 |  0 | -1 |    0.000000000000 |    0.000000000000 ✔
+ 1 |  1 |  0 |  0 |    1.000000000000 |    1.000000000000 ✔
+ 1 |  1 |  0 |  1 |    0.000000000000 |   -0.000000000000 ✔
+ 1 |  1 |  1 | -1 |    0.000000000000 |    0.000000000000 ✔
+ 1 |  1 |  1 |  0 |    0.000000000000 |   -0.000000000000 ✔
+ 1 |  1 |  1 |  1 |    1.000000000000 |    1.000000000000 ✔
+ 1 |  2 | -1 | -2 |    0.000000000000 |   -0.000000000000 ✔
+ 1 |  2 | -1 | -1 |    0.000000000000 |   -0.000000000000 ✔
+ 1 |  2 | -1 |  0 |    0.000000000000 |    0.000000000000 ✔
+ 1 |  2 | -1 |  1 |    0.000000000000 |   -0.000000000000 ✔
+ 1 |  2 | -1 |  2 |    0.000000000000 |    0.000000000000 ✔
+ 1 |  2 |  0 | -2 |    0.000000000000 |   -0.000000000000 ✔
+ 1 |  2 |  0 | -1 |    0.000000000000 |   -0.000000000000 ✔
+ 1 |  2 |  0 |  0 |    0.000000000000 |    0.000000000000 ✔
+ 1 |  2 |  0 |  1 |    0.000000000000 |    0.000000000000 ✔
+ 1 |  2 |  0 |  2 |    0.000000000000 |   -0.000000000000 ✔
+ 1 |  2 |  1 | -2 |    0.000000000000 |   -0.000000000000 ✔
+ 1 |  2 |  1 | -1 |    0.000000000000 |   -0.000000000000 ✔
+ 1 |  2 |  1 |  0 |    0.000000000000 |   -0.000000000000 ✔
+ 1 |  2 |  1 |  1 |    0.000000000000 |   -0.000000000000 ✔
+ 1 |  2 |  1 |  2 |    0.000000000000 |    0.000000000000 ✔
+ 2 |  0 | -2 |  0 |    0.000000000000 |   -0.000000000000 ✔
+ 2 |  0 | -1 |  0 |    0.000000000000 |    0.000000000000 ✔
+ 2 |  0 |  0 |  0 |    0.000000000000 |    0.000000000000 ✔
+ 2 |  0 |  1 |  0 |    0.000000000000 |   -0.000000000000 ✔
+ 2 |  0 |  2 |  0 |    0.000000000000 |   -0.000000000000 ✔
+ 2 |  1 | -2 | -1 |    0.000000000000 |   -0.000000000000 ✔
+ 2 |  1 | -2 |  0 |    0.000000000000 |   -0.000000000000 ✔
+ 2 |  1 | -2 |  1 |    0.000000000000 |   -0.000000000000 ✔
+ 2 |  1 | -1 | -1 |    0.000000000000 |   -0.000000000000 ✔
+ 2 |  1 | -1 |  0 |    0.000000000000 |   -0.000000000000 ✔
+ 2 |  1 | -1 |  1 |    0.000000000000 |   -0.000000000000 ✔
+ 2 |  1 |  0 | -1 |    0.000000000000 |    0.000000000000 ✔
+ 2 |  1 |  0 |  0 |    0.000000000000 |    0.000000000000 ✔
+ 2 |  1 |  0 |  1 |    0.000000000000 |   -0.000000000000 ✔
+ 2 |  1 |  1 | -1 |    0.000000000000 |   -0.000000000000 ✔
+ 2 |  1 |  1 |  0 |    0.000000000000 |    0.000000000000 ✔
+ 2 |  1 |  1 |  1 |    0.000000000000 |   -0.000000000000 ✔
+ 2 |  1 |  2 | -1 |    0.000000000000 |    0.000000000000 ✔
+ 2 |  1 |  2 |  0 |    0.000000000000 |   -0.000000000000 ✔
+ 2 |  1 |  2 |  1 |    0.000000000000 |    0.000000000000 ✔
+ 2 |  2 | -2 | -2 |    1.000000000000 |    1.000000000000 ✔
+ 2 |  2 | -2 | -1 |    0.000000000000 |   -0.000000000000 ✔
+ 2 |  2 | -2 |  0 |    0.000000000000 |    0.000000000000 ✔
+ 2 |  2 | -2 |  1 |    0.000000000000 |    0.000000000000 ✔
+ 2 |  2 | -2 |  2 |    0.000000000000 |   -0.000000000000 ✔
+ 2 |  2 | -1 | -2 |    0.000000000000 |   -0.000000000000 ✔
+ 2 |  2 | -1 | -1 |    1.000000000000 |    1.000000000000 ✔
+ 2 |  2 | -1 |  0 |    0.000000000000 |   -0.000000000000 ✔
+ 2 |  2 | -1 |  1 |    0.000000000000 |    0.000000000000 ✔
+ 2 |  2 | -1 |  2 |    0.000000000000 |   -0.000000000000 ✔
+ 2 |  2 |  0 | -2 |    0.000000000000 |    0.000000000000 ✔
+ 2 |  2 |  0 | -1 |    0.000000000000 |   -0.000000000000 ✔
+ 2 |  2 |  0 |  0 |    1.000000000000 |    1.000000000000 ✔
+ 2 |  2 |  0 |  1 |    0.000000000000 |    0.000000000000 ✔
+ 2 |  2 |  0 |  2 |    0.000000000000 |    0.000000000000 ✔
+ 2 |  2 |  1 | -2 |    0.000000000000 |    0.000000000000 ✔
+ 2 |  2 |  1 | -1 |    0.000000000000 |    0.000000000000 ✔
+ 2 |  2 |  1 |  0 |    0.000000000000 |    0.000000000000 ✔
+ 2 |  2 |  1 |  1 |    1.000000000000 |    1.000000000000 ✔
+ 2 |  2 |  1 |  2 |    0.000000000000 |    0.000000000000 ✔
+ 2 |  2 |  2 | -2 |    0.000000000000 |   -0.000000000000 ✔
+ 2 |  2 |  2 | -1 |    0.000000000000 |   -0.000000000000 ✔
+ 2 |  2 |  2 |  0 |    0.000000000000 |    0.000000000000 ✔
+ 2 |  2 |  2 |  1 |    0.000000000000 |    0.000000000000 ✔
+ 2 |  2 |  2 |  2 |    1.000000000000 |    1.000000000000 ✔</code></pre><h4>Eigenvalues</h4><p class="math-container">\[  \begin{aligned}
+    E_n
+    &amp;=      \int_{0}^{2\pi}~\mathrm{d}\varphi \int_{0}^{\pi}~\mathrm{d}\theta  ~ \psi^\ast_{lm}(\theta,\varphi) \hat{H} \psi_{lm}(\theta,\varphi)  \\
+    &amp;=      \int_{0}^{2\pi}~\mathrm{d}\varphi \int_{0}^{\pi}~\mathrm{d}\theta  ~ \psi^\ast_{lm}(\theta,\varphi) \left[ \hat{V} + \hat{T} \right] \psi_{lm}(\theta,\varphi) \\
+    &amp;=      \int_{0}^{2\pi}~\mathrm{d}\varphi \int_{0}^{\pi}~\mathrm{d}\theta  ~ \psi^\ast_{lm}(\theta,\varphi) \left[ 0 + \frac{l(l+1)}{2I} \right] \psi_{lm}(\theta,\varphi) \\
+    &amp;=      \int_{0}^{2\pi}~\mathrm{d}\varphi \int_{0}^{\pi}~\mathrm{d}\theta  ~ \frac{l(l+1)}{2I} |\psi_{lm}(\theta,\varphi)|^2
+  \end{aligned}\]</p><p>where <span>$l$</span> is angular momentum quantum number and <span>$I$</span> is the moment of intertia.</p><pre><code class="nohighlight hljs"> m₁ |  m₂ |  R  |  l  |       analytical  |         numerical 
+--- | --- | --- | --- | ----------------- | ----------------- 
+0.5 | 0.5 | 0.5 | 1.0 |   16.000000000000 |   16.000000000000 ✔
+0.5 | 0.5 | 0.5 | 2.0 |   48.000000000000 |   48.000000000377 ✔
+0.5 | 0.5 | 0.5 | 3.0 |   96.000000000000 |   95.999998779374 ✔
+0.5 | 0.5 | 2.0 | 1.0 |    1.000000000000 |    1.000000000000 ✔
+0.5 | 0.5 | 2.0 | 2.0 |    3.000000000000 |    3.000000000024 ✔
+0.5 | 0.5 | 2.0 | 3.0 |    6.000000000000 |    5.999999923711 ✔
+0.5 | 2.0 | 0.5 | 1.0 |   10.000000000000 |   10.000000000000 ✔
+0.5 | 2.0 | 0.5 | 2.0 |   30.000000000000 |   30.000000000236 ✔
+0.5 | 2.0 | 0.5 | 3.0 |   60.000000000000 |   59.999999237109 ✔
+0.5 | 2.0 | 2.0 | 1.0 |    0.625000000000 |    0.625000000000 ✔
+0.5 | 2.0 | 2.0 | 2.0 |    1.875000000000 |    1.875000000015 ✔
+0.5 | 2.0 | 2.0 | 3.0 |    3.750000000000 |    3.749999952319 ✔
+2.0 | 0.5 | 0.5 | 1.0 |   10.000000000000 |   10.000000000000 ✔
+2.0 | 0.5 | 0.5 | 2.0 |   30.000000000000 |   30.000000000236 ✔
+2.0 | 0.5 | 0.5 | 3.0 |   60.000000000000 |   59.999999237109 ✔
+2.0 | 0.5 | 2.0 | 1.0 |    0.625000000000 |    0.625000000000 ✔
+2.0 | 0.5 | 2.0 | 2.0 |    1.875000000000 |    1.875000000015 ✔
+2.0 | 0.5 | 2.0 | 3.0 |    3.750000000000 |    3.749999952319 ✔
+2.0 | 2.0 | 0.5 | 1.0 |    4.000000000000 |    4.000000000000 ✔
+2.0 | 2.0 | 0.5 | 2.0 |   12.000000000000 |   12.000000000094 ✔
+2.0 | 2.0 | 0.5 | 3.0 |   24.000000000000 |   23.999999694843 ✔
+2.0 | 2.0 | 2.0 | 1.0 |    0.250000000000 |    0.250000000000 ✔
+2.0 | 2.0 | 2.0 | 2.0 |    0.750000000000 |    0.750000000006 ✔
+2.0 | 2.0 | 2.0 | 3.0 |    1.500000000000 |    1.499999980928 ✔</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../PoschlTeller/">« Pöschl-Teller Potential</a><a class="docs-footer-nextpage" href="../InfinitePotentialWell3D/">Infinite Potential Well 3D »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.9.0 on <span class="colophon-date" title="Tuesday 25 March 2025 01:54">Tuesday 25 March 2025</span>. Using Julia version 1.11.4.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
