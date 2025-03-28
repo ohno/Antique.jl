@@ -41,7 +41,7 @@ end
 
 # Hermite polynomials
 function H(model::HarmonicOscillator, x; n=0)
-  return factorial(n) * sum(i -> (-1)^i // (factorial(i)  * factorial(n-2*i)) * (2*x)^(n-2*i), 0:Int(floor(n/2)))
+  return factorial(n) * sum((-1)^i // (factorial(i)  * factorial(n-2*i)) * (2*x)^(n-2*i) for i ∈ 0:Int(floor(n/2)))
 end
 
 # docstrings
