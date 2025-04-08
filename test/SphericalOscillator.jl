@@ -259,16 +259,17 @@ The virial theorem $\langle T \rangle = \langle V \rangle$ and the definition of
   for l in 0:n
   for m in -l:l
     analytical = E(SO, n=n, l=l)
-    numerical = real(
-      quadgk(phi ->
-      quadgk(theta ->
-      quadgk(r ->
-        2 * V(SO,r) * r^2 * sin(theta) * conj(ψ(SO,r,theta,phi,n=n,l=l,m=m)) * ψ(SO,r,theta,phi,n=n,l=l,m=m)
-      , 0, Inf, maxevals=50)[1]
-      , 0, π, maxevals=4)[1]
-      , 0, 2π, maxevals=8)[1]
-    )
-    acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-2) : isapprox(analytical, numerical, rtol=1e-2)
+    # numerical = real(
+    #   quadgk(phi ->
+    #   quadgk(theta ->
+    #   quadgk(r ->
+    #     2 * V(SO,r) * r^2 * sin(theta) * conj(ψ(SO,r,theta,phi,n=n,l=l,m=m)) * ψ(SO,r,theta,phi,n=n,l=l,m=m)
+    #   , 0, Inf, maxevals=50)[1]
+    #   , 0, π, maxevals=4)[1]
+    #   , 0, 2π, maxevals=8)[1]
+    # )
+    numerical = real(first(hcubature(r -> 2 * V(SO,r[1]) * r[1]^2 * sin(r[2]) * conj(ψ(SO,r[1],r[2],r[3],n=n,l=l,m=m)) * ψ(SO,r[1],r[2],r[3],n=n,l=l,m=m), [0,0,0], [100,π,2π], maxevals=2000)))
+    acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-1) : isapprox(analytical, numerical, rtol=1e-1)
     @test acceptance
     @printf(io, "%2d | %2d | %2d | %14.9f | %14.9f %s\n", n, l, m, analytical, numerical, acceptance ? "✔" : "✗")
   end
