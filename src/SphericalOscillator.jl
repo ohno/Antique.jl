@@ -54,10 +54,13 @@ function R(model::SphericalOscillator, r; n=0, l=0)
   γ = μ*ω/ℏ
   ξ = sqrt(γ)*abs(r)
   N = sqrt(γ^(3/2)/(2*sqrt(π))) * sqrt( 2^(n+l+3) * fact(n)/ffact(2n+2l+1))
-  return N * ξ^l * exp(-ξ^2/2) * L(model, n, l+1/2, ξ^2)
+  return N * ξ^l * exp(-ξ^2/2) * L(model, ξ^2, n=n, α=l+1/2)
 end
 
 # generalized Laguerre polynomials
+function L(model::SphericalOscillator, x; n=0, α=0)
+  return L(model, n, α, x)
+end
 function L(model::SphericalOscillator, n::Int, α::Int, x)
   return sum((-1)^(k) * (Int(gamma(α+n+1)) // Int((gamma(α+1+k)*gamma(n-k+1)))) * x^k * 1 // factorial(k) for k ∈ 0:n)
 end
@@ -145,7 +148,7 @@ where ``\gamma = \mu\omega/\hbar`` and ``\xi = \sqrt{\gamma}r = \sqrt{\mu\omega/
 """ R(model::SphericalOscillator, r; n=0, l=0)
 
 @doc raw"""
-`L(model::SphericalOscillator, n::Int, α::Real, x)`
+`L(model::SphericalOscillator, x; n=0, α=0)`
 
 !!! note
     The generalized Laguerre polynomials $L_n^{(\alpha)}(x)$, not the associated Laguerre polynomials $L_n^{k}(x)$, are used in this model.
@@ -180,7 +183,7 @@ Examples:
   \vdots
 \end{aligned}
 ```
-""" L(model::SphericalOscillator, n::Int, α::Real, x)
+""" L(model::SphericalOscillator, x; n=0, α=0)
 
 @doc raw"""
 `Y(model::SphericalOscillator, θ, φ; l=0, m=0)`
