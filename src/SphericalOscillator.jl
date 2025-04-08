@@ -180,7 +180,7 @@ Examples:
   \vdots
 \end{aligned}
 ```
-""" L(model::SphericalOscillator, x; n=0, α=0)
+""" L(model::SphericalOscillator, n::Int, α::Real, x)
 
 @doc raw"""
 `Y(model::SphericalOscillator, θ, φ; l=0, m=0)`
