@@ -1,10 +1,11 @@
+io = open("./result/RigidRotor.md", "w")
 RR = RigidRotor(m₁=1.0, m₂=1.0, R=1.0, ℏ=1.0)
 
 
 # Pₙᵐ(x) = √(1-x²)ᵐ dᵐ/dxᵐ Pₙ(x); Pₙ(x) = 1/(2ⁿn!) dⁿ/dxⁿ (x²-1)ⁿ
 
 
-println(raw"""
+println(io, raw"""
 #### Associated Legendre Polynomials $P_n^m(x)$
 
 ```math
@@ -17,11 +18,11 @@ println(raw"""
 ```
 """)
 
-@testset "Pₙᵐ(x) = √(1-x²)ᵐ dᵐ/dxᵐ Pₙ(x); Pₙ(x) = 1/(2ⁿn!) dⁿ/dxⁿ (x²-1)ⁿ" begin
+@testset "RR: Pₙᵐ(x) = √(1-x²)ᵐ dᵐ/dxᵐ Pₙ(x); Pₙ(x) = 1/(2ⁿn!) dⁿ/dxⁿ (x²-1)ⁿ" begin
+  @variables x
   for n in 0:4
   for m in 0:n
       # Rodrigues' formula
-      @variables x
       Dn = n==0 ? x->x : Differential(x)^n                  # dⁿ/dxⁿ
       Dm = m==0 ? x->x : Differential(x)^m                  # dᵐ/dxᵐ
       a = 1 // (2^n * factorial(n))                         # left
@@ -35,12 +36,12 @@ println(raw"""
       eq2 = latexify(f, env=:raw)
       # judge
       acceptance = isequal(e, f)
-      println("``n=$n, m=$m:`` ", acceptance ? "✔" : "✗")
+      println(io, "``n=$n, m=$m:`` ", acceptance ? "✔" : "✗")
       # show LaTeX
-      println("""```math
+      println(io, """```math
       \\begin{aligned}
         P_{$n}^{$m}(x)
-          = $(latexify(c, env=:raw))
+         = $(latexify(c, env=:raw))
         &= $(eq1) \\\\
         &= $(eq2)
       \\end{aligned}
@@ -56,17 +57,18 @@ end
 # ∫Pᵢᵐ(x)Pⱼᵐ(x)dx = 2(j+m)!/(2j+1)(j-m)! δᵢⱼ
 
 
-println(raw"""
+println(io, raw"""
 #### Normalization & Orthogonality of $P_n^m(x)$
 
 ```math
 \int_{-1}^{1} P_i^m(x) P_j^m(x) \mathrm{d}x = \frac{2(j+m)!}{(2j+1)(j-m)!} \delta_{ij}
 ```
+
 ```""")
 
-@testset "∫Pᵢᵐ(x)Pⱼᵐ(x)dx = 2(j+m)!/(2j+1)(j-m)! δᵢⱼ" begin
-  println(" m |  i |  j |        analytical |         numerical ")
-  println("-- | -- | -- | ----------------- | ----------------- ")
+@testset "RR: ∫Pᵢᵐ(x)Pⱼᵐ(x)dx = 2(j+m)!/(2j+1)(j-m)! δᵢⱼ" begin
+  println(io, " m |  i |  j |     analytical |      numerical ")
+  println(io, "-- | -- | -- | -------------- | -------------- ")
   for m in 0:5
   for i in m:9
   for j in m:9
@@ -74,20 +76,19 @@ println(raw"""
     numerical  = quadgk(x -> Antique.P(RR, x, n=i, m=m) * Antique.P(RR, x, n=j, m=m), -1, 1, maxevals=10^3)[1]
     acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-5) : isapprox(analytical, numerical, rtol=1e-5)
     @test acceptance
-    @printf("%2d | %2d | %2d | %17.12f | %17.12f %s\n", m, i, j, analytical, numerical, acceptance ? "✔" : "✗")
+    @printf(io, "%2d | %2d | %2d | %14.9f | %14.9f %s\n", m, i, j, analytical, numerical, acceptance ? "✔" : "✗")
   end
   end
   end
 end
 
-println("""```
-""")
+println(io, """```\n""")
 
 
 # ∫Yₗ₁ₘ₁(θ,φ)Yₗ₂ₘ₂(θ,φ)sinθdθdφ = δₗ₁ₗ₂δₘ₁ₘ₂
 
 
-println(raw"""
+println(io, raw"""
 #### Normalization & Orthogonality of $Y_{lm}(\theta,\varphi)$
 
 ```math
@@ -97,11 +98,12 @@ Y_{lm}(\theta,\varphi)^* Y_{l'm'}(\theta,\varphi) \sin(\theta)
 ~\mathrm{d}\theta \mathrm{d}\varphi
 = \delta_{ll'} \delta_{mm'}
 ```
+
 ```""")
 
-@testset "∫Yₗ₁ₘ₁(θ,φ)Yₗ₂ₘ₂(θ,φ)sinθdθdφ = δₗ₁ₗ₂δₘ₁ₘ₂" begin
-  println("l₁ | l₂ | m₁ | m₂ |        analytical |         numerical ")
-  println("-- | -- | -- | -- | ----------------- | ----------------- ")
+@testset "RR: ∫Yₗ₁ₘ₁(θ,φ)Yₗ₂ₘ₂(θ,φ)sinθdθdφ = δₗ₁ₗ₂δₘ₁ₘ₂" begin
+  println(io, "l₁ | l₂ | m₁ | m₂ |     analytical |      numerical ")
+  println(io, "-- | -- | -- | -- | -------------- | -------------- ")
   for l1 in 0:2
   for l2 in 0:2
   for m₁ in -l1:l1
@@ -116,35 +118,35 @@ Y_{lm}(\theta,\varphi)^* Y_{l'm'}(\theta,\varphi) \sin(\theta)
     )
     acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-5) : isapprox(analytical, numerical, rtol=1e-5)
     @test acceptance
-    @printf("%2d | %2d | %2d | %2d | %17.12f | %17.12f %s\n", l1, l2, m₁, m₂, analytical, numerical, acceptance ? "✔" : "✗")
+    @printf(io, "%2d | %2d | %2d | %2d | %14.9f | %14.9f %s\n", l1, l2, m₁, m₂, analytical, numerical, acceptance ? "✔" : "✗")
   end
   end
   end
   end
 end
 
-println("""```
-""")
+println(io, """```\n""")
 
 
 # <ψₙ|H|ψₙ>  = ∫ψₙ*Tψₙdx = Eₙ
 
-println(raw"""
+
+println(io, raw"""
 #### Eigenvalues
 
 ```math
   \begin{aligned}
     E_n
-    &=      \int_{0}^{2\pi}~\mathrm{d}\varphi \int_{0}^{\pi}~\mathrm{d}\theta  ~ \psi^\ast_{lm}(\theta,\varphi) \hat{H} \psi_{lm}(\theta,\varphi)  \\
-    &=      \int_{0}^{2\pi}~\mathrm{d}\varphi \int_{0}^{\pi}~\mathrm{d}\theta  ~ \psi^\ast_{lm}(\theta,\varphi) \left[ \hat{V} + \hat{T} \right] \psi_{lm}(\theta,\varphi) \\
-    &=      \int_{0}^{2\pi}~\mathrm{d}\varphi \int_{0}^{\pi}~\mathrm{d}\theta  ~ \psi^\ast_{lm}(\theta,\varphi) \left[ 0 + \frac{l(l+1)}{2I} \right] \psi_{lm}(\theta,\varphi) \\
-    &=      \int_{0}^{2\pi}~\mathrm{d}\varphi \int_{0}^{\pi}~\mathrm{d}\theta  ~ \frac{l(l+1)}{2I} |\psi_{lm}(\theta,\varphi)|^2
+    &= \int_{0}^{2\pi}~\mathrm{d}\varphi \int_{0}^{\pi}~\mathrm{d}\theta  ~ \psi^\ast_{lm}(\theta,\varphi) \hat{H} \psi_{lm}(\theta,\varphi)  \\
+    &= \int_{0}^{2\pi}~\mathrm{d}\varphi \int_{0}^{\pi}~\mathrm{d}\theta  ~ \psi^\ast_{lm}(\theta,\varphi) \left[ \hat{V} + \hat{T} \right] \psi_{lm}(\theta,\varphi) \\
+    &= \int_{0}^{2\pi}~\mathrm{d}\varphi \int_{0}^{\pi}~\mathrm{d}\theta  ~ \psi^\ast_{lm}(\theta,\varphi) \left[ 0 + \frac{l(l+1)}{2I} \right] \psi_{lm}(\theta,\varphi) \\
+    &= \int_{0}^{2\pi}~\mathrm{d}\varphi \int_{0}^{\pi}~\mathrm{d}\theta  ~ \frac{l(l+1)}{2I} |\psi_{lm}(\theta,\varphi)|^2
   \end{aligned}
 ```
 where $l$ is angular momentum quantum number and $I$ is the moment of intertia.
 ```""")
 
-@testset "<ψₙ|H|ψₙ> = ∫ψₙ*Hψₙdx = Eₙ" begin
+@testset "RR: <ψₙ|H|ψₙ> = ∫ψₙ*Hψₙdx = Eₙ" begin
   function ψHψ(RR;l)
       μ = (1/RR.m₁ + 1/RR.m₂)^(-1)
       I = μ * RR.R^2
@@ -154,8 +156,8 @@ where $l$ is angular momentum quantum number and $I$ is the moment of intertia.
   end
 
   ℏ=1
-  println(" m₁ |  m₂ |  R  |  l  |       analytical  |         numerical ")
-  println("--- | --- | --- | --- | ----------------- | ----------------- ")
+  println(io, " m₁ |  m₂ |  R  |  l  |       analytical  |      numerical ")
+  println(io, "--- | --- | --- | --- | -------------- | -------------- ")
   for m₁ in [0.5, 2.0]
   for m₂ in [0.5, 2.0]
   for R in [0.5, 2.0]
@@ -164,7 +166,8 @@ where $l$ is angular momentum quantum number and $I$ is the moment of intertia.
       analytical = E(RR,l=l)
       numerical = ψHψ(RR,l=l)
       acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-4) : isapprox(analytical, numerical, rtol=1e-4)
-      @printf("%.1f | %.1f | %.1f | %.1f | %17.12f | %17.12f %s\n", m₁, m₂, R, l,analytical, numerical, acceptance ? "✔" : "✗") 
+      @test acceptance
+      @printf(io, "%.1f | %.1f | %.1f | %.1f | %14.9f | %14.9f %s\n", m₁, m₂, R, l,analytical, numerical, acceptance ? "✔" : "✗") 
   end
   end
   end
@@ -172,7 +175,7 @@ where $l$ is angular momentum quantum number and $I$ is the moment of intertia.
 end
 
 
+println(io, """```\n""")
 
 
-println("""```
-""")
+close(io)

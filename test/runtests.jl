@@ -1,21 +1,18 @@
 using Antique
-using Test
-using Suppressor
-using Printf
-using Markdown
-using QuadGK
-using Symbolics
+using ForwardDiff
+using HCubature
 using Latexify
 using LaTeXStrings
+using Markdown
 using SpecialFunctions
+using Symbolics
+using Test
+using Printf
+using QuadGK
+using Zygote
 
-@testset "Antique.jl" begin
-	for model in Antique.models # [:HydrogenAtom, :CoulombTwoBody]
-		result = @capture_out begin
-			include("./$(model).jl")
-		end
-		open("./result/$(model).log", "w") do io
-			println(io, result)
-		end
+@testset verbose = true "Antique.jl" begin
+	for model in Antique.models # [:InfinitePotentialWell3D, :SphericalOscillator, :HydrogenAtom, :CoulombTwoBody]
+		include("./$(model).jl")
 	end
 end

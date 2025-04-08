@@ -1,10 +1,11 @@
+io = open("./result/HarmonicOscillator.md", "w")
 HO = HarmonicOscillator(k=1.0, m=1.0, ℏ=1.0)
 
 
 # Hₙ(x) = (-1)ⁿ exp(x²) dⁿ/dxⁿ　exp(-x²) = ...
 
 
-println(raw"""
+println(io, raw"""
 #### Hermite Polynomials $H_n(x)$
 
 ```math
@@ -16,10 +17,10 @@ println(raw"""
 ```
 """)
 
-@testset "Hₙ(x) = (-1)ⁿ exp(x²) dⁿ/dxⁿ exp(-x²) = ..." begin
+@testset "HO: Hₙ(x) = (-1)ⁿ exp(x²) dⁿ/dxⁿ exp(-x²) = ..." begin
+  @variables x
   for n in 0:9
     # Rodrigues' formula
-    @variables x
     D = n==0 ? x->x : Differential(x)^n              # dⁿ/dxⁿ
     a = (-1)^n * exp(x^2)                            # left
     b = exp(-x^2)                                    # right
@@ -32,9 +33,9 @@ println(raw"""
     eq2 = latexify(f, env=:raw)
     # judge
     acceptance = isequal(e, f)
-    println("``n=$n:`` ", acceptance ? "✔" : "✗")
+    println(io, "``n=$n:`` ", acceptance ? "✔" : "✗")
     # show LaTeX
-    println("""```math
+    println(io, """```math
     \\begin{aligned}
       H_{$n}(x)
        = $(latexify(c, env=:raw))
@@ -52,7 +53,7 @@ end
 # ∫Hⱼ(x)Hᵢ(x)exp(-x²)dx = √π2ʲj!δᵢⱼ
 
 
-println(raw"""
+println(io, raw"""
 #### Normalization & Orthogonality of $H_n(x)$
 
 ```math
@@ -61,28 +62,27 @@ println(raw"""
 
 ```""")
 
-@testset "∫Hⱼ(x)Hᵢ(x)exp(-x²)dx = √π2ʲj!δᵢⱼ" begin
-  println(" i |  j |        analytical |         numerical ")
-  println("-- | -- | ----------------- | ----------------- ")
+@testset "HO: ∫Hⱼ(x)Hᵢ(x)exp(-x²)dx = √π2ʲj!δᵢⱼ" begin
+  println(io, " i |  j |     analytical |      numerical ")
+  println(io, "-- | -- | -------------- | -------------- ")
   for i in 0:9
   for j in 0:9
     analytical = sqrt(π)*2^j*factorial(j)*(i == j ? 1 : 0)
     numerical  = quadgk(x -> Antique.H(HO, x, n=j) * Antique.H(HO, x, n=i)* exp(-x^2), -Inf, Inf, maxevals=10^3)[1]
     acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-5) : isapprox(analytical, numerical, rtol=1e-5)
     @test acceptance
-    @printf("%2d | %2d | %17.12f | %17.12f %s\n", i, j, analytical, numerical, acceptance ? "✔" : "✗")
+    @printf(io, "%2d | %2d | %14.9f | %14.9f %s\n", i, j, analytical, numerical, acceptance ? "✔" : "✗")
   end
   end
 end
 
-println("""```
-""")
+println(io, """```\n""")
 
 
 # <ψᵢ|ψⱼ> = δᵢⱼ
 
 
-println(raw"""
+println(io, raw"""
 #### Normalization & Orthogonality of $\psi_n(x)$
 
 ```math
@@ -91,28 +91,27 @@ println(raw"""
 
 ```""")
 
-@testset "<ψᵢ|ψⱼ> = δᵢⱼ" begin
-  println(" i |  j |        analytical |         numerical ")
-  println("-- | -- | ----------------- | ----------------- ")
+@testset "HO: <ψᵢ|ψⱼ> = δᵢⱼ" begin
+  println(io, " i |  j |     analytical |      numerical ")
+  println(io, "-- | -- | -------------- | -------------- ")
   for i in 0:9
   for j in 0:9
     analytical = (i == j ? 1 : 0)
     numerical  = quadgk(x -> conj(ψ(HO, x, n=i)) * ψ(HO, x, n=j), -Inf, Inf, maxevals=10^3)[1]
     acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-5) : isapprox(analytical, numerical, rtol=1e-5)
     @test acceptance
-    @printf("%2d | %2d | %17.12f | %17.12f %s\n", i, j, analytical, numerical, acceptance ? "✔" : "✗")
+    @printf(io, "%2d | %2d | %14.9f | %14.9f %s\n", i, j, analytical, numerical, acceptance ? "✔" : "✗")
   end
   end
 end
 
-println("""```
-""")
+println(io, """```\n""")
 
 
 # 2 × <ψₙ|V|ψₙ> = Eₙ
 
 
-println(raw"""
+println(io, raw"""
 #### Virial Theorem
 
 The virial theorem $\langle T \rangle = \langle V \rangle$ and the definition of Hamiltonian $\langle H \rangle = \langle T \rangle + \langle V \rangle$ derive $\langle H \rangle = 2 \langle V \rangle = 2 \langle T \rangle$.
@@ -123,28 +122,27 @@ The virial theorem $\langle T \rangle = \langle V \rangle$ and the definition of
 
 ```""")
 
-@testset "2 × <ψₙ|V|ψₙ> = Eₙ" begin
-  println("  k |  n |        analytical |         numerical ")
-  println("--- | -- | ----------------- | ----------------- ")
+@testset "HO: 2 × <ψₙ|V|ψₙ> = Eₙ" begin
+  println(io, "  k |  n |     analytical |      numerical ")
+  println(io, "--- | -- | -------------- | -------------- ")
   for k in [0.1,0.5,1.0,5.0]
   for n in 0:9
     analytical = E(HO, n=n)
     numerical  = 2 * quadgk(x -> conj(ψ(HO, x, n=n)) * V(HO, x) * ψ(HO, x, n=n), -Inf, Inf, maxevals=10^3)[1]
     acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-5) : isapprox(analytical, numerical, rtol=1e-5)
     @test acceptance
-    @printf("%.1f | %2d | %17.12f | %17.12f %s\n", k, n, analytical, numerical, acceptance ? "✔" : "✗")
+    @printf(io, "%.1f | %2d | %14.9f | %14.9f %s\n", k, n, analytical, numerical, acceptance ? "✔" : "✗")
   end
   end
 end
 
-println("""```
-""")
+println(io, """```\n""")
 
 
 # ∫ψₙ*Hψₙdx = <ψₙ|H|ψₙ> = Eₙ
 
 
-println(raw"""
+println(io, raw"""
 #### Eigenvalues
 
 ```math
@@ -209,10 +207,10 @@ are given by the sum of 2 Taylor series:
 
 ```""")
 
-@testset "∫ψₙ*Hψₙdx = <ψₙ|H|ψₙ> = Eₙ" begin
+@testset "HO: ∫ψₙ*Hψₙdx = <ψₙ|H|ψₙ> = Eₙ" begin
   ψHψ(HO, x; n=0, Δx=0.005) = V(HO,x)*ψ(HO,x,n=n)^2 - HO.ℏ^2/(2*HO.m)*conj(ψ(HO,x,n=n))*(ψ(HO,x+Δx,n=n)-2*ψ(HO,x,n=n)+ψ(HO,x-Δx,n=n))/Δx^2
-  println("  k |  n |        analytical |         numerical ")
-  println("--- | -- | ----------------- | ----------------- ")
+  println(io, "  k |  n |     analytical |      numerical ")
+  println(io, "--- | -- | -------------- | -------------- ")
   for k in [0.1,0.5,1.0,5.0]
   for n in 0:9
     HO = HarmonicOscillator(k=k)
@@ -220,11 +218,13 @@ are given by the sum of 2 Taylor series:
     numerical  = quadgk(x -> ψHψ(HO, x, n=n, Δx=0.001), -Inf, Inf, maxevals=10^3)[1]
     acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-5) : isapprox(analytical, numerical, rtol=1e-5)
     @test acceptance
-    @printf("%.1f | %2d | %17.12f | %17.12f %s\n", k, n, analytical, numerical, acceptance ? "✔" : "✗")
+    @printf(io, "%.1f | %2d | %14.9f | %14.9f %s\n", k, n, analytical, numerical, acceptance ? "✔" : "✗")
   end
   end
 end
 HO = HarmonicOscillator(k=1.0, m=1.0, ℏ=1.0)
 
-println("""```
-""")
+println(io, """```\n""")
+
+
+close(io)

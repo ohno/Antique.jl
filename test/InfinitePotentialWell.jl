@@ -1,56 +1,54 @@
-IPW = InfinitePotentialWell(L=1.0, m=1.0, ℏ=1.0)
+io = open("./result/InfinitePotentialWell.md", "w")
 
 
 # <ψᵢ|ψⱼ> = ∫ψₙ*ψₙdx = δᵢⱼ
 
 
-println(raw"""
+println(io, raw"""
 #### Normalization & Orthogonality of $\psi_n(x)$
-
 ```math
 \int_{0}^{L} \psi_i^\ast(x) \psi_j(x) ~\mathrm{d}x = \delta_{ij}
 ```
 
 ```""")
-
-@testset "<ψᵢ|ψⱼ> = ∫ψₙ*ψₙdx = δᵢⱼ" begin
-  println(" i |  j |        analytical |         numerical ")
-  println("-- | -- | ----------------- | ----------------- ")
-  # for L in [0.1, 0.5, 1.0, 7.0]
-  # for m in [0.1, 0.5, 1.0, 7.0]
-  # for ℏ in [0.1, 0.5, 1.0, 7.0]
+@testset "IPW: <ψᵢ|ψⱼ> = ∫ψₙ*ψₙdx = δᵢⱼ" begin
+  println(io, " i |  j |     analytical |      numerical ")
+  println(io, "-- | -- | -------------- | -------------- ")
+  for L in [0.1, 1.0]
+  for m in [0.1, 1.0]
+  for ℏ in [0.1, 1.0]
   for i in 1:10
   for j in 1:10
+    IPW = InfinitePotentialWell(L=L, m=m, ℏ=ℏ)
     analytical = (i == j ? 1 : 0)
     numerical  = quadgk(x -> conj(ψ(IPW, x, n=i)) * ψ(IPW, x, n=j), 0.0, IPW.L, maxevals=10^3)[1]
     acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-5) : isapprox(analytical, numerical, rtol=1e-5)
     @test acceptance
-    @printf("%2d | %2d | %17.12f | %17.12f %s\n", i, j, analytical, numerical, acceptance ? "✔" : "✗")
+    @printf(io, "%2d | %2d | %14.9f | %14.9f %s\n", i, j, analytical, numerical, acceptance ? "✔" : "✗")
   end
   end
-  # end
-  # end
-  # end
+  end
+  end
+  end
 end
 
-println("""```
-""")
+println(io, """```\n""")
 
 
 # <ψₙ|H|ψₙ>  = ∫ψₙ*Tψₙdx = Eₙ
 
 
-println(raw"""
+println(io, raw"""
 #### Eigenvalues
 
 ```math
-  \begin{aligned}
-    E_n
-    &=      \int_0^L \psi^\ast_n(x) \hat{H} \psi_n(x) ~\mathrm{d}x \\
-    &=      \int_0^L \psi^\ast_n(x) \left[ \hat{V} + \hat{T} \right] \psi(x) ~\mathrm{d}x \\
-    &=      \int_0^L \psi^\ast_n(x) \left[ 0 - \frac{\hbar^2}{2m} \frac{\mathrm{d}^{2}}{\mathrm{d} x^{2}} \right] \psi(x) ~\mathrm{d}x \\
-    &\simeq \int_0^L \psi^\ast_n(x) \left[ -\frac{\hbar^2}{2m} \frac{\psi(x+\Delta x) - 2\psi(x) + \psi(x-\Delta x)}{\Delta x^{2}} \right] ~\mathrm{d}x.
-  \end{aligned}
+\begin{aligned}
+  E_n
+  &=      \int_0^L \psi^\ast_n(x) \hat{H} \psi_n(x) ~\mathrm{d}x \\
+  &=      \int_0^L \psi^\ast_n(x) \left[ \hat{V} + \hat{T} \right] \psi(x) ~\mathrm{d}x \\
+  &=      \int_0^L \psi^\ast_n(x) \left[ 0 - \frac{\hbar^2}{2m} \frac{\mathrm{d}^{2}}{\mathrm{d} x^{2}} \right] \psi(x) ~\mathrm{d}x \\
+  &\simeq \int_0^L \psi^\ast_n(x) \left[ -\frac{\hbar^2}{2m} \frac{\psi(x+\Delta x) - 2\psi(x) + \psi(x-\Delta x)}{\Delta x^{2}} \right] ~\mathrm{d}x.
+\end{aligned}
 ```
 
 Where, the difference formula for the 2nd-order derivative:
@@ -102,12 +100,16 @@ are given by the sum of 2 Taylor series:
 + O\left(\Delta x^{4}\right).
 \end{aligned}
 ```
+
 ```""")
 
-@testset "<ψₙ|H|ψₙ>  = ∫ψₙ*Tψₙdx = Eₙ" begin
+@testset "IPW: <ψₙ|H|ψₙ>  = ∫ψₙ*Tψₙdx = Eₙ" begin
+  # dψ(model, x) = ForwardDiff.derivative(x -> ψ(model, x), x)
+  # d²ψ(model, x) = ForwardDiff.derivative(x -> dψ(model, x), x)
+  # Hψ(model, x) = -DP.ℏ^2 / (2 * DP.m) * d²ψ(model, x) + * ψ(model, 0)^2
   ψTψ(IPW, x; n=0, Δx=0.01) = -IPW.ℏ^2/(2*IPW.m)*conj(ψ(IPW,x,n=n))*(ψ(IPW,x+Δx,n=n)-2*ψ(IPW,x,n=n)+ψ(IPW,x-Δx,n=n))/Δx^2
-  println("  L |   m |   ℏ |  n |        analytical |         numerical ")
-  println("--- | --- | --- | -- | ----------------- | ----------------- ")
+  println(io, "  L |   m |   ℏ |  n |     analytical |      numerical ")
+  println(io, "--- | --- | --- | -- | -------------- | -------------- ")
   for L in [0.1, 1.0]
   for m in [0.1, 1.0]
   for ℏ in [0.1, 1.0]
@@ -117,20 +119,20 @@ are given by the sum of 2 Taylor series:
     numerical  = quadgk(x -> ψTψ(IPW, x, n=n, Δx=L*0.0001), 0, L, maxevals=10^3)[1]
     acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-5) : isapprox(analytical, numerical, rtol=1e-5)
     @test acceptance
-    @printf("%.1f | %.1f | %.1f | %2d | %17.12f | %17.12f %s\n", L, m, ℏ, n, numerical, analytical, acceptance ? "✔" :  "✗")
+    @printf(io, "%.1f | %.1f | %.1f | %2d | %14.9f | %14.9f %s\n", L, m, ℏ, n, numerical, analytical, acceptance ? "✔" :  "✗")
   end
   end
   end
   end
 end
 
-println("""```""")
+println(io, """```\n""")
 
 
 # <ψₙ|x|ψₙ>  = L/2
 
 
-println(raw"""
+println(io, raw"""
 #### Expected Value of $x$
 
 ```math
@@ -144,9 +146,9 @@ Reference:
 - [LibreTexts PHYSICS, 6.4: Expectation Values, Observables, and Uncertainty](https://phys.libretexts.org/Bookshelves/Modern_Physics/Book%3A_Spiral_Modern_Physics_(D'Alessandris)/6%3A_The_Schrodinger_Equation/6.4%3A_Expectation_Values_Observables_and_Uncertainty)
 ```""")
 
-@testset "<ψₙ|x|ψₙ>  = L/2" begin
-  println("  L |  n |        analytical |         numerical ")
-  println("--- | -- | ----------------- | ----------------- ")
+@testset "IPW: <ψₙ|x|ψₙ>  = L/2" begin
+  println(io, "  L |  n |     analytical |      numerical ")
+  println(io, "--- | -- | -------------- | -------------- ")
   for L in [0.1, 0.5, 1.0, 7.0]
   for n in 1:1
     IPW = InfinitePotentialWell(L=L, m=1.0, ℏ=1.0)
@@ -154,18 +156,18 @@ Reference:
     numerical  = quadgk(x -> conj(ψ(IPW, x, n=n)) * x * ψ(IPW, x, n=n), 0, L, maxevals=10^3)[1]
     acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-5) : isapprox(analytical, numerical, rtol=1e-5)
     @test acceptance
-    @printf("%.1f | %2d | %17.12f | %17.12f %s\n", L, n, numerical, analytical, acceptance ? "✔" :  "✗")
+    @printf(io, "%.1f | %2d | %14.9f | %14.9f %s\n", L, n, numerical, analytical, acceptance ? "✔" :  "✗")
   end
   end
 end
 
-println("""```""")
+println(io, """```\n""")
 
 
 # <ψₙ|x²|ψₙ> = 2L²/π³(π³/6-π/4)
 
 
-println(raw"""
+println(io, raw"""
 #### Expected Value of $x^2$
 
 ```math
@@ -178,9 +180,9 @@ Reference:
 - [LibreTexts PHYSICS, 6.4: Expectation Values, Observables, and Uncertainty](https://phys.libretexts.org/Bookshelves/Modern_Physics/Book%3A_Spiral_Modern_Physics_(D'Alessandris)/6%3A_The_Schrodinger_Equation/6.4%3A_Expectation_Values_Observables_and_Uncertainty)
 ```""")
 
-@testset "<ψₙ|x²|ψₙ> = 2L²/π³(π³/6-π/4)" begin
-  println("  L |  n |        analytical |         numerical ")
-  println("--- | -- | ----------------- | ----------------- ")
+@testset "IPW: <ψₙ|x²|ψₙ> = 2L²/π³(π³/6-π/4)" begin
+  println(io, "  L |  n |     analytical |      numerical ")
+  println(io, "--- | -- | -------------- | -------------- ")
   for L in [0.1, 0.5, 1.0, 7.0]
   for n in 1:1
     IPW = InfinitePotentialWell(L=L, m=1.0, ℏ=1.0)
@@ -188,18 +190,18 @@ Reference:
     numerical  = quadgk(x -> conj(ψ(IPW, x, n=n)) * x^2 * ψ(IPW, x, n=n), 0, L, maxevals=10^3)[1]
     acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-5) : isapprox(analytical, numerical, rtol=1e-5)
     @test acceptance
-    @printf("%.1f | %2d | %17.12f | %17.12f %s\n", L, n, numerical, analytical, acceptance ? "✔" :  "✗")
+    @printf(io, "%.1f | %2d | %14.9f | %14.9f %s\n", L, n, numerical, analytical, acceptance ? "✔" :  "✗")
   end
   end
 end
 
-println("""```""")
+println(io, """```\n""")
 
 
 # <ψₙ|p|ψₙ>  = ∫ψₙ*(-iℏd/dx)ψₙdx = 0
 
 
-println(raw"""
+println(io, raw"""
 
 #### Expected Value of $p$
 ```math
@@ -269,12 +271,13 @@ are given by the sum of 2 Taylor series:
   + O\left(\Delta x^{3}\right).
 \end{aligned}
 ```
+
 ```""")
 
-@testset "<ψₙ|p|ψₙ>  = ∫ψₙ*(-iℏd/dx)ψₙdx = 0" begin
+@testset "IPW: <ψₙ|p|ψₙ>  = ∫ψₙ*(-iℏd/dx)ψₙdx = 0" begin
   ψpψ(IPW, x; n=0, Δx=0.01) = -im*IPW.ℏ*conj(ψ(IPW,x,n=n))*(ψ(IPW,x+Δx,n=n)-ψ(IPW,x-Δx,n=n))/2/Δx
-  println("  L |  n |        analytical |         numerical ")
-  println("--- | -- | ----------------- | ----------------- ")
+  println(io, "  L |  n |     analytical |      numerical ")
+  println(io, "--- | -- | -------------- | -------------- ")
   for L in [0.1, 0.5, 1.0, 7.0]
   for n in 1:1
     IPW = InfinitePotentialWell(L=L, m=1.0, ℏ=1.0)
@@ -282,18 +285,18 @@ are given by the sum of 2 Taylor series:
     numerical  = abs(quadgk(x -> ψpψ(IPW, x, n=n, Δx=L*0.0001), 0, L, maxevals=10^3)[1])
     acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-5) : isapprox(analytical, numerical, rtol=1e-5)
     @test acceptance
-    @printf("%.1f | %2d | %17.12f | %17.12f %s\n", L, n, numerical, analytical, acceptance ? "✔" :  "✗")
+    @printf(io, "%.1f | %2d | %14.9f | %14.9f %s\n", L, n, numerical, analytical, acceptance ? "✔" :  "✗")
   end
   end
 end
 
-println("""```""")
+println(io, """```\n""")
 
 
 # <ψₙ|p²|ψₙ> = ∫ψₙ*(-ℏ²d²/dx²)ψₙdx = π²ℏ²/L²
 
 
-println(raw"""
+println(io, raw"""
 #### Expected Value of $p^2$
 
 ```math
@@ -365,12 +368,13 @@ are given by the sum of 2 Taylor series:
 + O\left(\Delta x^{4}\right).
 \end{aligned}
 ```
+
 ```""")
 
-@testset "<ψₙ|p²|ψₙ> = ∫ψₙ*(-ℏ²d²/dx²)ψₙdx = π²ℏ²/L²" begin
+@testset "IPW: <ψₙ|p²|ψₙ> = ∫ψₙ*(-ℏ²d²/dx²)ψₙdx = π²ℏ²/L²" begin
   ψp²ψ(IPW, x; n=0, Δx=0.01) = -IPW.ℏ^2*conj(ψ(IPW,x,n=n))*(ψ(IPW,x+Δx,n=n)-2*ψ(IPW,x,n=n)+ψ(IPW,x-Δx,n=n))/Δx^2
-  println("  L |  n |        analytical |         numerical ")
-  println("--- | -- | ----------------- | ----------------- ")
+  println(io, "  L |  n |     analytical |      numerical ")
+  println(io, "--- | -- | -------------- | -------------- ")
   for L in [0.1, 0.5, 1.0, 7.0]
   for n in 1:1
     IPW = InfinitePotentialWell(L=L, m=1.0, ℏ=1.0)
@@ -378,9 +382,12 @@ are given by the sum of 2 Taylor series:
     numerical  = quadgk(x -> ψp²ψ(IPW, x, n=n, Δx=L*0.0001), 0, L, maxevals=10^3)[1]
     acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-5) : isapprox(analytical, numerical, rtol=1e-5)
     @test acceptance
-    @printf("%.1f | %2d | %17.12f | %17.12f %s\n", L, n, numerical, analytical, acceptance ? "✔" :  "✗")
+    @printf(io, "%.1f | %2d | %14.9f | %14.9f %s\n", L, n, numerical, analytical, acceptance ? "✔" :  "✗")
   end
   end
 end
 
-println("""```""")
+println(io, """```\n""")
+
+
+close(io)

@@ -1,10 +1,11 @@
+io = open("./result/PoschlTeller.md", "w")
 PT = PoschlTeller(λ=4.0)
 
 
 # Pₙᵐ(x) = √(1-x²)ᵐ dᵐ/dxᵐ Pₙ(x); Pₙ(x) = 1/(2ⁿn!) dⁿ/dxⁿ (x²-1)ⁿ
 
 
-println(raw"""
+println(io, raw"""
 #### Associated Legendre Polynomials $P_n^m(x)$
 
 ```math
@@ -17,37 +18,37 @@ println(raw"""
 ```
 """)
 
-@testset "Pₙᵐ(x) = √(1-x²)ᵐ dᵐ/dxᵐ Pₙ(x); Pₙ(x) = 1/(2ⁿn!) dⁿ/dxⁿ (x²-1)ⁿ" begin
+@testset "PT: Pₙᵐ(x) = √(1-x²)ᵐ dᵐ/dxᵐ Pₙ(x); Pₙ(x) = 1/(2ⁿn!) dⁿ/dxⁿ (x²-1)ⁿ" begin
+  @variables x
   for n in 0:4
   for m in 0:n
-      # Rodrigues' formula
-      @variables x
-      Dn = n==0 ? x->x : Differential(x)^n                  # dⁿ/dxⁿ
-      Dm = m==0 ? x->x : Differential(x)^m                  # dᵐ/dxᵐ
-      a = 1 // (2^n * factorial(n))                         # left
-      b = (x^2 - 1)^n                                       # right
-      c = (1 - x^2)^(m//2) * Dm(a * Dn(b))                  # Rodrigues' formula
-      d = expand_derivatives(c)                             # expand dⁿ/dxⁿ and dᵐ/dxᵐ
-      e = simplify(d, expand=true)                          # simplify
-      f = simplify(Antique.P(PT, x, n=n, m=m), expand=true) # closed-form
-      # latexify
-      eq1 = latexify(e, env=:raw)
-      eq2 = latexify(f, env=:raw)
-      # judge
-      acceptance = isequal(e, f)
-      println("``n=$n, m=$m:`` ", acceptance ? "✔" : "✗")
-      # show LaTeX
-      println("""```math
-      \\begin{aligned}
-        P_{$n}^{$m}(x)
-          = $(latexify(c, env=:raw))
-        &= $(eq1) \\\\
-        &= $(eq2)
-      \\end{aligned}
-      ```
-      """)
-      # result
-      @test acceptance
+    # Rodrigues' formula
+    Dn = n==0 ? x->x : Differential(x)^n                  # dⁿ/dxⁿ
+    Dm = m==0 ? x->x : Differential(x)^m                  # dᵐ/dxᵐ
+    a = 1 // (2^n * factorial(n))                         # left
+    b = (x^2 - 1)^n                                       # right
+    c = (1 - x^2)^(m//2) * Dm(a * Dn(b))                  # Rodrigues' formula
+    d = expand_derivatives(c)                             # expand dⁿ/dxⁿ and dᵐ/dxᵐ
+    e = simplify(d, expand=true)                          # simplify
+    f = simplify(Antique.P(PT, x, n=n, m=m), expand=true) # closed-form
+    # latexify
+    eq1 = latexify(e, env=:raw)
+    eq2 = latexify(f, env=:raw)
+    # judge
+    acceptance = isequal(e, f)
+    println(io, "``n=$n, m=$m:`` ", acceptance ? "✔" : "✗")
+    # show LaTeX
+    println(io, """```math
+    \\begin{aligned}
+      P_{$n}^{$m}(x)
+        = $(latexify(c, env=:raw))
+      &= $(eq1) \\\\
+      &= $(eq2)
+    \\end{aligned}
+    ```
+    """)
+    # result
+    @test acceptance
   end
   end
 end
@@ -56,7 +57,7 @@ end
 # <ψᵢ|ψⱼ> = δᵢⱼ
 
 
-println(raw"""
+println(io, raw"""
 #### Normalization & Orthogonality of $\psi_n(x)$
 
 ```math
@@ -65,9 +66,9 @@ println(raw"""
 
 ```""")
 
-@testset "<ψᵢ|ψⱼ> = δᵢⱼ" begin
-  println("  λ |   m |   ℏ |  x₀ |  i |  j |        analytical |         numerical ")
-  println("--- | --- | --- | --- | -- | -- | ----------------- | ----------------- ")
+@testset "PT: <ψᵢ|ψⱼ> = δᵢⱼ" begin
+  println(io, "  λ |   m |   ℏ |  x₀ |  i |  j |     analytical |      numerical ")
+  println(io, "--- | --- | --- | --- | -- | -- | -------------- | -------------- ")
   for λ in [1,2,3]
   for m in [1.0,2.0,exp(1)]
   for ℏ in [1.0,2.0,exp(1)]
@@ -79,7 +80,7 @@ println(raw"""
       numerical  = quadgk(x -> conj(ψ(PT, x, n=i)) * ψ(PT, x, n=j), -Inf, Inf, maxevals=10^3)[1]
       acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-5) : isapprox(analytical, numerical, rtol=1e-5)
       @test acceptance
-      @printf("%.1f | %.1f | %.1f | %.1f | %2d | %2d | %17.12f | %17.12f %s\n", λ, m, ℏ, x₀, i, j, analytical, numerical, acceptance ? "✔" : "✗")
+      @printf(io, "%.1f | %.1f | %.1f | %.1f | %2d | %2d | %14.9f | %14.9f %s\n", λ, m, ℏ, x₀, i, j, analytical, numerical, acceptance ? "✔" : "✗")
     end
     end
   end
@@ -88,12 +89,13 @@ println(raw"""
   end
 end
 
-println("""```
-""")
+println(io, """```\n""")
 
 
+# ∫ψₙ*Hψₙdx = <ψₙ|H|ψₙ> = Eₙ
 
-println(raw"""
+
+println(io, raw"""
 #### Eigenvalues
 
 ```math
@@ -158,10 +160,10 @@ are given by the sum of 2 Taylor series:
 
 ```""")
 
-@testset "∫ψₙ*Hψₙdx = <ψₙ|H|ψₙ> = Eₙ" begin
+@testset "PT: ∫ψₙ*Hψₙdx = <ψₙ|H|ψₙ> = Eₙ" begin
   ψHψ(PT, x; n=0, Δx=0.005) = V(PT,x)*ψ(PT,x,n=n)^2 - PT.ℏ^2/(2*PT.m)*conj(ψ(PT,x,n=n))*(ψ(PT,x+Δx,n=n)-2*ψ(PT,x,n=n)+ψ(PT,x-Δx,n=n))/Δx^2
-  println("  λ |   m |   ℏ |  x₀ |  n |        analytical |         numerical ")
-  println("--- | --- | --- | --- | -- | ----------------- | ----------------- ")
+  println(io, "  λ |   m |   ℏ |  x₀ |  n |     analytical |      numerical ")
+  println(io, "--- | --- | --- | --- | -- | -------------- | -------------- ")
   for λ in [1,2,3]
   for m in [1.0,2.0,exp(1)]
   for ℏ in [1.0,2.0,exp(1)]
@@ -172,7 +174,7 @@ are given by the sum of 2 Taylor series:
       numerical  = quadgk(x -> ψHψ(PT, x, n=n, Δx=0.001), -Inf, Inf, atol=1e-5)[1]
       acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-3) : isapprox(analytical, numerical, rtol=1e-5)
       @test acceptance
-      @printf("%.1f | %.1f | %.1f | %.1f | %2d | %17.12f | %17.12f %s\n", λ, m, ℏ, x₀, n, analytical, numerical, acceptance ? "✔" : "✗")
+      @printf(io, "%.1f | %.1f | %.1f | %.1f | %2d | %14.9f | %14.9f %s\n", λ, m, ℏ, x₀, n, analytical, numerical, acceptance ? "✔" : "✗")
     end
   end
   end
@@ -181,14 +183,13 @@ are given by the sum of 2 Taylor series:
 end
 PT = PoschlTeller(λ=1.0, m=1.0, ℏ=1.0)
 
-println("""```
-""")
+println(io, """```\n""")
 
 
 # 0 < Eₙ₊₁ - Eₙ for 0 ≤ n ≤ nₘₐₓ
 
 
-println(raw"""
+println(io, raw"""
 #### Recurrence Relation between $E_{n+1}$ and $E_n$
 
 ```math
@@ -212,36 +213,38 @@ n_\mathrm{max} = \left\lfloor \lambda \right\rfloor - 1
 
 ```""")
 
-@testset "0 < Eₙ₊₁ - Eₙ for 0 ≤ n ≤ nₘₐₓ" begin
+@testset "PT: 0 < Eₙ₊₁ - Eₙ for 0 ≤ n ≤ nₘₐₓ" begin
   for PT in [
     PoschlTeller(λ=2, m=1.0, ℏ=1.0, x₀=1.0),
     PoschlTeller(λ=3, m=1.0, ℏ=1.0, x₀=1.0),
     PoschlTeller(λ=4, m=1.0, ℏ=1.0, x₀=1.0),
     PoschlTeller(λ=10, m=1.0, ℏ=1.0, x₀=1.0),
   ]
-    @show PT
-    println(" n  Eₙ          ΔE")
+    println(io, "PT = $PT")
+    println(io, " n  Eₙ          ΔE")
     for n in 0:nₘₐₓ(PT)+5
       Eₙ₊₁ = E(PT, n=n+1, nocheck=true)
       Eₙ   = E(PT, n=n, nocheck=true)
       ΔE  = Eₙ₊₁ - Eₙ
-      @printf("%2d  %+9.6f  %+9.6f  ", n, Eₙ, ΔE)
+      @printf(io, "%2d  %+9.6f  %+9.6f  ", n, Eₙ, ΔE)
       if n ≤ nₘₐₓ(PT)
-        print("0 < ΔE  ")
+        print(io, "0 < ΔE  ")
         acceptance = 0 < ΔE
       else
-        print("ΔE < 0  ")
+        print(io, "ΔE < 0  ")
         acceptance = ΔE < 0
       end
       @test acceptance
-      println(acceptance ? "✔" : "✗")
+      println(io, acceptance ? "✔" : "✗")
       if n == nₘₐₓ(PT)
-        println("-----------------------------------  nₘₐₓ(PT) = ", nₘₐₓ(PT))
+        println(io, "-----------------------------  nₘₐₓ(PT) = ", nₘₐₓ(PT))
       end
     end
-    println()
+    println(io, "")
   end
 end
 
-println("""```
-""")
+println(io, """```\n""")
+
+
+close(io)

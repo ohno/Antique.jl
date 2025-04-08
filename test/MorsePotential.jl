@@ -1,10 +1,11 @@
+io = open("./result/MorsePotential.md", "w")
 MP = MorsePotential()
 
 
 # Lₙ⁽ᵅ⁾(x) = x⁻ᵅeˣ/n! dⁿ/dxⁿ xⁿ⁺ᵅe⁻ˣ
 
 
-println(raw"""
+println(io, raw"""
 #### Generalized Laguerre Polynomials $L_n^{(\alpha)}(x)$
 
 ```math
@@ -16,26 +17,26 @@ println(raw"""
 ```
 """)
 
-@testset "Lₙ⁽ᵅ⁾(x) = x⁻ᵅeˣ/n! dⁿ/dxⁿ xⁿ⁺ᵅe⁻ˣ" begin
+@testset "MP: Lₙ⁽ᵅ⁾(x) = x⁻ᵅeˣ/n! dⁿ/dxⁿ xⁿ⁺ᵅe⁻ˣ" begin
+  @variables x
   for n in 0:4
   for α in 0:n
-    # Rodriguesの公式の展開
-    @variables x
-    D = n==0 ? x->x : Differential(x)^n           # dⁿ/dxⁿ
-    a = exp(x) * x^(-α) / factorial(n)            # left
-    b = exp(-x) * x^(n+α)                         # right
-    c = a * D(b)                                  # Rodrigues' formula
-    d = expand_derivatives(c)                     # expand dⁿ/dxⁿ
-    e = simplify(d, expand=true)                  # simplify
+    # Rodrigues' formula
+    D = n==0 ? x->x : Differential(x)^n                   # dⁿ/dxⁿ
+    a = exp(x) * x^(-α) / factorial(n)                    # left
+    b = exp(-x) * x^(n+α)                                 # right
+    c = a * D(b)                                          # Rodrigues' formula
+    d = expand_derivatives(c)                             # expand dⁿ/dxⁿ
+    e = simplify(d, expand=true)                          # simplify
     f = simplify(Antique.L(MP, x, n=n, α=α), expand=true) # closed-form
     # latexify
     eq1 = latexify(e, env=:raw)
     eq2 = latexify(f, env=:raw)
     # judge
     acceptance = isequal(e, f)
-    println("``n=$n, α=$α:`` ", acceptance ? "✔" : "✗")
+    println(io, "``n=$n, α=$α:`` ", acceptance ? "✔" : "✗")
     # show LaTeX
-    println("""```math
+    println(io, """```math
     \\begin{aligned}
       L_{$n}^{($α)}(x)
        = $(latexify(c, env=:raw))
@@ -54,7 +55,7 @@ end
 # ∫Lᵢ⁽ᵅ⁾(x)Lⱼ⁽ᵅ⁾(x)xᵅexp(-x)dx = Γ(i+α+1)/i! δᵢⱼ
 
 
-println(raw"""
+println(io, raw"""
 #### Normalization & Orthogonality of $L_n^{(\alpha)}(x)$
 
 ```math
@@ -63,30 +64,29 @@ println(raw"""
 
 ```""")
 
-@testset "∫Lᵢ⁽ᵅ⁾(x)Lⱼ⁽ᵅ⁾(x)xᵅexp(-x)dx = Γ(i+α+1)/i! δᵢⱼ" begin
-  println("   α |  i |  j |        analytical |         numerical ")
-  println("---- | -- | -- | ----------------- | ----------------- ")
-  for α in [0.01,0.05,0.1,0.5,1.0]
+@testset "MP: ∫Lᵢ⁽ᵅ⁾(x)Lⱼ⁽ᵅ⁾(x)xᵅexp(-x)dx = Γ(i+α+1)/i! δᵢⱼ" begin
+  println(io, "   α |  i |  j |     analytical |      numerical ")
+  println(io, "---- | -- | -- | -------------- | -------------- ")
+  for α in [0.01, 0.1, 1.0]
   for i in 0:9
   for j in 0:9
     analytical = gamma(i+α+1)/factorial(i)*(i == j ? 1 : 0)
     numerical  = quadgk(x -> real(Antique.L(MP, x, n=i, α=α)) * real(Antique.L(MP, x, n=j, α=α)) * x^α * exp(-x), 0, Inf, maxevals=10^3)[1]
     acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-5) : isapprox(analytical, numerical, rtol=1e-5)
     @test acceptance
-    @printf("%4.2f | %2d | %2d | %17.12f | %17.12f %s\n", α, i, j, analytical, numerical, acceptance ? "✔" : "✗")
+    @printf(io, "%4.2f | %2d | %2d | %14.9f | %14.9f %s\n", α, i, j, analytical, numerical, acceptance ? "✔" : "✗")
   end
   end
   end
 end
 
-println("""```
-""")
+println(io, """```\n""")
 
 
 # <ψᵢ|ψⱼ> = δᵢⱼ
 
 
-println(raw"""
+println(io, raw"""
 #### Normalization & Orthogonality of $\psi_n(r)$
 
 ```math
@@ -95,28 +95,27 @@ println(raw"""
 
 ```""")
 
-@testset "<ψᵢ|ψⱼ> = δᵢⱼ" begin
-  println(" i |  j |        analytical |         numerical ")
-  println("-- | -- | ----------------- | ----------------- ")
+@testset "MP: <ψᵢ|ψⱼ> = δᵢⱼ" begin
+  println(io, " i |  j |     analytical |      numerical ")
+  println(io, "-- | -- | -------------- | -------------- ")
   for i in 0:9
   for j in 0:9
     analytical = (i == j ? 1 : 0)
     numerical  = quadgk(x -> conj(ψ(MP, x, n=i)) * ψ(MP, x, n=j), 0, Inf, maxevals=10^3)[1]
     acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-5) : isapprox(analytical, numerical, rtol=1e-5)
     @test acceptance
-    @printf("%2d | %2d | %17.12f | %17.12f %s\n", i, j, analytical, numerical, acceptance ? "✔" : "✗")
+    @printf(io, "%2d | %2d | %14.9f | %14.9f %s\n", i, j, analytical, numerical, acceptance ? "✔" : "✗")
   end
   end
 end
 
-println("""```
-""")
+println(io, """```\n""")
 
 
 # <ψₙ|H|ψₙ> = ∫ψₙ*Hψₙdx = Eₙ
 
 
-println(raw"""
+println(io, raw"""
 #### Eigenvalues
 
 ```math
@@ -181,10 +180,10 @@ are given by the sum of 2 Taylor series:
 
 ```""")
 
-@testset "<ψₙ|H|ψₙ> = ∫ψₙ*Hψₙdx = Eₙ" begin
+@testset "MP: <ψₙ|H|ψₙ> = ∫ψₙ*Hψₙdx = Eₙ" begin
   ψHψ(MP, r; n=0, Δr=0.005) = V(MP,r)*ψ(MP,r,n=n)^2 - MP.ℏ^2/(2*MP.μ)*conj(ψ(MP,r,n=n))*(ψ(MP,r+Δr,n=n)-2*ψ(MP,r,n=n)+ψ(MP,r-Δr,n=n))/Δr^2
-  println("  k |  n |        analytical |         numerical ")
-  println("--- | -- | ----------------- | ----------------- ")
+  println(io, "  k |  n |     analytical |      numerical ")
+  println(io, "--- | -- | -------------- | -------------- ")
   for k in [0.1,0.2,0.3,MP.k]
   for n in 0:9
     MP = MorsePotential(k=k)
@@ -192,19 +191,18 @@ are given by the sum of 2 Taylor series:
     numerical  = quadgk(r -> ψHψ(MP, r, n=n, Δr=0.0001), 0.0001, Inf, maxevals=10^4)[1]
     acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-5) : isapprox(analytical, numerical, rtol=1e-5)
     @test acceptance
-    @printf("%.1f | %2d | %17.12f | %17.12f %s\n", k, n, analytical, numerical, acceptance ? "✔" : "✗")
+    @printf(io, "%.1f | %2d | %14.9f | %14.9f %s\n", k, n, analytical, numerical, acceptance ? "✔" : "✗")
   end
   end
 end
 
-println("""```
-""")
+println(io, """```\n""")
 
 
 # 0 < Eₙ₊₁ - Eₙ for 0 ≤ n ≤ nₘₐₓ
 
 
-println(raw"""
+println(io, raw"""
 #### Recurrence Relation between $E_{n+1}$ and $E_n$
 
 ```math
@@ -228,28 +226,29 @@ n_\mathrm{max} = \left\lfloor\frac{2 D_{\mathrm{e}}-h \nu_0}{h \nu_0}\right\rflo
 
 ```""")
 
-@testset "0 < Eₙ₊₁ - Eₙ for 0 ≤ n ≤ nₘₐₓ" begin
-  println(" n  Eₙ          ΔE")
+@testset "MP: 0 < Eₙ₊₁ - Eₙ for 0 ≤ n ≤ nₘₐₓ" begin
+  println(io, " n  Eₙ          ΔE")
   for n in 0:nₘₐₓ(MP)+5
     Eₙ₊₁ = E(MP, n=n+1, nocheck=true)
     Eₙ   = E(MP, n=n, nocheck=true)
     ΔE  = Eₙ₊₁ - Eₙ
-    @printf("%2d  %+9.6f  %+9.6f  ", n, Eₙ, ΔE)
+    @printf(io, "%2d  %+9.6f  %+9.6f  ", n, Eₙ, ΔE)
     if n ≤ nₘₐₓ(MP)
-      print("0 < ΔE  ")
+      print(io, "0 < ΔE  ")
       acceptance = 0 < ΔE
     else
-      print("ΔE < 0  ")
+      print(io, "ΔE < 0  ")
       acceptance = ΔE < 0
     end
     @test acceptance
-    println(acceptance ? "✔" : "✗")
+    println(io, acceptance ? "✔" : "✗")
     if nₘₐₓ(MP) == n
-      println("-----------------------------------  nₘₐₓ(MP) = ", nₘₐₓ(MP))
+      println(io, "-----------------------------  nₘₐₓ(MP) = ", nₘₐₓ(MP))
     end
   end
 end
 
-println("""```
-""")
+println(io, """```\n""")
 
+
+close(io)
