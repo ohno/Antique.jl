@@ -11,10 +11,10 @@ Antique.jl provides self-contained, well-tested, and well-documented implementat
 Run the following code on the REPL to install this package.
 
 ```julia
-]add Antique@0.11.3
+]add Antique@0.12.0
 ```
 
-Or run `import Pkg; Pkg.add(; name="Antique", version="0.11.3")` to install on Jupyter Notebook. The version of this package can be found at `]status Antique` or `import Pkg; Pkg.status("Antique")`.
+Or run `import Pkg; Pkg.add(; name="Antique", version="0.12.0")` to install on Jupyter Notebook. The version of this package can be found at `]status Antique` or `import Pkg; Pkg.status("Antique")`.
 
 ## Usage & Examples
 
