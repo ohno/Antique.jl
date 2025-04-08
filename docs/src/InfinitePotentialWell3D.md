@@ -14,7 +14,7 @@ Antique.InfinitePotentialWell3D
 
 #### Potential
 ```@docs; canonical=false
-Antique.V(::InfinitePotentialWell3D, ::Any...)
+Antique.V(::InfinitePotentialWell3D, ::Any)
 ```
 
 #### Eigenvalues
@@ -24,7 +24,7 @@ Antique.E(::InfinitePotentialWell3D)
 
 #### Eigenfunctions
 ```@docs; canonical=false
-Antique.ψ(::InfinitePotentialWell3D, ::Any...)
+Antique.ψ(::InfinitePotentialWell3D, ::Any)
 ```
 
 ## Usage & Examples
@@ -64,20 +64,20 @@ Wave functions:
 using CairoMakie
 
 # settings
-f = Figure()
-ax = Axis(f[1,1], xlabel=L"$x$", ylabel=L"$\psi(x,0.5,0.5)$")
+fig = Figure()
+axis = Axis(fig[1,1], xlabel=L"$x$", ylabel=L"$\psi(x,0.5,0.5)$")
 
 # plot
-w1 = lines!(ax, 0..1, x -> ψ(IPW3D, x,0.5,0.5, n=[1,1,1]))
-w2 = lines!(ax, 0..1, x -> ψ(IPW3D, x,0.5,0.5, n=[2,1,1]))
-w3 = lines!(ax, 0..1, x -> ψ(IPW3D, x,0.5,0.5, n=[1,2,1]))
-w4 = lines!(ax, 0..1, x -> ψ(IPW3D, x,0.5,0.5, n=[3,1,1]))
-w5 = lines!(ax, 0..1, x -> ψ(IPW3D, x,0.5,0.5, n=[4,1,1]))
+lines!(axis, 0..1, x -> ψ(IPW3D, [x,0.5,0.5], n=[1,1,1]), label=L"n=[1,1,1]")
+lines!(axis, 0..1, x -> ψ(IPW3D, [x,0.5,0.5], n=[2,1,1]), label=L"n=[2,1,1]")
+lines!(axis, 0..1, x -> ψ(IPW3D, [x,0.5,0.5], n=[1,2,1]), label=L"n=[1,2,1]")
+lines!(axis, 0..1, x -> ψ(IPW3D, [x,0.5,0.5], n=[3,1,1]), label=L"n=[3,1,1]")
+lines!(axis, 0..1, x -> ψ(IPW3D, [x,0.5,0.5], n=[4,1,1]), label=L"n=[4,1,1]")
 
 # legend
-axislegend(ax, [w1, w2, w3, w4, w5], [L"n=[1,1,1]", L"n=[2,1,1]", L"n=[1,2,1]", L"n=[3,1,1]", L"n=[4,1,1]"], position=:lb)
+axislegend(axis, position=:lb, framevisible=false)
 
-f
+fig
 ```
 
 ## Testing
