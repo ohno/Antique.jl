@@ -35,7 +35,7 @@ Antique.ψ(::MorsePotential, ::Any)
 #### Generalized Laguerre Polynomials
 
 ```@docs; canonical=false
-Antique.L(::MorsePotential, ::Any)
+Antique.L(::MorsePotential, ::Int, ::Real, ::Real)
 ```
 
 ## Usage & Examples
