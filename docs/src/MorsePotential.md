@@ -33,9 +33,8 @@ Antique.ψ(::MorsePotential, ::Any)
 ```
 
 #### Generalized Laguerre Polynomials
-
 ```@docs; canonical=false
-Antique.L(::MorsePotential, ::Int, ::Real, ::Real)
+Antique.L(::MorsePotential, ::Any)
 ```
 
 ## Usage & Examples
@@ -98,20 +97,20 @@ Wave functions:
 using CairoMakie
 
 # setting
-f = Figure()
-ax = Axis(f[1,1], xlabel=L"$r$", ylabel=L"$\psi(r)$")
+fig = Figure()
+axis = Axis(fig[1,1], xlabel=L"$r$", ylabel=L"$\psi(r)$")
 
 # plot
-w0 = lines!(ax, 0..5, x -> ψ(MP, x, n=0))
-w1 = lines!(ax, 0..5, x -> ψ(MP, x, n=1))
-w2 = lines!(ax, 0..5, x -> ψ(MP, x, n=2))
-w3 = lines!(ax, 0..5, x -> ψ(MP, x, n=3))
-w4 = lines!(ax, 0..5, x -> ψ(MP, x, n=4))
+lines!(axis, 0..5, x -> ψ(MP, x, n=0), label=L"n=0")
+lines!(axis, 0..5, x -> ψ(MP, x, n=1), label=L"n=1")
+lines!(axis, 0..5, x -> ψ(MP, x, n=2), label=L"n=2")
+lines!(axis, 0..5, x -> ψ(MP, x, n=3), label=L"n=3")
+lines!(axis, 0..5, x -> ψ(MP, x, n=4), label=L"n=4")
 
 # legend
-axislegend(ax, [w0, w1, w2, w3, w4], [L"n=0", L"n=1", L"n=2", L"n=3", L"n=4"], position=:lb)
+axislegend(axis, position=:lb, framevisible=false)
 
-f
+fig
 ```
 
 Potential energy curve, Energy levels, Comparison with harmonic oscillator:

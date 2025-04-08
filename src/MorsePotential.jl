@@ -68,10 +68,13 @@ function ψ(model::MorsePotential, r; n::Int=0)
   ξ = 2*λ*exp(-a*(r-rₑ))
   s  = 2*λ - 2*n - 1
   N  = sqrt(factorial(n) * s * a / gamma(s+n+1))
-  return N * ξ^(s/2) * exp(-ξ/2) * L(model, n, s, ξ)
+  return N * ξ^(s/2) * exp(-ξ/2) * L(model, ξ, n=n, α=s)
 end
 
 # generalized Laguerre polynomials
+function L(model::MorsePotential, x; n=0, α=0)
+  return L(model, n, α, x)
+end
 function L(model::MorsePotential, n::Int, α::Int, x)
   return sum((-1)^(k) * (Int(gamma(α+n+1)) // Int((gamma(α+1+k)*gamma(n-k+1)))) * x^k * 1 // factorial(k) for k ∈ 0:n)
 end
@@ -150,7 +153,7 @@ where ``\omega = \sqrt{k/µ}`` is defined.
 """ ψ(model::MorsePotential, r; n::Int=0)
 
 @doc raw"""
-`L(model::MorsePotential, n::Int, α::Real, x)`
+`L(model::MorsePotential, x; n=0, α=0)`
 
 !!! note
     The generalized Laguerre polynomials $L_n^{(\alpha)}(x)$, not the associated Laguerre polynomials $L_n^{k}(x)$, are used in this model.
@@ -185,4 +188,4 @@ Examples:
   \vdots
 \end{aligned}
 ```
-""" L(model::MorsePotential, n::Int, α::Real, x)
+""" L(model::MorsePotential, x; n=0, α=0)
