@@ -39,6 +39,12 @@ function ψ(model::SphericalOscillator, r, θ, φ; n::Int=0, l::Int=0, m::Int=0)
   return R(model, r, n=n, l=l) * Y(model, θ, φ, l=l, m=m)
 end
 
+# n!
+fact(n) = n>0 ? n*fact(n-1) : 1
+
+# n!!
+ffact(n) = n>0 ? n*ffact(n-2) : 1
+
 # radial function
 function R(model::SphericalOscillator, r; n=0, l=0)
   ℏ = model.ℏ
@@ -47,19 +53,16 @@ function R(model::SphericalOscillator, r; n=0, l=0)
   ω = sqrt(k/μ)
   γ = μ*ω/ℏ
   ξ = sqrt(γ)*abs(r)
-  fact(n) = n>0 ? n*fact(n-1) : 1    # n!
-  ffact(n) = n>0 ? n*ffact(n-2) : 1  # n!!
-  N = sqrt( γ^(3/2)/(2*sqrt(π))) * sqrt( 2^(n+l+3) * fact(n)/ffact(2n+2l+1))
-  return N * ξ^l * exp(-ξ^2/2) * L(model, ξ^2, n=n, α=l+1/2)
+  N = sqrt(γ^(3/2)/(2*sqrt(π))) * sqrt( 2^(n+l+3) * fact(n)/ffact(2n+2l+1))
+  return N * ξ^l * exp(-ξ^2/2) * L(model, n, l+1/2, ξ^2)
 end
 
 # generalized Laguerre polynomials
-function L(model::SphericalOscillator, x; n=0, α=0)
-  if isinteger(α)
-    return sum((-1)^(k) * (Int(gamma(α+n+1)) // Int((gamma(α+1+k)*gamma(n-k+1)))) * x^k * 1 // factorial(k) for k ∈ 0:n)
-  else
-    return sum((-1)^(k) * (gamma(α+n+1) / (gamma(α+1+k)*gamma(n-k+1))) * x^k / factorial(k) for k ∈ 0:n)
-  end
+function L(model::SphericalOscillator, n::Int, α::Int, x)
+  return sum((-1)^(k) * (Int(gamma(α+n+1)) // Int((gamma(α+1+k)*gamma(n-k+1)))) * x^k * 1 // factorial(k) for k ∈ 0:n)
+end
+function L(model::SphericalOscillator, n::Int, α::Real, x)
+  return sum((-1)^(k) * (gamma(α+n+1) / (gamma(α+1+k)*gamma(n-k+1))) * x^k / factorial(k) for k ∈ 0:n)
 end
 
 # spherical harmonics
@@ -142,7 +145,7 @@ where ``\gamma = \mu\omega/\hbar`` and ``\xi = \sqrt{\gamma}r = \sqrt{\mu\omega/
 """ R(model::SphericalOscillator, r; n=0, l=0)
 
 @doc raw"""
-`L(model::SphericalOscillator, x; n=0, α=0)`
+`L(model::SphericalOscillator, n::Int, α::Real, x)`
 
 !!! note
     The generalized Laguerre polynomials $L_n^{(\alpha)}(x)$, not the associated Laguerre polynomials $L_n^{k}(x)$, are used in this model.

@@ -35,7 +35,7 @@ Antique.R(::SphericalOscillator, ::Any)
 #### Generalized Laguerre Polynomials
 
 ```@docs; canonical=false
-Antique.L(::SphericalOscillator, ::Any)
+Antique.L(::SphericalOscillator, ::Int, ::Real, ::Real)
 ```
 
 #### Spherical Harmonics
