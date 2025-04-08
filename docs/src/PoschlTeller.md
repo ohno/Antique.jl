@@ -141,5 +141,5 @@ Unit testing and Integration testing were done using numerical integration ([Qua
 ```@eval
 using Markdown
 using Antique
-Markdown.parse(Antique.load("../../test/result/PoschlTeller.log"))
+Markdown.parse(Antique.load("../../test/result/PoschlTeller.md"))
 ```

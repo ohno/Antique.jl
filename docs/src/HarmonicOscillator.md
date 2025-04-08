@@ -128,5 +128,5 @@ Unit testing and Integration testing were done using computer algebra system ([S
 ```@eval
 using Markdown
 using Antique
-Markdown.parse(Antique.load("../../test/result/HarmonicOscillator.log"))
+Markdown.parse(Antique.load("../../test/result/HarmonicOscillator.md"))
 ```

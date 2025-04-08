@@ -162,5 +162,5 @@ Unit testing and Integration testing were done using computer algebra system ([S
 ```@eval
 using Markdown
 using Antique
-Markdown.parse(Antique.load("../../test/result/MorsePotential.log"))
+Markdown.parse(Antique.load("../../test/result/MorsePotential.md"))
 ```

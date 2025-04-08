@@ -2,7 +2,7 @@
 CurrentModule = Antique
 ```
 
-# Rigid rotor
+# Rigid Rotor
 
 The linear rigid rotor model can be used in quantum mechanics to predict the rotational energy of a diatomic molecule. The rotational energy depends on the moment of inertia for the system, $I$.
 
@@ -107,5 +107,5 @@ Unit testing and Integration testing were done using computer algebra system ([S
 ```@eval
 using Markdown
 using Antique
-Markdown.parse(Antique.load("../../test/result/RigidRotor.log"))
+Markdown.parse(Antique.load("../../test/result/RigidRotor.md"))
 ```
