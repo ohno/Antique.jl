@@ -1,0 +1,236 @@
+@article{Bezanson2017,
+  title={Julia: A fresh approach to numerical computing},
+  author={Bezanson, Jeff and Edelman, Alan and Karpinski, Stefan and Shah, Viral B},
+  journal={SIAM {R}eview},
+  volume={59},
+  number={1},
+  pages={65--98},
+  year={2017},
+  publisher={SIAM},
+  doi={10.1137/141000671},
+  url={https://epubs.siam.org/doi/10.1137/141000671}
+}
+
+@article{Gowda2022,
+  author = {Gowda, Shashi and Ma, Yingbo and Cheli, Alessandro and Gw\'{o}\'{z}zd\'{z}, Maja and Shah, Viral B. and Edelman, Alan and Rackauckas, Christopher},
+  title = {High-Performance Symbolic-Numerics via Multiple Dispatch},
+  year = {2022},
+  issue_date = {September 2021},
+  publisher = {Association for Computing Machinery},
+  address = {New York, NY, USA},
+  volume = {55},
+  number = {3},
+  issn = {1932-2240},
+  url = {https://doi.org/10.1145/3511528.3511535},
+  doi = {10.1145/3511528.3511535},
+  abstract = {As mathematical computing becomes more democratized in high-level languages, high-performance symbolic-numeric systems are necessary for domain scientists and engineers to get the best performance out of their machine without deep knowledge of code optimization. Naturally, users need different term types either to have different algebraic properties for them, or to use efficient data structures. To this end, we developed Symbolics.jl, an extendable symbolic system which uses dynamic multiple dispatch to change behavior depending on the domain needs. In this work we detail an underlying abstract term interface which allows for speed without sacrificing generality. We show that by formalizing a generic API on actions independent of implementation, we can retroactively add optimized data structures to our system without changing the pre-existing term rewriters. We showcase how this can be used to optimize term construction and give a 113x acceleration on general symbolic transformations. Further, we show that such a generic API allows for complementary term-rewriting implementations. Exploiting this feature, we demonstrate the ability to swap between classical term-rewriting simplifiers and e-graph-based term-rewriting simplifiers. We illustrate how this symbolic system improves numerical computing tasks by showcasing an e-graph ruleset which minimizes the number of CPU cycles during expression evaluation, and demonstrate how it simplifies a real-world reaction-network simulation to halve the runtime. Additionally, we show a reaction-diffusion partial differential equation solver which is able to be automatically converted into symbolic expressions via multiple dispatch tracing, which is subsequently accelerated and parallelized to give a 157x simulation speedup. Together, this presents Symbolics.jl as a next-generation symbolic-numeric computing environment geared towards modeling and simulation.},
+  journal = {ACM Commun. Comput. Algebra},
+  month = {jan},
+  pages = {92–96},
+  numpages = {5}
+}
+
+@book{Greiner2001,
+  title = {Quantum Mechanics},
+  ISBN = {9783642568268},
+  url = {http://dx.doi.org/10.1007/978-3-642-56826-8},
+  DOI = {10.1007/978-3-642-56826-8},
+  publisher = {Springer Berlin Heidelberg},
+  author = {Greiner,  Walter},
+  year = {2001}
+}
+
+@book{Griffiths2018,
+  title = {Introduction to Quantum Mechanics},
+  ISBN = {9781107189638},
+  url = {http://dx.doi.org/10.1017/9781316995433},
+  DOI = {10.1017/9781316995433},
+  publisher = {Cambridge University Press},
+  author = {Griffiths,  David J. and Schroeter,  Darrell F.},
+  year = {2018},
+  month = aug 
+}
+
+@article{Hiyama2018,
+  title = {Study of various few-body systems using Gaussian expansion method (GEM)},
+  volume = {13},
+  ISSN = {2095-0470},
+  url = {http://dx.doi.org/10.1007/s11467-018-0828-5},
+  DOI = {10.1007/s11467-018-0828-5},
+  number = {6},
+  journal = {Frontiers of Physics},
+  publisher = {Springer Science and Business Media LLC},
+  author = {Hiyama,  Emiko and Kamimura,  Masayasu},
+  year = {2018},
+  month = sep 
+}
+
+@misc{quadgk,
+  title = {{QuadGK.jl}: {G}auss--{K}ronrod integration in {J}ulia},
+  author = {Steven G. Johnson},
+  year = {2013},
+  howpublished = {\url{https://github.com/JuliaMath/QuadGK.jl}}
+}
+
+@misc{TwoBody,
+  title = {TwoBody.jl: A Julia package for quantum mechanical two-body problems},
+  author = {Shuhei Ohno},
+  year = {2024},
+  howpublished = {\url{https://github.com/ohno/TwoBody.jl}}
+}
+
+@article{RodrguezGmez2020,
+  title = {A Full-Fledged Analytical Solution to the Quantum Harmonic Oscillator for Undergraduate Students of Science and Engineering},
+  volume = {2},
+  ISSN = {2624-8174},
+  url = {http://dx.doi.org/10.3390/physics2040031},
+  DOI = {10.3390/physics2040031},
+  number = {4},
+  journal = {Physics},
+  publisher = {MDPI AG},
+  author = {Rodríguez-Gómez,  Arturo and Pérez-Martínez,  Ana Laura},
+  year = {2020},
+  month = oct,
+  pages = {541–570}
+}
+
+@book{Thijssen2007,
+  title = {Computational Physics},
+  ISBN = {9781107677135},
+  url = {http://dx.doi.org/10.1017/CBO9781139171397},
+  DOI = {10.1017/cbo9781139171397},
+  publisher = {Cambridge University Press},
+  author = {Thijssen,  Jos},
+  year = {2007},
+  month = mar 
+}
+
+@inproceedings{Velieva2020,
+  title = {Modeling a quantum harmonic oscillator using Julia},
+  author = {Tatyana R. Velieva and Arseny V. Fedorov},
+  pages = {158--167},
+  url = {http://ceur-ws.org/Vol-2639/#paper-14},
+  crossref = {ITTMM2020},
+  year = {2020},
+}
+
+@ARTICLE{SciPy2020,
+  author  = {Virtanen, Pauli and Gommers, Ralf and Oliphant, Travis E. and
+            Haberland, Matt and Reddy, Tyler and Cournapeau, David and
+            Burovski, Evgeni and Peterson, Pearu and Weckesser, Warren and
+            Bright, Jonathan and {van der Walt}, St{\'e}fan J. and
+            Brett, Matthew and Wilson, Joshua and Millman, K. Jarrod and
+            Mayorov, Nikolay and Nelson, Andrew R. J. and Jones, Eric and
+            Kern, Robert and Larson, Eric and Carey, C J and
+            Polat, {\.I}lhan and Feng, Yu and Moore, Eric W. and
+            {VanderPlas}, Jake and Laxalde, Denis and Perktold, Josef and
+            Cimrman, Robert and Henriksen, Ian and Quintero, E. A. and
+            Harris, Charles R. and Archibald, Anne M. and
+            Ribeiro, Ant{\^o}nio H. and Pedregosa, Fabian and
+            {van Mulbregt}, Paul and {SciPy 1.0 Contributors}},
+  title   = {{{SciPy} 1.0: Fundamental Algorithms for Scientific
+            Computing in Python}},
+  journal = {Nature Methods},
+  year    = {2020},
+  volume  = {17},
+  pages   = {261--272},
+  adsurl  = {https://rdcu.be/b08Wh},
+  doi     = {10.1038/s41592-019-0686-2},
+}
+
+
+
+@book{Cpp,
+  author = {{ISO}/{IEC}},
+  title = {{ISO/IEC 14882:2020 Programming languages — C++}},
+  publisher = {International Organization for Standardization},
+  url = {https://www.iso.org/standard/79358.html},
+  year = 2020,
+  month = feb
+}
+
+@article{Nagahiro2017,
+  title = {Structure of charmed baryons studied by pionic decays},
+  volume = {95},
+  ISSN = {2470-0029},
+  url = {http://dx.doi.org/10.1103/PhysRevD.95.014023},
+  DOI = {10.1103/physrevd.95.014023},
+  number = {1},
+  journal = {Physical Review D},
+  publisher = {American Physical Society (APS)},
+  author = {Nagahiro,  Hideko and Yasui,  Shigehiro and Hosaka,  Atsushi and Oka,  Makoto and Noumi,  Hiroyuki},
+  year = {2017},
+  month = jan 
+}
+
+@article{Schrodinger1926,
+  title = {Quantisierung als Eigenwertproblem},
+  volume = {384},
+  ISSN = {1521-3889},
+  url = {http://dx.doi.org/10.1002/andp.19263840404},
+  DOI = {10.1002/andp.19263840404},
+  number = {4},
+  journal = {Annalen der Physik},
+  publisher = {Wiley},
+  author = {Schr\"{o}dinger,  E.},
+  year = {1926},
+  month = jan,
+  pages = {361–376}
+}
+
+@article{Burrau1927,
+  author = {Øyvind Burrau},
+  title = {Berechnung des Energiewertes des Wasserstoffmolekel-Ions (H2+) im Normalzustand.},
+  journal = {Matematisk-fysiske Meddelelser},
+  volume = {17},
+  number = {14},
+  pages = {1-18},
+  year = {1927},
+  URL = {http://publ.royalacademy.dk/books/72/399},
+  eprint = {http://publ.royalacademy.dk/books/72/399}
+}
+
+@article{PrezTorres2019,
+  title = {Dilemma of the “Best Wavefunction”: Comparing Results of the STO-NG Procedure versus the Linear Variational Method},
+  volume = {96},
+  ISSN = {1938-1328},
+  url = {http://dx.doi.org/10.1021/acs.jchemed.8b00959},
+  DOI = {10.1021/acs.jchemed.8b00959},
+  number = {4},
+  journal = {Journal of Chemical Education},
+  publisher = {American Chemical Society (ACS)},
+  author = {Pérez-Torres,  Jhon Fredy},
+  year = {2019},
+  month = mar,
+  pages = {704–707}
+}
+
+@article{Pritchard2019,
+  title = {New Basis Set Exchange: An Open,  Up-to-Date Resource for the Molecular Sciences Community},
+  volume = {59},
+  ISSN = {1549-960X},
+  url = {http://dx.doi.org/10.1021/acs.jcim.9b00725},
+  DOI = {10.1021/acs.jcim.9b00725},
+  number = {11},
+  journal = {Journal of Chemical Information and Modeling},
+  publisher = {American Chemical Society (ACS)},
+  author = {Pritchard,  Benjamin P. and Altarawy,  Doaa and Didier,  Brett and Gibson,  Tara D. and Windus,  Theresa L.},
+  year = {2019},
+  month = oct,
+  pages = {4814–4820}
+}
+
+@article{Hehre1969,
+  title = {Self-Consistent Molecular-Orbital Methods. I. Use of Gaussian Expansions of Slater-Type Atomic Orbitals},
+  volume = {51},
+  ISSN = {1089-7690},
+  url = {http://dx.doi.org/10.1063/1.1672392},
+  DOI = {10.1063/1.1672392},
+  number = {6},
+  journal = {The Journal of Chemical Physics},
+  publisher = {AIP Publishing},
+  author = {Hehre,  W. J. and Stewart,  R. F. and Pople,  J. A.},
+  year = {1969},
+  month = sep,
+  pages = {2657–2664}
+}
