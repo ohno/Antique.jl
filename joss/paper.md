@@ -25,6 +25,7 @@ affiliations:
    index: 2
  - name: Research Center for Nuclear Physics, Osaka University, Ibaraki 567-0047, Japan
    index: 3
+date: 25 April 2025
 bibliography: paper.bib
 ---
 
