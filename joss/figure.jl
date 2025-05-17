@@ -24,7 +24,7 @@ end
 
 # plot
 using CairoMakie
-fig = Figure(; size=(840, 600), fontsize=11.5, backgroundcolor=:transparent)
+fig = Figure(; size=(840, 600), fontsize=11, backgroundcolor=:transparent)
 for i = 1:4
   n = [1, 2, 6, 8][i]
   xₘₐₓ = [6, 18, 120, 200][i]

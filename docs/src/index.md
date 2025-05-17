@@ -119,7 +119,7 @@ println("  analytical: ", Antique.E(HA,n=1))
 
 # wave function
 using CairoMakie
-fig = Figure(size=(420,300), fontsize=11.5, backgroundcolor=:transparent)
+fig = Figure(size=(420,300), fontsize=11, backgroundcolor=:transparent)
 axis = Axis(fig[1,1], xlabel=L"$r$", ylabel=L"$\psi(r,0,0)$", limits=(0,4,0,0.6), ylabelsize=16.5, xlabelsize=16.5)
 lines!(axis, 0:0.01:10, r -> sum(C[:,1] .* exp.(-α*r^2)), label="Numerical, Thijssen(2007)")
 lines!(axis, 0:0.01:10, r -> real(Antique.ψ(HA,r,0,0)), color=:black, linestyle=:dash, label="Analytical, Antique.jl")

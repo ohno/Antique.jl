@@ -261,7 +261,7 @@ println("  \t", 0.182725*eV / h / 1e12 , "  THz\t  Griffiths(1982), Adamczak(201
 
 1S wave function of Ps:
 
-```@example HA
+```@example CTB
 import Antique
 Ps = Antique.CoulombTwoBody(z₁=-1, z₂=1, m₁=1.0, m₂=1.0, mₑ=1.0, a₀=1.0, Eₕ=1.0, ℏ=1.0)
 @show Antique.E(Ps)
@@ -270,7 +270,7 @@ using CairoMakie
 
 fig = Figure(
     size = (420,300),
-    fontsize = 11.5,
+    fontsize = 11,
     backgroundcolor = :transparent
 )
 
