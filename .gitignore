@@ -13,3 +13,11 @@
 */.ipynb_checkpoints
 */.ipynb_checkpoints/
 */.ipynb_checkpoints/*
+
+# JOSS
+/joss/*
+!/joss/make.sh
+!/joss/paper.md
+!/joss/paper.bib
+!/joss/figure.jl
+!/joss/figure.pdf
