@@ -16,7 +16,7 @@
 
 # JOSS
 /joss/*
-!/joss/make.sh
+!/joss/inara.sh
 !/joss/paper.md
 !/joss/paper.bib
 !/joss/figure.jl
