@@ -39,4 +39,5 @@ makedocs(;
 deploydocs(;
   repo="github.com/ohno/Antique.jl",
   devbranch="main",
+  push_preview=true,
 )
