@@ -1,0 +1,1082 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Infinite Potential Well · Antique.jl</title><meta name="title" content="Infinite Potential Well · Antique.jl"/><meta property="og:title" content="Infinite Potential Well · Antique.jl"/><meta property="twitter:title" content="Infinite Potential Well · Antique.jl"/><meta name="description" content="Documentation for Antique.jl."/><meta property="og:description" content="Documentation for Antique.jl."/><meta property="twitter:description" content="Documentation for Antique.jl."/><meta property="og:url" content="https://ohno.github.io/Antique.jl/InfinitePotentialWell/"/><meta property="twitter:url" content="https://ohno.github.io/Antique.jl/InfinitePotentialWell/"/><link rel="canonical" href="https://ohno.github.io/Antique.jl/InfinitePotentialWell/"/><script data-outdated-warner src="../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.050/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL=".."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../assets/documenter.js"></script><script src="../search_index.js"></script><script src="../siteinfo.js"></script><script src="../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-mocha.css" data-theme-name="catppuccin-mocha"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-macchiato.css" data-theme-name="catppuccin-macchiato"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-frappe.css" data-theme-name="catppuccin-frappe"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-latte.css" data-theme-name="catppuccin-latte"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../assets/themeswap.js"></script><link href="../assets/fig/logo.ico" rel="icon" type="image/x-icon"/><link href="../assets/css/catalog.css" rel="stylesheet" type="text/css"/></head><body><div id="documenter"><nav class="docs-sidebar"><a class="docs-logo" href="../"><img src="../assets/logo.svg" alt="Antique.jl logo"/></a><div class="docs-package-name"><span class="docs-autofit"><a href="../">Antique.jl</a></span></div><button class="docs-search-query input is-rounded is-small is-clickable my-2 mx-auto py-1 px-2" id="documenter-search-query">Search docs (Ctrl + /)</button><ul class="docs-menu"><li><a class="tocitem" href="../">Home</a></li><li><a class="tocitem" href="../DeltaPotential/">Delta Potential</a></li><li class="is-active"><a class="tocitem" href>Infinite Potential Well</a><ul class="internal"><li><a class="tocitem" href="#Definitions"><span>Definitions</span></a></li><li><a class="tocitem" href="#Usage-and-Examples"><span>Usage &amp; Examples</span></a></li><li><a class="tocitem" href="#Testing"><span>Testing</span></a></li></ul></li><li><a class="tocitem" href="../HarmonicOscillator/">Harmonic Oscillator</a></li><li><a class="tocitem" href="../MorsePotential/">Morse Potential</a></li><li><a class="tocitem" href="../PoschlTeller/">Pöschl-Teller Potential</a></li><li><a class="tocitem" href="../RigidRotor/">Rigid Rotor</a></li><li><a class="tocitem" href="../InfinitePotentialWell3D/">Infinite Potential Well 3D</a></li><li><a class="tocitem" href="../SphericalOscillator/">Spherical Oscillator</a></li><li><a class="tocitem" href="../HydrogenAtom/">Hydrogen Atom</a></li><li><a class="tocitem" href="../CoulombTwoBody/">Coulomb 2-Body System</a></li><li><a class="tocitem" href="../API/">API reference</a></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><a class="docs-sidebar-button docs-navbar-link fa-solid fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a><nav class="breadcrumb"><ul class="is-hidden-mobile"><li class="is-active"><a href>Infinite Potential Well</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Infinite Potential Well</a></li></ul></nav><div class="docs-right"><a class="docs-navbar-link" href="https://github.com/ohno/Antique.jl" title="View the repository on GitHub"><span class="docs-icon fa-brands"></span><span class="docs-label is-hidden-touch">GitHub</span></a><a class="docs-navbar-link" href="https://github.com/ohno/Antique.jl/blob/main/docs/src/InfinitePotentialWell.md#" title="Edit source on GitHub"><span class="docs-icon fa-solid"></span></a><a class="docs-settings-button docs-navbar-link fa-solid fa-gear" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-article-toggle-button fa-solid fa-chevron-up" id="documenter-article-toggle-button" href="javascript:;" title="Collapse all docstrings"></a></div></header><article class="content" id="documenter-page"><h1 id="Infinite-Potential-Well-(Particle-in-a-Box)"><a class="docs-heading-anchor" href="#Infinite-Potential-Well-(Particle-in-a-Box)">Infinite Potential Well (Particle in a Box)</a><a id="Infinite-Potential-Well-(Particle-in-a-Box)-1"></a><a class="docs-heading-anchor-permalink" href="#Infinite-Potential-Well-(Particle-in-a-Box)" title="Permalink"></a></h1><p>The infinite potential well (particle in a box) is the simplest model for a quantum mechanical system.</p><h2 id="Definitions"><a class="docs-heading-anchor" href="#Definitions">Definitions</a><a id="Definitions-1"></a><a class="docs-heading-anchor-permalink" href="#Definitions" title="Permalink"></a></h2><article class="docstring"><header><a class="docstring-article-toggle-button fa-solid fa-chevron-down" href="javascript:;" title="Collapse docstring"></a><a class="docstring-binding" id="Antique.InfinitePotentialWell-InfinitePotentialWell" href="#Antique.InfinitePotentialWell-InfinitePotentialWell"><code>Antique.InfinitePotentialWell</code></a> — <span class="docstring-category">Type</span><span class="is-flex-grow-1 docstring-article-toggle-button" title="Collapse docstring"></span></header><section><div><p><strong>Model</strong></p><p>This model is described with the time-independent Schrödinger equation</p><p class="math-container">\[  \hat{H} \psi(x) = E \psi(x),\]</p><p>and the Hamiltonian</p><p class="math-container">\[  \hat{H} = - \frac{\hbar^2}{2m} \frac{\mathrm{d}^2}{\mathrm{d}x ^2} + V(x).\]</p><p>Parameters are specified with the following struct:</p><pre><code class="nohighlight hljs">IPW = InfinitePotentialWell(L=1.0, m=1.0, ℏ=1.0)</code></pre><p><span>$L$</span> is the length of the box, <span>$m$</span> is the mass of particle and <span>$\hbar$</span> is the reduced Planck constant (Dirac&#39;s constant).</p><p><strong>References</strong></p><ul><li><a href="https://doi.org/10.1017/9781316995433">D. J. Griffiths, D. F. Schroeter, <em>Introduction to Quantum Mechanics</em> <strong>Third Edition</strong> (Cambridge University Press, 2018)</a> p.31, 2.2 THE INFINITE SQUARE WELL</li></ul><p><strong>Proofs</strong></p><ul><li><a href="https://ja.wolframalpha.com/input?i2d=true&amp;i=D%5B%5C%2840%29Sqrt%5BDivide%5B2%2Ca%5D%5Dsin%5C%2840%29Divide%5Bn%CF%80x%2Ca%5D%5C%2841%29%5C%2841%29%2C%7Bx%2C2%7D%5D">Eigen Functions &amp; Eigen Values</a></li><li><a href="https://ja.wolframalpha.com/input?i=Integrate%5B%28%28Sqrt%5B2%2Fa%5Dsin%28%CF%80x%2Fa%29%29%29%5E2%2C+%7Bx%2C0%2Ca%7D%5D">Normalization</a></li></ul></div><a class="docs-sourcelink" target="_blank" href="https://github.com/ohno/Antique.jl/blob/f8f999688569042f49358a29eb4a5be811022749/src/InfinitePotentialWell.jl#L38-L65">source</a></section></article><h4 id="Potential"><a class="docs-heading-anchor" href="#Potential">Potential</a><a id="Potential-1"></a><a class="docs-heading-anchor-permalink" href="#Potential" title="Permalink"></a></h4><article class="docstring"><header><a class="docstring-article-toggle-button fa-solid fa-chevron-down" href="javascript:;" title="Collapse docstring"></a><a class="docstring-binding" id="Antique.V-Tuple{InfinitePotentialWell, Any}-InfinitePotentialWell" href="#Antique.V-Tuple{InfinitePotentialWell, Any}-InfinitePotentialWell"><code>Antique.V</code></a> — <span class="docstring-category">Method</span><span class="is-flex-grow-1 docstring-article-toggle-button" title="Collapse docstring"></span></header><section><div><p><code>V(model::InfinitePotentialWell; x)</code></p><p class="math-container">\[V(x) =
+\left\{
+  \begin{array}{ll}
+  0      &amp; 0 \leq x \leq L \\
+  \infty &amp; x \lt 0, L \lt x
+  \end{array}
+\right.\]</p></div><a class="docs-sourcelink" target="_blank" href="https://github.com/ohno/Antique.jl/blob/f8f999688569042f49358a29eb4a5be811022749/src/InfinitePotentialWell.jl#L67-L79">source</a></section></article><h4 id="Eigenvalues"><a class="docs-heading-anchor" href="#Eigenvalues">Eigenvalues</a><a id="Eigenvalues-1"></a><a class="docs-heading-anchor-permalink" href="#Eigenvalues" title="Permalink"></a></h4><article class="docstring"><header><a class="docstring-article-toggle-button fa-solid fa-chevron-down" href="javascript:;" title="Collapse docstring"></a><a class="docstring-binding" id="Antique.E-Tuple{InfinitePotentialWell}-InfinitePotentialWell" href="#Antique.E-Tuple{InfinitePotentialWell}-InfinitePotentialWell"><code>Antique.E</code></a> — <span class="docstring-category">Method</span><span class="is-flex-grow-1 docstring-article-toggle-button" title="Collapse docstring"></span></header><section><div><p><code>E(model::InfinitePotentialWell; n::Int=1)</code></p><p class="math-container">\[E_n = \frac{\hbar^2 n^2 \pi^2}{2 m L^2}\]</p></div><a class="docs-sourcelink" target="_blank" href="https://github.com/ohno/Antique.jl/blob/f8f999688569042f49358a29eb4a5be811022749/src/InfinitePotentialWell.jl#L81-L87">source</a></section></article><h4 id="Eigenfunctions"><a class="docs-heading-anchor" href="#Eigenfunctions">Eigenfunctions</a><a id="Eigenfunctions-1"></a><a class="docs-heading-anchor-permalink" href="#Eigenfunctions" title="Permalink"></a></h4><article class="docstring"><header><a class="docstring-article-toggle-button fa-solid fa-chevron-down" href="javascript:;" title="Collapse docstring"></a><a class="docstring-binding" id="Antique.ψ-Tuple{InfinitePotentialWell, Any}-InfinitePotentialWell" href="#Antique.ψ-Tuple{InfinitePotentialWell, Any}-InfinitePotentialWell"><code>Antique.ψ</code></a> — <span class="docstring-category">Method</span><span class="is-flex-grow-1 docstring-article-toggle-button" title="Collapse docstring"></span></header><section><div><p><code>ψ(model::InfinitePotentialWell, x; n::Int=1)</code></p><p class="math-container">\[\psi_n(x) = \sqrt{\frac{2}{L}} \sin \frac{n\pi x}{L}\]</p></div><a class="docs-sourcelink" target="_blank" href="https://github.com/ohno/Antique.jl/blob/f8f999688569042f49358a29eb4a5be811022749/src/InfinitePotentialWell.jl#L89-L95">source</a></section></article><h2 id="Usage-and-Examples"><a class="docs-heading-anchor" href="#Usage-and-Examples">Usage &amp; Examples</a><a id="Usage-and-Examples-1"></a><a class="docs-heading-anchor-permalink" href="#Usage-and-Examples" title="Permalink"></a></h2><p><a href="../#Install">Install Antique.jl</a> for the first use and run <code>using Antique</code> before each use. The energy <code>E()</code>, wave function <code>ψ()</code> and potential <code>V()</code> will be exported. In this system, the model is generated by <code>InfinitePotentialWell</code> and several parameters <code>L</code>, <code>m</code> and <code>ℏ</code> are set as optional arguments.</p><pre><code class="language-julia hljs">using Antique
+IPW = InfinitePotentialWell(L=1.0, m=1.0, ℏ=1.0)</code></pre><p>Parameters:</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; IPW.L</code><code class="nohighlight hljs ansi" style="display:block;">1.0</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; IPW.m</code><code class="nohighlight hljs ansi" style="display:block;">1.0</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; IPW.ℏ</code><code class="nohighlight hljs ansi" style="display:block;">1.0</code></pre><p>Eigenvalues:</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; E(IPW, n=1)</code><code class="nohighlight hljs ansi" style="display:block;">4.934802200544679</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; E(IPW, n=2)</code><code class="nohighlight hljs ansi" style="display:block;">19.739208802178716</code></pre><p>Wave functions:</p><pre><code class="language-julia hljs">using CairoMakie
+
+# settings
+f = Figure()
+ax = Axis(f[1,1], xlabel=L&quot;$x$&quot;, ylabel=L&quot;$\psi(x)$&quot;)
+
+# plot
+w1 = lines!(ax, 0..1, x -&gt; ψ(IPW, x, n=1))
+w2 = lines!(ax, 0..1, x -&gt; ψ(IPW, x, n=2))
+w3 = lines!(ax, 0..1, x -&gt; ψ(IPW, x, n=3))
+w4 = lines!(ax, 0..1, x -&gt; ψ(IPW, x, n=4))
+w5 = lines!(ax, 0..1, x -&gt; ψ(IPW, x, n=5))
+
+# legend
+axislegend(ax, [w1, w2, w3, w4, w5], [L&quot;n=1&quot;, L&quot;n=2&quot;, L&quot;n=3&quot;, L&quot;n=4&quot;, L&quot;n=5&quot;], position=:lb)
+
+f</code></pre><img src="5d2614fb.png" alt="Example block output"/><p>Potential energy curve, Energy levels, Wave functions:</p><pre><code class="language-julia hljs">using CairoMakie
+
+# settings
+f = Figure()
+ax = Axis(f[1,1], xlabel=L&quot;$x$&quot;, ylabel=L&quot;$V(x),~E_n,~\psi_n(x) \times 5 + E_n$&quot;, aspect=1, limits=(-0.5,1.5,0,140))
+# hidespines!(ax)
+# hidedecorations!(ax)
+
+# plot
+for n in 1:5
+  # energy
+  lines!(ax, [0,IPW.L], fill(E(IPW,n=n),2), color=:black, linewidth=2)
+  # wave function
+  lines!(ax, 0..IPW.L, x -&gt; E(IPW,n=n) + 5*ψ(IPW,x,n=n), linewidth=2)
+end
+
+#potential
+lines!(ax, [0,0,IPW.L,IPW.L], [140,0,0,140], color=:black, linewidth=2)
+
+f</code></pre><p><img src="../assets/fig/InfinitePotentialWell.png" alt/></p><h2 id="Testing"><a class="docs-heading-anchor" href="#Testing">Testing</a><a id="Testing-1"></a><a class="docs-heading-anchor-permalink" href="#Testing" title="Permalink"></a></h2><p>Unit testing and Integration testing were done using numerical integration (<a href="https://juliamath.github.io/QuadGK.jl/stable/">QuadGK.jl</a>). The test script is <a href="https://github.com/ohno/Antique.jl/blob/main/test/InfinitePotentialWell.jl">here</a>.</p><h4>Normalization &amp; Orthogonality of <span>$\psi_n(x)$</span></h4><p class="math-container">\[\int_{0}^{L} \psi_i^\ast(x) \psi_j(x) ~\mathrm{d}x = \delta_{ij}\]</p><pre><code class="nohighlight hljs"> i |  j |     analytical |      numerical 
+-- | -- | -------------- | -------------- 
+ 1 |  1 |    1.000000000 |    1.000000000 ✔
+ 1 |  2 |    0.000000000 |   -0.000000000 ✔
+ 1 |  3 |    0.000000000 |    0.000000000 ✔
+ 1 |  4 |    0.000000000 |   -0.000000000 ✔
+ 1 |  5 |    0.000000000 |    0.000000000 ✔
+ 1 |  6 |    0.000000000 |   -0.000000000 ✔
+ 1 |  7 |    0.000000000 |    0.000000000 ✔
+ 1 |  8 |    0.000000000 |    0.000000000 ✔
+ 1 |  9 |    0.000000000 |    0.000000000 ✔
+ 1 | 10 |    0.000000000 |   -0.000000000 ✔
+ 2 |  1 |    0.000000000 |   -0.000000000 ✔
+ 2 |  2 |    1.000000000 |    1.000000000 ✔
+ 2 |  3 |    0.000000000 |   -0.000000000 ✔
+ 2 |  4 |    0.000000000 |    0.000000000 ✔
+ 2 |  5 |    0.000000000 |    0.000000000 ✔
+ 2 |  6 |    0.000000000 |    0.000000000 ✔
+ 2 |  7 |    0.000000000 |   -0.000000000 ✔
+ 2 |  8 |    0.000000000 |   -0.000000000 ✔
+ 2 |  9 |    0.000000000 |   -0.000000000 ✔
+ 2 | 10 |    0.000000000 |   -0.000000000 ✔
+ 3 |  1 |    0.000000000 |    0.000000000 ✔
+ 3 |  2 |    0.000000000 |   -0.000000000 ✔
+ 3 |  3 |    1.000000000 |    1.000000000 ✔
+ 3 |  4 |    0.000000000 |   -0.000000000 ✔
+ 3 |  5 |    0.000000000 |    0.000000000 ✔
+ 3 |  6 |    0.000000000 |   -0.000000000 ✔
+ 3 |  7 |    0.000000000 |    0.000000000 ✔
+ 3 |  8 |    0.000000000 |   -0.000000000 ✔
+ 3 |  9 |    0.000000000 |    0.000000000 ✔
+ 3 | 10 |    0.000000000 |    0.000000000 ✔
+ 4 |  1 |    0.000000000 |   -0.000000000 ✔
+ 4 |  2 |    0.000000000 |    0.000000000 ✔
+ 4 |  3 |    0.000000000 |   -0.000000000 ✔
+ 4 |  4 |    1.000000000 |    1.000000000 ✔
+ 4 |  5 |    0.000000000 |    0.000000000 ✔
+ 4 |  6 |    0.000000000 |   -0.000000000 ✔
+ 4 |  7 |    0.000000000 |    0.000000000 ✔
+ 4 |  8 |    0.000000000 |    0.000000000 ✔
+ 4 |  9 |    0.000000000 |   -0.000000000 ✔
+ 4 | 10 |    0.000000000 |   -0.000000000 ✔
+ 5 |  1 |    0.000000000 |    0.000000000 ✔
+ 5 |  2 |    0.000000000 |    0.000000000 ✔
+ 5 |  3 |    0.000000000 |    0.000000000 ✔
+ 5 |  4 |    0.000000000 |    0.000000000 ✔
+ 5 |  5 |    1.000000000 |    1.000000000 ✔
+ 5 |  6 |    0.000000000 |    0.000000000 ✔
+ 5 |  7 |    0.000000000 |    0.000000000 ✔
+ 5 |  8 |    0.000000000 |    0.000000000 ✔
+ 5 |  9 |    0.000000000 |    0.000000000 ✔
+ 5 | 10 |    0.000000000 |    0.000000000 ✔
+ 6 |  1 |    0.000000000 |   -0.000000000 ✔
+ 6 |  2 |    0.000000000 |    0.000000000 ✔
+ 6 |  3 |    0.000000000 |   -0.000000000 ✔
+ 6 |  4 |    0.000000000 |   -0.000000000 ✔
+ 6 |  5 |    0.000000000 |    0.000000000 ✔
+ 6 |  6 |    1.000000000 |    1.000000000 ✔
+ 6 |  7 |    0.000000000 |   -0.000000000 ✔
+ 6 |  8 |    0.000000000 |   -0.000000000 ✔
+ 6 |  9 |    0.000000000 |    0.000000000 ✔
+ 6 | 10 |    0.000000000 |    0.000000000 ✔
+ 7 |  1 |    0.000000000 |    0.000000000 ✔
+ 7 |  2 |    0.000000000 |   -0.000000000 ✔
+ 7 |  3 |    0.000000000 |    0.000000000 ✔
+ 7 |  4 |    0.000000000 |    0.000000000 ✔
+ 7 |  5 |    0.000000000 |    0.000000000 ✔
+ 7 |  6 |    0.000000000 |   -0.000000000 ✔
+ 7 |  7 |    1.000000000 |    1.000000000 ✔
+ 7 |  8 |    0.000000000 |    0.000000000 ✔
+ 7 |  9 |    0.000000000 |   -0.000000000 ✔
+ 7 | 10 |    0.000000000 |   -0.000000000 ✔
+ 8 |  1 |    0.000000000 |    0.000000000 ✔
+ 8 |  2 |    0.000000000 |   -0.000000000 ✔
+ 8 |  3 |    0.000000000 |   -0.000000000 ✔
+ 8 |  4 |    0.000000000 |    0.000000000 ✔
+ 8 |  5 |    0.000000000 |    0.000000000 ✔
+ 8 |  6 |    0.000000000 |   -0.000000000 ✔
+ 8 |  7 |    0.000000000 |    0.000000000 ✔
+ 8 |  8 |    1.000000000 |    1.000000000 ✔
+ 8 |  9 |    0.000000000 |    0.000000000 ✔
+ 8 | 10 |    0.000000000 |    0.000000000 ✔
+ 9 |  1 |    0.000000000 |    0.000000000 ✔
+ 9 |  2 |    0.000000000 |   -0.000000000 ✔
+ 9 |  3 |    0.000000000 |    0.000000000 ✔
+ 9 |  4 |    0.000000000 |   -0.000000000 ✔
+ 9 |  5 |    0.000000000 |    0.000000000 ✔
+ 9 |  6 |    0.000000000 |    0.000000000 ✔
+ 9 |  7 |    0.000000000 |   -0.000000000 ✔
+ 9 |  8 |    0.000000000 |    0.000000000 ✔
+ 9 |  9 |    1.000000000 |    1.000000000 ✔
+ 9 | 10 |    0.000000000 |    0.000000000 ✔
+10 |  1 |    0.000000000 |   -0.000000000 ✔
+10 |  2 |    0.000000000 |   -0.000000000 ✔
+10 |  3 |    0.000000000 |    0.000000000 ✔
+10 |  4 |    0.000000000 |   -0.000000000 ✔
+10 |  5 |    0.000000000 |    0.000000000 ✔
+10 |  6 |    0.000000000 |    0.000000000 ✔
+10 |  7 |    0.000000000 |   -0.000000000 ✔
+10 |  8 |    0.000000000 |    0.000000000 ✔
+10 |  9 |    0.000000000 |    0.000000000 ✔
+10 | 10 |    1.000000000 |    1.000000000 ✔
+ 1 |  1 |    1.000000000 |    1.000000000 ✔
+ 1 |  2 |    0.000000000 |   -0.000000000 ✔
+ 1 |  3 |    0.000000000 |    0.000000000 ✔
+ 1 |  4 |    0.000000000 |   -0.000000000 ✔
+ 1 |  5 |    0.000000000 |    0.000000000 ✔
+ 1 |  6 |    0.000000000 |   -0.000000000 ✔
+ 1 |  7 |    0.000000000 |    0.000000000 ✔
+ 1 |  8 |    0.000000000 |    0.000000000 ✔
+ 1 |  9 |    0.000000000 |    0.000000000 ✔
+ 1 | 10 |    0.000000000 |   -0.000000000 ✔
+ 2 |  1 |    0.000000000 |   -0.000000000 ✔
+ 2 |  2 |    1.000000000 |    1.000000000 ✔
+ 2 |  3 |    0.000000000 |   -0.000000000 ✔
+ 2 |  4 |    0.000000000 |    0.000000000 ✔
+ 2 |  5 |    0.000000000 |    0.000000000 ✔
+ 2 |  6 |    0.000000000 |    0.000000000 ✔
+ 2 |  7 |    0.000000000 |   -0.000000000 ✔
+ 2 |  8 |    0.000000000 |   -0.000000000 ✔
+ 2 |  9 |    0.000000000 |   -0.000000000 ✔
+ 2 | 10 |    0.000000000 |   -0.000000000 ✔
+ 3 |  1 |    0.000000000 |    0.000000000 ✔
+ 3 |  2 |    0.000000000 |   -0.000000000 ✔
+ 3 |  3 |    1.000000000 |    1.000000000 ✔
+ 3 |  4 |    0.000000000 |   -0.000000000 ✔
+ 3 |  5 |    0.000000000 |    0.000000000 ✔
+ 3 |  6 |    0.000000000 |   -0.000000000 ✔
+ 3 |  7 |    0.000000000 |    0.000000000 ✔
+ 3 |  8 |    0.000000000 |   -0.000000000 ✔
+ 3 |  9 |    0.000000000 |    0.000000000 ✔
+ 3 | 10 |    0.000000000 |    0.000000000 ✔
+ 4 |  1 |    0.000000000 |   -0.000000000 ✔
+ 4 |  2 |    0.000000000 |    0.000000000 ✔
+ 4 |  3 |    0.000000000 |   -0.000000000 ✔
+ 4 |  4 |    1.000000000 |    1.000000000 ✔
+ 4 |  5 |    0.000000000 |    0.000000000 ✔
+ 4 |  6 |    0.000000000 |   -0.000000000 ✔
+ 4 |  7 |    0.000000000 |    0.000000000 ✔
+ 4 |  8 |    0.000000000 |    0.000000000 ✔
+ 4 |  9 |    0.000000000 |   -0.000000000 ✔
+ 4 | 10 |    0.000000000 |   -0.000000000 ✔
+ 5 |  1 |    0.000000000 |    0.000000000 ✔
+ 5 |  2 |    0.000000000 |    0.000000000 ✔
+ 5 |  3 |    0.000000000 |    0.000000000 ✔
+ 5 |  4 |    0.000000000 |    0.000000000 ✔
+ 5 |  5 |    1.000000000 |    1.000000000 ✔
+ 5 |  6 |    0.000000000 |    0.000000000 ✔
+ 5 |  7 |    0.000000000 |    0.000000000 ✔
+ 5 |  8 |    0.000000000 |    0.000000000 ✔
+ 5 |  9 |    0.000000000 |    0.000000000 ✔
+ 5 | 10 |    0.000000000 |    0.000000000 ✔
+ 6 |  1 |    0.000000000 |   -0.000000000 ✔
+ 6 |  2 |    0.000000000 |    0.000000000 ✔
+ 6 |  3 |    0.000000000 |   -0.000000000 ✔
+ 6 |  4 |    0.000000000 |   -0.000000000 ✔
+ 6 |  5 |    0.000000000 |    0.000000000 ✔
+ 6 |  6 |    1.000000000 |    1.000000000 ✔
+ 6 |  7 |    0.000000000 |   -0.000000000 ✔
+ 6 |  8 |    0.000000000 |   -0.000000000 ✔
+ 6 |  9 |    0.000000000 |    0.000000000 ✔
+ 6 | 10 |    0.000000000 |    0.000000000 ✔
+ 7 |  1 |    0.000000000 |    0.000000000 ✔
+ 7 |  2 |    0.000000000 |   -0.000000000 ✔
+ 7 |  3 |    0.000000000 |    0.000000000 ✔
+ 7 |  4 |    0.000000000 |    0.000000000 ✔
+ 7 |  5 |    0.000000000 |    0.000000000 ✔
+ 7 |  6 |    0.000000000 |   -0.000000000 ✔
+ 7 |  7 |    1.000000000 |    1.000000000 ✔
+ 7 |  8 |    0.000000000 |    0.000000000 ✔
+ 7 |  9 |    0.000000000 |   -0.000000000 ✔
+ 7 | 10 |    0.000000000 |   -0.000000000 ✔
+ 8 |  1 |    0.000000000 |    0.000000000 ✔
+ 8 |  2 |    0.000000000 |   -0.000000000 ✔
+ 8 |  3 |    0.000000000 |   -0.000000000 ✔
+ 8 |  4 |    0.000000000 |    0.000000000 ✔
+ 8 |  5 |    0.000000000 |    0.000000000 ✔
+ 8 |  6 |    0.000000000 |   -0.000000000 ✔
+ 8 |  7 |    0.000000000 |    0.000000000 ✔
+ 8 |  8 |    1.000000000 |    1.000000000 ✔
+ 8 |  9 |    0.000000000 |    0.000000000 ✔
+ 8 | 10 |    0.000000000 |    0.000000000 ✔
+ 9 |  1 |    0.000000000 |    0.000000000 ✔
+ 9 |  2 |    0.000000000 |   -0.000000000 ✔
+ 9 |  3 |    0.000000000 |    0.000000000 ✔
+ 9 |  4 |    0.000000000 |   -0.000000000 ✔
+ 9 |  5 |    0.000000000 |    0.000000000 ✔
+ 9 |  6 |    0.000000000 |    0.000000000 ✔
+ 9 |  7 |    0.000000000 |   -0.000000000 ✔
+ 9 |  8 |    0.000000000 |    0.000000000 ✔
+ 9 |  9 |    1.000000000 |    1.000000000 ✔
+ 9 | 10 |    0.000000000 |    0.000000000 ✔
+10 |  1 |    0.000000000 |   -0.000000000 ✔
+10 |  2 |    0.000000000 |   -0.000000000 ✔
+10 |  3 |    0.000000000 |    0.000000000 ✔
+10 |  4 |    0.000000000 |   -0.000000000 ✔
+10 |  5 |    0.000000000 |    0.000000000 ✔
+10 |  6 |    0.000000000 |    0.000000000 ✔
+10 |  7 |    0.000000000 |   -0.000000000 ✔
+10 |  8 |    0.000000000 |    0.000000000 ✔
+10 |  9 |    0.000000000 |    0.000000000 ✔
+10 | 10 |    1.000000000 |    1.000000000 ✔
+ 1 |  1 |    1.000000000 |    1.000000000 ✔
+ 1 |  2 |    0.000000000 |   -0.000000000 ✔
+ 1 |  3 |    0.000000000 |    0.000000000 ✔
+ 1 |  4 |    0.000000000 |   -0.000000000 ✔
+ 1 |  5 |    0.000000000 |    0.000000000 ✔
+ 1 |  6 |    0.000000000 |   -0.000000000 ✔
+ 1 |  7 |    0.000000000 |    0.000000000 ✔
+ 1 |  8 |    0.000000000 |    0.000000000 ✔
+ 1 |  9 |    0.000000000 |    0.000000000 ✔
+ 1 | 10 |    0.000000000 |   -0.000000000 ✔
+ 2 |  1 |    0.000000000 |   -0.000000000 ✔
+ 2 |  2 |    1.000000000 |    1.000000000 ✔
+ 2 |  3 |    0.000000000 |   -0.000000000 ✔
+ 2 |  4 |    0.000000000 |    0.000000000 ✔
+ 2 |  5 |    0.000000000 |    0.000000000 ✔
+ 2 |  6 |    0.000000000 |    0.000000000 ✔
+ 2 |  7 |    0.000000000 |   -0.000000000 ✔
+ 2 |  8 |    0.000000000 |   -0.000000000 ✔
+ 2 |  9 |    0.000000000 |   -0.000000000 ✔
+ 2 | 10 |    0.000000000 |   -0.000000000 ✔
+ 3 |  1 |    0.000000000 |    0.000000000 ✔
+ 3 |  2 |    0.000000000 |   -0.000000000 ✔
+ 3 |  3 |    1.000000000 |    1.000000000 ✔
+ 3 |  4 |    0.000000000 |   -0.000000000 ✔
+ 3 |  5 |    0.000000000 |    0.000000000 ✔
+ 3 |  6 |    0.000000000 |   -0.000000000 ✔
+ 3 |  7 |    0.000000000 |    0.000000000 ✔
+ 3 |  8 |    0.000000000 |   -0.000000000 ✔
+ 3 |  9 |    0.000000000 |    0.000000000 ✔
+ 3 | 10 |    0.000000000 |    0.000000000 ✔
+ 4 |  1 |    0.000000000 |   -0.000000000 ✔
+ 4 |  2 |    0.000000000 |    0.000000000 ✔
+ 4 |  3 |    0.000000000 |   -0.000000000 ✔
+ 4 |  4 |    1.000000000 |    1.000000000 ✔
+ 4 |  5 |    0.000000000 |    0.000000000 ✔
+ 4 |  6 |    0.000000000 |   -0.000000000 ✔
+ 4 |  7 |    0.000000000 |    0.000000000 ✔
+ 4 |  8 |    0.000000000 |    0.000000000 ✔
+ 4 |  9 |    0.000000000 |   -0.000000000 ✔
+ 4 | 10 |    0.000000000 |   -0.000000000 ✔
+ 5 |  1 |    0.000000000 |    0.000000000 ✔
+ 5 |  2 |    0.000000000 |    0.000000000 ✔
+ 5 |  3 |    0.000000000 |    0.000000000 ✔
+ 5 |  4 |    0.000000000 |    0.000000000 ✔
+ 5 |  5 |    1.000000000 |    1.000000000 ✔
+ 5 |  6 |    0.000000000 |    0.000000000 ✔
+ 5 |  7 |    0.000000000 |    0.000000000 ✔
+ 5 |  8 |    0.000000000 |    0.000000000 ✔
+ 5 |  9 |    0.000000000 |    0.000000000 ✔
+ 5 | 10 |    0.000000000 |    0.000000000 ✔
+ 6 |  1 |    0.000000000 |   -0.000000000 ✔
+ 6 |  2 |    0.000000000 |    0.000000000 ✔
+ 6 |  3 |    0.000000000 |   -0.000000000 ✔
+ 6 |  4 |    0.000000000 |   -0.000000000 ✔
+ 6 |  5 |    0.000000000 |    0.000000000 ✔
+ 6 |  6 |    1.000000000 |    1.000000000 ✔
+ 6 |  7 |    0.000000000 |   -0.000000000 ✔
+ 6 |  8 |    0.000000000 |   -0.000000000 ✔
+ 6 |  9 |    0.000000000 |    0.000000000 ✔
+ 6 | 10 |    0.000000000 |    0.000000000 ✔
+ 7 |  1 |    0.000000000 |    0.000000000 ✔
+ 7 |  2 |    0.000000000 |   -0.000000000 ✔
+ 7 |  3 |    0.000000000 |    0.000000000 ✔
+ 7 |  4 |    0.000000000 |    0.000000000 ✔
+ 7 |  5 |    0.000000000 |    0.000000000 ✔
+ 7 |  6 |    0.000000000 |   -0.000000000 ✔
+ 7 |  7 |    1.000000000 |    1.000000000 ✔
+ 7 |  8 |    0.000000000 |    0.000000000 ✔
+ 7 |  9 |    0.000000000 |   -0.000000000 ✔
+ 7 | 10 |    0.000000000 |   -0.000000000 ✔
+ 8 |  1 |    0.000000000 |    0.000000000 ✔
+ 8 |  2 |    0.000000000 |   -0.000000000 ✔
+ 8 |  3 |    0.000000000 |   -0.000000000 ✔
+ 8 |  4 |    0.000000000 |    0.000000000 ✔
+ 8 |  5 |    0.000000000 |    0.000000000 ✔
+ 8 |  6 |    0.000000000 |   -0.000000000 ✔
+ 8 |  7 |    0.000000000 |    0.000000000 ✔
+ 8 |  8 |    1.000000000 |    1.000000000 ✔
+ 8 |  9 |    0.000000000 |    0.000000000 ✔
+ 8 | 10 |    0.000000000 |    0.000000000 ✔
+ 9 |  1 |    0.000000000 |    0.000000000 ✔
+ 9 |  2 |    0.000000000 |   -0.000000000 ✔
+ 9 |  3 |    0.000000000 |    0.000000000 ✔
+ 9 |  4 |    0.000000000 |   -0.000000000 ✔
+ 9 |  5 |    0.000000000 |    0.000000000 ✔
+ 9 |  6 |    0.000000000 |    0.000000000 ✔
+ 9 |  7 |    0.000000000 |   -0.000000000 ✔
+ 9 |  8 |    0.000000000 |    0.000000000 ✔
+ 9 |  9 |    1.000000000 |    1.000000000 ✔
+ 9 | 10 |    0.000000000 |    0.000000000 ✔
+10 |  1 |    0.000000000 |   -0.000000000 ✔
+10 |  2 |    0.000000000 |   -0.000000000 ✔
+10 |  3 |    0.000000000 |    0.000000000 ✔
+10 |  4 |    0.000000000 |   -0.000000000 ✔
+10 |  5 |    0.000000000 |    0.000000000 ✔
+10 |  6 |    0.000000000 |    0.000000000 ✔
+10 |  7 |    0.000000000 |   -0.000000000 ✔
+10 |  8 |    0.000000000 |    0.000000000 ✔
+10 |  9 |    0.000000000 |    0.000000000 ✔
+10 | 10 |    1.000000000 |    1.000000000 ✔
+ 1 |  1 |    1.000000000 |    1.000000000 ✔
+ 1 |  2 |    0.000000000 |   -0.000000000 ✔
+ 1 |  3 |    0.000000000 |    0.000000000 ✔
+ 1 |  4 |    0.000000000 |   -0.000000000 ✔
+ 1 |  5 |    0.000000000 |    0.000000000 ✔
+ 1 |  6 |    0.000000000 |   -0.000000000 ✔
+ 1 |  7 |    0.000000000 |    0.000000000 ✔
+ 1 |  8 |    0.000000000 |    0.000000000 ✔
+ 1 |  9 |    0.000000000 |    0.000000000 ✔
+ 1 | 10 |    0.000000000 |   -0.000000000 ✔
+ 2 |  1 |    0.000000000 |   -0.000000000 ✔
+ 2 |  2 |    1.000000000 |    1.000000000 ✔
+ 2 |  3 |    0.000000000 |   -0.000000000 ✔
+ 2 |  4 |    0.000000000 |    0.000000000 ✔
+ 2 |  5 |    0.000000000 |    0.000000000 ✔
+ 2 |  6 |    0.000000000 |    0.000000000 ✔
+ 2 |  7 |    0.000000000 |   -0.000000000 ✔
+ 2 |  8 |    0.000000000 |   -0.000000000 ✔
+ 2 |  9 |    0.000000000 |   -0.000000000 ✔
+ 2 | 10 |    0.000000000 |   -0.000000000 ✔
+ 3 |  1 |    0.000000000 |    0.000000000 ✔
+ 3 |  2 |    0.000000000 |   -0.000000000 ✔
+ 3 |  3 |    1.000000000 |    1.000000000 ✔
+ 3 |  4 |    0.000000000 |   -0.000000000 ✔
+ 3 |  5 |    0.000000000 |    0.000000000 ✔
+ 3 |  6 |    0.000000000 |   -0.000000000 ✔
+ 3 |  7 |    0.000000000 |    0.000000000 ✔
+ 3 |  8 |    0.000000000 |   -0.000000000 ✔
+ 3 |  9 |    0.000000000 |    0.000000000 ✔
+ 3 | 10 |    0.000000000 |    0.000000000 ✔
+ 4 |  1 |    0.000000000 |   -0.000000000 ✔
+ 4 |  2 |    0.000000000 |    0.000000000 ✔
+ 4 |  3 |    0.000000000 |   -0.000000000 ✔
+ 4 |  4 |    1.000000000 |    1.000000000 ✔
+ 4 |  5 |    0.000000000 |    0.000000000 ✔
+ 4 |  6 |    0.000000000 |   -0.000000000 ✔
+ 4 |  7 |    0.000000000 |    0.000000000 ✔
+ 4 |  8 |    0.000000000 |    0.000000000 ✔
+ 4 |  9 |    0.000000000 |   -0.000000000 ✔
+ 4 | 10 |    0.000000000 |   -0.000000000 ✔
+ 5 |  1 |    0.000000000 |    0.000000000 ✔
+ 5 |  2 |    0.000000000 |    0.000000000 ✔
+ 5 |  3 |    0.000000000 |    0.000000000 ✔
+ 5 |  4 |    0.000000000 |    0.000000000 ✔
+ 5 |  5 |    1.000000000 |    1.000000000 ✔
+ 5 |  6 |    0.000000000 |    0.000000000 ✔
+ 5 |  7 |    0.000000000 |    0.000000000 ✔
+ 5 |  8 |    0.000000000 |    0.000000000 ✔
+ 5 |  9 |    0.000000000 |    0.000000000 ✔
+ 5 | 10 |    0.000000000 |    0.000000000 ✔
+ 6 |  1 |    0.000000000 |   -0.000000000 ✔
+ 6 |  2 |    0.000000000 |    0.000000000 ✔
+ 6 |  3 |    0.000000000 |   -0.000000000 ✔
+ 6 |  4 |    0.000000000 |   -0.000000000 ✔
+ 6 |  5 |    0.000000000 |    0.000000000 ✔
+ 6 |  6 |    1.000000000 |    1.000000000 ✔
+ 6 |  7 |    0.000000000 |   -0.000000000 ✔
+ 6 |  8 |    0.000000000 |   -0.000000000 ✔
+ 6 |  9 |    0.000000000 |    0.000000000 ✔
+ 6 | 10 |    0.000000000 |    0.000000000 ✔
+ 7 |  1 |    0.000000000 |    0.000000000 ✔
+ 7 |  2 |    0.000000000 |   -0.000000000 ✔
+ 7 |  3 |    0.000000000 |    0.000000000 ✔
+ 7 |  4 |    0.000000000 |    0.000000000 ✔
+ 7 |  5 |    0.000000000 |    0.000000000 ✔
+ 7 |  6 |    0.000000000 |   -0.000000000 ✔
+ 7 |  7 |    1.000000000 |    1.000000000 ✔
+ 7 |  8 |    0.000000000 |    0.000000000 ✔
+ 7 |  9 |    0.000000000 |   -0.000000000 ✔
+ 7 | 10 |    0.000000000 |   -0.000000000 ✔
+ 8 |  1 |    0.000000000 |    0.000000000 ✔
+ 8 |  2 |    0.000000000 |   -0.000000000 ✔
+ 8 |  3 |    0.000000000 |   -0.000000000 ✔
+ 8 |  4 |    0.000000000 |    0.000000000 ✔
+ 8 |  5 |    0.000000000 |    0.000000000 ✔
+ 8 |  6 |    0.000000000 |   -0.000000000 ✔
+ 8 |  7 |    0.000000000 |    0.000000000 ✔
+ 8 |  8 |    1.000000000 |    1.000000000 ✔
+ 8 |  9 |    0.000000000 |    0.000000000 ✔
+ 8 | 10 |    0.000000000 |    0.000000000 ✔
+ 9 |  1 |    0.000000000 |    0.000000000 ✔
+ 9 |  2 |    0.000000000 |   -0.000000000 ✔
+ 9 |  3 |    0.000000000 |    0.000000000 ✔
+ 9 |  4 |    0.000000000 |   -0.000000000 ✔
+ 9 |  5 |    0.000000000 |    0.000000000 ✔
+ 9 |  6 |    0.000000000 |    0.000000000 ✔
+ 9 |  7 |    0.000000000 |   -0.000000000 ✔
+ 9 |  8 |    0.000000000 |    0.000000000 ✔
+ 9 |  9 |    1.000000000 |    1.000000000 ✔
+ 9 | 10 |    0.000000000 |    0.000000000 ✔
+10 |  1 |    0.000000000 |   -0.000000000 ✔
+10 |  2 |    0.000000000 |   -0.000000000 ✔
+10 |  3 |    0.000000000 |    0.000000000 ✔
+10 |  4 |    0.000000000 |   -0.000000000 ✔
+10 |  5 |    0.000000000 |    0.000000000 ✔
+10 |  6 |    0.000000000 |    0.000000000 ✔
+10 |  7 |    0.000000000 |   -0.000000000 ✔
+10 |  8 |    0.000000000 |    0.000000000 ✔
+10 |  9 |    0.000000000 |    0.000000000 ✔
+10 | 10 |    1.000000000 |    1.000000000 ✔
+ 1 |  1 |    1.000000000 |    1.000000000 ✔
+ 1 |  2 |    0.000000000 |    0.000000000 ✔
+ 1 |  3 |    0.000000000 |   -0.000000000 ✔
+ 1 |  4 |    0.000000000 |    0.000000000 ✔
+ 1 |  5 |    0.000000000 |    0.000000000 ✔
+ 1 |  6 |    0.000000000 |   -0.000000000 ✔
+ 1 |  7 |    0.000000000 |   -0.000000000 ✔
+ 1 |  8 |    0.000000000 |   -0.000000000 ✔
+ 1 |  9 |    0.000000000 |   -0.000000000 ✔
+ 1 | 10 |    0.000000000 |    0.000000000 ✔
+ 2 |  1 |    0.000000000 |    0.000000000 ✔
+ 2 |  2 |    1.000000000 |    1.000000000 ✔
+ 2 |  3 |    0.000000000 |   -0.000000000 ✔
+ 2 |  4 |    0.000000000 |    0.000000000 ✔
+ 2 |  5 |    0.000000000 |   -0.000000000 ✔
+ 2 |  6 |    0.000000000 |    0.000000000 ✔
+ 2 |  7 |    0.000000000 |    0.000000000 ✔
+ 2 |  8 |    0.000000000 |    0.000000000 ✔
+ 2 |  9 |    0.000000000 |   -0.000000000 ✔
+ 2 | 10 |    0.000000000 |    0.000000000 ✔
+ 3 |  1 |    0.000000000 |   -0.000000000 ✔
+ 3 |  2 |    0.000000000 |   -0.000000000 ✔
+ 3 |  3 |    1.000000000 |    1.000000000 ✔
+ 3 |  4 |    0.000000000 |   -0.000000000 ✔
+ 3 |  5 |    0.000000000 |   -0.000000000 ✔
+ 3 |  6 |    0.000000000 |   -0.000000000 ✔
+ 3 |  7 |    0.000000000 |    0.000000000 ✔
+ 3 |  8 |    0.000000000 |    0.000000000 ✔
+ 3 |  9 |    0.000000000 |   -0.000000000 ✔
+ 3 | 10 |    0.000000000 |    0.000000000 ✔
+ 4 |  1 |    0.000000000 |    0.000000000 ✔
+ 4 |  2 |    0.000000000 |    0.000000000 ✔
+ 4 |  3 |    0.000000000 |   -0.000000000 ✔
+ 4 |  4 |    1.000000000 |    1.000000000 ✔
+ 4 |  5 |    0.000000000 |   -0.000000000 ✔
+ 4 |  6 |    0.000000000 |   -0.000000000 ✔
+ 4 |  7 |    0.000000000 |    0.000000000 ✔
+ 4 |  8 |    0.000000000 |    0.000000000 ✔
+ 4 |  9 |    0.000000000 |   -0.000000000 ✔
+ 4 | 10 |    0.000000000 |    0.000000000 ✔
+ 5 |  1 |    0.000000000 |    0.000000000 ✔
+ 5 |  2 |    0.000000000 |   -0.000000000 ✔
+ 5 |  3 |    0.000000000 |   -0.000000000 ✔
+ 5 |  4 |    0.000000000 |   -0.000000000 ✔
+ 5 |  5 |    1.000000000 |    1.000000000 ✔
+ 5 |  6 |    0.000000000 |    0.000000000 ✔
+ 5 |  7 |    0.000000000 |   -0.000000000 ✔
+ 5 |  8 |    0.000000000 |    0.000000000 ✔
+ 5 |  9 |    0.000000000 |    0.000000000 ✔
+ 5 | 10 |    0.000000000 |    0.000000000 ✔
+ 6 |  1 |    0.000000000 |   -0.000000000 ✔
+ 6 |  2 |    0.000000000 |    0.000000000 ✔
+ 6 |  3 |    0.000000000 |   -0.000000000 ✔
+ 6 |  4 |    0.000000000 |   -0.000000000 ✔
+ 6 |  5 |    0.000000000 |    0.000000000 ✔
+ 6 |  6 |    1.000000000 |    1.000000000 ✔
+ 6 |  7 |    0.000000000 |   -0.000000000 ✔
+ 6 |  8 |    0.000000000 |   -0.000000000 ✔
+ 6 |  9 |    0.000000000 |    0.000000000 ✔
+ 6 | 10 |    0.000000000 |   -0.000000000 ✔
+ 7 |  1 |    0.000000000 |   -0.000000000 ✔
+ 7 |  2 |    0.000000000 |    0.000000000 ✔
+ 7 |  3 |    0.000000000 |    0.000000000 ✔
+ 7 |  4 |    0.000000000 |    0.000000000 ✔
+ 7 |  5 |    0.000000000 |   -0.000000000 ✔
+ 7 |  6 |    0.000000000 |   -0.000000000 ✔
+ 7 |  7 |    1.000000000 |    1.000000000 ✔
+ 7 |  8 |    0.000000000 |   -0.000000000 ✔
+ 7 |  9 |    0.000000000 |   -0.000000000 ✔
+ 7 | 10 |    0.000000000 |   -0.000000000 ✔
+ 8 |  1 |    0.000000000 |   -0.000000000 ✔
+ 8 |  2 |    0.000000000 |    0.000000000 ✔
+ 8 |  3 |    0.000000000 |    0.000000000 ✔
+ 8 |  4 |    0.000000000 |    0.000000000 ✔
+ 8 |  5 |    0.000000000 |    0.000000000 ✔
+ 8 |  6 |    0.000000000 |   -0.000000000 ✔
+ 8 |  7 |    0.000000000 |   -0.000000000 ✔
+ 8 |  8 |    1.000000000 |    1.000000000 ✔
+ 8 |  9 |    0.000000000 |   -0.000000000 ✔
+ 8 | 10 |    0.000000000 |    0.000000000 ✔
+ 9 |  1 |    0.000000000 |   -0.000000000 ✔
+ 9 |  2 |    0.000000000 |   -0.000000000 ✔
+ 9 |  3 |    0.000000000 |   -0.000000000 ✔
+ 9 |  4 |    0.000000000 |   -0.000000000 ✔
+ 9 |  5 |    0.000000000 |    0.000000000 ✔
+ 9 |  6 |    0.000000000 |    0.000000000 ✔
+ 9 |  7 |    0.000000000 |   -0.000000000 ✔
+ 9 |  8 |    0.000000000 |   -0.000000000 ✔
+ 9 |  9 |    1.000000000 |    1.000000000 ✔
+ 9 | 10 |    0.000000000 |    0.000000000 ✔
+10 |  1 |    0.000000000 |    0.000000000 ✔
+10 |  2 |    0.000000000 |    0.000000000 ✔
+10 |  3 |    0.000000000 |    0.000000000 ✔
+10 |  4 |    0.000000000 |    0.000000000 ✔
+10 |  5 |    0.000000000 |    0.000000000 ✔
+10 |  6 |    0.000000000 |   -0.000000000 ✔
+10 |  7 |    0.000000000 |   -0.000000000 ✔
+10 |  8 |    0.000000000 |    0.000000000 ✔
+10 |  9 |    0.000000000 |    0.000000000 ✔
+10 | 10 |    1.000000000 |    1.000000000 ✔
+ 1 |  1 |    1.000000000 |    1.000000000 ✔
+ 1 |  2 |    0.000000000 |    0.000000000 ✔
+ 1 |  3 |    0.000000000 |   -0.000000000 ✔
+ 1 |  4 |    0.000000000 |    0.000000000 ✔
+ 1 |  5 |    0.000000000 |    0.000000000 ✔
+ 1 |  6 |    0.000000000 |   -0.000000000 ✔
+ 1 |  7 |    0.000000000 |   -0.000000000 ✔
+ 1 |  8 |    0.000000000 |   -0.000000000 ✔
+ 1 |  9 |    0.000000000 |   -0.000000000 ✔
+ 1 | 10 |    0.000000000 |    0.000000000 ✔
+ 2 |  1 |    0.000000000 |    0.000000000 ✔
+ 2 |  2 |    1.000000000 |    1.000000000 ✔
+ 2 |  3 |    0.000000000 |   -0.000000000 ✔
+ 2 |  4 |    0.000000000 |    0.000000000 ✔
+ 2 |  5 |    0.000000000 |   -0.000000000 ✔
+ 2 |  6 |    0.000000000 |    0.000000000 ✔
+ 2 |  7 |    0.000000000 |    0.000000000 ✔
+ 2 |  8 |    0.000000000 |    0.000000000 ✔
+ 2 |  9 |    0.000000000 |   -0.000000000 ✔
+ 2 | 10 |    0.000000000 |    0.000000000 ✔
+ 3 |  1 |    0.000000000 |   -0.000000000 ✔
+ 3 |  2 |    0.000000000 |   -0.000000000 ✔
+ 3 |  3 |    1.000000000 |    1.000000000 ✔
+ 3 |  4 |    0.000000000 |   -0.000000000 ✔
+ 3 |  5 |    0.000000000 |   -0.000000000 ✔
+ 3 |  6 |    0.000000000 |   -0.000000000 ✔
+ 3 |  7 |    0.000000000 |    0.000000000 ✔
+ 3 |  8 |    0.000000000 |    0.000000000 ✔
+ 3 |  9 |    0.000000000 |   -0.000000000 ✔
+ 3 | 10 |    0.000000000 |    0.000000000 ✔
+ 4 |  1 |    0.000000000 |    0.000000000 ✔
+ 4 |  2 |    0.000000000 |    0.000000000 ✔
+ 4 |  3 |    0.000000000 |   -0.000000000 ✔
+ 4 |  4 |    1.000000000 |    1.000000000 ✔
+ 4 |  5 |    0.000000000 |   -0.000000000 ✔
+ 4 |  6 |    0.000000000 |   -0.000000000 ✔
+ 4 |  7 |    0.000000000 |    0.000000000 ✔
+ 4 |  8 |    0.000000000 |    0.000000000 ✔
+ 4 |  9 |    0.000000000 |   -0.000000000 ✔
+ 4 | 10 |    0.000000000 |    0.000000000 ✔
+ 5 |  1 |    0.000000000 |    0.000000000 ✔
+ 5 |  2 |    0.000000000 |   -0.000000000 ✔
+ 5 |  3 |    0.000000000 |   -0.000000000 ✔
+ 5 |  4 |    0.000000000 |   -0.000000000 ✔
+ 5 |  5 |    1.000000000 |    1.000000000 ✔
+ 5 |  6 |    0.000000000 |    0.000000000 ✔
+ 5 |  7 |    0.000000000 |   -0.000000000 ✔
+ 5 |  8 |    0.000000000 |    0.000000000 ✔
+ 5 |  9 |    0.000000000 |    0.000000000 ✔
+ 5 | 10 |    0.000000000 |    0.000000000 ✔
+ 6 |  1 |    0.000000000 |   -0.000000000 ✔
+ 6 |  2 |    0.000000000 |    0.000000000 ✔
+ 6 |  3 |    0.000000000 |   -0.000000000 ✔
+ 6 |  4 |    0.000000000 |   -0.000000000 ✔
+ 6 |  5 |    0.000000000 |    0.000000000 ✔
+ 6 |  6 |    1.000000000 |    1.000000000 ✔
+ 6 |  7 |    0.000000000 |   -0.000000000 ✔
+ 6 |  8 |    0.000000000 |   -0.000000000 ✔
+ 6 |  9 |    0.000000000 |    0.000000000 ✔
+ 6 | 10 |    0.000000000 |   -0.000000000 ✔
+ 7 |  1 |    0.000000000 |   -0.000000000 ✔
+ 7 |  2 |    0.000000000 |    0.000000000 ✔
+ 7 |  3 |    0.000000000 |    0.000000000 ✔
+ 7 |  4 |    0.000000000 |    0.000000000 ✔
+ 7 |  5 |    0.000000000 |   -0.000000000 ✔
+ 7 |  6 |    0.000000000 |   -0.000000000 ✔
+ 7 |  7 |    1.000000000 |    1.000000000 ✔
+ 7 |  8 |    0.000000000 |   -0.000000000 ✔
+ 7 |  9 |    0.000000000 |   -0.000000000 ✔
+ 7 | 10 |    0.000000000 |   -0.000000000 ✔
+ 8 |  1 |    0.000000000 |   -0.000000000 ✔
+ 8 |  2 |    0.000000000 |    0.000000000 ✔
+ 8 |  3 |    0.000000000 |    0.000000000 ✔
+ 8 |  4 |    0.000000000 |    0.000000000 ✔
+ 8 |  5 |    0.000000000 |    0.000000000 ✔
+ 8 |  6 |    0.000000000 |   -0.000000000 ✔
+ 8 |  7 |    0.000000000 |   -0.000000000 ✔
+ 8 |  8 |    1.000000000 |    1.000000000 ✔
+ 8 |  9 |    0.000000000 |   -0.000000000 ✔
+ 8 | 10 |    0.000000000 |    0.000000000 ✔
+ 9 |  1 |    0.000000000 |   -0.000000000 ✔
+ 9 |  2 |    0.000000000 |   -0.000000000 ✔
+ 9 |  3 |    0.000000000 |   -0.000000000 ✔
+ 9 |  4 |    0.000000000 |   -0.000000000 ✔
+ 9 |  5 |    0.000000000 |    0.000000000 ✔
+ 9 |  6 |    0.000000000 |    0.000000000 ✔
+ 9 |  7 |    0.000000000 |   -0.000000000 ✔
+ 9 |  8 |    0.000000000 |   -0.000000000 ✔
+ 9 |  9 |    1.000000000 |    1.000000000 ✔
+ 9 | 10 |    0.000000000 |    0.000000000 ✔
+10 |  1 |    0.000000000 |    0.000000000 ✔
+10 |  2 |    0.000000000 |    0.000000000 ✔
+10 |  3 |    0.000000000 |    0.000000000 ✔
+10 |  4 |    0.000000000 |    0.000000000 ✔
+10 |  5 |    0.000000000 |    0.000000000 ✔
+10 |  6 |    0.000000000 |   -0.000000000 ✔
+10 |  7 |    0.000000000 |   -0.000000000 ✔
+10 |  8 |    0.000000000 |    0.000000000 ✔
+10 |  9 |    0.000000000 |    0.000000000 ✔
+10 | 10 |    1.000000000 |    1.000000000 ✔
+ 1 |  1 |    1.000000000 |    1.000000000 ✔
+ 1 |  2 |    0.000000000 |    0.000000000 ✔
+ 1 |  3 |    0.000000000 |   -0.000000000 ✔
+ 1 |  4 |    0.000000000 |    0.000000000 ✔
+ 1 |  5 |    0.000000000 |    0.000000000 ✔
+ 1 |  6 |    0.000000000 |   -0.000000000 ✔
+ 1 |  7 |    0.000000000 |   -0.000000000 ✔
+ 1 |  8 |    0.000000000 |   -0.000000000 ✔
+ 1 |  9 |    0.000000000 |   -0.000000000 ✔
+ 1 | 10 |    0.000000000 |    0.000000000 ✔
+ 2 |  1 |    0.000000000 |    0.000000000 ✔
+ 2 |  2 |    1.000000000 |    1.000000000 ✔
+ 2 |  3 |    0.000000000 |   -0.000000000 ✔
+ 2 |  4 |    0.000000000 |    0.000000000 ✔
+ 2 |  5 |    0.000000000 |   -0.000000000 ✔
+ 2 |  6 |    0.000000000 |    0.000000000 ✔
+ 2 |  7 |    0.000000000 |    0.000000000 ✔
+ 2 |  8 |    0.000000000 |    0.000000000 ✔
+ 2 |  9 |    0.000000000 |   -0.000000000 ✔
+ 2 | 10 |    0.000000000 |    0.000000000 ✔
+ 3 |  1 |    0.000000000 |   -0.000000000 ✔
+ 3 |  2 |    0.000000000 |   -0.000000000 ✔
+ 3 |  3 |    1.000000000 |    1.000000000 ✔
+ 3 |  4 |    0.000000000 |   -0.000000000 ✔
+ 3 |  5 |    0.000000000 |   -0.000000000 ✔
+ 3 |  6 |    0.000000000 |   -0.000000000 ✔
+ 3 |  7 |    0.000000000 |    0.000000000 ✔
+ 3 |  8 |    0.000000000 |    0.000000000 ✔
+ 3 |  9 |    0.000000000 |   -0.000000000 ✔
+ 3 | 10 |    0.000000000 |    0.000000000 ✔
+ 4 |  1 |    0.000000000 |    0.000000000 ✔
+ 4 |  2 |    0.000000000 |    0.000000000 ✔
+ 4 |  3 |    0.000000000 |   -0.000000000 ✔
+ 4 |  4 |    1.000000000 |    1.000000000 ✔
+ 4 |  5 |    0.000000000 |   -0.000000000 ✔
+ 4 |  6 |    0.000000000 |   -0.000000000 ✔
+ 4 |  7 |    0.000000000 |    0.000000000 ✔
+ 4 |  8 |    0.000000000 |    0.000000000 ✔
+ 4 |  9 |    0.000000000 |   -0.000000000 ✔
+ 4 | 10 |    0.000000000 |    0.000000000 ✔
+ 5 |  1 |    0.000000000 |    0.000000000 ✔
+ 5 |  2 |    0.000000000 |   -0.000000000 ✔
+ 5 |  3 |    0.000000000 |   -0.000000000 ✔
+ 5 |  4 |    0.000000000 |   -0.000000000 ✔
+ 5 |  5 |    1.000000000 |    1.000000000 ✔
+ 5 |  6 |    0.000000000 |    0.000000000 ✔
+ 5 |  7 |    0.000000000 |   -0.000000000 ✔
+ 5 |  8 |    0.000000000 |    0.000000000 ✔
+ 5 |  9 |    0.000000000 |    0.000000000 ✔
+ 5 | 10 |    0.000000000 |    0.000000000 ✔
+ 6 |  1 |    0.000000000 |   -0.000000000 ✔
+ 6 |  2 |    0.000000000 |    0.000000000 ✔
+ 6 |  3 |    0.000000000 |   -0.000000000 ✔
+ 6 |  4 |    0.000000000 |   -0.000000000 ✔
+ 6 |  5 |    0.000000000 |    0.000000000 ✔
+ 6 |  6 |    1.000000000 |    1.000000000 ✔
+ 6 |  7 |    0.000000000 |   -0.000000000 ✔
+ 6 |  8 |    0.000000000 |   -0.000000000 ✔
+ 6 |  9 |    0.000000000 |    0.000000000 ✔
+ 6 | 10 |    0.000000000 |   -0.000000000 ✔
+ 7 |  1 |    0.000000000 |   -0.000000000 ✔
+ 7 |  2 |    0.000000000 |    0.000000000 ✔
+ 7 |  3 |    0.000000000 |    0.000000000 ✔
+ 7 |  4 |    0.000000000 |    0.000000000 ✔
+ 7 |  5 |    0.000000000 |   -0.000000000 ✔
+ 7 |  6 |    0.000000000 |   -0.000000000 ✔
+ 7 |  7 |    1.000000000 |    1.000000000 ✔
+ 7 |  8 |    0.000000000 |   -0.000000000 ✔
+ 7 |  9 |    0.000000000 |   -0.000000000 ✔
+ 7 | 10 |    0.000000000 |   -0.000000000 ✔
+ 8 |  1 |    0.000000000 |   -0.000000000 ✔
+ 8 |  2 |    0.000000000 |    0.000000000 ✔
+ 8 |  3 |    0.000000000 |    0.000000000 ✔
+ 8 |  4 |    0.000000000 |    0.000000000 ✔
+ 8 |  5 |    0.000000000 |    0.000000000 ✔
+ 8 |  6 |    0.000000000 |   -0.000000000 ✔
+ 8 |  7 |    0.000000000 |   -0.000000000 ✔
+ 8 |  8 |    1.000000000 |    1.000000000 ✔
+ 8 |  9 |    0.000000000 |   -0.000000000 ✔
+ 8 | 10 |    0.000000000 |    0.000000000 ✔
+ 9 |  1 |    0.000000000 |   -0.000000000 ✔
+ 9 |  2 |    0.000000000 |   -0.000000000 ✔
+ 9 |  3 |    0.000000000 |   -0.000000000 ✔
+ 9 |  4 |    0.000000000 |   -0.000000000 ✔
+ 9 |  5 |    0.000000000 |    0.000000000 ✔
+ 9 |  6 |    0.000000000 |    0.000000000 ✔
+ 9 |  7 |    0.000000000 |   -0.000000000 ✔
+ 9 |  8 |    0.000000000 |   -0.000000000 ✔
+ 9 |  9 |    1.000000000 |    1.000000000 ✔
+ 9 | 10 |    0.000000000 |    0.000000000 ✔
+10 |  1 |    0.000000000 |    0.000000000 ✔
+10 |  2 |    0.000000000 |    0.000000000 ✔
+10 |  3 |    0.000000000 |    0.000000000 ✔
+10 |  4 |    0.000000000 |    0.000000000 ✔
+10 |  5 |    0.000000000 |    0.000000000 ✔
+10 |  6 |    0.000000000 |   -0.000000000 ✔
+10 |  7 |    0.000000000 |   -0.000000000 ✔
+10 |  8 |    0.000000000 |    0.000000000 ✔
+10 |  9 |    0.000000000 |    0.000000000 ✔
+10 | 10 |    1.000000000 |    1.000000000 ✔
+ 1 |  1 |    1.000000000 |    1.000000000 ✔
+ 1 |  2 |    0.000000000 |    0.000000000 ✔
+ 1 |  3 |    0.000000000 |   -0.000000000 ✔
+ 1 |  4 |    0.000000000 |    0.000000000 ✔
+ 1 |  5 |    0.000000000 |    0.000000000 ✔
+ 1 |  6 |    0.000000000 |   -0.000000000 ✔
+ 1 |  7 |    0.000000000 |   -0.000000000 ✔
+ 1 |  8 |    0.000000000 |   -0.000000000 ✔
+ 1 |  9 |    0.000000000 |   -0.000000000 ✔
+ 1 | 10 |    0.000000000 |    0.000000000 ✔
+ 2 |  1 |    0.000000000 |    0.000000000 ✔
+ 2 |  2 |    1.000000000 |    1.000000000 ✔
+ 2 |  3 |    0.000000000 |   -0.000000000 ✔
+ 2 |  4 |    0.000000000 |    0.000000000 ✔
+ 2 |  5 |    0.000000000 |   -0.000000000 ✔
+ 2 |  6 |    0.000000000 |    0.000000000 ✔
+ 2 |  7 |    0.000000000 |    0.000000000 ✔
+ 2 |  8 |    0.000000000 |    0.000000000 ✔
+ 2 |  9 |    0.000000000 |   -0.000000000 ✔
+ 2 | 10 |    0.000000000 |    0.000000000 ✔
+ 3 |  1 |    0.000000000 |   -0.000000000 ✔
+ 3 |  2 |    0.000000000 |   -0.000000000 ✔
+ 3 |  3 |    1.000000000 |    1.000000000 ✔
+ 3 |  4 |    0.000000000 |   -0.000000000 ✔
+ 3 |  5 |    0.000000000 |   -0.000000000 ✔
+ 3 |  6 |    0.000000000 |   -0.000000000 ✔
+ 3 |  7 |    0.000000000 |    0.000000000 ✔
+ 3 |  8 |    0.000000000 |    0.000000000 ✔
+ 3 |  9 |    0.000000000 |   -0.000000000 ✔
+ 3 | 10 |    0.000000000 |    0.000000000 ✔
+ 4 |  1 |    0.000000000 |    0.000000000 ✔
+ 4 |  2 |    0.000000000 |    0.000000000 ✔
+ 4 |  3 |    0.000000000 |   -0.000000000 ✔
+ 4 |  4 |    1.000000000 |    1.000000000 ✔
+ 4 |  5 |    0.000000000 |   -0.000000000 ✔
+ 4 |  6 |    0.000000000 |   -0.000000000 ✔
+ 4 |  7 |    0.000000000 |    0.000000000 ✔
+ 4 |  8 |    0.000000000 |    0.000000000 ✔
+ 4 |  9 |    0.000000000 |   -0.000000000 ✔
+ 4 | 10 |    0.000000000 |    0.000000000 ✔
+ 5 |  1 |    0.000000000 |    0.000000000 ✔
+ 5 |  2 |    0.000000000 |   -0.000000000 ✔
+ 5 |  3 |    0.000000000 |   -0.000000000 ✔
+ 5 |  4 |    0.000000000 |   -0.000000000 ✔
+ 5 |  5 |    1.000000000 |    1.000000000 ✔
+ 5 |  6 |    0.000000000 |    0.000000000 ✔
+ 5 |  7 |    0.000000000 |   -0.000000000 ✔
+ 5 |  8 |    0.000000000 |    0.000000000 ✔
+ 5 |  9 |    0.000000000 |    0.000000000 ✔
+ 5 | 10 |    0.000000000 |    0.000000000 ✔
+ 6 |  1 |    0.000000000 |   -0.000000000 ✔
+ 6 |  2 |    0.000000000 |    0.000000000 ✔
+ 6 |  3 |    0.000000000 |   -0.000000000 ✔
+ 6 |  4 |    0.000000000 |   -0.000000000 ✔
+ 6 |  5 |    0.000000000 |    0.000000000 ✔
+ 6 |  6 |    1.000000000 |    1.000000000 ✔
+ 6 |  7 |    0.000000000 |   -0.000000000 ✔
+ 6 |  8 |    0.000000000 |   -0.000000000 ✔
+ 6 |  9 |    0.000000000 |    0.000000000 ✔
+ 6 | 10 |    0.000000000 |   -0.000000000 ✔
+ 7 |  1 |    0.000000000 |   -0.000000000 ✔
+ 7 |  2 |    0.000000000 |    0.000000000 ✔
+ 7 |  3 |    0.000000000 |    0.000000000 ✔
+ 7 |  4 |    0.000000000 |    0.000000000 ✔
+ 7 |  5 |    0.000000000 |   -0.000000000 ✔
+ 7 |  6 |    0.000000000 |   -0.000000000 ✔
+ 7 |  7 |    1.000000000 |    1.000000000 ✔
+ 7 |  8 |    0.000000000 |   -0.000000000 ✔
+ 7 |  9 |    0.000000000 |   -0.000000000 ✔
+ 7 | 10 |    0.000000000 |   -0.000000000 ✔
+ 8 |  1 |    0.000000000 |   -0.000000000 ✔
+ 8 |  2 |    0.000000000 |    0.000000000 ✔
+ 8 |  3 |    0.000000000 |    0.000000000 ✔
+ 8 |  4 |    0.000000000 |    0.000000000 ✔
+ 8 |  5 |    0.000000000 |    0.000000000 ✔
+ 8 |  6 |    0.000000000 |   -0.000000000 ✔
+ 8 |  7 |    0.000000000 |   -0.000000000 ✔
+ 8 |  8 |    1.000000000 |    1.000000000 ✔
+ 8 |  9 |    0.000000000 |   -0.000000000 ✔
+ 8 | 10 |    0.000000000 |    0.000000000 ✔
+ 9 |  1 |    0.000000000 |   -0.000000000 ✔
+ 9 |  2 |    0.000000000 |   -0.000000000 ✔
+ 9 |  3 |    0.000000000 |   -0.000000000 ✔
+ 9 |  4 |    0.000000000 |   -0.000000000 ✔
+ 9 |  5 |    0.000000000 |    0.000000000 ✔
+ 9 |  6 |    0.000000000 |    0.000000000 ✔
+ 9 |  7 |    0.000000000 |   -0.000000000 ✔
+ 9 |  8 |    0.000000000 |   -0.000000000 ✔
+ 9 |  9 |    1.000000000 |    1.000000000 ✔
+ 9 | 10 |    0.000000000 |    0.000000000 ✔
+10 |  1 |    0.000000000 |    0.000000000 ✔
+10 |  2 |    0.000000000 |    0.000000000 ✔
+10 |  3 |    0.000000000 |    0.000000000 ✔
+10 |  4 |    0.000000000 |    0.000000000 ✔
+10 |  5 |    0.000000000 |    0.000000000 ✔
+10 |  6 |    0.000000000 |   -0.000000000 ✔
+10 |  7 |    0.000000000 |   -0.000000000 ✔
+10 |  8 |    0.000000000 |    0.000000000 ✔
+10 |  9 |    0.000000000 |    0.000000000 ✔
+10 | 10 |    1.000000000 |    1.000000000 ✔</code></pre><h4>Eigenvalues</h4><p class="math-container">\[\begin{aligned}
+  E_n
+  &amp;=      \int_0^L \psi^\ast_n(x) \hat{H} \psi_n(x) ~\mathrm{d}x \\
+  &amp;=      \int_0^L \psi^\ast_n(x) \left[ \hat{V} + \hat{T} \right] \psi(x) ~\mathrm{d}x \\
+  &amp;=      \int_0^L \psi^\ast_n(x) \left[ 0 - \frac{\hbar^2}{2m} \frac{\mathrm{d}^{2}}{\mathrm{d} x^{2}} \right] \psi(x) ~\mathrm{d}x \\
+  &amp;\simeq \int_0^L \psi^\ast_n(x) \left[ -\frac{\hbar^2}{2m} \frac{\psi(x+\Delta x) - 2\psi(x) + \psi(x-\Delta x)}{\Delta x^{2}} \right] ~\mathrm{d}x.
+\end{aligned}\]</p><p>Where, the difference formula for the 2nd-order derivative:</p><p class="math-container">\[\begin{aligned}
+  % 2\psi(x)
+  % + \frac{\mathrm{d}^{2} \psi(x)}{\mathrm{d} x^{2}} \Delta x^{2}
+  % + O\left(\Delta x^{4}\right)
+  % &amp;=
+  % \psi(x+\Delta x)
+  % + \psi(x-\Delta x)
+  % \\
+  % \frac{\mathrm{d}^{2} \psi(x)}{\mathrm{d} x^{2}} \Delta x^{2}
+  % &amp;=
+  % \psi(x+\Delta x)
+  % - 2\psi(x)
+  % + \psi(x-\Delta x)
+  % - O\left(\Delta x^{4}\right)
+  % \\
+  % \frac{\mathrm{d}^{2} \psi(x)}{\mathrm{d} x^{2}}
+  % &amp;=
+  % \frac{\psi(x+\Delta x) - 2\psi(x) + \psi(x-\Delta x)}{\Delta x^{2}}
+  % - \frac{O\left(\Delta x^{4}\right)}{\Delta x^{2}}
+  % \\
+  \frac{\mathrm{d}^{2} \psi(x)}{\mathrm{d} x^{2}}
+  &amp;=
+  \frac{\psi(x+\Delta x) - 2\psi(x) + \psi(x-\Delta x)}{\Delta x^{2}}
+  + O\left(\Delta x^{2}\right)
+\end{aligned}\]</p><p>are given by the sum of 2 Taylor series:</p><p class="math-container">\[\begin{aligned}
+\psi(x+\Delta x)
+&amp;= \psi(x)
++ \frac{\mathrm{d} \psi(x)}{\mathrm{d} x} \Delta x
++ \frac{1}{2!} \frac{\mathrm{d}^{2} \psi(x)}{\mathrm{d} x^{2}} \Delta x^{2}
++ \frac{1}{3!} \frac{\mathrm{d}^{3} \psi(x)}{\mathrm{d} x^{3}} \Delta x^{3}
++ O\left(\Delta x^{4}\right),
+\\
+\psi(x-\Delta x)
+&amp;= \psi(x)
+- \frac{\mathrm{d} \psi(x)}{\mathrm{d} x} \Delta x
++ \frac{1}{2!} \frac{\mathrm{d}^{2} \psi(x)}{\mathrm{d} x^{2}} \Delta x^{2}
+- \frac{1}{3!} \frac{\mathrm{d}^{3} \psi(x)}{\mathrm{d} x^{3}} \Delta x^{3}
++ O\left(\Delta x^{4}\right).
+\end{aligned}\]</p><pre><code class="nohighlight hljs">  L |   m |   ℏ |  n |     analytical |      numerical 
+--- | --- | --- | -- | -------------- | -------------- 
+0.1 | 0.1 | 0.1 |  1 |   49.348021579 |   49.348022005 ✔
+0.1 | 0.1 | 0.1 |  2 |  197.392081462 |  197.392088022 ✔
+0.1 | 0.1 | 0.1 |  3 |  444.132165131 |  444.132198049 ✔
+0.1 | 0.1 | 0.1 |  4 |  789.568248176 |  789.568352087 ✔
+0.1 | 0.1 | 0.1 |  5 | 1233.700296336 | 1233.700550136 ✔
+0.1 | 0.1 | 0.1 |  6 | 1776.528266243 | 1776.528792196 ✔
+0.1 | 0.1 | 0.1 |  7 | 2418.052103857 | 2418.053078267 ✔
+0.1 | 0.1 | 0.1 |  8 | 3158.271745876 | 3158.273408349 ✔
+0.1 | 0.1 | 0.1 |  9 | 3997.187119264 | 3997.189782441 ✔
+0.1 | 0.1 | 0.1 | 10 | 4934.798141995 | 4934.802200545 ✔
+0.1 | 0.1 | 1.0 |  1 | 4934.802157914 | 4934.802200545 ✔
+0.1 | 0.1 | 1.0 |  2 | 19739.208146194 | 19739.208802179 ✔
+0.1 | 0.1 | 1.0 |  3 | 44413.216513102 | 44413.219804902 ✔
+0.1 | 0.1 | 1.0 |  4 | 78956.824817598 | 78956.835208715 ✔
+0.1 | 0.1 | 1.0 |  5 | 123370.029633619 | 123370.055013617 ✔
+0.1 | 0.1 | 1.0 |  6 | 177652.826624333 | 177652.879219608 ✔
+0.1 | 0.1 | 1.0 |  7 | 241805.210385708 | 241805.307826689 ✔
+0.1 | 0.1 | 1.0 |  8 | 315827.174587593 | 315827.340834859 ✔
+0.1 | 0.1 | 1.0 |  9 | 399718.711926427 | 399718.978244119 ✔
+0.1 | 0.1 | 1.0 | 10 | 493479.814199451 | 493480.220054468 ✔
+0.1 | 1.0 | 0.1 |  1 |    4.934802158 |    4.934802201 ✔
+0.1 | 1.0 | 0.1 |  2 |   19.739208146 |   19.739208802 ✔
+0.1 | 1.0 | 0.1 |  3 |   44.413216513 |   44.413219805 ✔
+0.1 | 1.0 | 0.1 |  4 |   78.956824818 |   78.956835209 ✔
+0.1 | 1.0 | 0.1 |  5 |  123.370029634 |  123.370055014 ✔
+0.1 | 1.0 | 0.1 |  6 |  177.652826624 |  177.652879220 ✔
+0.1 | 1.0 | 0.1 |  7 |  241.805210386 |  241.805307827 ✔
+0.1 | 1.0 | 0.1 |  8 |  315.827174588 |  315.827340835 ✔
+0.1 | 1.0 | 0.1 |  9 |  399.718711926 |  399.718978244 ✔
+0.1 | 1.0 | 0.1 | 10 |  493.479814199 |  493.480220054 ✔
+0.1 | 1.0 | 1.0 |  1 |  493.480215791 |  493.480220054 ✔
+0.1 | 1.0 | 1.0 |  2 | 1973.920814619 | 1973.920880218 ✔
+0.1 | 1.0 | 1.0 |  3 | 4441.321651310 | 4441.321980490 ✔
+0.1 | 1.0 | 1.0 |  4 | 7895.682481760 | 7895.683520871 ✔
+0.1 | 1.0 | 1.0 |  5 | 12337.002963362 | 12337.005501362 ✔
+0.1 | 1.0 | 1.0 |  6 | 17765.282662433 | 17765.287921961 ✔
+0.1 | 1.0 | 1.0 |  7 | 24180.521038571 | 24180.530782669 ✔
+0.1 | 1.0 | 1.0 |  8 | 31582.717458759 | 31582.734083486 ✔
+0.1 | 1.0 | 1.0 |  9 | 39971.871192643 | 39971.897824412 ✔
+0.1 | 1.0 | 1.0 | 10 | 49347.981419945 | 49348.022005447 ✔
+1.0 | 0.1 | 0.1 |  1 |    0.493480216 |    0.493480220 ✔
+1.0 | 0.1 | 0.1 |  2 |    1.973920815 |    1.973920880 ✔
+1.0 | 0.1 | 0.1 |  3 |    4.441321652 |    4.441321980 ✔
+1.0 | 0.1 | 0.1 |  4 |    7.895682481 |    7.895683521 ✔
+1.0 | 0.1 | 0.1 |  5 |   12.337002965 |   12.337005501 ✔
+1.0 | 0.1 | 0.1 |  6 |   17.765282662 |   17.765287922 ✔
+1.0 | 0.1 | 0.1 |  7 |   24.180521036 |   24.180530783 ✔
+1.0 | 0.1 | 0.1 |  8 |   31.582717460 |   31.582734083 ✔
+1.0 | 0.1 | 0.1 |  9 |   39.971871195 |   39.971897824 ✔
+1.0 | 0.1 | 0.1 | 10 |   49.347981418 |   49.348022005 ✔
+1.0 | 0.1 | 1.0 |  1 |   49.348021595 |   49.348022005 ✔
+1.0 | 0.1 | 1.0 |  2 |  197.392081542 |  197.392088022 ✔
+1.0 | 0.1 | 1.0 |  3 |  444.132165194 |  444.132198049 ✔
+1.0 | 0.1 | 1.0 |  4 |  789.568248126 |  789.568352087 ✔
+1.0 | 0.1 | 1.0 |  5 | 1233.700296503 | 1233.700550136 ✔
+1.0 | 0.1 | 1.0 |  6 | 1776.528266171 | 1776.528792196 ✔
+1.0 | 0.1 | 1.0 |  7 | 2418.052103606 | 2418.053078267 ✔
+1.0 | 0.1 | 1.0 |  8 | 3158.271746002 | 3158.273408349 ✔
+1.0 | 0.1 | 1.0 |  9 | 3997.187119519 | 3997.189782441 ✔
+1.0 | 0.1 | 1.0 | 10 | 4934.798141783 | 4934.802200545 ✔
+1.0 | 1.0 | 0.1 |  1 |    0.049348022 |    0.049348022 ✔
+1.0 | 1.0 | 0.1 |  2 |    0.197392082 |    0.197392088 ✔
+1.0 | 1.0 | 0.1 |  3 |    0.444132165 |    0.444132198 ✔
+1.0 | 1.0 | 0.1 |  4 |    0.789568248 |    0.789568352 ✔
+1.0 | 1.0 | 0.1 |  5 |    1.233700297 |    1.233700550 ✔
+1.0 | 1.0 | 0.1 |  6 |    1.776528266 |    1.776528792 ✔
+1.0 | 1.0 | 0.1 |  7 |    2.418052104 |    2.418053078 ✔
+1.0 | 1.0 | 0.1 |  8 |    3.158271746 |    3.158273408 ✔
+1.0 | 1.0 | 0.1 |  9 |    3.997187120 |    3.997189782 ✔
+1.0 | 1.0 | 0.1 | 10 |    4.934798142 |    4.934802201 ✔
+1.0 | 1.0 | 1.0 |  1 |    4.934802159 |    4.934802201 ✔
+1.0 | 1.0 | 1.0 |  2 |   19.739208154 |   19.739208802 ✔
+1.0 | 1.0 | 1.0 |  3 |   44.413216519 |   44.413219805 ✔
+1.0 | 1.0 | 1.0 |  4 |   78.956824813 |   78.956835209 ✔
+1.0 | 1.0 | 1.0 |  5 |  123.370029650 |  123.370055014 ✔
+1.0 | 1.0 | 1.0 |  6 |  177.652826617 |  177.652879220 ✔
+1.0 | 1.0 | 1.0 |  7 |  241.805210361 |  241.805307827 ✔
+1.0 | 1.0 | 1.0 |  8 |  315.827174600 |  315.827340835 ✔
+1.0 | 1.0 | 1.0 |  9 |  399.718711952 |  399.718978244 ✔
+1.0 | 1.0 | 1.0 | 10 |  493.479814178 |  493.480220054 ✔</code></pre><h4>Expected Value of <span>$x$</span></h4><p class="math-container">\[\langle x \rangle_{n=1}
+= \int_{0}^{L} \psi_1^\ast(x) \hat{x} \psi_1(x) ~\mathrm{d}x
+= \frac{2(2a)^2}{\pi^3} \left( \frac{\pi^3}{6} - \frac{\pi}{4} \right)\]</p><p>for only <span>$n=1$</span>.</p><p>Reference:</p><ul><li><a href="https://phys.libretexts.org/Bookshelves/Modern_Physics/Book%3A_Spiral_Modern_Physics_(D&#39;Alessandris)/6%3A_The_Schrodinger_Equation/6.4%3A_Expectation_Values_Observables_and_Uncertainty">LibreTexts PHYSICS, 6.4: Expectation Values, Observables, and Uncertainty</a></li></ul><pre><code class="nohighlight hljs">  L |  n |     analytical |      numerical 
+--- | -- | -------------- | -------------- 
+0.1 |  1 |    0.050000000 |    0.050000000 ✔
+0.5 |  1 |    0.250000000 |    0.250000000 ✔
+1.0 |  1 |    0.500000000 |    0.500000000 ✔
+7.0 |  1 |    3.500000000 |    3.500000000 ✔</code></pre><h4>Expected Value of <span>$x^2$</span></h4><p class="math-container">\[\langle x^2 \rangle_{n=1}
+= \int_{0}^{L} \psi_1^\ast(x) \hat{x}^2 \psi_1(x) ~\mathrm{d}x
+= \frac{2(2a)^2}{\pi^3} \left( \frac{\pi^3}{6} - \frac{\pi}{4} \right)\]</p><p>Reference:</p><ul><li><a href="https://phys.libretexts.org/Bookshelves/Modern_Physics/Book%3A_Spiral_Modern_Physics_(D&#39;Alessandris)/6%3A_The_Schrodinger_Equation/6.4%3A_Expectation_Values_Observables_and_Uncertainty">LibreTexts PHYSICS, 6.4: Expectation Values, Observables, and Uncertainty</a></li></ul><pre><code class="nohighlight hljs">  L |  n |     analytical |      numerical 
+--- | -- | -------------- | -------------- 
+0.1 |  1 |    0.002826727 |    0.002826727 ✔
+0.5 |  1 |    0.070668185 |    0.070668185 ✔
+1.0 |  1 |    0.282672742 |    0.282672742 ✔
+7.0 |  1 |   13.850964334 |   13.850964334 ✔</code></pre><h4>Expected Value of <span>$p$</span></h4><p class="math-container">\[\langle p \rangle_{n=1}
+= \int_{0}^{L} \psi_1^\ast(x) \hat{p} \psi_1(x) ~\mathrm{d}x
+= 0\]</p><p>Reference:</p><ul><li><a href="https://phys.libretexts.org/Bookshelves/Modern_Physics/Book%3A_Spiral_Modern_Physics_(D&#39;Alessandris)/6%3A_The_Schrodinger_Equation/6.4%3A_Expectation_Values_Observables_and_Uncertainty">LibreTexts PHYSICS, 6.4: Expectation Values, Observables, and Uncertainty</a></li></ul><hr/><p class="math-container">\[  \begin{aligned}
+    \langle p \rangle_{n=1}
+    &amp;= \int_0^L \psi^\ast_n(x) \hat{p} \psi_n(x) ~\mathrm{d}x \\
+    &amp;= \int_0^L \psi^\ast_n(x) \left[ -i\hbar\frac{\mathrm{d}}{\mathrm{d} x} \right] \psi(x) ~\mathrm{d}x \\
+    &amp;\simeq \int_0^L \psi^\ast_n(x) \left[ -i\hbar \frac{\psi(x+\Delta x) - \psi(x-\Delta x)}{2\Delta x} \right] ~\mathrm{d}x.
+  \end{aligned}\]</p><p>Where, the difference formula for the 2nd-order derivative:</p><p class="math-container">\[\begin{aligned}
+  % 2\frac{\mathrm{d} \psi(x)}{\mathrm{d}x} \Delta x
+  % + O\left(\Delta x^{3}\right)
+  % &amp;= 
+  % \psi(x+\Delta x)
+  % - \psi(x-\Delta x)
+  % \\
+  % 2\frac{\mathrm{d} \psi(x)}{\mathrm{d}x} \Delta x
+  % &amp;= 
+  % \psi(x+\Delta x)
+  % - \psi(x-\Delta x)
+  % - O\left(\Delta x^{3}\right)
+  % \\
+  % \frac{\mathrm{d} \psi(x)}{\mathrm{d}x}
+  % &amp;= 
+  % \frac{\psi(x+\Delta x)- \psi(x-\Delta x)}{2\Delta x}
+  % - \frac{O\left(\Delta x^{3}\right)}{2\Delta x}
+  % \\
+  \frac{\mathrm{d} \psi(x)}{\mathrm{d}x}
+  &amp;= 
+  \frac{\psi(x+\Delta x)- \psi(x-\Delta x)}{2\Delta x}
+  + O\left(\Delta x^{2}\right),
+\end{aligned}\]</p><p>are given by the sum of 2 Taylor series:</p><p class="math-container">\[\begin{aligned}
+  \psi(x+\Delta x)
+  &amp;=
+  \psi(x)
+  + \frac{\mathrm{d} \psi(x)}{\mathrm{d}x} \Delta x
+  + \frac{1}{2!} \frac{\mathrm{d}^{2} \psi(x)}{\mathrm{d}x^{2}} \Delta x^{2}
+  + O\left(\Delta x^{3}\right),
+  \\
+  \psi(x-\Delta x)
+  &amp;=
+  \psi(x)
+  - \frac{\mathrm{d} \psi(x)}{\mathrm{d}x} \Delta x
+  + \frac{1}{2!} \frac{\mathrm{d}^{2} \psi(x)}{\mathrm{d}x^{2}} \Delta x^{2}
+  + O\left(\Delta x^{3}\right).
+\end{aligned}\]</p><pre><code class="nohighlight hljs">  L |  n |     analytical |      numerical 
+--- | -- | -------------- | -------------- 
+0.1 |  1 |    0.000000000 |    0.000000000 ✔
+0.5 |  1 |    0.000000000 |    0.000000000 ✔
+1.0 |  1 |    0.000000000 |    0.000000000 ✔
+7.0 |  1 |    0.000000000 |    0.000000000 ✔</code></pre><h4>Expected Value of <span>$p^2$</span></h4><p class="math-container">\[\langle p^2 \rangle
+= \int_{0}^{L} \psi_1^\ast(x) \hat{p}^2 \psi_1(x) ~\mathrm{d}x
+= \frac{\pi^2\hbar^2}{L^2}\]</p><p>Reference:</p><ul><li><a href="https://phys.libretexts.org/Bookshelves/Modern_Physics/Book%3A_Spiral_Modern_Physics_(D&#39;Alessandris)/6%3A_The_Schrodinger_Equation/6.4%3A_Expectation_Values_Observables_and_Uncertainty">LibreTexts PHYSICS, 6.4: Expectation Values, Observables, and Uncertainty</a></li></ul><hr/><p class="math-container">\[  \begin{aligned}
+    \langle p^2 \rangle
+    &amp;= \int_0^L \psi^\ast_n(x) \hat{p} \psi_n(x) ~\mathrm{d}x \\
+    &amp;= \int_0^L \psi^\ast_n(x) \left[ -\hbar^2\frac{\mathrm{d}^2}{{\mathrm{d}x}^2} \right] \psi(x) ~\mathrm{d}x \\
+    &amp;\simeq \int_0^L \psi^\ast_n(x) \left[ -\hbar^2 \frac{\psi(x+\Delta x) - 2\psi(x) + \psi(x-\Delta x)}{\Delta x^{2}} \right] ~\mathrm{d}x.
+  \end{aligned}\]</p><p>Where, the difference formula for the 2nd-order derivative:</p><p class="math-container">\[\begin{aligned}
+  % 2\psi(x)
+  % + \frac{\mathrm{d}^{2} \psi(x)}{\mathrm{d} x^{2}} \Delta x^{2}
+  % + O\left(\Delta x^{4}\right)
+  % &amp;=
+  % \psi(x+\Delta x)
+  % + \psi(x-\Delta x)
+  % \\
+  % \frac{\mathrm{d}^{2} \psi(x)}{\mathrm{d} x^{2}} \Delta x^{2}
+  % &amp;=
+  % \psi(x+\Delta x)
+  % - 2\psi(x)
+  % + \psi(x-\Delta x)
+  % - O\left(\Delta x^{4}\right)
+  % \\
+  % \frac{\mathrm{d}^{2} \psi(x)}{\mathrm{d} x^{2}}
+  % &amp;=
+  % \frac{\psi(x+\Delta x) - 2\psi(x) + \psi(x-\Delta x)}{\Delta x^{2}}
+  % - \frac{O\left(\Delta x^{4}\right)}{\Delta x^{2}}
+  % \\
+  \frac{\mathrm{d}^{2} \psi(x)}{\mathrm{d} x^{2}}
+  &amp;=
+  \frac{\psi(x+\Delta x) - 2\psi(x) + \psi(x-\Delta x)}{\Delta x^{2}}
+  + O\left(\Delta x^{2}\right)
+\end{aligned}\]</p><p>are given by the sum of 2 Taylor series:</p><p class="math-container">\[\begin{aligned}
+\psi(x+\Delta x)
+&amp;= \psi(x)
++ \frac{\mathrm{d} \psi(x)}{\mathrm{d} x} \Delta x
++ \frac{1}{2!} \frac{\mathrm{d}^{2} \psi(x)}{\mathrm{d} x^{2}} \Delta x^{2}
++ \frac{1}{3!} \frac{\mathrm{d}^{3} \psi(x)}{\mathrm{d} x^{3}} \Delta x^{3}
++ O\left(\Delta x^{4}\right),
+\\
+\psi(x-\Delta x)
+&amp;= \psi(x)
+- \frac{\mathrm{d} \psi(x)}{\mathrm{d} x} \Delta x
++ \frac{1}{2!} \frac{\mathrm{d}^{2} \psi(x)}{\mathrm{d} x^{2}} \Delta x^{2}
+- \frac{1}{3!} \frac{\mathrm{d}^{3} \psi(x)}{\mathrm{d} x^{3}} \Delta x^{3}
++ O\left(\Delta x^{4}\right).
+\end{aligned}\]</p><pre><code class="nohighlight hljs">  L |  n |     analytical |      numerical 
+--- | -- | -------------- | -------------- 
+0.1 |  1 |  986.960431583 |  986.960440109 ✔
+0.5 |  1 |   39.478417274 |   39.478417604 ✔
+1.0 |  1 |    9.869604319 |    9.869604401 ✔
+7.0 |  1 |    0.201420496 |    0.201420498 ✔</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../DeltaPotential/">« Delta Potential</a><a class="docs-footer-nextpage" href="../HarmonicOscillator/">Harmonic Oscillator »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.14.1 on <span class="colophon-date" title="Friday 8 August 2025 21:12">Friday 8 August 2025</span>. Using Julia version 1.11.6.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
