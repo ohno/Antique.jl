@@ -64,8 +64,7 @@ One of the important features is the wave function
 ```math
 \psi_n(x) = \sqrt{\frac{2}{L}} \sin \frac{n\pi x}{L}
 ```
-for different values of `n` and position `x`.  
-We can plot the wave function as follows:
+for different values of `n` and position `x`. We can plot the wave function as follows:
 
 ```julia
 using CairoMakie
@@ -89,7 +88,7 @@ f
 ![](docs/src/assets/fig/ipw_wavefunction.png)
 
 
-### (2) the hydrogen-like atom.
+### (2) the hydrogen-like atom
 
 For the hydrogen atom, one need to choose `HydrogenAtom` model and the parameters can be set as 
 ```julia
@@ -122,7 +121,48 @@ E(He⁺, n=1)
 # output> -2.0
 ```
 
+One important application is plotting the radial wave function of the hydrogen atom:
+```math
+R_{nl}(r) = -\sqrt{\frac{(n-l-1)!}{2n(n+l)!} \left(\frac{2Z}{n a_0}\right)^3} \left(\frac{2Zr}{n a_0}\right)^l \exp \left(-\frac{Zr}{n a_0}\right) L_{n+l}^{2l+1} \left(\frac{2Zr}{n a_0}\right)
+```
+Details of this formula can be found on the **HydrogenAtom** model page.  
+We can plot the radial probability density for several states using the following code:
 
+```julia
+using CairoMakie
+using LaTeXStrings
+
+# setting
+f = Figure()
+ax = Axis(f[1,1], xlabel=L"$r~/~a_0$", ylabel=L"$r^2|R_{nl}(r)|^2~/~a_0^{-1}$", limits=(0,20,0,0.58))
+
+# plot
+ws = []
+ls = []
+for n in 1:3
+  for l in 0:n-1
+    w = lines!(
+        ax,
+        0..20,
+        r -> r^2 * Antique.R(H,r,n=n,l=l)^2,
+        linewidth = 2,
+        linestyle = [:solid,:dash,:dot,:dashdot,:dashdotdot][l+1],
+        color = n,
+        colormap = :tab10,
+        colorrange = (1,10)
+    )
+    push!(ws, w)
+    push!(ls, latexstring("n=$n, l=$l"))
+  end
+end
+
+# legend
+axislegend(ax, ws, ls, position=:rt)
+
+f
+```
+
+![](docs/src/assets/fig/H_wavefunction.png)
 
 ## Greek Letters and Symbols
 
