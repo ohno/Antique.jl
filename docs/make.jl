@@ -2,6 +2,9 @@ using Antique
 using CairoMakie
 using Documenter
 using LaTeXStrings
+using DocumenterCitations
+
+bib = CitationBibliography(joinpath(@__DIR__, "src", "refs.bib"));
 
 DocMeta.setdocmeta!(Antique, :DocTestSetup, :(using Antique); recursive=true)
 
@@ -33,7 +36,9 @@ makedocs(;
     "Hydrogen Atom"                => "HydrogenAtom.md"           ,
     "Coulomb 2-Body System"        => "CoulombTwoBody.md"         ,
     "API reference"                => "API.md"                    ,
+    "References"                   => "references.md"                   ,
   ],
+  plugins=[bib],
 )
 
 deploydocs(;

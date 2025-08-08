@@ -105,10 +105,10 @@ MP = MorsePotential(rₑ=2.0, Dₑ=0.1, k=0.1, µ=918.1, ℏ=1.0)
 
 ## References
 
-- [P. M. Morse, _Phys. Rev._, **34**, 57 (1929)](https://doi.org/10.1103/PhysRev.34.57)
-- [J. P. Dahl, M. Springborg, _J. Chem. Phys._, **88**, 4535 (1988). (62), (63)](https://doi.org/10.1063/1.453761)
-- [W. K. Shao, Y. He, J. Pan, _J. Nonlinear Sci. Appl._, **9**, 5, 3388 (2016). (1.6)](http://dx.doi.org/10.22436/jnsa.009.05.124) 
-- The Digital Library of Mathematical Functions (DLMF) [18.3 Table1](https://dlmf.nist.gov/18.3#T1), [18.5 Table1](https://dlmf.nist.gov/18.5#T1), [18.5.12](https://dlmf.nist.gov/18.5#E12), [18.5.17_5](https://dlmf.nist.gov/18.5#E17_5)
+* [Morse1929](@cite) P. M. Morse, _Phys. Rev._, **34**, 57 (1929), (https://doi.org/10.1103/PhysRev.34.57)
+* [Dahl1988](@cite) J. P. Dahl, M. Springborg, _J. Chem. Phys._, **88**, 4535 (1988). (62), (63) (https://doi.org/10.1063/1.453761)
+* [Shao2016](@cite) W. K. Shao, Y. He, J. Pan, _J. Nonlinear Sci. Appl._, **9**, 5, 3388 (2016). (1.6) (http://dx.doi.org/10.22436/jnsa.009.05.124)
+* [DLMF](@cite) _The Digital Library of Mathematical Functions_ (DLMF) [18.3 Table1](https://dlmf.nist.gov/18.3#T1), [18.5 Table1](https://dlmf.nist.gov/18.5#T1), [18.5.12](https://dlmf.nist.gov/18.5#E12), [18.5.17_5](https://dlmf.nist.gov/18.5#E17_5)
 """ MorsePotential
 
 @doc raw"""
