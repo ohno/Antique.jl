@@ -32,15 +32,15 @@ Here we show two examples: (1) the infinite potential well, and (2) the hydrogen
 
 ### (1) the infinite potential well
 
-First, we demonstrate for the one of the easiest models, that is the infinite potential well.
-Here we will choose "InfinitePotentialWell" for the model.
-Then, we determine the model parameters as
+First, we demonstrate one of the simplest models: the infinite potential well.  
+We choose `InfinitePotentialWell` as the model.  
+Then, we specify the model parameters as follows:
 
 ```julia
 IPW = InfinitePotentialWell(L=1.0, m=1.0, ℏ=1.0)
 ```
 
-One can see each parameter as
+We can access each parameter as follows:
 ```julia
 IPW.L
 # output> 1.0
@@ -50,7 +50,7 @@ IPW.ℏ
 # output> 1.0
 ```
 
-The eigenvalues can be computed as 
+The eigenvalues can be computed as follows:
 ```julia
 E(IPW, n=1)
 # output> 4.934802200544679
@@ -58,8 +58,8 @@ E(IPW, n=2)
 # output> 19.739208802178716
 ```
 
-One of the important thing is the wave function "ψ(IPW, x, n=1)" for different "n" and position "x".
-We can plot the wave function as 
+One of the important features is the wave function `ψ(IPW, x, n=1)` for different values of `n` and position `x`.  
+We can plot the wave function as follows:
 
 ```julia
 using CairoMakie
@@ -80,7 +80,7 @@ axislegend(ax, [w1, w2, w3, w4, w5], [L"n=1", L"n=2", L"n=3", L"n=4", L"n=5"], p
 
 f
 ```
-![](docs/src/assets/fig/ipw_wavefunction.png)
+![](docs/src/assets/fig/demonstration.png)
 
 
 ### (2) the hydrogen-like atom.
