@@ -27,7 +27,7 @@ using Antique
 The energy `E()`, the wave function `ψ()`, the potential `V()` and some other functions will be exported. There are two ways to avoid function name conflicts. Run `import Antique` instead of `using Antique`, and use the energy `Antique.E()`, the wave function `Antique.ψ()` and the potential `Antique.V()`.
 In the current version, one can access the Greek letters in the section [Greek Letters and Symbols](#greek-letters-and-symbols).
 Or try giving other function names like `using Antique: V as potential, E as energy, ψ as wavefuntion, HydrogenAtom`.
-Here we show two examples: (1) the infinite potential well, and (2) the hydrogen-like atom.
+Here we show two examples: (1) the infinite potential well, and (2) the hydrogen-like atom. There are more examples on each model page.
 
 
 ### (1) the infinite potential well
@@ -48,7 +48,11 @@ IPW.ℏ
 # output> 1.0
 ```
 
-The eigenvalues can be computed as follows:
+The eigenvalues 
+```math
+E_n = \frac{\hbar^2 n^2 \pi^2}{2 m L^2}
+```
+can be computed as follows:
 ```julia
 E(IPW, n=1)
 # output> 4.934802200544679
@@ -56,7 +60,11 @@ E(IPW, n=2)
 # output> 19.739208802178716
 ```
 
-One of the important features is the wave function `ψ(IPW, x, n=1)` for different values of `n` and position `x`.  
+One of the important features is the wave function 
+```math
+\psi_n(x) = \sqrt{\frac{2}{L}} \sin \frac{n\pi x}{L}
+```
+for different values of `n` and position `x`.  
 We can plot the wave function as follows:
 
 ```julia
@@ -83,16 +91,25 @@ f
 
 ### (2) the hydrogen-like atom.
 
- The analytical notation of the energy (the eigen value of the Hamiltonian) is written as
+For the hydrogen atom, one need to choose `HydrogenAtom` model and the parameters can be set as 
+```julia
+H = HydrogenAtom(Z=1, mₑ=1.0, a₀=1.0, Eₕ=1.0, ℏ=1.0)
+```
+Or you can simply use
+```julia
+H = HydrogenAtom(Z=1)
+```
+The the other parameters use default value.
+The Hydrogen atom has the symbol $\mathrm{H}$ and atomic number 1 ($Z=1$). 
+
+The analytical notation of the energy (the eigen value of the Hamiltonian) is written as
 
 ```math
 E_n = -\frac{Z^2}{2n^2} E_\mathrm{h}.
 ```
-
-The Hydrogen atom has the symbol $\mathrm{H}$ and atomic number 1 ($Z=1$). Therefore the ground state ($n=1$) energy is $-\frac{1}{2} E_\mathrm{h}$.
+Therefore the ground state ($n=1$) energy is $-\frac{1}{2} E_\mathrm{h}$.
 
 ```julia
-H = HydrogenAtom(Z=1)
 E(H, n=1)
 # output> -0.5
 ```
@@ -105,7 +122,6 @@ E(He⁺, n=1)
 # output> -2.0
 ```
 
-There are more examples on each model page.
 
 
 ## Greek Letters and Symbols
