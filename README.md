@@ -24,7 +24,68 @@ Install Antique.jl for the first use and run `using Antique` before each use.
 using Antique
 ```
 
-The energy `E()`, the wave function `ψ()`, the potential `V()` and some other functions will be exported. There are two ways to avoid function name conflicts. Run `import Antique` instead of `using Antique`, and use the energy `Antique.E()`, the wave function `Antique.ψ()` and the potential `Antique.V()`. Or try giving other function names like `using Antique: V as potential, E as energy, ψ as wavefuntion, HydrogenAtom`. Here are examples for the hydrogen-like atom. The analytical notation of the energy (the eigen value of the Hamiltonian) is written as
+The energy `E()`, the wave function `ψ()`, the potential `V()` and some other functions will be exported. There are two ways to avoid function name conflicts. Run `import Antique` instead of `using Antique`, and use the energy `Antique.E()`, the wave function `Antique.ψ()` and the potential `Antique.V()`.
+In the current version, one can access the Greek letters in the section [Greek Letters and Symbols](#greek-letters-and-symbols).
+Or try giving other function names like `using Antique: V as potential, E as energy, ψ as wavefuntion, HydrogenAtom`.
+Here we show two examples: (1) the infinite potential well, and (2) the hydrogen-like atom.
+
+
+### (1) the infinite potential well
+
+First, we demonstrate for the one of the easiest models, that is the infinite potential well.
+Here we will choose "InfinitePotentialWell" for the model.
+Then, we determine the model parameters as
+
+```julia
+IPW = InfinitePotentialWell(L=1.0, m=1.0, ℏ=1.0)
+```
+
+One can see each parameter as
+```julia
+IPW.L
+# output> 1.0
+IPW.m
+# output> 1.0
+IPW.ℏ
+# output> 1.0
+```
+
+The eigenvalues can be computed as 
+```julia
+E(IPW, n=1)
+# output> 4.934802200544679
+E(IPW, n=2)
+# output> 19.739208802178716
+```
+
+One of the important thing is the wave function "ψ(IPW, x, n=1)" for different "n" and position "x".
+We can plot the wave function as 
+
+```julia
+using CairoMakie
+
+# settings
+f = Figure()
+ax = Axis(f[1,1], xlabel=L"$x$", ylabel=L"$\psi(x)$")
+
+# plot
+w1 = lines!(ax, 0..1, x -> ψ(IPW, x, n=1))
+w2 = lines!(ax, 0..1, x -> ψ(IPW, x, n=2))
+w3 = lines!(ax, 0..1, x -> ψ(IPW, x, n=3))
+w4 = lines!(ax, 0..1, x -> ψ(IPW, x, n=4))
+w5 = lines!(ax, 0..1, x -> ψ(IPW, x, n=5))
+
+# legend
+axislegend(ax, [w1, w2, w3, w4, w5], [L"n=1", L"n=2", L"n=3", L"n=4", L"n=5"], position=:lb)
+
+f
+```
+![](docs/src/assets/fig/ipw_wavefunction.png)
+
+
+### (2) the hydrogen-like atom.
+
+ The analytical notation of the energy (the eigen value of the Hamiltonian) is written as
 
 ```math
 E_n = -\frac{Z^2}{2n^2} E_\mathrm{h}.
@@ -47,6 +108,46 @@ E(He⁺, n=1)
 ```
 
 There are more examples on each model page.
+
+
+## Greek Letters and Symbols
+
+This section lists the Greek letters and symbols used in various models in this package. These symbols are sometimes not easily accessible, so we provide them here for convenience. You may copy them as needed to call the relevant functions or quantities.
+
+| Symbol | Meaning |
+|--------|---------|
+| E | Energy |
+| V | Potential |
+| ψ | Wave function |
+| ℏ | Planck constant |
+| Eₕ | Hartree energy |
+| λ | Potential strength |
+| α | Potential strength / Exponent in generalized Laguerre polynomial |
+| m | Particle mass / z-component of angular momentum (l) |
+| m₁ | Mass of particle 1 |
+| m₂ | Mass of particle 2 |
+| mₑ | Electron mass |
+| µ | Reduced mass |
+| Dₑ | Well depth |
+| L | Length of the box / Laguerre polynomial |
+| l | Angular momentum quantum number |
+| θ | Polar angle |
+| φ | Azimuthal angle |
+| k | Force constant / Exponent in associated Laguerre polynomial |
+| n | Excitation level |
+| nₘₐₓ | Maximum excitation level |
+| Y | Spherical harmonics |
+| P | Legendre polynomial |
+| x | Position |
+| x₀ | Characteristic length or dimension |
+| r | Position vector |
+| rₑ | Equilibrium bond distance |
+| a₀ | Bohr radius |
+| R | Distance |
+| Z | Atomic number |
+| z₁ | Charge of particle 1 |
+| z₂ | Charge of particle 2 |
+
 
 ## Supported Models
 
