@@ -32,9 +32,7 @@ Here we show two examples: (1) the infinite potential well, and (2) the hydrogen
 
 ### (1) the infinite potential well
 
-First, we demonstrate one of the simplest models: the infinite potential well.  
-We choose `InfinitePotentialWell` as the model.  
-Then, we specify the model parameters as follows:
+First, we demonstrate one of the simplest models: the infinite potential well. We choose `InfinitePotentialWell` as the model.  Then, we specify the model parameters as follows:
 
 ```julia
 IPW = InfinitePotentialWell(L=1.0, m=1.0, ℏ=1.0)
@@ -80,7 +78,7 @@ axislegend(ax, [w1, w2, w3, w4, w5], [L"n=1", L"n=2", L"n=3", L"n=4", L"n=5"], p
 
 f
 ```
-![](docs/src/assets/fig/demonstration.png)
+![](docs/src/assets/fig/ipw_wavefunction.png)
 
 
 ### (2) the hydrogen-like atom.
