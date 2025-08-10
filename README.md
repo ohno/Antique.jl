@@ -85,7 +85,7 @@ axislegend(ax, [w1, w2, w3, w4, w5], [L"n=1", L"n=2", L"n=3", L"n=4", L"n=5"], p
 
 f
 ```
-![](docs/src/assets/fig/ipw_wavefunction.png)
+<!-- ![](docs/src/assets/fig/ipw_wavefunction.png) -->
 
 
 ### (2) the hydrogen-like atom
@@ -162,7 +162,7 @@ axislegend(ax, ws, ls, position=:rt)
 f
 ```
 
-![](docs/src/assets/fig/H_wavefunction.png)
+<!-- ![](docs/src/assets/fig/H_wavefunction.png) -->
 
 ## Greek Letters and Symbols
 
