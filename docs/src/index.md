@@ -33,7 +33,6 @@ In the current version, one can access the Greek letters in the section [Greek L
 Or try giving other function names like `using Antique: V as potential, E as energy, ψ as wavefuntion, HydrogenAtom`.
 Here we show two examples: (1) the infinite potential well, and (2) the hydrogen-like atom. There are more examples on each model page.
 
-
 ### (1) the infinite potential well
 
 First, we demonstrate one of the simplest models: the infinite potential well. We choose `InfinitePotentialWell` as the model.  Then, we specify the model parameters as follows:
@@ -89,7 +88,7 @@ axislegend(ax, [w1, w2, w3, w4, w5], [L"n=1", L"n=2", L"n=3", L"n=4", L"n=5"], p
 
 f
 ```
-![](docs/src/assets/fig/ipw_wavefunction.png)
+![](assets/fig/ipw_wavefunction.png)
 
 
 ### (2) the hydrogen-like atom
@@ -166,7 +165,7 @@ axislegend(ax, ws, ls, position=:rt)
 f
 ```
 
-![](docs/src/assets/fig/H_wavefunction.png)
+![](assets/fig/H_wavefunction.png)
 
 ## Greek Letters and Symbols
 
