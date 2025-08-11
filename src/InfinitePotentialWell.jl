@@ -56,7 +56,7 @@ IPW = InfinitePotentialWell(L=1.0, m=1.0, ℏ=1.0)
 
 ## References
 
-- [D. J. Griffiths, D. F. Schroeter, _Introduction to Quantum Mechanics_ **Third Edition** (Cambridge University Press, 2018)](https://doi.org/10.1017/9781316995433) p.31, 2.2 THE INFINITE SQUARE WELL
+* [Griffiths2018](@cite) D. J. Griffiths, D. F. Schroeter, _Introduction to Quantum Mechanics_ **Third Edition** (Cambridge University Press, 2018) (https://doi.org/10.1017/9781316995433) p.31, 2.2 THE INFINITE SQUARE WELL
 
 ## Proofs
 
