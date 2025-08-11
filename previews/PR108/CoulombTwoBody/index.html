@@ -1,0 +1,2019 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Coulomb 2-Body System · Antique.jl</title><meta name="title" content="Coulomb 2-Body System · Antique.jl"/><meta property="og:title" content="Coulomb 2-Body System · Antique.jl"/><meta property="twitter:title" content="Coulomb 2-Body System · Antique.jl"/><meta name="description" content="Documentation for Antique.jl."/><meta property="og:description" content="Documentation for Antique.jl."/><meta property="twitter:description" content="Documentation for Antique.jl."/><meta property="og:url" content="https://ohno.github.io/Antique.jl/CoulombTwoBody/"/><meta property="twitter:url" content="https://ohno.github.io/Antique.jl/CoulombTwoBody/"/><link rel="canonical" href="https://ohno.github.io/Antique.jl/CoulombTwoBody/"/><script data-outdated-warner src="../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.050/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL=".."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../assets/documenter.js"></script><script src="../search_index.js"></script><script src="../siteinfo.js"></script><script src="../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-mocha.css" data-theme-name="catppuccin-mocha"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-macchiato.css" data-theme-name="catppuccin-macchiato"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-frappe.css" data-theme-name="catppuccin-frappe"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-latte.css" data-theme-name="catppuccin-latte"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../assets/themeswap.js"></script><link href="../assets/fig/logo.ico" rel="icon" type="image/x-icon"/><link href="../assets/css/catalog.css" rel="stylesheet" type="text/css"/></head><body><div id="documenter"><nav class="docs-sidebar"><a class="docs-logo" href="../"><img src="../assets/logo.svg" alt="Antique.jl logo"/></a><div class="docs-package-name"><span class="docs-autofit"><a href="../">Antique.jl</a></span></div><button class="docs-search-query input is-rounded is-small is-clickable my-2 mx-auto py-1 px-2" id="documenter-search-query">Search docs (Ctrl + /)</button><ul class="docs-menu"><li><a class="tocitem" href="../">Home</a></li><li><a class="tocitem" href="../DeltaPotential/">Delta Potential</a></li><li><a class="tocitem" href="../InfinitePotentialWell/">Infinite Potential Well</a></li><li><a class="tocitem" href="../HarmonicOscillator/">Harmonic Oscillator</a></li><li><a class="tocitem" href="../MorsePotential/">Morse Potential</a></li><li><a class="tocitem" href="../PoschlTeller/">Pöschl-Teller Potential</a></li><li><a class="tocitem" href="../RigidRotor/">Rigid Rotor</a></li><li><a class="tocitem" href="../InfinitePotentialWell3D/">Infinite Potential Well 3D</a></li><li><a class="tocitem" href="../SphericalOscillator/">Spherical Oscillator</a></li><li><a class="tocitem" href="../HydrogenAtom/">Hydrogen Atom</a></li><li class="is-active"><a class="tocitem" href>Coulomb 2-Body System</a><ul class="internal"><li><a class="tocitem" href="#Definitions"><span>Definitions</span></a></li><li><a class="tocitem" href="#Usage-and-Examples"><span>Usage &amp; Examples</span></a></li><li><a class="tocitem" href="#Testing"><span>Testing</span></a></li></ul></li><li><a class="tocitem" href="../API/">API reference</a></li><li><a class="tocitem" href="../references/">References</a></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><a class="docs-sidebar-button docs-navbar-link fa-solid fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a><nav class="breadcrumb"><ul class="is-hidden-mobile"><li class="is-active"><a href>Coulomb 2-Body System</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Coulomb 2-Body System</a></li></ul></nav><div class="docs-right"><a class="docs-navbar-link" href="https://github.com/ohno/Antique.jl" title="View the repository on GitHub"><span class="docs-icon fa-brands"></span><span class="docs-label is-hidden-touch">GitHub</span></a><a class="docs-navbar-link" href="https://github.com/ohno/Antique.jl/blob/main/docs/src/CoulombTwoBody.md#" title="Edit source on GitHub"><span class="docs-icon fa-solid"></span></a><a class="docs-settings-button docs-navbar-link fa-solid fa-gear" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-article-toggle-button fa-solid fa-chevron-up" id="documenter-article-toggle-button" href="javascript:;" title="Collapse all docstrings"></a></div></header><article class="content" id="documenter-page"><h1 id="Coulomb-2-Body-System"><a class="docs-heading-anchor" href="#Coulomb-2-Body-System">Coulomb 2-Body System</a><a id="Coulomb-2-Body-System-1"></a><a class="docs-heading-anchor-permalink" href="#Coulomb-2-Body-System" title="Permalink"></a></h1><p>This is the model of two particles interacting through Coulomb forces, such as positronium, muonium, hydrogen atoms, deuterium atoms, etc.</p><h2 id="Definitions"><a class="docs-heading-anchor" href="#Definitions">Definitions</a><a id="Definitions-1"></a><a class="docs-heading-anchor-permalink" href="#Definitions" title="Permalink"></a></h2><article class="docstring"><header><a class="docstring-article-toggle-button fa-solid fa-chevron-down" href="javascript:;" title="Collapse docstring"></a><a class="docstring-binding" id="Antique.CoulombTwoBody-CoulombTwoBody" href="#Antique.CoulombTwoBody-CoulombTwoBody"><code>Antique.CoulombTwoBody</code></a> — <span class="docstring-category">Type</span><span class="is-flex-grow-1 docstring-article-toggle-button" title="Collapse docstring"></span></header><section><div><p><strong>Model</strong></p><p>This model is described with the time-independent Schrödinger equation</p><p class="math-container">\[  \hat{H} \psi(\pmb{r}) = E \psi(\pmb{r}),\]</p><p>and the Hamiltonian</p><p class="math-container">\[  \hat{H} = - \frac{\hbar^2}{2\mu} \nabla^2 + \frac{z_1 z_2}{r/a_0} E_\mathrm{h},\]</p><p>where <span>$\mu=\left(\frac{1}{m_1}+\frac{1}{m_2}\right)^{-1}$</span> is the reduced mass of particle 1 and particle 2. The potential includes only Coulomb interaction and it does not include fine or hyperfine interactions in this model. Parameters are specified with the following struct:</p><pre><code class="nohighlight hljs">CTB = CoulombTwoBody(z₁=-1, z₂=1, m₁=1.0, m₂=1.0, mₑ=1.0, a₀=1.0, Eₕ=1.0, ℏ=1.0)</code></pre><p><span>$z₁$</span> is the charge number of particle 1,  <span>$z₂$</span> is the charge number of particle 2,  <span>$m₁$</span> is the mass of particle 1,  <span>$m₂$</span> is the mass of particle 2, <span>$m_\mathrm{e}$</span> is the electron mass (use the same unit as <span>$m₁$</span> and <span>$m₂$</span>. For example of hydrogen atom, use <span>$m_\mathrm{e}=9.1093837139\times10^{-31}\mathrm{kg}$</span>, <span>$m_1=9.1093837139\times10^{-31}\mathrm{kg}$</span> and <span>$m_2=1.67262192595\times10^{-27}\mathrm{kg}$</span> in the IS unit system, use <span>$~m_\mathrm{e}=1.0~m_\mathrm{e}$</span>, <span>$m_1=1.0~m_\mathrm{e}$</span> and <span>$m_2=1836.152673426~m_\mathrm{e}$</span> in the atomic unit.), <span>$a_0$</span> is the Bohr radius, <span>$E_\mathrm{h}$</span> is the Hartree energy and <span>$\hbar$</span> is the reduced Planck constant (Dirac&#39;s constant).</p><p><strong>References</strong></p><ul><li>[<a href="../references/#DLMF">6</a>] <em>The Digital Library of Mathematical Functions</em> (DLMF), <a href="https://dlmf.nist.gov/18.3#T1">18.3 Table1</a>, <a href="https://dlmf.nist.gov/18.5#T1">18.5 Table1</a>, <a href="https://dlmf.nist.gov/18.5#E16">18.5.16</a>, <a href="https://dlmf.nist.gov/18.5#E17">18.5.17</a></li><li>[<a href="../references/#cpprefjp">12</a>] C++ Japanese Reference (C++日本語リファレンス) <em>cpprefjp</em>, <a href="https://cpprefjp.github.io/reference/cmath/assoc_legendre.html">assoc_legendre</a>, <a href="https://cpprefjp.github.io/reference/cmath/assoc_laguerre.html">assoc_laguerre</a></li><li>[<a href="../references/#Messiah1961">13</a>] A. Messiah, <em>Quantum Mechanics</em> <strong>VOLUME Ⅰ</strong> (North-Holland Publishing Company, 1961), p.412 I. THE HYDROGEN ATOM</li><li>[<a href="../references/#Griffiths2018">1</a>] D. J. Griffiths, D. F. Schroeter, <em>Introduction to Quantum Mechanics</em> <strong>Third Edition</strong> (Cambridge University Press, 2018) (https://doi.org/10.1017/9781316995433) p.143 4.2 THE HYDROGEN ATOM, p.200 Problem 5.1, p.200 Problem 5.2</li><li>[<a href="../references/#Greiner2001">14</a>] W. Greiner, <em>Quantum Mechanics: An Introduction</em> <strong>Forth Edition</strong> (Springer, 2001) (https://doi.org/10.1007/978-3-642-56826-8) p.217 The Hydrogen Atom, p.236 9.5 Spectrum of a Diatomic Molecule</li></ul></div><a class="docs-sourcelink" target="_blank" href="https://github.com/ohno/Antique.jl/blob/ffaeb58649d46e36ff93b49b1b2894a083275d93/src/CoulombTwoBody.jl#L103-L136">source</a></section></article><h4 id="Potential"><a class="docs-heading-anchor" href="#Potential">Potential</a><a id="Potential-1"></a><a class="docs-heading-anchor-permalink" href="#Potential" title="Permalink"></a></h4><article class="docstring"><header><a class="docstring-article-toggle-button fa-solid fa-chevron-down" href="javascript:;" title="Collapse docstring"></a><a class="docstring-binding" id="Antique.V-Tuple{CoulombTwoBody, Any}-CoulombTwoBody" href="#Antique.V-Tuple{CoulombTwoBody, Any}-CoulombTwoBody"><code>Antique.V</code></a> — <span class="docstring-category">Method</span><span class="is-flex-grow-1 docstring-article-toggle-button" title="Collapse docstring"></span></header><section><div><p><code>V(model::CoulombTwoBody, r)</code></p><p class="math-container">\[\begin{aligned}
+  V(r)
+  &amp;= - \frac{z_1 z_2 e^2}{4\pi\varepsilon_0 r} 
+  &amp;= - \frac{e^2}{4\pi\varepsilon_0 a_0} \frac{z_1 z_2}{r/a_0}
+  &amp;= - \frac{z_1 z_2}{r/a_0} E_\mathrm{h},
+\end{aligned}\]</p><p>where <span>$E_\mathrm{h} = \frac{\hbar^2}{m_\mathrm{e}{a_0}^2} = \frac{e^2}{4\pi\varepsilon_0a_0} = \frac{m_\mathrm{e}e^4}{\left(4\pi\varepsilon_0\right)^2\hbar^2}$</span> is the Hartree energy, one of atomic unit. The domain is <span>$0\leq r \lt \infty$</span>.</p></div><a class="docs-sourcelink" target="_blank" href="https://github.com/ohno/Antique.jl/blob/ffaeb58649d46e36ff93b49b1b2894a083275d93/src/CoulombTwoBody.jl#L138-L150">source</a></section></article><h4 id="Eigenvalues"><a class="docs-heading-anchor" href="#Eigenvalues">Eigenvalues</a><a id="Eigenvalues-1"></a><a class="docs-heading-anchor-permalink" href="#Eigenvalues" title="Permalink"></a></h4><article class="docstring"><header><a class="docstring-article-toggle-button fa-solid fa-chevron-down" href="javascript:;" title="Collapse docstring"></a><a class="docstring-binding" id="Antique.E-Tuple{CoulombTwoBody}-CoulombTwoBody" href="#Antique.E-Tuple{CoulombTwoBody}-CoulombTwoBody"><code>Antique.E</code></a> — <span class="docstring-category">Method</span><span class="is-flex-grow-1 docstring-article-toggle-button" title="Collapse docstring"></span></header><section><div><p><code>E(model::CoulombTwoBody; n::Int=1)</code></p><p class="math-container">\[E_n
+= -\frac{(z_1 z_2)^2}{2n^2} \frac{\mu}{m_\mathrm{e}} E_\mathrm{h},\]</p><p>where <span>$\mu=\left(\frac{1}{m_1}+\frac{1}{m_2}\right)^{-1}$</span> is the reduced mass of particle 1 and particle 2, <span>$E_\mathrm{h} = \frac{\hbar^2}{m_\mathrm{e}{a_0}^2} = \frac{e^2}{4\pi\varepsilon_0a_0} = \frac{m_\mathrm{e}e^4}{\left(4\pi\varepsilon_0\right)^2\hbar^2}$</span> is the Hartree energy, one of atomic unit. About atomic units, see section 3.9.2 of the <a href="https://iupac.org/what-we-do/books/greenbook/">IUPAC GreenBook</a>. In other units, <span>$E_\mathrm{h} = 27.211~386~245~988(53)~\mathrm{eV}$</span> from <a href="https://physics.nist.gov/cgi-bin/cuu/Value?hrev">here</a>.</p></div><a class="docs-sourcelink" target="_blank" href="https://github.com/ohno/Antique.jl/blob/ffaeb58649d46e36ff93b49b1b2894a083275d93/src/CoulombTwoBody.jl#L152-L160">source</a></section></article><h4 id="Eigenfunctions"><a class="docs-heading-anchor" href="#Eigenfunctions">Eigenfunctions</a><a id="Eigenfunctions-1"></a><a class="docs-heading-anchor-permalink" href="#Eigenfunctions" title="Permalink"></a></h4><article class="docstring"><header><a class="docstring-article-toggle-button fa-solid fa-chevron-down" href="javascript:;" title="Collapse docstring"></a><a class="docstring-binding" id="Antique.ψ-Tuple{CoulombTwoBody, Any, Any, Any}-CoulombTwoBody" href="#Antique.ψ-Tuple{CoulombTwoBody, Any, Any, Any}-CoulombTwoBody"><code>Antique.ψ</code></a> — <span class="docstring-category">Method</span><span class="is-flex-grow-1 docstring-article-toggle-button" title="Collapse docstring"></span></header><section><div><p><code>ψ(model::CoulombTwoBody, r, θ, φ; n::Int=1, l::Int=0, m::Int=0)</code></p><p class="math-container">\[\psi_{nlm}(\pmb{r}) = R_{nl}(r) Y_{lm}(\theta,\varphi)\]</p><p>The domain is <span>$0\leq r \lt \infty, 0\leq \theta \lt \pi, 0\leq \varphi \lt 2\pi$</span>.</p></div><a class="docs-sourcelink" target="_blank" href="https://github.com/ohno/Antique.jl/blob/ffaeb58649d46e36ff93b49b1b2894a083275d93/src/CoulombTwoBody.jl#L162-L169">source</a></section></article><h4 id="Radial-Functions"><a class="docs-heading-anchor" href="#Radial-Functions">Radial Functions</a><a id="Radial-Functions-1"></a><a class="docs-heading-anchor-permalink" href="#Radial-Functions" title="Permalink"></a></h4><article class="docstring"><header><a class="docstring-article-toggle-button fa-solid fa-chevron-down" href="javascript:;" title="Collapse docstring"></a><a class="docstring-binding" id="Antique.R-Tuple{CoulombTwoBody, Any}-CoulombTwoBody" href="#Antique.R-Tuple{CoulombTwoBody, Any}-CoulombTwoBody"><code>Antique.R</code></a> — <span class="docstring-category">Method</span><span class="is-flex-grow-1 docstring-article-toggle-button" title="Collapse docstring"></span></header><section><div><p><code>R(model::CoulombTwoBody, r; n=1, l=0)</code></p><p class="math-container">\[R_{nl}(r) = -\sqrt{\frac{(n-l-1)!}{2n(n+l)!} \left(\frac{2Z}{n a_\mu}\right)^3} \left(\frac{2Zr}{n a_\mu}\right)^l \exp \left(-\frac{Zr}{n a_\mu}\right) L_{n+l}^{2l+1} \left(\frac{2Zr}{n a_\mu}\right),\]</p><p>where <span>$\frac{1}{\mu} = \frac{1}{m_1}+\frac{1}{m_2}$</span>, <span>$a_\mu = a_0 \frac{m_\mathrm{e}}{\mu}$</span>, <span>$Z = - z_1 z_2$</span>, the Laguerre polynomials are defined as <span>$L_n(x) = \frac{1}{n!} \mathrm{e}^x \frac{\mathrm{d}^n}{\mathrm{d}x ^n} \left( \mathrm{e}^{-x} x^n \right)$</span>, and the associated Laguerre polynomials are defined as <span>$L_n^{k}(x) = \frac{\mathrm{d}^k}{\mathrm{d}x^k} L_n(x)$</span>. Note that replace <span>$2n(n+l)!$</span> with <span>$2n[(n+l)!]^3$</span> if the Laguerre polynomials are defined as <span>$L_n(x) = \mathrm{e}^x \frac{\mathrm{d}^n}{\mathrm{d}x ^n} \left( \mathrm{e}^{-x} x^n \right)$</span>. Note that replace <span>$L_{n+l}^{2l+1}(x)$</span> with <span>$- L_{n-l-1}^{2l+1}(x)$</span> if the associated Laguerre polynomials are defined as <span>$L_n^{k}(x) = (-1)^k \frac{\mathrm{d}^k}{\mathrm{d}x^k} L_{n+k}(x)$</span>, which we call the generalized Laguerre polynomials. The domain is <span>$0\leq r \lt \infty$</span>.</p></div><a class="docs-sourcelink" target="_blank" href="https://github.com/ohno/Antique.jl/blob/ffaeb58649d46e36ff93b49b1b2894a083275d93/src/CoulombTwoBody.jl#L171-L178">source</a></section></article><h4 id="Associated-Laguerre-Polynomials"><a class="docs-heading-anchor" href="#Associated-Laguerre-Polynomials">Associated Laguerre Polynomials</a><a id="Associated-Laguerre-Polynomials-1"></a><a class="docs-heading-anchor-permalink" href="#Associated-Laguerre-Polynomials" title="Permalink"></a></h4><article class="docstring"><header><a class="docstring-article-toggle-button fa-solid fa-chevron-down" href="javascript:;" title="Collapse docstring"></a><a class="docstring-binding" id="Antique.L-Tuple{CoulombTwoBody, Any}-CoulombTwoBody" href="#Antique.L-Tuple{CoulombTwoBody, Any}-CoulombTwoBody"><code>Antique.L</code></a> — <span class="docstring-category">Method</span><span class="is-flex-grow-1 docstring-article-toggle-button" title="Collapse docstring"></span></header><section><div><p><code>L(model::CoulombTwoBody, x; n=0, k=0)</code></p><div class="admonition is-info" id="Note-24f06d73d904eb2c"><header class="admonition-header">Note<a class="admonition-anchor" href="#Note-24f06d73d904eb2c" title="Permalink"></a></header><div class="admonition-body"><p>The associated Laguerre polynomials <span>$L_n^{k}(x)$</span>, not the generalized Laguerre polynomials <span>$L_n^{(\alpha)}(x)$</span>, are used in this model.</p></div></div><p>Rodrigues&#39; formula &amp; closed-form:</p><p class="math-container">\[\begin{aligned}
+L_n^{k}(x)
+  &amp;= \frac{\mathrm{d}^k}{\mathrm{d}x^k} L_n(x) \\
+  &amp;= \frac{\mathrm{d}^k}{\mathrm{d}x^k} \frac{1}{n!} \mathrm{e}^x \frac{\mathrm{d}^n}{\mathrm{d}x ^n} \left( \mathrm{e}^{-x} x^n \right) \\
+  &amp;= \sum_{m=0}^{n-k} (-1)^{m+k} \frac{n!}{m!(m+k)!(n-m-k)!} x^m \\
+  &amp;= (-1)^k L_{n-k}^{(k)}(x),
+\end{aligned}\]</p><p>where Laguerre polynomials are defined as <span>$L_n(x)=\frac{1}{n!}\mathrm{e}^x \frac{\mathrm{d}^n}{\mathrm{d}x ^n} \left( \mathrm{e}^{-x} x^n \right)$</span>.</p><p>Examples:</p><p class="math-container">\[\begin{aligned}
+  L_0^0(x) &amp;= 1, \\
+  L_1^0(x) &amp;= 1 - x, \\
+  L_1^1(x) &amp;= 1, \\
+  L_2^0(x) &amp;= 1 - 2 x + 1/2 x^2, \\
+  L_2^1(x) &amp;= 2 - x, \\
+  L_2^2(x) &amp;= 1, \\
+  L_3^0(x) &amp;= 1 - 3 x + 3/2 x^2 - 1/6 x^3, \\
+  L_3^1(x) &amp;= 3 - 3 x + 1/2 x^2, \\
+  L_3^2(x) &amp;= 3 - x, \\
+  L_3^3(x) &amp;= 1, \\
+  L_4^0(x) &amp;= 1 - 4 x + 3 x^2 - 2/3 x^3 + 5/12 x^4, \\
+  L_4^1(x) &amp;= 4 - 6 x + 2 x^2 - 1/6 x^3, \\
+  L_4^2(x) &amp;= 6 - 4 x + 1/2 x^2, \\
+  L_4^3(x) &amp;= 4 - x, \\
+  L_4^4(x) &amp;= 1, \\
+  \vdots
+\end{aligned}\]</p></div><a class="docs-sourcelink" target="_blank" href="https://github.com/ohno/Antique.jl/blob/ffaeb58649d46e36ff93b49b1b2894a083275d93/src/CoulombTwoBody.jl#L180-L219">source</a></section></article><h4 id="Spherical-Harmonics"><a class="docs-heading-anchor" href="#Spherical-Harmonics">Spherical Harmonics</a><a id="Spherical-Harmonics-1"></a><a class="docs-heading-anchor-permalink" href="#Spherical-Harmonics" title="Permalink"></a></h4><article class="docstring"><header><a class="docstring-article-toggle-button fa-solid fa-chevron-down" href="javascript:;" title="Collapse docstring"></a><a class="docstring-binding" id="Antique.Y-Tuple{CoulombTwoBody, Any, Any}-CoulombTwoBody" href="#Antique.Y-Tuple{CoulombTwoBody, Any, Any}-CoulombTwoBody"><code>Antique.Y</code></a> — <span class="docstring-category">Method</span><span class="is-flex-grow-1 docstring-article-toggle-button" title="Collapse docstring"></span></header><section><div><p><code>Y(model::CoulombTwoBody, θ, φ; l=0, m=0)</code></p><p class="math-container">\[Y_{lm}(\theta,\varphi) = (-1)^{\frac{|m|+m}{2}} \sqrt{\frac{2l+1}{4\pi} \frac{(l-|m|)!}{(l+|m|)!}} P_l^{|m|} (\cos\theta) \mathrm{e}^{im\varphi}.\]</p><p>The domain is <span>$0\leq \theta \lt \pi, 0\leq \varphi \lt 2\pi$</span>. Note that some variants are connected by </p><p class="math-container">\[i^{|m|+m} \sqrt{\frac{(l-|m|)!}{(l+|m|)!}} P_l^{|m|} = (-1)^{\frac{|m|+m}{2}} \sqrt{\frac{(l-|m|)!}{(l+|m|)!}} P_l^{|m|} = (-1)^m \sqrt{\frac{(l-m)!}{(l+m)!}} P_l^{m}.\]</p></div><a class="docs-sourcelink" target="_blank" href="https://github.com/ohno/Antique.jl/blob/ffaeb58649d46e36ff93b49b1b2894a083275d93/src/CoulombTwoBody.jl#L221-L232">source</a></section></article><h4 id="Associated-Legendre-Polynomials"><a class="docs-heading-anchor" href="#Associated-Legendre-Polynomials">Associated Legendre Polynomials</a><a id="Associated-Legendre-Polynomials-1"></a><a class="docs-heading-anchor-permalink" href="#Associated-Legendre-Polynomials" title="Permalink"></a></h4><article class="docstring"><header><a class="docstring-article-toggle-button fa-solid fa-chevron-down" href="javascript:;" title="Collapse docstring"></a><a class="docstring-binding" id="Antique.P-Tuple{CoulombTwoBody, Any}-CoulombTwoBody" href="#Antique.P-Tuple{CoulombTwoBody, Any}-CoulombTwoBody"><code>Antique.P</code></a> — <span class="docstring-category">Method</span><span class="is-flex-grow-1 docstring-article-toggle-button" title="Collapse docstring"></span></header><section><div><p><code>P(model::CoulombTwoBody, x; n=0, m=0)</code></p><p>Rodrigues&#39; formula &amp; closed-form:</p><p class="math-container">\[\begin{aligned}
+  P_n^m(x)
+  &amp;= \left( 1-x^2 \right)^{m/2} \frac{\mathrm{d}^m}{\mathrm{d}x^m} P_n(x) \\
+  &amp;= \left( 1-x^2 \right)^{m/2} \frac{\mathrm{d}^m}{\mathrm{d}x^m} \frac{1}{2^n n!} \frac{\mathrm{d}^n}{\mathrm{d}x ^n} \left[ \left( x^2-1 \right)^n \right] \\
+  &amp;= \frac{1}{2^n} (1-x^2)^{m/2} \sum_{j=0}^{\left\lfloor\frac{n-m}{2}\right\rfloor} (-1)^j \frac{(2n-2j)!}{j! (n-j)! (n-2j-m)!} x^{(n-2j-m)}.
+\end{aligned},\]</p><p>where Legendre polynomials are defined as <span>$P_n(x) = \frac{1}{2^n n!} \frac{\mathrm{d}^n}{\mathrm{d}x ^n} \left[ \left( x^2-1 \right)^n \right]$</span>. Note that <span>$P_l^{-m} = (-1)^m \frac{(l-m)!}{(l+m)!} P_l^m$</span> for <span>$m&lt;0$</span>. (It is not compatible with <span>$P_k^m(t) = (-1)^m\left( 1-t^2 \right)^{m/2} \frac{\mathrm{d}^m P_k(t)}{\mathrm{d}t^m}$</span> caused by <span>$(-1)^m$</span>.) The specific formulae are given below.</p><p>Examples:</p><p class="math-container">\[\begin{aligned}
+  P_{0}^{0}(x) &amp;= 1, \\
+  P_{1}^{0}(x) &amp;= x, \\
+  P_{1}^{1}(x) &amp;= \left(+1\right)\sqrt{1-x^2}, \\
+  P_{2}^{0}(x) &amp;= -1/2 + 3/2 x^{2}, \\
+  P_{2}^{1}(x) &amp;= \left(-3 x\right)\sqrt{1-x^2}, \\
+  P_{2}^{2}(x) &amp;= 3 - 6 x, \\
+  P_{3}^{0}(x) &amp;= -3/2 x + 5/2 x^{3}, \\
+  P_{3}^{1}(x) &amp;= \left(3/2 - 15/2 x^{2}\right)\sqrt{1-x^2}, \\
+  P_{3}^{2}(x) &amp;= 15 x - 30 x^{2}, \\
+  P_{3}^{3}(x) &amp;= \left(15 - 30 x\right)\sqrt{1-x^2}, \\
+  P_{4}^{0}(x) &amp;= 3/8 - 15/4 x^{2} + 35/8 x^{4}, \\
+  P_{4}^{1}(x) &amp;= \left(- 15/2 x + 35/2 x^{3}\right)\sqrt{1-x^2}, \\
+  P_{4}^{2}(x) &amp;= -15/2 + 15 x + 105/2 x^{2} - 105 x^{3}, \\
+  P_{4}^{3}(x) &amp;= \left(105 x - 210 x^{2}\right)\sqrt{1-x^2}, \\
+  P_{4}^{4}(x) &amp;= 105 - 420 x + 420 x^{2}, \\
+  &amp; \vdots
+\end{aligned}\]</p></div><a class="docs-sourcelink" target="_blank" href="https://github.com/ohno/Antique.jl/blob/ffaeb58649d46e36ff93b49b1b2894a083275d93/src/CoulombTwoBody.jl#L234-L269">source</a></section></article><h2 id="Usage-and-Examples"><a class="docs-heading-anchor" href="#Usage-and-Examples">Usage &amp; Examples</a><a id="Usage-and-Examples-1"></a><a class="docs-heading-anchor-permalink" href="#Usage-and-Examples" title="Permalink"></a></h2><p><a href="../#Install">Install Antique.jl</a> for the first use and run <code>using Antique</code> before each use. The energy <code>E()</code>, wave function <code>ψ()</code> and potential <code>V()</code> will be exported. In this system, the model is generated by <code>CoulombTwoBody</code> and several parameters <code>z₁</code>, <code>z₂</code>, <code>m₁</code>, <code>m₂</code>, <code>mₑ</code>, <code>a₀</code>, <code>Eₕ</code> and <code>ℏ</code> are set as optional arguments.</p><pre><code class="language-julia hljs">using Antique
+Ps = CoulombTwoBody(z₁=-1, z₂=1, m₁=1.0, m₂=1.0, mₑ=1.0, a₀=1.0, Eₕ=1.0, ℏ=1.0)</code></pre><h4 id="Parameters"><a class="docs-heading-anchor" href="#Parameters">Parameters</a><a id="Parameters-1"></a><a class="docs-heading-anchor-permalink" href="#Parameters" title="Permalink"></a></h4><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; Ps.z₁</code><code class="nohighlight hljs ansi" style="display:block;">-1</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; Ps.z₂</code><code class="nohighlight hljs ansi" style="display:block;">1</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; Ps.m₁</code><code class="nohighlight hljs ansi" style="display:block;">1.0</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; Ps.m₂</code><code class="nohighlight hljs ansi" style="display:block;">1.0</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; Ps.mₑ</code><code class="nohighlight hljs ansi" style="display:block;">1.0</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; Ps.a₀</code><code class="nohighlight hljs ansi" style="display:block;">1.0</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; Ps.Eₕ</code><code class="nohighlight hljs ansi" style="display:block;">1.0</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; Ps.ℏ</code><code class="nohighlight hljs ansi" style="display:block;">1.0</code></pre><h4 id="Eigenvalues-2"><a class="docs-heading-anchor" href="#Eigenvalues-2">Eigenvalues</a><a class="docs-heading-anchor-permalink" href="#Eigenvalues-2" title="Permalink"></a></h4><p>Example calculations for <a href="https://en.wikipedia.org/wiki/Positronium#Energy_levels">positronium</a>:</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; E(Ps, n=1)</code><code class="nohighlight hljs ansi" style="display:block;">-0.25</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; E(Ps, n=2)</code><code class="nohighlight hljs ansi" style="display:block;">-0.0625</code></pre><h4 id="Mass-and-Charge-Dependence"><a class="docs-heading-anchor" href="#Mass-and-Charge-Dependence">Mass and Charge Dependence</a><a id="Mass-and-Charge-Dependence-1"></a><a class="docs-heading-anchor-permalink" href="#Mass-and-Charge-Dependence" title="Permalink"></a></h4><p>The values of masses are cited from the 2018 CODATA recommended values, <a href="https://doi.org/10.1103/RevModPhys.93.025010">E. Tiesinga, et al., Rev. Mod. Phys. 93, 025010 (2021)</a>.</p><pre><code class="language-julia hljs">me = 1.0           # me #
+mµ = 206.7682830   # me # https://physics.nist.gov/cgi%2Dbin/cuu/Value?mmusme
+mp = 1836.15267343 # me # https://physics.nist.gov/cgi%2Dbin/cuu/Value?mpsme
+md = 3670.48296788 # me # https://physics.nist.gov/cgi%2Dbin/cuu/Value?mdsme
+mt = 5496.92153573 # me # https://physics.nist.gov/cgi%2Dbin/cuu/Value?mtsme
+mh = 5495.88528007 # me # https://physics.nist.gov/cgi-bin/cuu/Value?mhsme
+ma = 7294.29954142 # me # https://physics.nist.gov/cgi-bin/cuu/Value?malsme
+
+Ps = CoulombTwoBody(m₁=me, m₂=me)
+Mu = CoulombTwoBody(m₁=me, m₂=mµ)
+H  = CoulombTwoBody(m₁=me, m₂=mp)
+D  = CoulombTwoBody(m₁=me, m₂=md)
+T  = CoulombTwoBody(m₁=me, m₂=mt)
+BO = CoulombTwoBody(m₁=me, m₂=Inf)
+
+He3⁺ = CoulombTwoBody(z₁=-1, z₂=+2, m₁=me, m₂=mh)
+He4⁺ = CoulombTwoBody(z₁=-1, z₂=+2, m₁=me, m₂=ma)
+He∞⁺ = CoulombTwoBody(z₁=-1, z₂=+2, m₁=me, m₂=Inf)
+
+pμ = CoulombTwoBody(z₁=-1, z₂=+1, m₁=mµ, m₂=mp)
+dμ = CoulombTwoBody(z₁=-1, z₂=+1, m₁=mµ, m₂=md)
+tμ = CoulombTwoBody(z₁=-1, z₂=+1, m₁=mµ, m₂=mt)
+bμ = CoulombTwoBody(z₁=-1, z₂=+1, m₁=mµ, m₂=Inf)
+hμ = CoulombTwoBody(z₁=-1, z₂=+2, m₁=mµ, m₂=mh)
+αμ = CoulombTwoBody(z₁=-1, z₂=+2, m₁=mµ, m₂=ma)
+
+println(&quot;    \tE / Eₕ&quot;)
+println(&quot;Ps  \t&quot;, E(Ps))
+println(&quot;Mu  \t&quot;, E(Mu))
+println(&quot;H   \t&quot;, E(H))
+println(&quot;D   \t&quot;, E(D))
+println(&quot;T   \t&quot;, E(T))
+println(&quot;∞H  \t&quot;, E(BO))
+println(&quot;³He⁺\t&quot;, E(He3⁺))
+println(&quot;⁴He⁺\t&quot;, E(He4⁺))
+println(&quot;∞He⁺\t&quot;, E(He∞⁺))
+println(&quot;pμ  \t&quot;, E(pμ))
+println(&quot;dμ  \t&quot;, E(dμ))
+println(&quot;tμ  \t&quot;, E(tμ))
+println(&quot;bμ  \t&quot;, E(bμ))
+println(&quot;hμ  \t&quot;, E(hμ))
+println(&quot;αμ  \t&quot;, E(αμ))</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">    	E / Eₕ
+Ps  	-0.25
+Mu  	-0.49759347291713435
+H   	-0.49972783971238144
+D   	-0.4998638152473063
+T   	-0.49990905654132184
+∞H  	-0.5
+³He⁺	-1.9996361575877797
+⁴He⁺	-1.9997258508730662
+∞He⁺	-2.0
+pμ  	-92.92041731130719
+dμ  	-97.87081258624124
+tμ  	-99.63629368450574
+bμ  	-103.38414150000001
+hμ  	-398.5424505827022
+αμ  	-402.13735621933824</code></pre><pre><code class="language-julia hljs">println(&quot;   \t&lt;δ³(r)&gt; / a₀⁻³&quot;)
+println(&quot;1/8π =\t&quot;, 1/8/π)
+println(&quot;Ps    \t&quot;, abs(ψ(Ps,0,0,0))^2)
+println(&quot;Mu    \t&quot;, abs(ψ(Mu,0,0,0))^2)
+println(&quot;H     \t&quot;, abs(ψ(H ,0,0,0))^2)
+println(&quot;D     \t&quot;, abs(ψ(D ,0,0,0))^2)
+println(&quot;T     \t&quot;, abs(ψ(T ,0,0,0))^2)
+println(&quot;∞H    \t&quot;, abs(ψ(BO,0,0,0))^2)
+println(&quot;1/π = \t&quot;, 1/π)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">   	&lt;δ³(r)&gt; / a₀⁻³
+1/8π =	0.039788735772973836
+Ps    	0.03978873577297385
+Mu    	0.3137358439360387
+H     	0.3177903812026296
+D     	0.3180498633001772
+T     	0.31813622856178475
+∞H    	0.3183098861837908
+1/π = 	0.3183098861837907</code></pre><h4 id="Lifetime-of-Positronium"><a class="docs-heading-anchor" href="#Lifetime-of-Positronium">Lifetime of Positronium</a><a id="Lifetime-of-Positronium-1"></a><a class="docs-heading-anchor-permalink" href="#Lifetime-of-Positronium" title="Permalink"></a></h4><p>The lifetime <span>$\tau$</span> of positronium (Ps, <span>$\mathrm{e}^+\mathrm{e}^-$</span>) is written as</p><p class="math-container">\[\tau = \frac{1}{\Gamma},\]</p><p class="math-container">\[\Gamma = 4 \pi \alpha^4 c {a_0}^2 \langle\delta^3(\pmb{r})\rangle.\]</p><p>where <span>$\langle\delta^3(\pmb{r})\rangle = \langle\psi|\delta^3(\pmb{r})|\psi\rangle = |\psi(\pmb{0})|^2 = \frac{1}{8\pi} a_0^{-3} \simeq 2.685\times10^{29}~\mathrm{m}^{-3}$</span> is the value of probability density at the origin (<span>$r=0$</span>).</p><pre><code class="language-julia hljs"># (7.169) in D. J. Griffiths, Introduction to Elementary Particles (John Wiley &amp; Sons, Inc. 1987) ISBN 0-471-60386-4
+# S. Berko, H. N. Pendleton, Annual Review of Nuclear and Particle Science, 30, 543 (1980) https://doi.org/10.1146/annurev.ns.30.120180.002551)
+# A. M. Frolov, S. I. Kryuchkov, and V. H. Smith, Jr., Phys. Rev. A, 51, 4514 (1995) https://doi.org/10.1103/PhysRevA.51.4514
+
+α  = 7.2973525693e-3    #       # https://physics.nist.gov/cgi-bin/cuu/Value?alph
+c   = 299792458         # m s-1 # https://physics.nist.gov/cgi-bin/cuu/Value?c
+a₀  = 5.29177210903e-11 # m     # https://physics.nist.gov/cgi-bin/cuu/Value?bohrrada0
+
+Ps = CoulombTwoBody(z₁=1, z₂=-1, m₁=1.0, m₂=1.0, mₑ=1.0, a₀=1.0, Eₕ=1.0, ℏ=1.0)
+δ = abs(ψ(Ps,0,0,0))^2 * a₀^(-3)
+Γ = 4 * π * α^4 * c *  a₀^2 * δ
+τ = 1/Γ
+println(&quot;&lt;δ&gt; = &quot;, abs(ψ(Ps,0,0,0))^2, &quot; a₀⁻³&quot;)
+println(&quot;    = &quot;, δ, &quot; m⁻³&quot;)
+println(&quot;Γ   = &quot;, Γ / 1e9, &quot; GHz&quot;)
+println(&quot;τ   = &quot;, τ / 1e-12, &quot; ps&quot;)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">&lt;δ&gt; = 0.03978873577297385 a₀⁻³
+    = 2.685076981132993e29 m⁻³
+Γ   = 8.0325029283017 GHz
+τ   = 124.49419675610734 ps</code></pre><h4 id="Hyperfine-Splitting"><a class="docs-heading-anchor" href="#Hyperfine-Splitting">Hyperfine Splitting</a><a id="Hyperfine-Splitting-1"></a><a class="docs-heading-anchor-permalink" href="#Hyperfine-Splitting" title="Permalink"></a></h4><p>The hyperfine splitting of hydrogen atoms is given as</p><p class="math-container">\[\Delta E (\mathrm{H}) = -\frac{2}{3} \mu_0 \gamma_\mathrm{p} \gamma_\mathrm{e} \hbar^2 \langle\delta^3(\pmb{r})\rangle\]</p><p>in <a href="https://doi.org/10.1119/1.12733">Griffiths(1982)</a>. Note that this formula is not available for deuterium (D) and positronium (Ps) because of the different spin between the proton and the deuteron for D, and the contribution of positron-electron pair annihilation for Ps. And also note that the mass of proton is used for the definitions of gyromagnetic ratio in all nucleons and nuclei:</p><p class="math-container">\[\begin{aligned}
+&amp;\gamma_\mathrm{e}   = \frac{-e}{2 m_\mathrm{e}} g_\mathrm{e},     &amp;
+&amp;\gamma_\mathrm{e^+} = \frac{+e}{2 m_\mathrm{e}} g_\mathrm{e},     &amp;
+&amp;\gamma_\mathrm{\mu} = \frac{-e}{2 m_\mathrm{\mu}} g_\mathrm{\mu}, \\
+&amp;\gamma_\mathrm{p}   = \frac{+e}{2 m_\mathrm{p}} g_\mathrm{p},     &amp;
+&amp;\gamma_\mathrm{d}   = \frac{+e}{2 m_\mathrm{p}} g_\mathrm{d},     &amp;
+&amp;\gamma_\mathrm{t}   = \frac{+e}{2 m_\mathrm{p}} g_\mathrm{t},     &amp;
+&amp;\gamma_\mathrm{h}   = \frac{+2e}{2 m_\mathrm{p}} g_\mathrm{h}.    &amp;
+\end{aligned}\]</p><p>The value of the probability density at the origin is <span>$\langle\delta^3(\pmb{r})\rangle = \langle\psi|\delta^3(\pmb{r})|\psi\rangle = |\psi(\pmb{0})|^2 \simeq \frac{1}{\pi} a_0^{-3} \simeq 2.148\times10^{30}~\mathrm{m}^{-3}$</span> in Mu, H, D and T. These values are very different in Ps, <span>$^3\mathrm{He}^+$</span> and muonic hydrogen (<span>$\mathrm{p\mu}$</span>) due to the difference of reduced masses and charges. The energy can be converted to a frequency (Hz) by <span>$v = \Delta E / h$</span>.</p><pre><code class="language-julia hljs">a₀ = 5.29177210903e-11   # m  # https://physics.nist.gov/cgi-bin/cuu/Value?bohrrada0
+Eₕ = 4.3597447222071e-18 # J  # https://physics.nist.gov/cgi-bin/cuu/Value?hr
+ℏ  = 1.054571817e-34     # J s # https://physics.nist.gov/cgi-bin/cuu/Value?hbar
+
+me = 9.1093837015e-31  # kg # https://physics.nist.gov/cgi-bin/cuu/Value?me
+mµ = 1.883531627e-28   # kg # https://physics.nist.gov/cgi-bin/cuu/Value?mmu
+mp = 1.67262192369e-27 # kg # https://physics.nist.gov/cgi-bin/cuu/Value?mp
+md = 3.3435837724e-27  # kg # https://physics.nist.gov/cgi-bin/cuu/Value?md
+mt = 5.0073567446e-27  # kg # https://physics.nist.gov/cgi-bin/cuu/Value?mt
+mh = 5.0064127796e-27  # kg # https://physics.nist.gov/cgi-bin/cuu/Value?mh
+
+e  = 1.602176634e-19  # C      # https://physics.nist.gov/cgi-bin/cuu/Value?e
+µ₀ = 1.25663706212e-6 # N A-2  # https://physics.nist.gov/cgi-bin/cuu/Value?mu0
+h  = 6.62607015e-34   # J Hz-1 # https://physics.nist.gov/cgi-bin/cuu/Value?h
+eV = 1.602176634e-19  # J      # https://physics.nist.gov/cgi-bin/cuu/Value?evj
+
+ge = 2.00231930436256 # https://physics.nist.gov/cgi-bin/cuu/Value?gem
+gµ = 2.0023318418     # https://physics.nist.gov/cgi-bin/cuu/Value?gmum
+gp = 5.5856946893     # https://physics.nist.gov/cgi-bin/cuu/Value?gp
+gd = 0.8574382338     # https://physics.nist.gov/cgi-bin/cuu/Value?gdn
+gt = 5.957924931      # https://physics.nist.gov/cgi-bin/cuu/Value?gtn
+gh = -4.255250615     # https://physics.nist.gov/cgi-bin/cuu/Value?ghn
+
+Ps = CoulombTwoBody(z₁=-1, z₂=+1, m₁=me, m₂=me, mₑ=me, a₀=a₀, Eₕ=Eₕ, ℏ=ℏ)
+Mu = CoulombTwoBody(z₁=-1, z₂=+1, m₁=me, m₂=mµ, mₑ=me, a₀=a₀, Eₕ=Eₕ, ℏ=ℏ)
+H  = CoulombTwoBody(z₁=-1, z₂=+1, m₁=me, m₂=mp, mₑ=me, a₀=a₀, Eₕ=Eₕ, ℏ=ℏ)
+D  = CoulombTwoBody(z₁=-1, z₂=+1, m₁=me, m₂=md, mₑ=me, a₀=a₀, Eₕ=Eₕ, ℏ=ℏ)
+T  = CoulombTwoBody(z₁=-1, z₂=+1, m₁=me, m₂=mt, mₑ=me, a₀=a₀, Eₕ=Eₕ, ℏ=ℏ)
+he = CoulombTwoBody(z₁=-1, z₂=+2, m₁=me, m₂=mh, mₑ=me, a₀=a₀, Eₕ=Eₕ, ℏ=ℏ)
+pμ = CoulombTwoBody(z₁=-1, z₂=+1, m₁=mµ, m₂=mp, mₑ=me, a₀=a₀, Eₕ=Eₕ, ℏ=ℏ)
+
+ΔE_H  = 2/3 / 4 * µ₀ * ℏ^2 * e^2 * ge / me * gp / mp * abs(ψ(H,0,0,0))^2
+ΔE_D  =   1 / 4 * µ₀ * ℏ^2 * e^2 * ge / me * gd / mp * abs(ψ(D,0,0,0))^2
+ΔE_T  = 2/3 / 4 * µ₀ * ℏ^2 * e^2 * ge / me * gt / mp * abs(ψ(H,0,0,0))^2
+ΔE_Ps = 7/6 / 4 * µ₀ * ℏ^2 * e^2 * ge / me * ge / me * abs(ψ(Ps,0,0,0))^2
+ΔE_Mu = 2/3 / 4 * µ₀ * ℏ^2 * e^2 * ge / me * gµ / mµ * abs(ψ(Mu,0,0,0))^2
+ΔE_he = 2/3 / 4 * µ₀ * ℏ^2 * e^2 * ge / me * gh / mp * abs(ψ(he,0,0,0))^2
+ΔE_pµ = 2/3 / 4 * µ₀ * ℏ^2 * e^2 * gµ / mµ * gp / mp * abs(ψ(pµ,0,0,0))^2
+
+# Karshenboim(2001) https://doi.org/10.48550/arXiv.hep-ph/0109128
+# Karshenboim(2003) https://doi.org/10.48550/arXiv.hep-ph/0310099
+# Griffiths(1982)   https://doi.org/10.1119/1.12733
+# Adamczak(2012)    https://doi.org/10.1016/j.nimb.2012.04.001
+
+println(&quot;H \t&quot;, ΔE_H  / h / 1e6,  &quot; MHz\t  Antique.jl + CODATA2018&quot;)
+println(&quot;  \t&quot;, &quot;1420.405751768(1)  MHz\t  Karshenboim(2001)&quot;)
+println(&quot;D \t&quot;, ΔE_D  / h / 1e6,  &quot; MHz\t  Antique.jl + CODATA2018&quot;)
+println(&quot;  \t&quot;, &quot;327.384352522(2)   MHz\t  Karshenboim(2001)&quot;)
+println(&quot;T \t&quot;, ΔE_T  / h / 1e6,  &quot; MHz\t  Antique.jl + CODATA2018&quot;)
+println(&quot;  \t&quot;, &quot;1516.701470773(8)  MHz\t  Karshenboim(2001)&quot;)
+println(&quot;Ps\t&quot;, ΔE_Ps / h / 1e6, &quot;  MHz\t  Antique.jl + CODATA2018&quot;)
+println(&quot;  \t&quot;, &quot;203391.7(6)        MHz\t  Karshenboim(2003)&quot;)
+println(&quot;Mu\t&quot;, ΔE_Mu / h / 1e6, &quot;  MHz\t  Antique.jl + CODATA2018&quot;)
+println(&quot;  \t&quot;, &quot;4463.30278(5)      MHz\t  Karshenboim(2001)&quot;)
+println(&quot;³He⁺\t&quot;, ΔE_he / h / 1e6, &quot; MHz\t  Antique.jl + CODATA2018&quot;)
+println(&quot;  \t&quot;, &quot;-8665.649867(10)   MHz\t  Karshenboim(2001)&quot;)
+println(&quot;µp\t&quot;, ΔE_pµ / h / 1e12, &quot;  THz\t  Antique.jl + CODATA2018&quot;)
+println(&quot;  \t&quot;, 0.182725*eV / h / 1e12 , &quot;  THz\t  Griffiths(1982), Adamczak(2012)&quot;)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">H 	1420.4854518754269 MHz	  Antique.jl + CODATA2018
+  	1420.405751768(1)  MHz	  Karshenboim(2001)
+D 	327.34684982805805 MHz	  Antique.jl + CODATA2018
+  	327.384352522(2)   MHz	  Karshenboim(2001)
+T 	1515.1464873408624 MHz	  Antique.jl + CODATA2018
+  	1516.701470773(8)  MHz	  Karshenboim(2001)
+Ps	204860.9400441627  MHz	  Antique.jl + CODATA2018
+  	203391.7(6)        MHz	  Karshenboim(2003)
+Mu	4464.202736244739  MHz	  Antique.jl + CODATA2018
+  	4463.30278(5)      MHz	  Karshenboim(2001)
+³He⁺	-8666.566269930268 MHz	  Antique.jl + CODATA2018
+  	-8665.649867(10)   MHz	  Karshenboim(2001)
+µp	44.16603467817586  THz	  Antique.jl + CODATA2018
+  	44.18270842599667  THz	  Griffiths(1982), Adamczak(2012)</code></pre><p>1S wave function of Ps:</p><pre><code class="language-julia hljs">import Antique
+Ps = Antique.CoulombTwoBody(z₁=-1, z₂=1, m₁=1.0, m₂=1.0, mₑ=1.0, a₀=1.0, Eₕ=1.0, ℏ=1.0)
+@show Antique.E(Ps)
+
+using CairoMakie
+
+fig = Figure(
+    size = (420,300),
+    fontsize = 11,
+    backgroundcolor = :transparent
+)
+
+ax = Axis(
+    fig[1,1],
+    xlabel = L&quot;$r / a_0$&quot;,
+    ylabel = L&quot;$\psi(r) / a_0^{-3/2}$&quot;,
+    ylabelsize = 16.5,
+    xlabelsize = 16.5,
+)
+
+lines!(ax, 0..10, r -&gt; exp(-r/2)/sqrt(8π), label=&quot;exp(-r/2)/sqrt(8π)&quot;)
+lines!(ax, 0..2, r -&gt; (1-r/2)/sqrt(8π), label=&quot;(1-r/2)/sqrt(8π)&quot;)
+lines!(ax, 0..10, r -&gt; abs(Antique.ψ(Ps,r,0,0)), linestyle=:dash, color=:black, label=&quot;Antique.jl&quot;)
+
+axislegend(ax, position=:rt, framevisible=false)
+
+fig</code></pre><img src="4bdfdd0c.png" alt="Example block output"/><h2 id="Testing"><a class="docs-heading-anchor" href="#Testing">Testing</a><a id="Testing-1"></a><a class="docs-heading-anchor-permalink" href="#Testing" title="Permalink"></a></h2><p>Unit testing and integration testing were done using a computer algebra system (<a href="https://symbolics.juliasymbolics.org/stable/">Symbolics.jl</a>) and numerical integration (<a href="https://juliamath.github.io/QuadGK.jl/stable/">QuadGK.jl</a>). The test script is <a href="https://github.com/ohno/Antique.jl/blob/main/test/CoulombTwoBody.jl">here</a>.</p><h4>Associated Legendre Polynomials <span>$P_n^m(x)$</span></h4><p class="math-container">\[\begin{aligned}
+  P_n^m(x)
+  &amp;= \left( 1-x^2 \right)^{m/2} \frac{\mathrm{d}^m}{\mathrm{d}x^m} P_n(x) \\
+  &amp;= \left( 1-x^2 \right)^{m/2} \frac{\mathrm{d}^m}{\mathrm{d}x^m} \frac{1}{2^n n!} \frac{\mathrm{d}^n}{\mathrm{d}x ^n} \left[ \left( x^2-1 \right)^n \right] \\
+  &amp;= \frac{1}{2^n} (1-x^2)^{m/2} \sum_{j=0}^{\left\lfloor\frac{n-m}{2}\right\rfloor} (-1)^j \frac{(2n-2j)!}{j! (n-j)! (n-2j-m)!} x^{(n-2j-m)}.
+\end{aligned}\]</p><p><span>$n=0, m=0:$</span> ✔</p><p class="math-container">\[\begin{aligned}
+  P_{0}^{0}(x)
+    = 1
+  &amp;= 1 \\
+  &amp;= 1
+\end{aligned}\]</p><p><span>$n=1, m=0:$</span> ✔</p><p class="math-container">\[\begin{aligned}
+  P_{1}^{0}(x)
+    = \frac{1}{2} \frac{\mathrm{d}}{\mathrm{d}x} \left( -1 + x^{2} \right)
+  &amp;= x \\
+  &amp;= x
+\end{aligned}\]</p><p><span>$n=1, m=1:$</span> ✔</p><p class="math-container">\[\begin{aligned}
+  P_{1}^{1}(x)
+    = \left( 1 - x^{2} \right)^{\frac{1}{2}} \frac{\mathrm{d}}{\mathrm{d}x} \frac{1}{2} \frac{\mathrm{d}}{\mathrm{d}x} \left( -1 + x^{2} \right)
+  &amp;= \left( 1 - x^{2} \right)^{\frac{1}{2}} \\
+  &amp;= \left( 1 - x^{2} \right)^{\frac{1}{2}}
+\end{aligned}\]</p><p><span>$n=2, m=0:$</span> ✔</p><p class="math-container">\[\begin{aligned}
+  P_{2}^{0}(x)
+    = \frac{1}{8} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \left( -1 + x^{2} \right)^{2}
+  &amp;= \frac{-1}{2} + \frac{3}{2} x^{2} \\
+  &amp;= \frac{-1}{2} + \frac{3}{2} x^{2}
+\end{aligned}\]</p><p><span>$n=2, m=1:$</span> ✔</p><p class="math-container">\[\begin{aligned}
+  P_{2}^{1}(x)
+    = \left( 1 - x^{2} \right)^{\frac{1}{2}} \frac{\mathrm{d}}{\mathrm{d}x} \frac{1}{8} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \left( -1 + x^{2} \right)^{2}
+  &amp;= 3 \left( 1 - x^{2} \right)^{\frac{1}{2}} x \\
+  &amp;= 3 \left( 1 - x^{2} \right)^{\frac{1}{2}} x
+\end{aligned}\]</p><p><span>$n=2, m=2:$</span> ✔</p><p class="math-container">\[\begin{aligned}
+  P_{2}^{2}(x)
+    = \left( 1 - x^{2} \right) \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{1}{8} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \left( -1 + x^{2} \right)^{2}
+  &amp;= 3 - 3 x^{2} \\
+  &amp;= 3 - 3 x^{2}
+\end{aligned}\]</p><p><span>$n=3, m=0:$</span> ✔</p><p class="math-container">\[\begin{aligned}
+  P_{3}^{0}(x)
+    = \frac{1}{48} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \left( -1 + x^{2} \right)^{3}
+  &amp;=  - \frac{3}{2} x + \frac{5}{2} x^{3} \\
+  &amp;=  - \frac{3}{2} x + \frac{5}{2} x^{3}
+\end{aligned}\]</p><p><span>$n=3, m=1:$</span> ✔</p><p class="math-container">\[\begin{aligned}
+  P_{3}^{1}(x)
+    = \left( 1 - x^{2} \right)^{\frac{1}{2}} \frac{\mathrm{d}}{\mathrm{d}x} \frac{1}{48} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \left( -1 + x^{2} \right)^{3}
+  &amp;=  - \frac{3}{2} \left( 1 - x^{2} \right)^{\frac{1}{2}} + \frac{15}{2} x^{2} \left( 1 - x^{2} \right)^{\frac{1}{2}} \\
+  &amp;=  - \frac{3}{2} \left( 1 - x^{2} \right)^{\frac{1}{2}} + \frac{15}{2} x^{2} \left( 1 - x^{2} \right)^{\frac{1}{2}}
+\end{aligned}\]</p><p><span>$n=3, m=2:$</span> ✔</p><p class="math-container">\[\begin{aligned}
+  P_{3}^{2}(x)
+    = \left( 1 - x^{2} \right) \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{1}{48} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \left( -1 + x^{2} \right)^{3}
+  &amp;= 15 x - 15 x^{3} \\
+  &amp;= 15 x - 15 x^{3}
+\end{aligned}\]</p><p><span>$n=3, m=3:$</span> ✔</p><p class="math-container">\[\begin{aligned}
+  P_{3}^{3}(x)
+    = \left( 1 - x^{2} \right)^{\frac{3}{2}} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{1}{48} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \left( -1 + x^{2} \right)^{3}
+  &amp;= 15 \left( 1 - x^{2} \right)^{\frac{3}{2}} \\
+  &amp;= 15 \left( 1 - x^{2} \right)^{\frac{3}{2}}
+\end{aligned}\]</p><p><span>$n=4, m=0:$</span> ✔</p><p class="math-container">\[\begin{aligned}
+  P_{4}^{0}(x)
+    = \frac{1}{384} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \left( -1 + x^{2} \right)^{4}
+  &amp;= \frac{3}{8} - \frac{15}{4} x^{2} + \frac{35}{8} x^{4} \\
+  &amp;= \frac{3}{8} - \frac{15}{4} x^{2} + \frac{35}{8} x^{4}
+\end{aligned}\]</p><p><span>$n=4, m=1:$</span> ✔</p><p class="math-container">\[\begin{aligned}
+  P_{4}^{1}(x)
+    = \left( 1 - x^{2} \right)^{\frac{1}{2}} \frac{\mathrm{d}}{\mathrm{d}x} \frac{1}{384} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \left( -1 + x^{2} \right)^{4}
+  &amp;=  - \frac{15}{2} \left( 1 - x^{2} \right)^{\frac{1}{2}} x + \frac{35}{2} x^{3} \left( 1 - x^{2} \right)^{\frac{1}{2}} \\
+  &amp;=  - \frac{15}{2} \left( 1 - x^{2} \right)^{\frac{1}{2}} x + \frac{35}{2} x^{3} \left( 1 - x^{2} \right)^{\frac{1}{2}}
+\end{aligned}\]</p><p><span>$n=4, m=2:$</span> ✔</p><p class="math-container">\[\begin{aligned}
+  P_{4}^{2}(x)
+    = \left( 1 - x^{2} \right) \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{1}{384} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \left( -1 + x^{2} \right)^{4}
+  &amp;= \frac{-15}{2} + 60 x^{2} - \frac{105}{2} x^{4} \\
+  &amp;= \frac{-15}{2} + 60 x^{2} - \frac{105}{2} x^{4}
+\end{aligned}\]</p><p><span>$n=4, m=3:$</span> ✔</p><p class="math-container">\[\begin{aligned}
+  P_{4}^{3}(x)
+    = \left( 1 - x^{2} \right)^{\frac{3}{2}} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{1}{384} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \left( -1 + x^{2} \right)^{4}
+  &amp;= 105 \left( 1 - x^{2} \right)^{\frac{3}{2}} x \\
+  &amp;= 105 \left( 1 - x^{2} \right)^{\frac{3}{2}} x
+\end{aligned}\]</p><p><span>$n=4, m=4:$</span> ✔</p><p class="math-container">\[\begin{aligned}
+  P_{4}^{4}(x)
+    = \left( 1 - x^{2} \right)^{2} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{1}{384} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \left( -1 + x^{2} \right)^{4}
+  &amp;= 105 \left( 1 - x^{2} \right)^{2} \\
+  &amp;= 105 \left( 1 - x^{2} \right)^{2}
+\end{aligned}\]</p><h4>Normalization &amp; Orthogonality of <span>$P_n^m(x)$</span></h4><p class="math-container">\[\int_{-1}^{1} P_i^m(x) P_j^m(x) \mathrm{d}x = \frac{2(j+m)!}{(2j+1)(j-m)!} \delta_{ij}\]</p><pre><code class="nohighlight hljs"> m |  i |  j |     analytical |      numerical 
+-- | -- | -- | -------------- | -------------- 
+ 0 |  0 |  0 |    2.000000000 |    2.000000000 ✔
+ 0 |  0 |  1 |    0.000000000 |    0.000000000 ✔
+ 0 |  0 |  2 |    0.000000000 |    0.000000000 ✔
+ 0 |  0 |  3 |    0.000000000 |   -0.000000000 ✔
+ 0 |  0 |  4 |    0.000000000 |    0.000000000 ✔
+ 0 |  0 |  5 |    0.000000000 |   -0.000000000 ✔
+ 0 |  0 |  6 |    0.000000000 |   -0.000000000 ✔
+ 0 |  0 |  7 |    0.000000000 |    0.000000000 ✔
+ 0 |  0 |  8 |    0.000000000 |   -0.000000000 ✔
+ 0 |  0 |  9 |    0.000000000 |   -0.000000000 ✔
+ 0 |  1 |  0 |    0.000000000 |    0.000000000 ✔
+ 0 |  1 |  1 |    0.666666667 |    0.666666667 ✔
+ 0 |  1 |  2 |    0.000000000 |    0.000000000 ✔
+ 0 |  1 |  3 |    0.000000000 |   -0.000000000 ✔
+ 0 |  1 |  4 |    0.000000000 |    0.000000000 ✔
+ 0 |  1 |  5 |    0.000000000 |   -0.000000000 ✔
+ 0 |  1 |  6 |    0.000000000 |    0.000000000 ✔
+ 0 |  1 |  7 |    0.000000000 |   -0.000000000 ✔
+ 0 |  1 |  8 |    0.000000000 |   -0.000000000 ✔
+ 0 |  1 |  9 |    0.000000000 |   -0.000000000 ✔
+ 0 |  2 |  0 |    0.000000000 |    0.000000000 ✔
+ 0 |  2 |  1 |    0.000000000 |    0.000000000 ✔
+ 0 |  2 |  2 |    0.400000000 |    0.400000000 ✔
+ 0 |  2 |  3 |    0.000000000 |    0.000000000 ✔
+ 0 |  2 |  4 |    0.000000000 |    0.000000000 ✔
+ 0 |  2 |  5 |    0.000000000 |    0.000000000 ✔
+ 0 |  2 |  6 |    0.000000000 |   -0.000000000 ✔
+ 0 |  2 |  7 |    0.000000000 |    0.000000000 ✔
+ 0 |  2 |  8 |    0.000000000 |   -0.000000000 ✔
+ 0 |  2 |  9 |    0.000000000 |   -0.000000000 ✔
+ 0 |  3 |  0 |    0.000000000 |   -0.000000000 ✔
+ 0 |  3 |  1 |    0.000000000 |   -0.000000000 ✔
+ 0 |  3 |  2 |    0.000000000 |    0.000000000 ✔
+ 0 |  3 |  3 |    0.285714286 |    0.285714286 ✔
+ 0 |  3 |  4 |    0.000000000 |    0.000000000 ✔
+ 0 |  3 |  5 |    0.000000000 |   -0.000000000 ✔
+ 0 |  3 |  6 |    0.000000000 |   -0.000000000 ✔
+ 0 |  3 |  7 |    0.000000000 |    0.000000000 ✔
+ 0 |  3 |  8 |    0.000000000 |   -0.000000000 ✔
+ 0 |  3 |  9 |    0.000000000 |   -0.000000000 ✔
+ 0 |  4 |  0 |    0.000000000 |    0.000000000 ✔
+ 0 |  4 |  1 |    0.000000000 |    0.000000000 ✔
+ 0 |  4 |  2 |    0.000000000 |    0.000000000 ✔
+ 0 |  4 |  3 |    0.000000000 |    0.000000000 ✔
+ 0 |  4 |  4 |    0.222222222 |    0.222222222 ✔
+ 0 |  4 |  5 |    0.000000000 |    0.000000000 ✔
+ 0 |  4 |  6 |    0.000000000 |   -0.000000000 ✔
+ 0 |  4 |  7 |    0.000000000 |    0.000000000 ✔
+ 0 |  4 |  8 |    0.000000000 |   -0.000000000 ✔
+ 0 |  4 |  9 |    0.000000000 |    0.000000000 ✔
+ 0 |  5 |  0 |    0.000000000 |   -0.000000000 ✔
+ 0 |  5 |  1 |    0.000000000 |   -0.000000000 ✔
+ 0 |  5 |  2 |    0.000000000 |    0.000000000 ✔
+ 0 |  5 |  3 |    0.000000000 |   -0.000000000 ✔
+ 0 |  5 |  4 |    0.000000000 |    0.000000000 ✔
+ 0 |  5 |  5 |    0.181818182 |    0.181818182 ✔
+ 0 |  5 |  6 |    0.000000000 |   -0.000000000 ✔
+ 0 |  5 |  7 |    0.000000000 |   -0.000000000 ✔
+ 0 |  5 |  8 |    0.000000000 |    0.000000000 ✔
+ 0 |  5 |  9 |    0.000000000 |   -0.000000000 ✔
+ 0 |  6 |  0 |    0.000000000 |   -0.000000000 ✔
+ 0 |  6 |  1 |    0.000000000 |    0.000000000 ✔
+ 0 |  6 |  2 |    0.000000000 |   -0.000000000 ✔
+ 0 |  6 |  3 |    0.000000000 |   -0.000000000 ✔
+ 0 |  6 |  4 |    0.000000000 |   -0.000000000 ✔
+ 0 |  6 |  5 |    0.000000000 |   -0.000000000 ✔
+ 0 |  6 |  6 |    0.153846154 |    0.153846154 ✔
+ 0 |  6 |  7 |    0.000000000 |   -0.000000000 ✔
+ 0 |  6 |  8 |    0.000000000 |   -0.000000000 ✔
+ 0 |  6 |  9 |    0.000000000 |    0.000000000 ✔
+ 0 |  7 |  0 |    0.000000000 |    0.000000000 ✔
+ 0 |  7 |  1 |    0.000000000 |   -0.000000000 ✔
+ 0 |  7 |  2 |    0.000000000 |    0.000000000 ✔
+ 0 |  7 |  3 |    0.000000000 |    0.000000000 ✔
+ 0 |  7 |  4 |    0.000000000 |    0.000000000 ✔
+ 0 |  7 |  5 |    0.000000000 |   -0.000000000 ✔
+ 0 |  7 |  6 |    0.000000000 |   -0.000000000 ✔
+ 0 |  7 |  7 |    0.133333333 |    0.133333333 ✔
+ 0 |  7 |  8 |    0.000000000 |   -0.000000000 ✔
+ 0 |  7 |  9 |    0.000000000 |   -0.000000000 ✔
+ 0 |  8 |  0 |    0.000000000 |   -0.000000000 ✔
+ 0 |  8 |  1 |    0.000000000 |   -0.000000000 ✔
+ 0 |  8 |  2 |    0.000000000 |   -0.000000000 ✔
+ 0 |  8 |  3 |    0.000000000 |   -0.000000000 ✔
+ 0 |  8 |  4 |    0.000000000 |   -0.000000000 ✔
+ 0 |  8 |  5 |    0.000000000 |    0.000000000 ✔
+ 0 |  8 |  6 |    0.000000000 |   -0.000000000 ✔
+ 0 |  8 |  7 |    0.000000000 |   -0.000000000 ✔
+ 0 |  8 |  8 |    0.117647059 |    0.117647059 ✔
+ 0 |  8 |  9 |    0.000000000 |   -0.000000000 ✔
+ 0 |  9 |  0 |    0.000000000 |   -0.000000000 ✔
+ 0 |  9 |  1 |    0.000000000 |   -0.000000000 ✔
+ 0 |  9 |  2 |    0.000000000 |   -0.000000000 ✔
+ 0 |  9 |  3 |    0.000000000 |   -0.000000000 ✔
+ 0 |  9 |  4 |    0.000000000 |    0.000000000 ✔
+ 0 |  9 |  5 |    0.000000000 |   -0.000000000 ✔
+ 0 |  9 |  6 |    0.000000000 |    0.000000000 ✔
+ 0 |  9 |  7 |    0.000000000 |   -0.000000000 ✔
+ 0 |  9 |  8 |    0.000000000 |   -0.000000000 ✔
+ 0 |  9 |  9 |    0.105263158 |    0.105263158 ✔
+ 1 |  1 |  1 |    1.333333333 |    1.333333333 ✔
+ 1 |  1 |  2 |    0.000000000 |    0.000000000 ✔
+ 1 |  1 |  3 |    0.000000000 |    0.000000000 ✔
+ 1 |  1 |  4 |    0.000000000 |    0.000000000 ✔
+ 1 |  1 |  5 |    0.000000000 |    0.000000000 ✔
+ 1 |  1 |  6 |    0.000000000 |    0.000000000 ✔
+ 1 |  1 |  7 |    0.000000000 |    0.000000000 ✔
+ 1 |  1 |  8 |    0.000000000 |    0.000000000 ✔
+ 1 |  1 |  9 |    0.000000000 |    0.000000000 ✔
+ 1 |  2 |  1 |    0.000000000 |    0.000000000 ✔
+ 1 |  2 |  2 |    2.400000000 |    2.400000000 ✔
+ 1 |  2 |  3 |    0.000000000 |    0.000000000 ✔
+ 1 |  2 |  4 |    0.000000000 |    0.000000000 ✔
+ 1 |  2 |  5 |    0.000000000 |   -0.000000000 ✔
+ 1 |  2 |  6 |    0.000000000 |    0.000000000 ✔
+ 1 |  2 |  7 |    0.000000000 |    0.000000000 ✔
+ 1 |  2 |  8 |    0.000000000 |    0.000000000 ✔
+ 1 |  2 |  9 |    0.000000000 |   -0.000000000 ✔
+ 1 |  3 |  1 |    0.000000000 |    0.000000000 ✔
+ 1 |  3 |  2 |    0.000000000 |    0.000000000 ✔
+ 1 |  3 |  3 |    3.428571429 |    3.428571429 ✔
+ 1 |  3 |  4 |    0.000000000 |    0.000000000 ✔
+ 1 |  3 |  5 |    0.000000000 |   -0.000000000 ✔
+ 1 |  3 |  6 |    0.000000000 |    0.000000000 ✔
+ 1 |  3 |  7 |    0.000000000 |   -0.000000000 ✔
+ 1 |  3 |  8 |    0.000000000 |    0.000000000 ✔
+ 1 |  3 |  9 |    0.000000000 |    0.000000000 ✔
+ 1 |  4 |  1 |    0.000000000 |    0.000000000 ✔
+ 1 |  4 |  2 |    0.000000000 |    0.000000000 ✔
+ 1 |  4 |  3 |    0.000000000 |    0.000000000 ✔
+ 1 |  4 |  4 |    4.444444444 |    4.444444444 ✔
+ 1 |  4 |  5 |    0.000000000 |    0.000000000 ✔
+ 1 |  4 |  6 |    0.000000000 |    0.000000000 ✔
+ 1 |  4 |  7 |    0.000000000 |    0.000000000 ✔
+ 1 |  4 |  8 |    0.000000000 |    0.000000000 ✔
+ 1 |  4 |  9 |    0.000000000 |    0.000000000 ✔
+ 1 |  5 |  1 |    0.000000000 |    0.000000000 ✔
+ 1 |  5 |  2 |    0.000000000 |   -0.000000000 ✔
+ 1 |  5 |  3 |    0.000000000 |   -0.000000000 ✔
+ 1 |  5 |  4 |    0.000000000 |    0.000000000 ✔
+ 1 |  5 |  5 |    5.454545455 |    5.454545455 ✔
+ 1 |  5 |  6 |    0.000000000 |   -0.000000000 ✔
+ 1 |  5 |  7 |    0.000000000 |   -0.000000000 ✔
+ 1 |  5 |  8 |    0.000000000 |    0.000000000 ✔
+ 1 |  5 |  9 |    0.000000000 |    0.000000000 ✔
+ 1 |  6 |  1 |    0.000000000 |    0.000000000 ✔
+ 1 |  6 |  2 |    0.000000000 |    0.000000000 ✔
+ 1 |  6 |  3 |    0.000000000 |    0.000000000 ✔
+ 1 |  6 |  4 |    0.000000000 |    0.000000000 ✔
+ 1 |  6 |  5 |    0.000000000 |   -0.000000000 ✔
+ 1 |  6 |  6 |    6.461538462 |    6.461538462 ✔
+ 1 |  6 |  7 |    0.000000000 |    0.000000000 ✔
+ 1 |  6 |  8 |    0.000000000 |   -0.000000000 ✔
+ 1 |  6 |  9 |    0.000000000 |   -0.000000000 ✔
+ 1 |  7 |  1 |    0.000000000 |    0.000000000 ✔
+ 1 |  7 |  2 |    0.000000000 |    0.000000000 ✔
+ 1 |  7 |  3 |    0.000000000 |   -0.000000000 ✔
+ 1 |  7 |  4 |    0.000000000 |    0.000000000 ✔
+ 1 |  7 |  5 |    0.000000000 |   -0.000000000 ✔
+ 1 |  7 |  6 |    0.000000000 |    0.000000000 ✔
+ 1 |  7 |  7 |    7.466666667 |    7.466666667 ✔
+ 1 |  7 |  8 |    0.000000000 |   -0.000000000 ✔
+ 1 |  7 |  9 |    0.000000000 |    0.000000000 ✔
+ 1 |  8 |  1 |    0.000000000 |    0.000000000 ✔
+ 1 |  8 |  2 |    0.000000000 |    0.000000000 ✔
+ 1 |  8 |  3 |    0.000000000 |    0.000000000 ✔
+ 1 |  8 |  4 |    0.000000000 |    0.000000000 ✔
+ 1 |  8 |  5 |    0.000000000 |    0.000000000 ✔
+ 1 |  8 |  6 |    0.000000000 |   -0.000000000 ✔
+ 1 |  8 |  7 |    0.000000000 |   -0.000000000 ✔
+ 1 |  8 |  8 |    8.470588235 |    8.470588235 ✔
+ 1 |  8 |  9 |    0.000000000 |   -0.000000000 ✔
+ 1 |  9 |  1 |    0.000000000 |    0.000000000 ✔
+ 1 |  9 |  2 |    0.000000000 |   -0.000000000 ✔
+ 1 |  9 |  3 |    0.000000000 |    0.000000000 ✔
+ 1 |  9 |  4 |    0.000000000 |    0.000000000 ✔
+ 1 |  9 |  5 |    0.000000000 |    0.000000000 ✔
+ 1 |  9 |  6 |    0.000000000 |   -0.000000000 ✔
+ 1 |  9 |  7 |    0.000000000 |    0.000000000 ✔
+ 1 |  9 |  8 |    0.000000000 |   -0.000000000 ✔
+ 1 |  9 |  9 |    9.473684211 |    9.473684211 ✔
+ 2 |  2 |  2 |    9.600000000 |    9.600000000 ✔
+ 2 |  2 |  3 |    0.000000000 |    0.000000000 ✔
+ 2 |  2 |  4 |    0.000000000 |    0.000000000 ✔
+ 2 |  2 |  5 |    0.000000000 |    0.000000000 ✔
+ 2 |  2 |  6 |    0.000000000 |   -0.000000000 ✔
+ 2 |  2 |  7 |    0.000000000 |    0.000000000 ✔
+ 2 |  2 |  8 |    0.000000000 |    0.000000000 ✔
+ 2 |  2 |  9 |    0.000000000 |   -0.000000000 ✔
+ 2 |  3 |  2 |    0.000000000 |    0.000000000 ✔
+ 2 |  3 |  3 |   34.285714286 |   34.285714286 ✔
+ 2 |  3 |  4 |    0.000000000 |    0.000000000 ✔
+ 2 |  3 |  5 |    0.000000000 |    0.000000000 ✔
+ 2 |  3 |  6 |    0.000000000 |    0.000000000 ✔
+ 2 |  3 |  7 |    0.000000000 |   -0.000000000 ✔
+ 2 |  3 |  8 |    0.000000000 |    0.000000000 ✔
+ 2 |  3 |  9 |    0.000000000 |   -0.000000000 ✔
+ 2 |  4 |  2 |    0.000000000 |    0.000000000 ✔
+ 2 |  4 |  3 |    0.000000000 |    0.000000000 ✔
+ 2 |  4 |  4 |   80.000000000 |   80.000000000 ✔
+ 2 |  4 |  5 |    0.000000000 |    0.000000000 ✔
+ 2 |  4 |  6 |    0.000000000 |   -0.000000000 ✔
+ 2 |  4 |  7 |    0.000000000 |   -0.000000000 ✔
+ 2 |  4 |  8 |    0.000000000 |    0.000000000 ✔
+ 2 |  4 |  9 |    0.000000000 |    0.000000000 ✔
+ 2 |  5 |  2 |    0.000000000 |    0.000000000 ✔
+ 2 |  5 |  3 |    0.000000000 |    0.000000000 ✔
+ 2 |  5 |  4 |    0.000000000 |    0.000000000 ✔
+ 2 |  5 |  5 |  152.727272727 |  152.727272727 ✔
+ 2 |  5 |  6 |    0.000000000 |   -0.000000000 ✔
+ 2 |  5 |  7 |    0.000000000 |    0.000000000 ✔
+ 2 |  5 |  8 |    0.000000000 |    0.000000000 ✔
+ 2 |  5 |  9 |    0.000000000 |    0.000000000 ✔
+ 2 |  6 |  2 |    0.000000000 |   -0.000000000 ✔
+ 2 |  6 |  3 |    0.000000000 |    0.000000000 ✔
+ 2 |  6 |  4 |    0.000000000 |   -0.000000000 ✔
+ 2 |  6 |  5 |    0.000000000 |   -0.000000000 ✔
+ 2 |  6 |  6 |  258.461538462 |  258.461538462 ✔
+ 2 |  6 |  7 |    0.000000000 |    0.000000000 ✔
+ 2 |  6 |  8 |    0.000000000 |   -0.000000000 ✔
+ 2 |  6 |  9 |    0.000000000 |    0.000000000 ✔
+ 2 |  7 |  2 |    0.000000000 |    0.000000000 ✔
+ 2 |  7 |  3 |    0.000000000 |   -0.000000000 ✔
+ 2 |  7 |  4 |    0.000000000 |   -0.000000000 ✔
+ 2 |  7 |  5 |    0.000000000 |    0.000000000 ✔
+ 2 |  7 |  6 |    0.000000000 |    0.000000000 ✔
+ 2 |  7 |  7 |  403.200000000 |  403.200000000 ✔
+ 2 |  7 |  8 |    0.000000000 |   -0.000000000 ✔
+ 2 |  7 |  9 |    0.000000000 |   -0.000000000 ✔
+ 2 |  8 |  2 |    0.000000000 |    0.000000000 ✔
+ 2 |  8 |  3 |    0.000000000 |    0.000000000 ✔
+ 2 |  8 |  4 |    0.000000000 |    0.000000000 ✔
+ 2 |  8 |  5 |    0.000000000 |    0.000000000 ✔
+ 2 |  8 |  6 |    0.000000000 |   -0.000000000 ✔
+ 2 |  8 |  7 |    0.000000000 |   -0.000000000 ✔
+ 2 |  8 |  8 |  592.941176471 |  592.941176471 ✔
+ 2 |  8 |  9 |    0.000000000 |   -0.000000000 ✔
+ 2 |  9 |  2 |    0.000000000 |   -0.000000000 ✔
+ 2 |  9 |  3 |    0.000000000 |   -0.000000000 ✔
+ 2 |  9 |  4 |    0.000000000 |    0.000000000 ✔
+ 2 |  9 |  5 |    0.000000000 |    0.000000000 ✔
+ 2 |  9 |  6 |    0.000000000 |    0.000000000 ✔
+ 2 |  9 |  7 |    0.000000000 |   -0.000000000 ✔
+ 2 |  9 |  8 |    0.000000000 |   -0.000000000 ✔
+ 2 |  9 |  9 |  833.684210526 |  833.684210526 ✔
+ 3 |  3 |  3 |  205.714285714 |  205.714285714 ✔
+ 3 |  3 |  4 |    0.000000000 |   -0.000000000 ✔
+ 3 |  3 |  5 |    0.000000000 |   -0.000000000 ✔
+ 3 |  3 |  6 |    0.000000000 |    0.000000000 ✔
+ 3 |  3 |  7 |    0.000000000 |   -0.000000000 ✔
+ 3 |  3 |  8 |    0.000000000 |   -0.000000000 ✔
+ 3 |  3 |  9 |    0.000000000 |   -0.000000000 ✔
+ 3 |  4 |  3 |    0.000000000 |   -0.000000000 ✔
+ 3 |  4 |  4 | 1120.000000000 | 1120.000000000 ✔
+ 3 |  4 |  5 |    0.000000000 |    0.000000000 ✔
+ 3 |  4 |  6 |    0.000000000 |    0.000000000 ✔
+ 3 |  4 |  7 |    0.000000000 |    0.000000000 ✔
+ 3 |  4 |  8 |    0.000000000 |    0.000000000 ✔
+ 3 |  4 |  9 |    0.000000000 |    0.000000000 ✔
+ 3 |  5 |  3 |    0.000000000 |   -0.000000000 ✔
+ 3 |  5 |  4 |    0.000000000 |    0.000000000 ✔
+ 3 |  5 |  5 | 3665.454545455 | 3665.454545455 ✔
+ 3 |  5 |  6 |    0.000000000 |    0.000000000 ✔
+ 3 |  5 |  7 |    0.000000000 |   -0.000000000 ✔
+ 3 |  5 |  8 |    0.000000000 |   -0.000000000 ✔
+ 3 |  5 |  9 |    0.000000000 |   -0.000000000 ✔
+ 3 |  6 |  3 |    0.000000000 |    0.000000000 ✔
+ 3 |  6 |  4 |    0.000000000 |    0.000000000 ✔
+ 3 |  6 |  5 |    0.000000000 |    0.000000000 ✔
+ 3 |  6 |  6 | 9304.615384615 | 9304.615384615 ✔
+ 3 |  6 |  7 |    0.000000000 |   -0.000000000 ✔
+ 3 |  6 |  8 |    0.000000000 |    0.000000000 ✔
+ 3 |  6 |  9 |    0.000000000 |    0.000000000 ✔
+ 3 |  7 |  3 |    0.000000000 |   -0.000000000 ✔
+ 3 |  7 |  4 |    0.000000000 |    0.000000000 ✔
+ 3 |  7 |  5 |    0.000000000 |   -0.000000000 ✔
+ 3 |  7 |  6 |    0.000000000 |   -0.000000000 ✔
+ 3 |  7 |  7 | 20160.000000000 | 20160.000000000 ✔
+ 3 |  7 |  8 |    0.000000000 |    0.000000000 ✔
+ 3 |  7 |  9 |    0.000000000 |    0.000000000 ✔
+ 3 |  8 |  3 |    0.000000000 |   -0.000000000 ✔
+ 3 |  8 |  4 |    0.000000000 |    0.000000000 ✔
+ 3 |  8 |  5 |    0.000000000 |   -0.000000000 ✔
+ 3 |  8 |  6 |    0.000000000 |    0.000000000 ✔
+ 3 |  8 |  7 |    0.000000000 |    0.000000000 ✔
+ 3 |  8 |  8 | 39134.117647059 | 39134.117647059 ✔
+ 3 |  8 |  9 |    0.000000000 |   -0.000000000 ✔
+ 3 |  9 |  3 |    0.000000000 |   -0.000000000 ✔
+ 3 |  9 |  4 |    0.000000000 |    0.000000000 ✔
+ 3 |  9 |  5 |    0.000000000 |   -0.000000000 ✔
+ 3 |  9 |  6 |    0.000000000 |    0.000000000 ✔
+ 3 |  9 |  7 |    0.000000000 |    0.000000000 ✔
+ 3 |  9 |  8 |    0.000000000 |   -0.000000000 ✔
+ 3 |  9 |  9 | 70029.473684211 | 70029.473684211 ✔
+ 4 |  4 |  4 | 8960.000000000 | 8960.000000000 ✔
+ 4 |  4 |  5 |    0.000000000 |   -0.000000000 ✔
+ 4 |  4 |  6 |    0.000000000 |   -0.000000000 ✔
+ 4 |  4 |  7 |    0.000000000 |   -0.000000000 ✔
+ 4 |  4 |  8 |    0.000000000 |    0.000000000 ✔
+ 4 |  4 |  9 |    0.000000000 |    0.000000000 ✔
+ 4 |  5 |  4 |    0.000000000 |   -0.000000000 ✔
+ 4 |  5 |  5 | 65978.181818182 | 65978.181818182 ✔
+ 4 |  5 |  6 |    0.000000000 |   -0.000000000 ✔
+ 4 |  5 |  7 |    0.000000000 |   -0.000000000 ✔
+ 4 |  5 |  8 |    0.000000000 |   -0.000000000 ✔
+ 4 |  5 |  9 |    0.000000000 |    0.000000000 ✔
+ 4 |  6 |  4 |    0.000000000 |   -0.000000000 ✔
+ 4 |  6 |  5 |    0.000000000 |   -0.000000000 ✔
+ 4 |  6 |  6 | 279138.461538462 | 279138.461538462 ✔
+ 4 |  6 |  7 |    0.000000000 |   -0.000000000 ✔
+ 4 |  6 |  8 |    0.000000000 |    0.000000000 ✔
+ 4 |  6 |  9 |    0.000000000 |    0.000000000 ✔
+ 4 |  7 |  4 |    0.000000000 |   -0.000000000 ✔
+ 4 |  7 |  5 |    0.000000000 |   -0.000000000 ✔
+ 4 |  7 |  6 |    0.000000000 |   -0.000000000 ✔
+ 4 |  7 |  7 | 887040.000000000 | 887040.000000000 ✔
+ 4 |  7 |  8 |    0.000000000 |    0.000000000 ✔
+ 4 |  7 |  9 |    0.000000000 |    0.000000000 ✔
+ 4 |  8 |  4 |    0.000000000 |    0.000000000 ✔
+ 4 |  8 |  5 |    0.000000000 |   -0.000000000 ✔
+ 4 |  8 |  6 |    0.000000000 |    0.000000000 ✔
+ 4 |  8 |  7 |    0.000000000 |    0.000000000 ✔
+ 4 |  8 |  8 | 2348047.058823529 | 2348047.058823530 ✔
+ 4 |  8 |  9 |    0.000000000 |    0.000000000 ✔
+ 4 |  9 |  4 |    0.000000000 |    0.000000000 ✔
+ 4 |  9 |  5 |    0.000000000 |    0.000000000 ✔
+ 4 |  9 |  6 |    0.000000000 |    0.000000000 ✔
+ 4 |  9 |  7 |    0.000000000 |    0.000000000 ✔
+ 4 |  9 |  8 |    0.000000000 |    0.000000000 ✔
+ 4 |  9 |  9 | 5462298.947368422 | 5462298.947368421 ✔
+ 5 |  5 |  5 | 659781.818181818 | 659781.818181818 ✔
+ 5 |  5 |  6 |    0.000000000 |   -0.000000000 ✔
+ 5 |  5 |  7 |    0.000000000 |    0.000000000 ✔
+ 5 |  5 |  8 |    0.000000000 |    0.000000001 ✔
+ 5 |  5 |  9 |    0.000000000 |    0.000000000 ✔
+ 5 |  6 |  5 |    0.000000000 |   -0.000000000 ✔
+ 5 |  6 |  6 | 6141046.153846154 | 6141046.153846157 ✔
+ 5 |  6 |  7 |    0.000000000 |    0.000000000 ✔
+ 5 |  6 |  8 |    0.000000000 |    0.000000002 ✔
+ 5 |  6 |  9 |    0.000000000 |    0.000000001 ✔
+ 5 |  7 |  5 |    0.000000000 |    0.000000000 ✔
+ 5 |  7 |  6 |    0.000000000 |    0.000000000 ✔
+ 5 |  7 |  7 | 31933440.000000000 | 31933440.000000000 ✔
+ 5 |  7 |  8 |    0.000000000 |    0.000000003 ✔
+ 5 |  7 |  9 |    0.000000000 |    0.000000004 ✔
+ 5 |  8 |  5 |    0.000000000 |    0.000000001 ✔
+ 5 |  8 |  6 |    0.000000000 |    0.000000002 ✔
+ 5 |  8 |  7 |    0.000000000 |    0.000000003 ✔
+ 5 |  8 |  8 | 122098447.058823526 | 122098447.058823526 ✔
+ 5 |  8 |  9 |    0.000000000 |   -0.000000001 ✔
+ 5 |  9 |  5 |    0.000000000 |    0.000000000 ✔
+ 5 |  9 |  6 |    0.000000000 |    0.000000001 ✔
+ 5 |  9 |  7 |    0.000000000 |    0.000000004 ✔
+ 5 |  9 |  8 |    0.000000000 |   -0.000000001 ✔
+ 5 |  9 |  9 | 382360926.315789461 | 382360926.315789461 ✔</code></pre><h4>Normalization &amp; Orthogonality of <span>$Y_{lm}(\theta,\varphi)$</span></h4><p class="math-container">\[\int_0^{2\pi}
+\int_0^\pi
+Y_{lm}(\theta,\varphi)^* Y_{l&#39;m&#39;}(\theta,\varphi) \sin(\theta)
+~\mathrm{d}\theta \mathrm{d}\varphi
+= \delta_{ll&#39;} \delta_{mm&#39;}\]</p><pre><code class="nohighlight hljs">l₁ | l₂ | m₁ | m₂ |     analytical |      numerical 
+-- | -- | -- | -- | -------------- | -------------- 
+ 0 |  0 |  0 |  0 |    1.000000000 |    1.000000000 ✔
+ 0 |  1 |  0 | -1 |    0.000000000 |    0.000000000 ✔
+ 0 |  1 |  0 |  0 |    0.000000000 |   -0.000000000 ✔
+ 0 |  1 |  0 |  1 |    0.000000000 |    0.000000000 ✔
+ 0 |  2 |  0 | -2 |    0.000000000 |   -0.000000000 ✔
+ 0 |  2 |  0 | -1 |    0.000000000 |    0.000000000 ✔
+ 0 |  2 |  0 |  0 |    0.000000000 |    0.000000000 ✔
+ 0 |  2 |  0 |  1 |    0.000000000 |   -0.000000000 ✔
+ 0 |  2 |  0 |  2 |    0.000000000 |   -0.000000000 ✔
+ 1 |  0 | -1 |  0 |    0.000000000 |    0.000000000 ✔
+ 1 |  0 |  0 |  0 |    0.000000000 |   -0.000000000 ✔
+ 1 |  0 |  1 |  0 |    0.000000000 |    0.000000000 ✔
+ 1 |  1 | -1 | -1 |    1.000000000 |    1.000000000 ✔
+ 1 |  1 | -1 |  0 |    0.000000000 |    0.000000000 ✔
+ 1 |  1 | -1 |  1 |    0.000000000 |    0.000000000 ✔
+ 1 |  1 |  0 | -1 |    0.000000000 |    0.000000000 ✔
+ 1 |  1 |  0 |  0 |    1.000000000 |    1.000000000 ✔
+ 1 |  1 |  0 |  1 |    0.000000000 |   -0.000000000 ✔
+ 1 |  1 |  1 | -1 |    0.000000000 |    0.000000000 ✔
+ 1 |  1 |  1 |  0 |    0.000000000 |   -0.000000000 ✔
+ 1 |  1 |  1 |  1 |    1.000000000 |    1.000000000 ✔
+ 1 |  2 | -1 | -2 |    0.000000000 |   -0.000000000 ✔
+ 1 |  2 | -1 | -1 |    0.000000000 |   -0.000000000 ✔
+ 1 |  2 | -1 |  0 |    0.000000000 |    0.000000000 ✔
+ 1 |  2 | -1 |  1 |    0.000000000 |   -0.000000000 ✔
+ 1 |  2 | -1 |  2 |    0.000000000 |    0.000000000 ✔
+ 1 |  2 |  0 | -2 |    0.000000000 |   -0.000000000 ✔
+ 1 |  2 |  0 | -1 |    0.000000000 |   -0.000000000 ✔
+ 1 |  2 |  0 |  0 |    0.000000000 |    0.000000000 ✔
+ 1 |  2 |  0 |  1 |    0.000000000 |    0.000000000 ✔
+ 1 |  2 |  0 |  2 |    0.000000000 |   -0.000000000 ✔
+ 1 |  2 |  1 | -2 |    0.000000000 |   -0.000000000 ✔
+ 1 |  2 |  1 | -1 |    0.000000000 |   -0.000000000 ✔
+ 1 |  2 |  1 |  0 |    0.000000000 |   -0.000000000 ✔
+ 1 |  2 |  1 |  1 |    0.000000000 |   -0.000000000 ✔
+ 1 |  2 |  1 |  2 |    0.000000000 |    0.000000000 ✔
+ 2 |  0 | -2 |  0 |    0.000000000 |   -0.000000000 ✔
+ 2 |  0 | -1 |  0 |    0.000000000 |    0.000000000 ✔
+ 2 |  0 |  0 |  0 |    0.000000000 |    0.000000000 ✔
+ 2 |  0 |  1 |  0 |    0.000000000 |   -0.000000000 ✔
+ 2 |  0 |  2 |  0 |    0.000000000 |   -0.000000000 ✔
+ 2 |  1 | -2 | -1 |    0.000000000 |   -0.000000000 ✔
+ 2 |  1 | -2 |  0 |    0.000000000 |   -0.000000000 ✔
+ 2 |  1 | -2 |  1 |    0.000000000 |   -0.000000000 ✔
+ 2 |  1 | -1 | -1 |    0.000000000 |   -0.000000000 ✔
+ 2 |  1 | -1 |  0 |    0.000000000 |   -0.000000000 ✔
+ 2 |  1 | -1 |  1 |    0.000000000 |   -0.000000000 ✔
+ 2 |  1 |  0 | -1 |    0.000000000 |    0.000000000 ✔
+ 2 |  1 |  0 |  0 |    0.000000000 |    0.000000000 ✔
+ 2 |  1 |  0 |  1 |    0.000000000 |   -0.000000000 ✔
+ 2 |  1 |  1 | -1 |    0.000000000 |   -0.000000000 ✔
+ 2 |  1 |  1 |  0 |    0.000000000 |    0.000000000 ✔
+ 2 |  1 |  1 |  1 |    0.000000000 |   -0.000000000 ✔
+ 2 |  1 |  2 | -1 |    0.000000000 |    0.000000000 ✔
+ 2 |  1 |  2 |  0 |    0.000000000 |   -0.000000000 ✔
+ 2 |  1 |  2 |  1 |    0.000000000 |    0.000000000 ✔
+ 2 |  2 | -2 | -2 |    1.000000000 |    1.000000000 ✔
+ 2 |  2 | -2 | -1 |    0.000000000 |   -0.000000000 ✔
+ 2 |  2 | -2 |  0 |    0.000000000 |    0.000000000 ✔
+ 2 |  2 | -2 |  1 |    0.000000000 |    0.000000000 ✔
+ 2 |  2 | -2 |  2 |    0.000000000 |   -0.000000000 ✔
+ 2 |  2 | -1 | -2 |    0.000000000 |   -0.000000000 ✔
+ 2 |  2 | -1 | -1 |    1.000000000 |    1.000000000 ✔
+ 2 |  2 | -1 |  0 |    0.000000000 |   -0.000000000 ✔
+ 2 |  2 | -1 |  1 |    0.000000000 |    0.000000000 ✔
+ 2 |  2 | -1 |  2 |    0.000000000 |   -0.000000000 ✔
+ 2 |  2 |  0 | -2 |    0.000000000 |    0.000000000 ✔
+ 2 |  2 |  0 | -1 |    0.000000000 |   -0.000000000 ✔
+ 2 |  2 |  0 |  0 |    1.000000000 |    1.000000000 ✔
+ 2 |  2 |  0 |  1 |    0.000000000 |    0.000000000 ✔
+ 2 |  2 |  0 |  2 |    0.000000000 |    0.000000000 ✔
+ 2 |  2 |  1 | -2 |    0.000000000 |    0.000000000 ✔
+ 2 |  2 |  1 | -1 |    0.000000000 |    0.000000000 ✔
+ 2 |  2 |  1 |  0 |    0.000000000 |    0.000000000 ✔
+ 2 |  2 |  1 |  1 |    1.000000000 |    1.000000000 ✔
+ 2 |  2 |  1 |  2 |    0.000000000 |    0.000000000 ✔
+ 2 |  2 |  2 | -2 |    0.000000000 |   -0.000000000 ✔
+ 2 |  2 |  2 | -1 |    0.000000000 |   -0.000000000 ✔
+ 2 |  2 |  2 |  0 |    0.000000000 |    0.000000000 ✔
+ 2 |  2 |  2 |  1 |    0.000000000 |    0.000000000 ✔
+ 2 |  2 |  2 |  2 |    1.000000000 |    1.000000000 ✔</code></pre><h4>Associated Laguerre Polynomials <span>$L_n^{k}(x)$</span></h4><p class="math-container">\[  \begin{aligned}
+  L_n^{k}(x)
+    &amp;= \frac{\mathrm{d}^k}{\mathrm{d}x^k} L_n(x) \\
+    &amp;= \frac{\mathrm{d}^k}{\mathrm{d}x^k} \frac{1}{n!} \mathrm{e}^x \frac{\mathrm{d}^n}{\mathrm{d}x ^n} \left( \mathrm{e}^{-x} x^n \right) \\
+    &amp;= \sum_{m=0}^{n-k} (-1)^{m+k} \frac{n!}{m!(m+k)!(n-m-k)!} x^m \\
+    &amp;= (-1)^k L_{n-k}^{(k)}(x)
+  \end{aligned}\]</p><p><span>$n=0, k=0:$</span> ✔</p><p class="math-container">\[\begin{aligned}
+  L_{0}^{0}(x)
+   = e^{ - x} e^{x}
+  &amp;= 1 \\
+  &amp;= 1 \\
+  &amp;= 1
+\end{aligned}\]</p><p><span>$n=1, k=0:$</span> ✔</p><p class="math-container">\[\begin{aligned}
+  L_{1}^{0}(x)
+   = \frac{\mathrm{d}}{\mathrm{d}x} x e^{ - x} e^{x}
+  &amp;= 1 - x \\
+  &amp;= 1 - x \\
+  &amp;= 1 - x
+\end{aligned}\]</p><p><span>$n=1, k=1:$</span> ✔</p><p class="math-container">\[\begin{aligned}
+  L_{1}^{1}(x)
+   = \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} x e^{ - x} e^{x}
+  &amp;= -1 \\
+  &amp;= -1 \\
+  &amp;= -1
+\end{aligned}\]</p><p><span>$n=2, k=0:$</span> ✔</p><p class="math-container">\[\begin{aligned}
+  L_{2}^{0}(x)
+   = \frac{1}{2} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} x^{2} e^{ - x} e^{x}
+  &amp;= 1 - 2 x + \frac{1}{2} x^{2} \\
+  &amp;= 1 - 2 x + \frac{1}{2} x^{2} \\
+  &amp;= 1 - 2 x + \frac{1}{2} x^{2}
+\end{aligned}\]</p><p><span>$n=2, k=1:$</span> ✔</p><p class="math-container">\[\begin{aligned}
+  L_{2}^{1}(x)
+   = \frac{\mathrm{d}}{\mathrm{d}x} \frac{1}{2} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} x^{2} e^{ - x} e^{x}
+  &amp;= -2 + x \\
+  &amp;= -2 + x \\
+  &amp;= -2 + x
+\end{aligned}\]</p><p><span>$n=2, k=2:$</span> ✔</p><p class="math-container">\[\begin{aligned}
+  L_{2}^{2}(x)
+   = \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{1}{2} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} x^{2} e^{ - x} e^{x}
+  &amp;= 1 \\
+  &amp;= 1 \\
+  &amp;= 1
+\end{aligned}\]</p><p><span>$n=3, k=0:$</span> ✔</p><p class="math-container">\[\begin{aligned}
+  L_{3}^{0}(x)
+   = \frac{1}{6} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} x^{3} e^{ - x} e^{x}
+  &amp;= 1 - 3 x + \frac{3}{2} x^{2} - \frac{1}{6} x^{3} \\
+  &amp;= 1 - 3 x + \frac{3}{2} x^{2} - \frac{1}{6} x^{3} \\
+  &amp;= 1 - 3 x + \frac{3}{2} x^{2} - \frac{1}{6} x^{3}
+\end{aligned}\]</p><p><span>$n=3, k=1:$</span> ✔</p><p class="math-container">\[\begin{aligned}
+  L_{3}^{1}(x)
+   = \frac{\mathrm{d}}{\mathrm{d}x} \frac{1}{6} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} x^{3} e^{ - x} e^{x}
+  &amp;= -3 + 3 x - \frac{1}{2} x^{2} \\
+  &amp;= -3 + 3 x - \frac{1}{2} x^{2} \\
+  &amp;= -3 + 3 x - \frac{1}{2} x^{2}
+\end{aligned}\]</p><p><span>$n=3, k=2:$</span> ✔</p><p class="math-container">\[\begin{aligned}
+  L_{3}^{2}(x)
+   = \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{1}{6} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} x^{3} e^{ - x} e^{x}
+  &amp;= 3 - x \\
+  &amp;= 3 - x \\
+  &amp;= 3 - x
+\end{aligned}\]</p><p><span>$n=3, k=3:$</span> ✔</p><p class="math-container">\[\begin{aligned}
+  L_{3}^{3}(x)
+   = \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{1}{6} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} x^{3} e^{ - x} e^{x}
+  &amp;= -1 \\
+  &amp;= -1 \\
+  &amp;= -1
+\end{aligned}\]</p><p><span>$n=4, k=0:$</span> ✔</p><p class="math-container">\[\begin{aligned}
+  L_{4}^{0}(x)
+   = \frac{1}{24} e^{x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} x^{4} e^{ - x}
+  &amp;= 1 - 4 x + 3 x^{2} - \frac{2}{3} x^{3} + \frac{1}{24} x^{4} \\
+  &amp;= 1 - 4 x + 3 x^{2} - \frac{2}{3} x^{3} + \frac{1}{24} x^{4} \\
+  &amp;= 1 - 4 x + 3 x^{2} - \frac{2}{3} x^{3} + \frac{1}{24} x^{4}
+\end{aligned}\]</p><p><span>$n=4, k=1:$</span> ✔</p><p class="math-container">\[\begin{aligned}
+  L_{4}^{1}(x)
+   = \frac{\mathrm{d}}{\mathrm{d}x} \frac{1}{24} e^{x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} x^{4} e^{ - x}
+  &amp;= -4 + 6 x - 2 x^{2} + \frac{1}{6} x^{3} \\
+  &amp;= -4 + 6 x - 2 x^{2} + \frac{1}{6} x^{3} \\
+  &amp;= -4 + 6 x - 2 x^{2} + \frac{1}{6} x^{3}
+\end{aligned}\]</p><p><span>$n=4, k=2:$</span> ✔</p><p class="math-container">\[\begin{aligned}
+  L_{4}^{2}(x)
+   = \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{1}{24} e^{x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} x^{4} e^{ - x}
+  &amp;= 6 - 4 x + \frac{1}{2} x^{2} \\
+  &amp;= 6 - 4 x + \frac{1}{2} x^{2} \\
+  &amp;= 6 - 4 x + \frac{1}{2} x^{2}
+\end{aligned}\]</p><p><span>$n=4, k=3:$</span> ✔</p><p class="math-container">\[\begin{aligned}
+  L_{4}^{3}(x)
+   = \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{1}{24} e^{x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} x^{4} e^{ - x}
+  &amp;= -4 + x \\
+  &amp;= -4 + x \\
+  &amp;= -4 + x
+\end{aligned}\]</p><p><span>$n=4, k=4:$</span> ✔</p><p class="math-container">\[\begin{aligned}
+  L_{4}^{4}(x)
+   = \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{1}{24} e^{x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} x^{4} e^{ - x}
+  &amp;= 1 \\
+  &amp;= 1 \\
+  &amp;= 1
+\end{aligned}\]</p><h4>Normalization &amp; Orthogonality of <span>$L_n^{k}(x)$</span></h4><p class="math-container">\[\int_{0}^{\infty} \mathrm{e}^{-x} x^k L_i^k(x) L_j^k(x) \mathrm{d}x = \frac{i!}{(i-k)!} \delta_{ij}\]</p><p>Replace <span>$n+k$</span> with <span>$n$</span> for <a href="https://mathworld.wolfram.com/AssociatedLaguerrePolynomial.html">the definition of Wolfram MathWorld</a>.</p><pre><code class="nohighlight hljs"> i |  j |  k |     analytical |      numerical 
+-- | -- | -- | -------------- | -------------- 
+ 0 |  0 |  0 |    1.000000000 |    1.000000000 ✔
+ 0 |  1 |  0 |    0.000000000 |    0.000000000 ✔
+ 0 |  2 |  0 |    0.000000000 |    0.000000000 ✔
+ 0 |  3 |  0 |    0.000000000 |    0.000000000 ✔
+ 0 |  4 |  0 |    0.000000000 |    0.000000000 ✔
+ 0 |  5 |  0 |    0.000000000 |   -0.000000000 ✔
+ 0 |  6 |  0 |    0.000000000 |   -0.000000000 ✔
+ 0 |  7 |  0 |    0.000000000 |    0.000000000 ✔
+ 1 |  0 |  0 |    0.000000000 |    0.000000000 ✔
+ 1 |  1 |  0 |    1.000000000 |    1.000000000 ✔
+ 1 |  1 |  1 |    1.000000000 |    1.000000000 ✔
+ 1 |  2 |  0 |    0.000000000 |   -0.000000000 ✔
+ 1 |  2 |  1 |    0.000000000 |    0.000000000 ✔
+ 1 |  3 |  0 |    0.000000000 |   -0.000000000 ✔
+ 1 |  3 |  1 |    0.000000000 |   -0.000000000 ✔
+ 1 |  4 |  0 |    0.000000000 |   -0.000000000 ✔
+ 1 |  4 |  1 |    0.000000000 |    0.000000000 ✔
+ 1 |  5 |  0 |    0.000000000 |    0.000000000 ✔
+ 1 |  5 |  1 |    0.000000000 |   -0.000000000 ✔
+ 1 |  6 |  0 |    0.000000000 |    0.000000000 ✔
+ 1 |  6 |  1 |    0.000000000 |   -0.000000000 ✔
+ 1 |  7 |  0 |    0.000000000 |   -0.000000000 ✔
+ 1 |  7 |  1 |    0.000000000 |    0.000000000 ✔
+ 2 |  0 |  0 |    0.000000000 |    0.000000000 ✔
+ 2 |  1 |  0 |    0.000000000 |    0.000000000 ✔
+ 2 |  1 |  1 |    0.000000000 |    0.000000000 ✔
+ 2 |  2 |  0 |    1.000000000 |    1.000000000 ✔
+ 2 |  2 |  1 |    2.000000000 |    2.000000000 ✔
+ 2 |  2 |  2 |    2.000000000 |    2.000000000 ✔
+ 2 |  3 |  0 |    0.000000000 |    0.000000000 ✔
+ 2 |  3 |  1 |    0.000000000 |   -0.000000000 ✔
+ 2 |  3 |  2 |    0.000000000 |   -0.000000000 ✔
+ 2 |  4 |  0 |    0.000000000 |    0.000000000 ✔
+ 2 |  4 |  1 |    0.000000000 |   -0.000000000 ✔
+ 2 |  4 |  2 |    0.000000000 |   -0.000000000 ✔
+ 2 |  5 |  0 |    0.000000000 |    0.000000000 ✔
+ 2 |  5 |  1 |    0.000000000 |    0.000000000 ✔
+ 2 |  5 |  2 |    0.000000000 |    0.000000000 ✔
+ 2 |  6 |  0 |    0.000000000 |   -0.000000000 ✔
+ 2 |  6 |  1 |    0.000000000 |    0.000000000 ✔
+ 2 |  6 |  2 |    0.000000000 |   -0.000000000 ✔
+ 2 |  7 |  0 |    0.000000000 |    0.000000000 ✔
+ 2 |  7 |  1 |    0.000000000 |   -0.000000000 ✔
+ 2 |  7 |  2 |    0.000000000 |    0.000000000 ✔
+ 3 |  0 |  0 |    0.000000000 |    0.000000000 ✔
+ 3 |  1 |  0 |    0.000000000 |   -0.000000000 ✔
+ 3 |  1 |  1 |    0.000000000 |   -0.000000000 ✔
+ 3 |  2 |  0 |    0.000000000 |    0.000000000 ✔
+ 3 |  2 |  1 |    0.000000000 |   -0.000000000 ✔
+ 3 |  2 |  2 |    0.000000000 |   -0.000000000 ✔
+ 3 |  3 |  0 |    1.000000000 |    1.000000000 ✔
+ 3 |  3 |  1 |    3.000000000 |    3.000000000 ✔
+ 3 |  3 |  2 |    6.000000000 |    6.000000000 ✔
+ 3 |  3 |  3 |    6.000000000 |    6.000000000 ✔
+ 3 |  4 |  0 |    0.000000000 |    0.000000000 ✔
+ 3 |  4 |  1 |    0.000000000 |    0.000000000 ✔
+ 3 |  4 |  2 |    0.000000000 |   -0.000000000 ✔
+ 3 |  4 |  3 |    0.000000000 |   -0.000000000 ✔
+ 3 |  5 |  0 |    0.000000000 |   -0.000000000 ✔
+ 3 |  5 |  1 |    0.000000000 |   -0.000000000 ✔
+ 3 |  5 |  2 |    0.000000000 |   -0.000000000 ✔
+ 3 |  5 |  3 |    0.000000000 |    0.000000000 ✔
+ 3 |  6 |  0 |    0.000000000 |    0.000000000 ✔
+ 3 |  6 |  1 |    0.000000000 |   -0.000000000 ✔
+ 3 |  6 |  2 |    0.000000000 |    0.000000000 ✔
+ 3 |  6 |  3 |    0.000000000 |    0.000000000 ✔
+ 3 |  7 |  0 |    0.000000000 |   -0.000000000 ✔
+ 3 |  7 |  1 |    0.000000000 |    0.000000000 ✔
+ 3 |  7 |  2 |    0.000000000 |   -0.000000000 ✔
+ 3 |  7 |  3 |    0.000000000 |   -0.000000000 ✔
+ 4 |  0 |  0 |    0.000000000 |    0.000000000 ✔
+ 4 |  1 |  0 |    0.000000000 |   -0.000000000 ✔
+ 4 |  1 |  1 |    0.000000000 |    0.000000000 ✔
+ 4 |  2 |  0 |    0.000000000 |    0.000000000 ✔
+ 4 |  2 |  1 |    0.000000000 |   -0.000000000 ✔
+ 4 |  2 |  2 |    0.000000000 |   -0.000000000 ✔
+ 4 |  3 |  0 |    0.000000000 |    0.000000000 ✔
+ 4 |  3 |  1 |    0.000000000 |    0.000000000 ✔
+ 4 |  3 |  2 |    0.000000000 |    0.000000000 ✔
+ 4 |  3 |  3 |    0.000000000 |   -0.000000000 ✔
+ 4 |  4 |  0 |    1.000000000 |    1.000000000 ✔
+ 4 |  4 |  1 |    4.000000000 |    4.000000000 ✔
+ 4 |  4 |  2 |   12.000000000 |   12.000000000 ✔
+ 4 |  4 |  3 |   24.000000000 |   24.000000000 ✔
+ 4 |  4 |  4 |   24.000000000 |   24.000000000 ✔
+ 4 |  5 |  0 |    0.000000000 |    0.000000000 ✔
+ 4 |  5 |  1 |    0.000000000 |    0.000000000 ✔
+ 4 |  5 |  2 |    0.000000000 |    0.000000000 ✔
+ 4 |  5 |  3 |    0.000000000 |    0.000000000 ✔
+ 4 |  5 |  4 |    0.000000000 |   -0.000000000 ✔
+ 4 |  6 |  0 |    0.000000000 |   -0.000000000 ✔
+ 4 |  6 |  1 |    0.000000000 |    0.000000000 ✔
+ 4 |  6 |  2 |    0.000000000 |   -0.000000000 ✔
+ 4 |  6 |  3 |    0.000000000 |   -0.000000000 ✔
+ 4 |  6 |  4 |    0.000000000 |    0.000000000 ✔
+ 4 |  7 |  0 |    0.000000000 |    0.000000000 ✔
+ 4 |  7 |  1 |    0.000000000 |   -0.000000000 ✔
+ 4 |  7 |  2 |    0.000000000 |    0.000000000 ✔
+ 4 |  7 |  3 |    0.000000000 |    0.000000000 ✔
+ 4 |  7 |  4 |    0.000000000 |    0.000000000 ✔
+ 5 |  0 |  0 |    0.000000000 |   -0.000000000 ✔
+ 5 |  1 |  0 |    0.000000000 |    0.000000000 ✔
+ 5 |  1 |  1 |    0.000000000 |   -0.000000000 ✔
+ 5 |  2 |  0 |    0.000000000 |    0.000000000 ✔
+ 5 |  2 |  1 |    0.000000000 |    0.000000000 ✔
+ 5 |  2 |  2 |    0.000000000 |    0.000000000 ✔
+ 5 |  3 |  0 |    0.000000000 |   -0.000000000 ✔
+ 5 |  3 |  1 |    0.000000000 |   -0.000000000 ✔
+ 5 |  3 |  2 |    0.000000000 |   -0.000000000 ✔
+ 5 |  3 |  3 |    0.000000000 |    0.000000000 ✔
+ 5 |  4 |  0 |    0.000000000 |    0.000000000 ✔
+ 5 |  4 |  1 |    0.000000000 |    0.000000000 ✔
+ 5 |  4 |  2 |    0.000000000 |    0.000000000 ✔
+ 5 |  4 |  3 |    0.000000000 |    0.000000000 ✔
+ 5 |  4 |  4 |    0.000000000 |   -0.000000000 ✔
+ 5 |  5 |  0 |    1.000000000 |    1.000000000 ✔
+ 5 |  5 |  1 |    5.000000000 |    5.000000000 ✔
+ 5 |  5 |  2 |   20.000000000 |   20.000000000 ✔
+ 5 |  5 |  3 |   60.000000000 |   60.000000000 ✔
+ 5 |  5 |  4 |  120.000000000 |  120.000000000 ✔
+ 5 |  5 |  5 |  120.000000000 |  120.000000000 ✔
+ 5 |  6 |  0 |    0.000000000 |    0.000000000 ✔
+ 5 |  6 |  1 |    0.000000000 |   -0.000000000 ✔
+ 5 |  6 |  2 |    0.000000000 |    0.000000000 ✔
+ 5 |  6 |  3 |    0.000000000 |    0.000000000 ✔
+ 5 |  6 |  4 |    0.000000000 |    0.000000000 ✔
+ 5 |  6 |  5 |    0.000000000 |    0.000000000 ✔
+ 5 |  7 |  0 |    0.000000000 |   -0.000000000 ✔
+ 5 |  7 |  1 |    0.000000000 |   -0.000000000 ✔
+ 5 |  7 |  2 |    0.000000000 |   -0.000000000 ✔
+ 5 |  7 |  3 |    0.000000000 |   -0.000000000 ✔
+ 5 |  7 |  4 |    0.000000000 |   -0.000000000 ✔
+ 5 |  7 |  5 |    0.000000000 |   -0.000000000 ✔
+ 6 |  0 |  0 |    0.000000000 |   -0.000000000 ✔
+ 6 |  1 |  0 |    0.000000000 |    0.000000000 ✔
+ 6 |  1 |  1 |    0.000000000 |   -0.000000000 ✔
+ 6 |  2 |  0 |    0.000000000 |   -0.000000000 ✔
+ 6 |  2 |  1 |    0.000000000 |    0.000000000 ✔
+ 6 |  2 |  2 |    0.000000000 |   -0.000000000 ✔
+ 6 |  3 |  0 |    0.000000000 |    0.000000000 ✔
+ 6 |  3 |  1 |    0.000000000 |   -0.000000000 ✔
+ 6 |  3 |  2 |    0.000000000 |    0.000000000 ✔
+ 6 |  3 |  3 |    0.000000000 |    0.000000000 ✔
+ 6 |  4 |  0 |    0.000000000 |   -0.000000000 ✔
+ 6 |  4 |  1 |    0.000000000 |    0.000000000 ✔
+ 6 |  4 |  2 |    0.000000000 |   -0.000000000 ✔
+ 6 |  4 |  3 |    0.000000000 |   -0.000000000 ✔
+ 6 |  4 |  4 |    0.000000000 |    0.000000000 ✔
+ 6 |  5 |  0 |    0.000000000 |    0.000000000 ✔
+ 6 |  5 |  1 |    0.000000000 |   -0.000000000 ✔
+ 6 |  5 |  2 |    0.000000000 |    0.000000000 ✔
+ 6 |  5 |  3 |    0.000000000 |    0.000000000 ✔
+ 6 |  5 |  4 |    0.000000000 |    0.000000000 ✔
+ 6 |  5 |  5 |    0.000000000 |    0.000000000 ✔
+ 6 |  6 |  0 |    1.000000000 |    1.000000000 ✔
+ 6 |  6 |  1 |    6.000000000 |    6.000000000 ✔
+ 6 |  6 |  2 |   30.000000000 |   30.000000000 ✔
+ 6 |  6 |  3 |  120.000000000 |  120.000000000 ✔
+ 6 |  6 |  4 |  360.000000000 |  360.000000000 ✔
+ 6 |  6 |  5 |  720.000000000 |  720.000000000 ✔
+ 6 |  6 |  6 |  720.000000000 |  720.000000000 ✔
+ 6 |  7 |  0 |    0.000000000 |   -0.000000000 ✔
+ 6 |  7 |  1 |    0.000000000 |    0.000000000 ✔
+ 6 |  7 |  2 |    0.000000000 |   -0.000000000 ✔
+ 6 |  7 |  3 |    0.000000000 |    0.000000000 ✔
+ 6 |  7 |  4 |    0.000000000 |    0.000000000 ✔
+ 6 |  7 |  5 |    0.000000000 |   -0.000000000 ✔
+ 6 |  7 |  6 |    0.000000000 |    0.000000000 ✔
+ 7 |  0 |  0 |    0.000000000 |    0.000000000 ✔
+ 7 |  1 |  0 |    0.000000000 |   -0.000000000 ✔
+ 7 |  1 |  1 |    0.000000000 |    0.000000000 ✔
+ 7 |  2 |  0 |    0.000000000 |    0.000000000 ✔
+ 7 |  2 |  1 |    0.000000000 |   -0.000000000 ✔
+ 7 |  2 |  2 |    0.000000000 |    0.000000000 ✔
+ 7 |  3 |  0 |    0.000000000 |   -0.000000000 ✔
+ 7 |  3 |  1 |    0.000000000 |    0.000000000 ✔
+ 7 |  3 |  2 |    0.000000000 |   -0.000000000 ✔
+ 7 |  3 |  3 |    0.000000000 |   -0.000000000 ✔
+ 7 |  4 |  0 |    0.000000000 |    0.000000000 ✔
+ 7 |  4 |  1 |    0.000000000 |   -0.000000000 ✔
+ 7 |  4 |  2 |    0.000000000 |    0.000000000 ✔
+ 7 |  4 |  3 |    0.000000000 |    0.000000000 ✔
+ 7 |  4 |  4 |    0.000000000 |    0.000000000 ✔
+ 7 |  5 |  0 |    0.000000000 |   -0.000000000 ✔
+ 7 |  5 |  1 |    0.000000000 |   -0.000000000 ✔
+ 7 |  5 |  2 |    0.000000000 |   -0.000000000 ✔
+ 7 |  5 |  3 |    0.000000000 |   -0.000000000 ✔
+ 7 |  5 |  4 |    0.000000000 |   -0.000000000 ✔
+ 7 |  5 |  5 |    0.000000000 |   -0.000000000 ✔
+ 7 |  6 |  0 |    0.000000000 |   -0.000000000 ✔
+ 7 |  6 |  1 |    0.000000000 |    0.000000000 ✔
+ 7 |  6 |  2 |    0.000000000 |   -0.000000000 ✔
+ 7 |  6 |  3 |    0.000000000 |    0.000000000 ✔
+ 7 |  6 |  4 |    0.000000000 |    0.000000000 ✔
+ 7 |  6 |  5 |    0.000000000 |    0.000000000 ✔
+ 7 |  6 |  6 |    0.000000000 |    0.000000000 ✔
+ 7 |  7 |  0 |    1.000000000 |    1.000000000 ✔
+ 7 |  7 |  1 |    7.000000000 |    7.000000000 ✔
+ 7 |  7 |  2 |   42.000000000 |   42.000000000 ✔
+ 7 |  7 |  3 |  210.000000000 |  210.000000000 ✔
+ 7 |  7 |  4 |  840.000000000 |  840.000000000 ✔
+ 7 |  7 |  5 | 2520.000000000 | 2520.000000000 ✔
+ 7 |  7 |  6 | 5040.000000000 | 5040.000000000 ✔
+ 7 |  7 |  7 | 5040.000000000 | 5040.000000000 ✔</code></pre><h4>Normalization of <span>$R_{nl}(r)$</span></h4><p class="math-container">\[\int |R_{nl}(r)|^2 r^2 \mathrm{d}r = 1\]</p><pre><code class="nohighlight hljs"> n |  l |     analytical |      numerical 
+-- | -- | -------------- | -------------- 
+ 1 |  0 |    1.000000000 |    1.000000000 ✔
+ 2 |  0 |    1.000000000 |    1.000000000 ✔
+ 2 |  1 |    1.000000000 |    1.000000000 ✔
+ 3 |  0 |    1.000000000 |    1.000000000 ✔
+ 3 |  1 |    1.000000000 |    1.000000000 ✔
+ 3 |  2 |    1.000000000 |    1.000000000 ✔
+ 4 |  0 |    1.000000000 |    1.000000000 ✔
+ 4 |  1 |    1.000000000 |    1.000000000 ✔
+ 4 |  2 |    1.000000000 |    1.000000000 ✔
+ 4 |  3 |    1.000000000 |    1.000000000 ✔
+ 5 |  0 |    1.000000000 |    1.000000000 ✔
+ 5 |  1 |    1.000000000 |    1.000000000 ✔
+ 5 |  2 |    1.000000000 |    1.000000000 ✔
+ 5 |  3 |    1.000000000 |    1.000000000 ✔
+ 5 |  4 |    1.000000000 |    1.000000000 ✔
+ 6 |  0 |    1.000000000 |    1.000000000 ✔
+ 6 |  1 |    1.000000000 |    1.000000000 ✔
+ 6 |  2 |    1.000000000 |    1.000000000 ✔
+ 6 |  3 |    1.000000000 |    1.000000000 ✔
+ 6 |  4 |    1.000000000 |    1.000000000 ✔
+ 6 |  5 |    1.000000000 |    1.000000000 ✔
+ 7 |  0 |    1.000000000 |    1.000000000 ✔
+ 7 |  1 |    1.000000000 |    1.000000000 ✔
+ 7 |  2 |    1.000000000 |    1.000000000 ✔
+ 7 |  3 |    1.000000000 |    1.000000000 ✔
+ 7 |  4 |    1.000000000 |    1.000000000 ✔
+ 7 |  5 |    1.000000000 |    1.000000000 ✔
+ 7 |  6 |    1.000000000 |    1.000000000 ✔
+ 8 |  0 |    1.000000000 |    1.000000000 ✔
+ 8 |  1 |    1.000000000 |    1.000000000 ✔
+ 8 |  2 |    1.000000000 |    1.000000000 ✔
+ 8 |  3 |    1.000000000 |    1.000000000 ✔
+ 8 |  4 |    1.000000000 |    1.000000000 ✔
+ 8 |  5 |    1.000000000 |    1.000000000 ✔
+ 8 |  6 |    1.000000000 |    1.000000000 ✔
+ 8 |  7 |    1.000000000 |    1.000000000 ✔
+ 9 |  0 |    1.000000000 |    1.000000000 ✔
+ 9 |  1 |    1.000000000 |    1.000000000 ✔
+ 9 |  2 |    1.000000000 |    1.000000000 ✔
+ 9 |  3 |    1.000000000 |    1.000000000 ✔
+ 9 |  4 |    1.000000000 |    1.000000000 ✔
+ 9 |  5 |    1.000000000 |    1.000000000 ✔
+ 9 |  6 |    1.000000000 |    1.000000000 ✔
+ 9 |  7 |    1.000000000 |    1.000000000 ✔
+ 9 |  8 |    1.000000000 |    1.000000000 ✔</code></pre><h4>Expected Value of <span>$r$</span></h4><p class="math-container">\[\langle r \rangle
+= \int r |R_{nl}(r)|^2 r^2 \mathrm{d}r
+= \frac{a_\mu}{2Z} \left[ 3n^2 - l(l+1) \right] \\
+a_\mu = a_0 \frac{m_\mathrm{e}}{\mu} \\
+\frac{1}{\mu} = \frac{1}{m_\mathrm{e}} + \frac{1}{m_\mathrm{p}}\]</p><p>Reference:</p><ul><li><a href="https://www.asakura.co.jp/detail.php?book_code=13681">高柳和夫『朝倉物理学大系 11 原子分子物理学』(2000, 朝倉書店) pp.11-22</a></li><li><a href="https://web1.eng.famu.fsu.edu/~dommelen/quantum/style_a/nt_rsexp.html">Quan­tum Me­chan­ics for En­gi­neers by Leon van Dom­me­len</a></li></ul><pre><code class="nohighlight hljs">Antique.CoulombTwoBody(z₁=-1, z₂=1, m₁=1.0, m₂=1.0, mₑ=1.0, a₀=1.0, Eₕ=1.0, ħ=1.0)
+ n |  l |     analytical |      numerical 
+-- | -- | -------------- | -------------- 
+ 1 |  0 |    3.000000000 |    3.000000000 ✔
+ 2 |  0 |   12.000000000 |   12.000000000 ✔
+ 2 |  1 |   10.000000000 |   10.000000000 ✔
+ 3 |  0 |   27.000000000 |   27.000000000 ✔
+ 3 |  1 |   25.000000000 |   25.000000000 ✔
+ 3 |  2 |   21.000000000 |   21.000000000 ✔
+ 4 |  0 |   48.000000000 |   48.000000000 ✔
+ 4 |  1 |   46.000000000 |   46.000000000 ✔
+ 4 |  2 |   42.000000000 |   42.000000000 ✔
+ 4 |  3 |   36.000000000 |   36.000000000 ✔
+ 5 |  0 |   75.000000000 |   75.000000000 ✔
+ 5 |  1 |   73.000000000 |   73.000000000 ✔
+ 5 |  2 |   69.000000000 |   69.000000000 ✔
+ 5 |  3 |   63.000000000 |   63.000000000 ✔
+ 5 |  4 |   55.000000000 |   55.000000000 ✔
+ 6 |  0 |  108.000000000 |  108.000000000 ✔
+ 6 |  1 |  106.000000000 |  106.000000000 ✔
+ 6 |  2 |  102.000000000 |  102.000000000 ✔
+ 6 |  3 |   96.000000000 |   96.000000000 ✔
+ 6 |  4 |   88.000000000 |   88.000000000 ✔
+ 6 |  5 |   78.000000000 |   78.000000000 ✔
+ 7 |  0 |  147.000000000 |  147.000000000 ✔
+ 7 |  1 |  145.000000000 |  145.000000000 ✔
+ 7 |  2 |  141.000000000 |  141.000000000 ✔
+ 7 |  3 |  135.000000000 |  135.000000000 ✔
+ 7 |  4 |  127.000000000 |  127.000000000 ✔
+ 7 |  5 |  117.000000000 |  117.000000000 ✔
+ 7 |  6 |  105.000000000 |  105.000000000 ✔
+ 8 |  0 |  192.000000000 |  192.000000000 ✔
+ 8 |  1 |  190.000000000 |  190.000000000 ✔
+ 8 |  2 |  186.000000000 |  186.000000000 ✔
+ 8 |  3 |  180.000000000 |  180.000000000 ✔
+ 8 |  4 |  172.000000000 |  172.000000000 ✔
+ 8 |  5 |  162.000000000 |  162.000000000 ✔
+ 8 |  6 |  150.000000000 |  150.000000000 ✔
+ 8 |  7 |  136.000000000 |  136.000000000 ✔
+ 9 |  0 |  243.000000000 |  243.000000000 ✔
+ 9 |  1 |  241.000000000 |  241.000000000 ✔
+ 9 |  2 |  237.000000000 |  237.000000000 ✔
+ 9 |  3 |  231.000000000 |  231.000000000 ✔
+ 9 |  4 |  223.000000000 |  223.000000000 ✔
+ 9 |  5 |  213.000000000 |  213.000000000 ✔
+ 9 |  6 |  201.000000000 |  201.000000000 ✔
+ 9 |  7 |  187.000000000 |  187.000000000 ✔
+ 9 |  8 |  171.000000000 |  171.000000000 ✔
+
+Antique.CoulombTwoBody(z₁=-1, z₂=1, m₁=1.0, m₂=206.768283, mₑ=1.0, a₀=1.0, Eₕ=1.0, ħ=1.0)
+ n |  l |     analytical |      numerical 
+-- | -- | -------------- | -------------- 
+ 1 |  0 |    1.507254498 |    1.507254498 ✔
+ 2 |  0 |    6.029017990 |    6.029017990 ✔
+ 2 |  1 |    5.024181658 |    5.024181658 ✔
+ 3 |  0 |   13.565290478 |   13.565290478 ✔
+ 3 |  1 |   12.560454146 |   12.560454146 ✔
+ 3 |  2 |   10.550781483 |   10.550781483 ✔
+ 4 |  0 |   24.116071961 |   24.116071961 ✔
+ 4 |  1 |   23.111235629 |   23.111235629 ✔
+ 4 |  2 |   21.101562966 |   21.101562966 ✔
+ 4 |  3 |   18.087053970 |   18.087053970 ✔
+ 5 |  0 |   37.681362438 |   37.681362438 ✔
+ 5 |  1 |   36.676526107 |   36.676526107 ✔
+ 5 |  2 |   34.666853443 |   34.666853443 ✔
+ 5 |  3 |   31.652344448 |   31.652344448 ✔
+ 5 |  4 |   27.632999122 |   27.632999122 ✔
+ 6 |  0 |   54.261161911 |   54.261161911 ✔
+ 6 |  1 |   53.256325580 |   53.256325580 ✔
+ 6 |  2 |   51.246652916 |   51.246652916 ✔
+ 6 |  3 |   48.232143921 |   48.232143921 ✔
+ 6 |  4 |   44.212798594 |   44.212798594 ✔
+ 6 |  5 |   39.188616936 |   39.188616936 ✔
+ 7 |  0 |   73.855470379 |   73.855470379 ✔
+ 7 |  1 |   72.850634048 |   72.850634048 ✔
+ 7 |  2 |   70.840961384 |   70.840961384 ✔
+ 7 |  3 |   67.826452389 |   67.826452389 ✔
+ 7 |  4 |   63.807107062 |   63.807107062 ✔
+ 7 |  5 |   58.782925404 |   58.782925404 ✔
+ 7 |  6 |   52.753907414 |   52.753907414 ✔
+ 8 |  0 |   96.464287842 |   96.464287842 ✔
+ 8 |  1 |   95.459451511 |   95.459451511 ✔
+ 8 |  2 |   93.449778847 |   93.449778847 ✔
+ 8 |  3 |   90.435269852 |   90.435269852 ✔
+ 8 |  4 |   86.415924526 |   86.415924526 ✔
+ 8 |  5 |   81.391742867 |   81.391742867 ✔
+ 8 |  6 |   75.362724877 |   75.362724877 ✔
+ 8 |  7 |   68.328870555 |   68.328870555 ✔
+ 9 |  0 |  122.087614301 |  122.087614301 ✔
+ 9 |  1 |  121.082777969 |  121.082777969 ✔
+ 9 |  2 |  119.073105306 |  119.073105306 ✔
+ 9 |  3 |  116.058596310 |  116.058596310 ✔
+ 9 |  4 |  112.039250984 |  112.039250984 ✔
+ 9 |  5 |  107.015069325 |  107.015069325 ✔
+ 9 |  6 |  100.986051335 |  100.986051335 ✔
+ 9 |  7 |   93.952197013 |   93.952197013 ✔
+ 9 |  8 |   85.913506360 |   85.913506360 ✔
+
+Antique.CoulombTwoBody(z₁=-1, z₂=1, m₁=1.0, m₂=1836.15267343, mₑ=1.0, a₀=1.0, Eₕ=1.0, ħ=1.0)
+ n |  l |     analytical |      numerical 
+-- | -- | -------------- | -------------- 
+ 1 |  0 |    1.500816926 |    1.500816926 ✔
+ 2 |  0 |    6.003267702 |    6.003267702 ✔
+ 2 |  1 |    5.002723085 |    5.002723085 ✔
+ 3 |  0 |   13.507352330 |   13.507352330 ✔
+ 3 |  1 |   12.506807713 |   12.506807713 ✔
+ 3 |  2 |   10.505718479 |   10.505718479 ✔
+ 4 |  0 |   24.013070809 |   24.013070809 ✔
+ 4 |  1 |   23.012526191 |   23.012526191 ✔
+ 4 |  2 |   21.011436957 |   21.011436957 ✔
+ 4 |  3 |   18.009803106 |   18.009803106 ✔
+ 5 |  0 |   37.520423138 |   37.520423138 ✔
+ 5 |  1 |   36.519878521 |   36.519878521 ✔
+ 5 |  2 |   34.518789287 |   34.518789287 ✔
+ 5 |  3 |   31.517155436 |   31.517155436 ✔
+ 5 |  4 |   27.514976968 |   27.514976968 ✔
+ 6 |  0 |   54.029409319 |   54.029409319 ✔
+ 6 |  1 |   53.028864702 |   53.028864702 ✔
+ 6 |  2 |   51.027775468 |   51.027775468 ✔
+ 6 |  3 |   48.026141617 |   48.026141617 ✔
+ 6 |  4 |   44.023963149 |   44.023963149 ✔
+ 6 |  5 |   39.021240064 |   39.021240064 ✔
+ 7 |  0 |   73.540029351 |   73.540029351 ✔
+ 7 |  1 |   72.539484734 |   72.539484734 ✔
+ 7 |  2 |   70.538395500 |   70.538395500 ✔
+ 7 |  3 |   67.536761649 |   67.536761649 ✔
+ 7 |  4 |   63.534583181 |   63.534583181 ✔
+ 7 |  5 |   58.531860096 |   58.531860096 ✔
+ 7 |  6 |   52.528592394 |   52.528592394 ✔
+ 8 |  0 |   96.052283234 |   96.052283234 ✔
+ 8 |  1 |   95.051738617 |   95.051738617 ✔
+ 8 |  2 |   93.050649383 |   93.050649383 ✔
+ 8 |  3 |   90.049015532 |   90.049015532 ✔
+ 8 |  4 |   86.046837064 |   86.046837064 ✔
+ 8 |  5 |   81.044113979 |   81.044113979 ✔
+ 8 |  6 |   75.040846277 |   75.040846277 ✔
+ 8 |  7 |   68.037033957 |   68.037033957 ✔
+ 9 |  0 |  121.566170968 |  121.566170968 ✔
+ 9 |  1 |  120.565626351 |  120.565626351 ✔
+ 9 |  2 |  118.564537117 |  118.564537117 ✔
+ 9 |  3 |  115.562903266 |  115.562903266 ✔
+ 9 |  4 |  111.560724798 |  111.560724798 ✔
+ 9 |  5 |  106.558001713 |  106.558001713 ✔
+ 9 |  6 |  100.554734011 |  100.554734011 ✔
+ 9 |  7 |   93.550921692 |   93.550921692 ✔
+ 9 |  8 |   85.546564755 |   85.546564755 ✔
+
+Antique.CoulombTwoBody(z₁=-1, z₂=1, m₁=1.0, m₂=Inf, mₑ=1.0, a₀=1.0, Eₕ=1.0, ħ=1.0)
+ n |  l |     analytical |      numerical 
+-- | -- | -------------- | -------------- 
+ 1 |  0 |    1.500000000 |    1.500000000 ✔
+ 2 |  0 |    6.000000000 |    6.000000000 ✔
+ 2 |  1 |    5.000000000 |    5.000000000 ✔
+ 3 |  0 |   13.500000000 |   13.500000000 ✔
+ 3 |  1 |   12.500000000 |   12.500000000 ✔
+ 3 |  2 |   10.500000000 |   10.500000000 ✔
+ 4 |  0 |   24.000000000 |   24.000000000 ✔
+ 4 |  1 |   23.000000000 |   23.000000000 ✔
+ 4 |  2 |   21.000000000 |   21.000000000 ✔
+ 4 |  3 |   18.000000000 |   18.000000000 ✔
+ 5 |  0 |   37.500000000 |   37.500000000 ✔
+ 5 |  1 |   36.500000000 |   36.500000000 ✔
+ 5 |  2 |   34.500000000 |   34.500000000 ✔
+ 5 |  3 |   31.500000000 |   31.500000000 ✔
+ 5 |  4 |   27.500000000 |   27.500000000 ✔
+ 6 |  0 |   54.000000000 |   54.000000000 ✔
+ 6 |  1 |   53.000000000 |   53.000000000 ✔
+ 6 |  2 |   51.000000000 |   51.000000000 ✔
+ 6 |  3 |   48.000000000 |   48.000000000 ✔
+ 6 |  4 |   44.000000000 |   44.000000000 ✔
+ 6 |  5 |   39.000000000 |   39.000000000 ✔
+ 7 |  0 |   73.500000000 |   73.500000000 ✔
+ 7 |  1 |   72.500000000 |   72.500000000 ✔
+ 7 |  2 |   70.500000000 |   70.500000000 ✔
+ 7 |  3 |   67.500000000 |   67.500000000 ✔
+ 7 |  4 |   63.500000000 |   63.500000000 ✔
+ 7 |  5 |   58.500000000 |   58.500000000 ✔
+ 7 |  6 |   52.500000000 |   52.500000000 ✔
+ 8 |  0 |   96.000000000 |   96.000000000 ✔
+ 8 |  1 |   95.000000000 |   95.000000000 ✔
+ 8 |  2 |   93.000000000 |   93.000000000 ✔
+ 8 |  3 |   90.000000000 |   90.000000000 ✔
+ 8 |  4 |   86.000000000 |   86.000000000 ✔
+ 8 |  5 |   81.000000000 |   81.000000000 ✔
+ 8 |  6 |   75.000000000 |   75.000000000 ✔
+ 8 |  7 |   68.000000000 |   68.000000000 ✔
+ 9 |  0 |  121.500000000 |  121.500000000 ✔
+ 9 |  1 |  120.500000000 |  120.500000000 ✔
+ 9 |  2 |  118.500000000 |  118.500000000 ✔
+ 9 |  3 |  115.500000000 |  115.500000000 ✔
+ 9 |  4 |  111.500000000 |  111.500000000 ✔
+ 9 |  5 |  106.500000000 |  106.500000000 ✔
+ 9 |  6 |  100.500000000 |  100.500000000 ✔
+ 9 |  7 |   93.500000000 |   93.500000000 ✔
+ 9 |  8 |   85.500000000 |   85.500000000 ✔
+
+Antique.CoulombTwoBody(z₁=-1, z₂=1, m₁=206.768283, m₂=1836.15267343, mₑ=1.0, a₀=1.0, Eₕ=1.0, ħ=1.0)
+ n |  l |     analytical |      numerical 
+-- | -- | -------------- | -------------- 
+ 1 |  0 |    0.008071423 |    0.008071423 ✔
+ 2 |  0 |    0.032285692 |    0.032285692 ✔
+ 2 |  1 |    0.026904744 |    0.026904744 ✔
+ 3 |  0 |    0.072642808 |    0.072642808 ✔
+ 3 |  1 |    0.067261859 |    0.067261859 ✔
+ 3 |  2 |    0.056499961 |    0.056499961 ✔
+ 4 |  0 |    0.129142769 |    0.129142769 ✔
+ 4 |  1 |    0.123761820 |    0.123761820 ✔
+ 4 |  2 |    0.112999923 |    0.112999923 ✔
+ 4 |  3 |    0.096857077 |    0.096857077 ✔
+ 5 |  0 |    0.201785577 |    0.201785577 ✔
+ 5 |  1 |    0.196404628 |    0.196404628 ✔
+ 5 |  2 |    0.185642731 |    0.185642731 ✔
+ 5 |  3 |    0.169499884 |    0.169499884 ✔
+ 5 |  4 |    0.147976090 |    0.147976090 ✔
+ 6 |  0 |    0.290571231 |    0.290571231 ✔
+ 6 |  1 |    0.285190282 |    0.285190282 ✔
+ 6 |  2 |    0.274428384 |    0.274428384 ✔
+ 6 |  3 |    0.258285538 |    0.258285538 ✔
+ 6 |  4 |    0.236761743 |    0.236761743 ✔
+ 6 |  5 |    0.209857000 |    0.209857000 ✔
+ 7 |  0 |    0.395499730 |    0.395499730 ✔
+ 7 |  1 |    0.390118782 |    0.390118782 ✔
+ 7 |  2 |    0.379356884 |    0.379356884 ✔
+ 7 |  3 |    0.363214038 |    0.363214038 ✔
+ 7 |  4 |    0.341690243 |    0.341690243 ✔
+ 7 |  5 |    0.314785500 |    0.314785500 ✔
+ 7 |  6 |    0.282499807 |    0.282499807 ✔
+ 8 |  0 |    0.516571077 |    0.516571077 ✔
+ 8 |  1 |    0.511190128 |    0.511190128 ✔
+ 8 |  2 |    0.500428230 |    0.500428230 ✔
+ 8 |  3 |    0.484285384 |    0.484285384 ✔
+ 8 |  4 |    0.462761589 |    0.462761589 ✔
+ 8 |  5 |    0.435856846 |    0.435856846 ✔
+ 8 |  6 |    0.403571154 |    0.403571154 ✔
+ 8 |  7 |    0.365904513 |    0.365904513 ✔
+ 9 |  0 |    0.653785269 |    0.653785269 ✔
+ 9 |  1 |    0.648404320 |    0.648404320 ✔
+ 9 |  2 |    0.637642423 |    0.637642423 ✔
+ 9 |  3 |    0.621499576 |    0.621499576 ✔
+ 9 |  4 |    0.599975782 |    0.599975782 ✔
+ 9 |  5 |    0.573071038 |    0.573071038 ✔
+ 9 |  6 |    0.540785346 |    0.540785346 ✔
+ 9 |  7 |    0.503118705 |    0.503118705 ✔
+ 9 |  8 |    0.460071115 |    0.460071115 ✔
+
+Antique.CoulombTwoBody(z₁=-1, z₂=2, m₁=206.768283, m₂=7294.29954142, mₑ=1.0, a₀=1.0, Eₕ=1.0, ħ=1.0)
+ n |  l |     analytical |      numerical 
+-- | -- | -------------- | -------------- 
+ 1 |  0 |    0.003730069 |    0.003730069 ✔
+ 2 |  0 |    0.014920275 |    0.014920275 ✔
+ 2 |  1 |    0.012433563 |    0.012433563 ✔
+ 3 |  0 |    0.033570619 |    0.033570619 ✔
+ 3 |  1 |    0.031083907 |    0.031083907 ✔
+ 3 |  2 |    0.026110481 |    0.026110481 ✔
+ 4 |  0 |    0.059681101 |    0.059681101 ✔
+ 4 |  1 |    0.057194388 |    0.057194388 ✔
+ 4 |  2 |    0.052220963 |    0.052220963 ✔
+ 4 |  3 |    0.044760825 |    0.044760825 ✔
+ 5 |  0 |    0.093251720 |    0.093251720 ✔
+ 5 |  1 |    0.090765007 |    0.090765007 ✔
+ 5 |  2 |    0.085791582 |    0.085791582 ✔
+ 5 |  3 |    0.078331444 |    0.078331444 ✔
+ 5 |  4 |    0.068384594 |    0.068384594 ✔
+ 6 |  0 |    0.134282476 |    0.134282476 ✔
+ 6 |  1 |    0.131795764 |    0.131795764 ✔
+ 6 |  2 |    0.126822339 |    0.126822339 ✔
+ 6 |  3 |    0.119362201 |    0.119362201 ✔
+ 6 |  4 |    0.109415351 |    0.109415351 ✔
+ 6 |  5 |    0.096981788 |    0.096981788 ✔
+ 7 |  0 |    0.182773370 |    0.182773370 ✔
+ 7 |  1 |    0.180286658 |    0.180286658 ✔
+ 7 |  2 |    0.175313233 |    0.175313233 ✔
+ 7 |  3 |    0.167853095 |    0.167853095 ✔
+ 7 |  4 |    0.157906245 |    0.157906245 ✔
+ 7 |  5 |    0.145472683 |    0.145472683 ✔
+ 7 |  6 |    0.130552407 |    0.130552407 ✔
+ 8 |  0 |    0.238724402 |    0.238724402 ✔
+ 8 |  1 |    0.236237690 |    0.236237690 ✔
+ 8 |  2 |    0.231264265 |    0.231264265 ✔
+ 8 |  3 |    0.223804127 |    0.223804127 ✔
+ 8 |  4 |    0.213857277 |    0.213857277 ✔
+ 8 |  5 |    0.201423714 |    0.201423714 ✔
+ 8 |  6 |    0.186503439 |    0.186503439 ✔
+ 8 |  7 |    0.169096452 |    0.169096452 ✔
+ 9 |  0 |    0.302135572 |    0.302135572 ✔
+ 9 |  1 |    0.299648859 |    0.299648859 ✔
+ 9 |  2 |    0.294675434 |    0.294675434 ✔
+ 9 |  3 |    0.287215296 |    0.287215296 ✔
+ 9 |  4 |    0.277268446 |    0.277268446 ✔
+ 9 |  5 |    0.264834884 |    0.264834884 ✔
+ 9 |  6 |    0.249914609 |    0.249914609 ✔
+ 9 |  7 |    0.232507621 |    0.232507621 ✔
+ 9 |  8 |    0.212613921 |    0.212613921 ✔
+</code></pre><h4>Expected Value of <span>$r^2$</span></h4><p class="math-container">\[\langle r^2 \rangle
+= \int r^2 |R_{nl}(r)|^2 r^2 \mathrm{d}r
+= \frac{a_\mu^2}{2Z^2} n^2 \left[ 5n^2 + 1 - 3l(l+1) \right] \\
+a_\mu = a_0 \frac{m_\mathrm{e}}{\mu} \\
+\frac{1}{\mu} = \frac{1}{m_\mathrm{e}} + \frac{1}{m_\mathrm{p}}\]</p><p>Reference:</p><ul><li><a href="https://www.asakura.co.jp/detail.php?book_code=13681">高柳和夫『朝倉物理学大系 11 原子分子物理学』(2000, 朝倉書店) pp.11-22</a></li><li><a href="https://web1.eng.famu.fsu.edu/~dommelen/quantum/style_a/nt_rsexp.html"> Quan­tum Me­chan­ics for En­gi­neers by Leon van Dom­me­len</a></li></ul><pre><code class="nohighlight hljs">Antique.CoulombTwoBody(z₁=-1, z₂=1, m₁=1.0, m₂=1.0, mₑ=1.0, a₀=1.0, Eₕ=1.0, ħ=1.0)
+ n |  l |     analytical |      numerical 
+-- | -- | -------------- | -------------- 
+ 1 |  0 |   12.000000000 |   12.000000000 ✔
+ 2 |  0 |  168.000000000 |  168.000000000 ✔
+ 2 |  1 |  120.000000000 |  120.000000000 ✔
+ 3 |  0 |  828.000000000 |  828.000000000 ✔
+ 3 |  1 |  720.000000000 |  720.000000000 ✔
+ 3 |  2 |  504.000000000 |  504.000000000 ✔
+ 4 |  0 | 2592.000000000 | 2592.000000000 ✔
+ 4 |  1 | 2400.000000000 | 2400.000000000 ✔
+ 4 |  2 | 2016.000000000 | 2016.000000000 ✔
+ 4 |  3 | 1440.000000000 | 1440.000000000 ✔
+ 5 |  0 | 6300.000000000 | 6300.000000000 ✔
+ 5 |  1 | 6000.000000000 | 6000.000000000 ✔
+ 5 |  2 | 5400.000000000 | 5400.000000000 ✔
+ 5 |  3 | 4500.000000000 | 4500.000000000 ✔
+ 5 |  4 | 3300.000000000 | 3300.000000000 ✔
+ 6 |  0 | 13032.000000000 | 13032.000000000 ✔
+ 6 |  1 | 12600.000000000 | 12600.000000000 ✔
+ 6 |  2 | 11736.000000000 | 11736.000000000 ✔
+ 6 |  3 | 10440.000000000 | 10440.000000000 ✔
+ 6 |  4 | 8712.000000000 | 8712.000000000 ✔
+ 6 |  5 | 6552.000000000 | 6552.000000000 ✔
+ 7 |  0 | 24108.000000000 | 24108.000000000 ✔
+ 7 |  1 | 23520.000000000 | 23520.000000000 ✔
+ 7 |  2 | 22344.000000000 | 22344.000000000 ✔
+ 7 |  3 | 20580.000000000 | 20580.000000000 ✔
+ 7 |  4 | 18228.000000000 | 18228.000000000 ✔
+ 7 |  5 | 15288.000000000 | 15288.000000000 ✔
+ 7 |  6 | 11760.000000000 | 11759.999999994 ✔
+ 8 |  0 | 41088.000000000 | 41088.000000000 ✔
+ 8 |  1 | 40320.000000000 | 40320.000000000 ✔
+ 8 |  2 | 38784.000000000 | 38783.999999999 ✔
+ 8 |  3 | 36480.000000000 | 36479.999999999 ✔
+ 8 |  4 | 33408.000000000 | 33408.000000000 ✔
+ 8 |  5 | 29568.000000000 | 29568.000000000 ✔
+ 8 |  6 | 24960.000000000 | 24960.000000000 ✔
+ 8 |  7 | 19584.000000000 | 19584.000000000 ✔
+ 9 |  0 | 65772.000000000 | 65772.000000000 ✔
+ 9 |  1 | 64800.000000000 | 64800.000000000 ✔
+ 9 |  2 | 62856.000000000 | 62856.000000001 ✔
+ 9 |  3 | 59940.000000000 | 59940.000000000 ✔
+ 9 |  4 | 56052.000000000 | 56051.999999999 ✔
+ 9 |  5 | 51192.000000000 | 51192.000000000 ✔
+ 9 |  6 | 45360.000000000 | 45360.000000000 ✔
+ 9 |  7 | 38556.000000000 | 38556.000000000 ✔
+ 9 |  8 | 30780.000000000 | 30780.000000000 ✔
+
+Antique.CoulombTwoBody(z₁=-1, z₂=1, m₁=1.0, m₂=206.768283, mₑ=1.0, a₀=1.0, Eₕ=1.0, ħ=1.0)
+ n |  l |     analytical |      numerical 
+-- | -- | -------------- | -------------- 
+ 1 |  0 |    3.029088160 |    3.029088160 ✔
+ 2 |  0 |   42.407234247 |   42.407234247 ✔
+ 2 |  1 |   30.290881605 |   30.290881605 ✔
+ 3 |  0 |  209.007083072 |  209.007083072 ✔
+ 3 |  1 |  181.745289628 |  181.745289628 ✔
+ 3 |  2 |  127.221702740 |  127.221702740 ✔
+ 4 |  0 |  654.283042661 |  654.283042660 ✔
+ 4 |  1 |  605.817632093 |  605.817632093 ✔
+ 4 |  2 |  508.886810958 |  508.886810958 ✔
+ 4 |  3 |  363.490579256 |  363.490579256 ✔
+ 5 |  0 | 1590.271284244 | 1590.271284244 ✔
+ 5 |  1 | 1514.544080233 | 1514.544080233 ✔
+ 5 |  2 | 1363.089672209 | 1363.089672209 ✔
+ 5 |  3 | 1135.908060175 | 1135.908060175 ✔
+ 5 |  4 |  832.999244128 |  832.999244128 ✔
+ 6 |  0 | 3289.589742266 | 3289.589742266 ✔
+ 6 |  1 | 3180.542568489 | 3180.542568489 ✔
+ 6 |  2 | 2962.448220935 | 2962.448220935 ✔
+ 6 |  3 | 2635.306699605 | 2635.306699605 ✔
+ 6 |  4 | 2199.118004498 | 2199.118004498 ✔
+ 6 |  5 | 1653.882135614 | 1653.882135614 ✔
+ 7 |  0 | 6085.438114375 | 6085.438114375 ✔
+ 7 |  1 | 5937.012794512 | 5937.012794512 ✔
+ 7 |  2 | 5640.162154787 | 5640.162154787 ✔
+ 7 |  3 | 5194.886195198 | 5194.886195198 ✔
+ 7 |  4 | 4601.184915747 | 4601.184915747 ✔
+ 7 |  5 | 3859.058316433 | 3859.058316433 ✔
+ 7 |  6 | 2968.506397256 | 2968.506397256 ✔
+ 8 |  0 | 10371.597861434 | 10371.597861434 ✔
+ 8 |  1 | 10177.736219164 | 10177.736219164 ✔
+ 8 |  2 | 9790.012934624 | 9790.012934624 ✔
+ 8 |  3 | 9208.428007815 | 9208.428007815 ✔
+ 8 |  4 | 8432.981438736 | 8432.981438736 ✔
+ 8 |  5 | 7463.673227387 | 7463.673227387 ✔
+ 8 |  6 | 6300.503373768 | 6300.503373768 ✔
+ 8 |  7 | 4943.471877880 | 4943.471877880 ✔
+ 9 |  0 | 16602.432207511 | 16602.432207511 ✔
+ 9 |  1 | 16357.076066514 | 16357.076066514 ✔
+ 9 |  2 | 15866.363784518 | 15866.363784518 ✔
+ 9 |  3 | 15130.295361525 | 15130.295361525 ✔
+ 9 |  4 | 14148.870797534 | 14148.870797534 ✔
+ 9 |  5 | 12922.090092546 | 12922.090092546 ✔
+ 9 |  6 | 11449.953246560 | 11449.953246559 ✔
+ 9 |  7 | 9732.460259576 | 9732.460259576 ✔
+ 9 |  8 | 7769.611131594 | 7769.611131594 ✔
+
+Antique.CoulombTwoBody(z₁=-1, z₂=1, m₁=1.0, m₂=1836.15267343, mₑ=1.0, a₀=1.0, Eₕ=1.0, ħ=1.0)
+ n |  l |     analytical |      numerical 
+-- | -- | -------------- | -------------- 
+ 1 |  0 |    3.003268592 |    3.003268592 ✔
+ 2 |  0 |   42.045760287 |   42.045760287 ✔
+ 2 |  1 |   30.032685920 |   30.032685920 ✔
+ 3 |  0 |  207.225532845 |  207.225532845 ✔
+ 3 |  1 |  180.196115517 |  180.196115517 ✔
+ 3 |  2 |  126.137280862 |  126.137280862 ✔
+ 4 |  0 |  648.706015862 |  648.706015862 ✔
+ 4 |  1 |  600.653718390 |  600.653718390 ✔
+ 4 |  2 |  504.549123448 |  504.549123448 ✔
+ 4 |  3 |  360.392231034 |  360.392231034 ✔
+ 5 |  0 | 1576.716010775 | 1576.716010775 ✔
+ 5 |  1 | 1501.634295976 | 1501.634295976 ✔
+ 5 |  2 | 1351.470866378 | 1351.470866378 ✔
+ 5 |  3 | 1126.225721982 | 1126.225721982 ✔
+ 5 |  4 |  825.898862787 |  825.898862787 ✔
+ 6 |  0 | 3261.549690860 | 3261.549690860 ✔
+ 6 |  1 | 3153.432021550 | 3153.432021550 ✔
+ 6 |  2 | 2937.196682929 | 2937.196682929 ✔
+ 6 |  3 | 2612.843674998 | 2612.843674998 ✔
+ 6 |  4 | 2180.372997757 | 2180.372997757 ✔
+ 6 |  5 | 1639.784651206 | 1639.784651206 ✔
+ 7 |  0 | 6033.566601232 | 6033.566601232 ✔
+ 7 |  1 | 5886.406440226 | 5886.406440226 ✔
+ 7 |  2 | 5592.086118215 | 5592.086118215 ✔
+ 7 |  3 | 5150.605635198 | 5150.605635198 ✔
+ 7 |  4 | 4561.964991175 | 4561.964991175 ✔
+ 7 |  5 | 3826.164186147 | 3826.164186147 ✔
+ 7 |  6 | 2943.203220113 | 2943.203220113 ✔
+ 8 |  0 | 10283.191658844 | 10283.191658844 ✔
+ 8 |  1 | 10090.982468959 | 10090.982468959 ✔
+ 8 |  2 | 9706.564089189 | 9706.564089189 ✔
+ 8 |  3 | 9129.936519534 | 9129.936519534 ✔
+ 8 |  4 | 8361.099759994 | 8361.099759994 ✔
+ 8 |  5 | 7400.053810570 | 7400.053810570 ✔
+ 8 |  6 | 6246.798671260 | 6246.798671260 ✔
+ 8 |  7 | 4901.334342066 | 4901.334342066 ✔
+ 9 |  0 | 16460.915152489 | 16460.915152489 ✔
+ 9 |  1 | 16217.650396541 | 16217.650396541 ✔
+ 9 |  2 | 15731.120884645 | 15731.120884645 ✔
+ 9 |  3 | 15001.326616800 | 15001.326616800 ✔
+ 9 |  4 | 14028.267593008 | 14028.267593008 ✔
+ 9 |  5 | 12811.943813267 | 12811.943813267 ✔
+ 9 |  6 | 11352.355277579 | 11352.355277579 ✔
+ 9 |  7 | 9649.501985942 | 9649.501985942 ✔
+ 9 |  8 | 7703.383938357 | 7703.383938357 ✔
+
+Antique.CoulombTwoBody(z₁=-1, z₂=1, m₁=1.0, m₂=Inf, mₑ=1.0, a₀=1.0, Eₕ=1.0, ħ=1.0)
+ n |  l |     analytical |      numerical 
+-- | -- | -------------- | -------------- 
+ 1 |  0 |    3.000000000 |    3.000000000 ✔
+ 2 |  0 |   42.000000000 |   42.000000000 ✔
+ 2 |  1 |   30.000000000 |   30.000000000 ✔
+ 3 |  0 |  207.000000000 |  207.000000000 ✔
+ 3 |  1 |  180.000000000 |  180.000000000 ✔
+ 3 |  2 |  126.000000000 |  126.000000000 ✔
+ 4 |  0 |  648.000000000 |  648.000000000 ✔
+ 4 |  1 |  600.000000000 |  600.000000000 ✔
+ 4 |  2 |  504.000000000 |  504.000000000 ✔
+ 4 |  3 |  360.000000000 |  360.000000000 ✔
+ 5 |  0 | 1575.000000000 | 1575.000000000 ✔
+ 5 |  1 | 1500.000000000 | 1500.000000000 ✔
+ 5 |  2 | 1350.000000000 | 1350.000000000 ✔
+ 5 |  3 | 1125.000000000 | 1125.000000000 ✔
+ 5 |  4 |  825.000000000 |  825.000000000 ✔
+ 6 |  0 | 3258.000000000 | 3258.000000000 ✔
+ 6 |  1 | 3150.000000000 | 3150.000000000 ✔
+ 6 |  2 | 2934.000000000 | 2934.000000000 ✔
+ 6 |  3 | 2610.000000000 | 2610.000000000 ✔
+ 6 |  4 | 2178.000000000 | 2178.000000000 ✔
+ 6 |  5 | 1638.000000000 | 1638.000000000 ✔
+ 7 |  0 | 6027.000000000 | 6027.000000000 ✔
+ 7 |  1 | 5880.000000000 | 5880.000000000 ✔
+ 7 |  2 | 5586.000000000 | 5586.000000000 ✔
+ 7 |  3 | 5145.000000000 | 5145.000000000 ✔
+ 7 |  4 | 4557.000000000 | 4557.000000000 ✔
+ 7 |  5 | 3822.000000000 | 3822.000000000 ✔
+ 7 |  6 | 2940.000000000 | 2940.000000000 ✔
+ 8 |  0 | 10272.000000000 | 10272.000000000 ✔
+ 8 |  1 | 10080.000000000 | 10080.000000000 ✔
+ 8 |  2 | 9696.000000000 | 9696.000000000 ✔
+ 8 |  3 | 9120.000000000 | 9120.000000000 ✔
+ 8 |  4 | 8352.000000000 | 8352.000000000 ✔
+ 8 |  5 | 7392.000000000 | 7392.000000000 ✔
+ 8 |  6 | 6240.000000000 | 6240.000000000 ✔
+ 8 |  7 | 4896.000000000 | 4896.000000000 ✔
+ 9 |  0 | 16443.000000000 | 16443.000000000 ✔
+ 9 |  1 | 16200.000000000 | 16200.000000000 ✔
+ 9 |  2 | 15714.000000000 | 15714.000000000 ✔
+ 9 |  3 | 14985.000000000 | 14985.000000000 ✔
+ 9 |  4 | 14013.000000000 | 14013.000000000 ✔
+ 9 |  5 | 12798.000000000 | 12798.000000000 ✔
+ 9 |  6 | 11340.000000000 | 11340.000000000 ✔
+ 9 |  7 | 9639.000000000 | 9639.000000000 ✔
+ 9 |  8 | 7695.000000000 | 7695.000000000 ✔
+
+Antique.CoulombTwoBody(z₁=-1, z₂=1, m₁=206.768283, m₂=1836.15267343, mₑ=1.0, a₀=1.0, Eₕ=1.0, ħ=1.0)
+ n |  l |     analytical |      numerical 
+-- | -- | -------------- | -------------- 
+ 1 |  0 |    0.000086864 |    0.000086864 ✔
+ 2 |  0 |    0.001216094 |    0.001216094 ✔
+ 2 |  1 |    0.000868638 |    0.000868638 ✔
+ 3 |  0 |    0.005993604 |    0.005993604 ✔
+ 3 |  1 |    0.005211830 |    0.005211830 ✔
+ 3 |  2 |    0.003648281 |    0.003648281 ✔
+ 4 |  0 |    0.018762587 |    0.018762587 ✔
+ 4 |  1 |    0.017372765 |    0.017372765 ✔
+ 4 |  2 |    0.014593123 |    0.014593123 ✔
+ 4 |  3 |    0.010423659 |    0.010423659 ✔
+ 5 |  0 |    0.045603509 |    0.045603509 ✔
+ 5 |  1 |    0.043431914 |    0.043431914 ✔
+ 5 |  2 |    0.039088722 |    0.039088722 ✔
+ 5 |  3 |    0.032573935 |    0.032573935 ✔
+ 5 |  4 |    0.023887552 |    0.023887552 ✔
+ 6 |  0 |    0.094334116 |    0.094334116 ✔
+ 6 |  1 |    0.091207019 |    0.091207019 ✔
+ 6 |  2 |    0.084952823 |    0.084952823 ✔
+ 6 |  3 |    0.075571530 |    0.075571530 ✔
+ 6 |  4 |    0.063063139 |    0.063063139 ✔
+ 6 |  5 |    0.047427650 |    0.047427650 ✔
+ 7 |  0 |    0.174509429 |    0.174509429 ✔
+ 7 |  1 |    0.170253101 |    0.170253101 ✔
+ 7 |  2 |    0.161740446 |    0.161740446 ✔
+ 7 |  3 |    0.148971464 |    0.148971464 ✔
+ 7 |  4 |    0.131946153 |    0.131946153 ✔
+ 7 |  5 |    0.110664516 |    0.110664516 ✔
+ 7 |  6 |    0.085126551 |    0.085126551 ✔
+ 8 |  0 |    0.297421744 |    0.297421744 ✔
+ 8 |  1 |    0.291862459 |    0.291862459 ✔
+ 8 |  2 |    0.280743889 |    0.280743889 ✔
+ 8 |  3 |    0.264066035 |    0.264066035 ✔
+ 8 |  4 |    0.241828895 |    0.241828895 ✔
+ 8 |  5 |    0.214032470 |    0.214032470 ✔
+ 8 |  6 |    0.180676761 |    0.180676761 ✔
+ 8 |  7 |    0.141761766 |    0.141761766 ✔
+ 9 |  0 |    0.476100637 |    0.476100637 ✔
+ 9 |  1 |    0.469064667 |    0.469064667 ✔
+ 9 |  2 |    0.454992727 |    0.454992727 ✔
+ 9 |  3 |    0.433884817 |    0.433884817 ✔
+ 9 |  4 |    0.405740937 |    0.405740937 ✔
+ 9 |  5 |    0.370561087 |    0.370561087 ✔
+ 9 |  6 |    0.328345267 |    0.328345267 ✔
+ 9 |  7 |    0.279093477 |    0.279093477 ✔
+ 9 |  8 |    0.222805717 |    0.222805717 ✔
+
+Antique.CoulombTwoBody(z₁=-1, z₂=2, m₁=206.768283, m₂=7294.29954142, mₑ=1.0, a₀=1.0, Eₕ=1.0, ħ=1.0)
+ n |  l |     analytical |      numerical 
+-- | -- | -------------- | -------------- 
+ 1 |  0 |    0.000018551 |    0.000018551 ✔
+ 2 |  0 |    0.000259717 |    0.000259717 ✔
+ 2 |  1 |    0.000185512 |    0.000185512 ✔
+ 3 |  0 |    0.001280034 |    0.001280034 ✔
+ 3 |  1 |    0.001113073 |    0.001113073 ✔
+ 3 |  2 |    0.000779151 |    0.000779151 ✔
+ 4 |  0 |    0.004007063 |    0.004007063 ✔
+ 4 |  1 |    0.003710244 |    0.003710244 ✔
+ 4 |  2 |    0.003116605 |    0.003116605 ✔
+ 4 |  3 |    0.002226146 |    0.002226146 ✔
+ 5 |  0 |    0.009739389 |    0.009739389 ✔
+ 5 |  1 |    0.009275609 |    0.009275609 ✔
+ 5 |  2 |    0.008348048 |    0.008348048 ✔
+ 5 |  3 |    0.006956707 |    0.006956707 ✔
+ 5 |  4 |    0.005101585 |    0.005101585 ✔
+ 6 |  0 |    0.020146622 |    0.020146622 ✔
+ 6 |  1 |    0.019478778 |    0.019478778 ✔
+ 6 |  2 |    0.018143091 |    0.018143091 ✔
+ 6 |  3 |    0.016139559 |    0.016139559 ✔
+ 6 |  4 |    0.013468184 |    0.013468184 ✔
+ 6 |  5 |    0.010128965 |    0.010128965 ✔
+ 7 |  0 |    0.037269396 |    0.037269396 ✔
+ 7 |  1 |    0.036360386 |    0.036360386 ✔
+ 7 |  2 |    0.034542367 |    0.034542367 ✔
+ 7 |  3 |    0.031815338 |    0.031815338 ✔
+ 7 |  4 |    0.028179299 |    0.028179299 ✔
+ 7 |  5 |    0.023634251 |    0.023634251 ✔
+ 7 |  6 |    0.018180193 |    0.018180193 ✔
+ 8 |  0 |    0.063519369 |    0.063519369 ✔
+ 8 |  1 |    0.062332091 |    0.062332091 ✔
+ 8 |  2 |    0.059957535 |    0.059957535 ✔
+ 8 |  3 |    0.056395701 |    0.056395701 ✔
+ 8 |  4 |    0.051646590 |    0.051646590 ✔
+ 8 |  5 |    0.045710200 |    0.045710200 ✔
+ 8 |  6 |    0.038586532 |    0.038586532 ✔
+ 8 |  7 |    0.030275587 |    0.030275587 ✔
+ 9 |  0 |    0.101679223 |    0.101679223 ✔
+ 9 |  1 |    0.100176575 |    0.100176575 ✔
+ 9 |  2 |    0.097171277 |    0.097171277 ✔
+ 9 |  3 |    0.092663332 |    0.092663332 ✔
+ 9 |  4 |    0.086652737 |    0.086652737 ✔
+ 9 |  5 |    0.079139494 |    0.079139494 ✔
+ 9 |  6 |    0.070123602 |    0.070123602 ✔
+ 9 |  7 |    0.059605062 |    0.059605062 ✔
+ 9 |  8 |    0.047583873 |    0.047583873 ✔
+</code></pre><h4>Virial Theorem</h4><p>The virial theorem <span>$2\langle T \rangle + \langle V \rangle = 0$</span> and the definition of Hamiltonian <span>$\langle H \rangle = \langle T \rangle + \langle V \rangle$</span> derive <span>$\langle H \rangle = \frac{1}{2} \langle V \rangle$</span> and <span>$\langle H \rangle = -\langle T \rangle$</span>.</p><p class="math-container">\[\frac{1}{2} \int \psi_n^\ast(x) V(x) \psi_n(x) \mathrm{d}x = E_n\]</p><pre><code class="nohighlight hljs">Antique.CoulombTwoBody(z₁=-1, z₂=1, m₁=1.0, m₂=1.0, mₑ=1.0, a₀=1.0, Eₕ=1.0, ħ=1.0)
+ n |     analytical |      numerical 
+-- | -------------- | -------------- 
+ 1 |   -0.250000000 |   -0.250000000 ✔
+ 2 |   -0.062500000 |   -0.062500000 ✔
+ 3 |   -0.027777778 |   -0.027777778 ✔
+ 4 |   -0.015625000 |   -0.015625000 ✔
+ 5 |   -0.010000000 |   -0.010000000 ✔
+ 6 |   -0.006944444 |   -0.006944444 ✔
+ 7 |   -0.005102041 |   -0.005102041 ✔
+ 8 |   -0.003906250 |   -0.003906250 ✔
+ 9 |   -0.003086420 |   -0.003086420 ✔
+10 |   -0.002500000 |   -0.002500000 ✔
+
+Antique.CoulombTwoBody(z₁=-1, z₂=1, m₁=1.0, m₂=206.768283, mₑ=1.0, a₀=1.0, Eₕ=1.0, ħ=1.0)
+ n |     analytical |      numerical 
+-- | -------------- | -------------- 
+ 1 |   -0.497593473 |   -0.497593473 ✔
+ 2 |   -0.124398368 |   -0.124398368 ✔
+ 3 |   -0.055288164 |   -0.055288164 ✔
+ 4 |   -0.031099592 |   -0.031099592 ✔
+ 5 |   -0.019903739 |   -0.019903739 ✔
+ 6 |   -0.013822041 |   -0.013822041 ✔
+ 7 |   -0.010154969 |   -0.010154969 ✔
+ 8 |   -0.007774898 |   -0.007774898 ✔
+ 9 |   -0.006143129 |   -0.006143129 ✔
+10 |   -0.004975935 |   -0.004975935 ✔
+
+Antique.CoulombTwoBody(z₁=-1, z₂=1, m₁=1.0, m₂=1836.15267343, mₑ=1.0, a₀=1.0, Eₕ=1.0, ħ=1.0)
+ n |     analytical |      numerical 
+-- | -------------- | -------------- 
+ 1 |   -0.499727840 |   -0.499727840 ✔
+ 2 |   -0.124931960 |   -0.124931960 ✔
+ 3 |   -0.055525316 |   -0.055525316 ✔
+ 4 |   -0.031232990 |   -0.031232990 ✔
+ 5 |   -0.019989114 |   -0.019989114 ✔
+ 6 |   -0.013881329 |   -0.013881329 ✔
+ 7 |   -0.010198527 |   -0.010198527 ✔
+ 8 |   -0.007808247 |   -0.007808247 ✔
+ 9 |   -0.006169480 |   -0.006169480 ✔
+10 |   -0.004997278 |   -0.004997278 ✔
+
+Antique.CoulombTwoBody(z₁=-1, z₂=1, m₁=1.0, m₂=Inf, mₑ=1.0, a₀=1.0, Eₕ=1.0, ħ=1.0)
+ n |     analytical |      numerical 
+-- | -------------- | -------------- 
+ 1 |   -0.500000000 |   -0.500000000 ✔
+ 2 |   -0.125000000 |   -0.125000000 ✔
+ 3 |   -0.055555556 |   -0.055555556 ✔
+ 4 |   -0.031250000 |   -0.031250000 ✔
+ 5 |   -0.020000000 |   -0.020000000 ✔
+ 6 |   -0.013888889 |   -0.013888889 ✔
+ 7 |   -0.010204082 |   -0.010204082 ✔
+ 8 |   -0.007812500 |   -0.007812500 ✔
+ 9 |   -0.006172840 |   -0.006172840 ✔
+10 |   -0.005000000 |   -0.005000000 ✔
+
+Antique.CoulombTwoBody(z₁=-1, z₂=1, m₁=206.768283, m₂=1836.15267343, mₑ=1.0, a₀=1.0, Eₕ=1.0, ħ=1.0)
+ n |     analytical |      numerical 
+-- | -------------- | -------------- 
+ 1 |  -92.920417311 |  -92.920417311 ✔
+ 2 |  -23.230104328 |  -23.230104328 ✔
+ 3 |  -10.324490812 |  -10.324490812 ✔
+ 4 |   -5.807526082 |   -5.807526082 ✔
+ 5 |   -3.716816692 |   -3.716816692 ✔
+ 6 |   -2.581122703 |   -2.581122703 ✔
+ 7 |   -1.896335047 |   -1.896335047 ✔
+ 8 |   -1.451881520 |   -1.451881520 ✔
+ 9 |   -1.147165646 |   -1.147165646 ✔
+10 |   -0.929204173 |   -0.929204173 ✔
+
+Antique.CoulombTwoBody(z₁=-1, z₂=2, m₁=206.768283, m₂=7294.29954142, mₑ=1.0, a₀=1.0, Eₕ=1.0, ħ=1.0)
+ n |     analytical |      numerical 
+-- | -------------- | -------------- 
+ 1 | -402.137356219 | -402.137356219 ✔
+ 2 | -100.534339055 | -100.534339055 ✔
+ 3 |  -44.681928469 |  -44.681928469 ✔
+ 4 |  -25.133584764 |  -25.133584764 ✔
+ 5 |  -16.085494249 |  -16.085494249 ✔
+ 6 |  -11.170482117 |  -11.170482117 ✔
+ 7 |   -8.206884821 |   -8.206884821 ✔
+ 8 |   -6.283396191 |   -6.283396191 ✔
+ 9 |   -4.964658719 |   -4.964658719 ✔
+10 |   -4.021373562 |   -4.021373562 ✔
+
+Antique.CoulombTwoBody(z₁=-1, z₂=2, m₁=1.0, m₂=1.0, mₑ=1.0, a₀=1.0, Eₕ=27.211386245988, ħ=1.0)
+ n |     analytical |      numerical 
+-- | -------------- | -------------- 
+ 1 |  -27.211386246 |  -27.211386246 ✔
+ 2 |   -6.802846561 |   -6.802846561 ✔
+ 3 |   -3.023487361 |   -3.023487361 ✔
+ 4 |   -1.700711640 |   -1.700711640 ✔
+ 5 |   -1.088455450 |   -1.088455450 ✔
+ 6 |   -0.755871840 |   -0.755871840 ✔
+ 7 |   -0.555334413 |   -0.555334413 ✔
+ 8 |   -0.425177910 |   -0.425177910 ✔
+ 9 |   -0.335943040 |   -0.335943040 ✔
+10 |   -0.272113862 |   -0.272113862 ✔
+
+Antique.CoulombTwoBody(z₁=-1, z₂=2, m₁=9.1093837015e-31, m₂=1.67262192595e-27, mₑ=9.1093837015e-31, a₀=5.29177210903e-11, Eₕ=4.3597447222071e-18, ħ=1.054571817e-34)
+ n |     analytical |      numerical 
+-- | -------------- | -------------- 
+ 1 |   -0.000000000 |   -0.000000000 ✔
+ 2 |   -0.000000000 |   -0.000000000 ✔
+ 3 |   -0.000000000 |   -0.000000000 ✔
+ 4 |   -0.000000000 |   -0.000000000 ✔
+ 5 |   -0.000000000 |   -0.000000000 ✔
+ 6 |   -0.000000000 |   -0.000000000 ✔
+ 7 |   -0.000000000 |   -0.000000000 ✔
+ 8 |   -0.000000000 |   -0.000000000 ✔
+ 9 |   -0.000000000 |   -0.000000000 ✔
+10 |   -0.000000000 |   -0.000000000 ✔
+</code></pre><h4>Normalization &amp; Orthogonality of <span>$\psi_n(r,\theta,\varphi)$</span></h4><p class="math-container">\[\int \psi_i^\ast(r,\theta,\varphi) \psi_j(r,\theta,\varphi) r^2 \sin(\theta) \mathrm{d}r \mathrm{d}\theta \mathrm{d}\varphi = \delta_{ij}\]</p><pre><code class="nohighlight hljs">n₁ | n₂ | l₁ | l₂ | m₁ | m₂ |     analytical |      numerical 
+-- | -- | -- | -- | -- | -- | -------------- | -------------- 
+ 1 |  1 |  0 |  0 |  0 |  0 |    1.000000000 |    1.000000210 ✔
+ 1 |  2 |  0 |  0 |  0 |  0 |    0.000000000 |   -0.000000692 ✔
+ 1 |  2 |  0 |  1 |  0 | -1 |    0.000000000 |   -0.000000924 ✔
+ 1 |  2 |  0 |  1 |  0 |  0 |    0.000000000 |   -0.000000000 ✔
+ 1 |  2 |  0 |  1 |  0 |  1 |    0.000000000 |    0.000000924 ✔
+ 1 |  3 |  0 |  0 |  0 |  0 |    0.000000000 |    0.000000099 ✔
+ 1 |  3 |  0 |  1 |  0 | -1 |    0.000000000 |    0.000004353 ✔
+ 1 |  3 |  0 |  1 |  0 |  0 |    0.000000000 |   -0.000000000 ✔
+ 1 |  3 |  0 |  1 |  0 |  1 |    0.000000000 |   -0.000004353 ✔
+ 1 |  3 |  0 |  2 |  0 | -2 |    0.000000000 |    0.000025511 ✔
+ 1 |  3 |  0 |  2 |  0 | -1 |    0.000000000 |   -0.000000000 ✔
+ 1 |  3 |  0 |  2 |  0 |  0 |    0.000000000 |   -0.000011896 ✔
+ 1 |  3 |  0 |  2 |  0 |  1 |    0.000000000 |    0.000000000 ✔
+ 1 |  3 |  0 |  2 |  0 |  2 |    0.000000000 |    0.000025511 ✔
+ 2 |  1 |  0 |  0 |  0 |  0 |    0.000000000 |   -0.000000692 ✔
+ 2 |  1 |  1 |  0 | -1 |  0 |    0.000000000 |   -0.000000924 ✔
+ 2 |  1 |  1 |  0 |  0 |  0 |    0.000000000 |   -0.000000000 ✔
+ 2 |  1 |  1 |  0 |  1 |  0 |    0.000000000 |    0.000000924 ✔
+ 2 |  2 |  0 |  0 |  0 |  0 |    1.000000000 |    1.000000537 ✔
+ 2 |  2 |  0 |  1 |  0 | -1 |    0.000000000 |    0.000008848 ✔
+ 2 |  2 |  0 |  1 |  0 |  0 |    0.000000000 |    0.000000085 ✔
+ 2 |  2 |  0 |  1 |  0 |  1 |    0.000000000 |   -0.000008848 ✔
+ 2 |  2 |  1 |  0 | -1 |  0 |    0.000000000 |    0.000008848 ✔
+ 2 |  2 |  1 |  0 |  0 |  0 |    0.000000000 |    0.000000085 ✔
+ 2 |  2 |  1 |  0 |  1 |  0 |    0.000000000 |   -0.000008848 ✔
+ 2 |  2 |  1 |  1 | -1 | -1 |    1.000000000 |    1.000003369 ✔
+ 2 |  2 |  1 |  1 | -1 |  0 |    0.000000000 |    0.000000000 ✔
+ 2 |  2 |  1 |  1 | -1 |  1 |    0.000000000 |   -0.004757877 ✔
+ 2 |  2 |  1 |  1 |  0 | -1 |    0.000000000 |    0.000000000 ✔
+ 2 |  2 |  1 |  1 |  0 |  0 |    1.000000000 |    1.000017035 ✔
+ 2 |  2 |  1 |  1 |  0 |  1 |    0.000000000 |   -0.000000000 ✔
+ 2 |  2 |  1 |  1 |  1 | -1 |    0.000000000 |   -0.004757877 ✔
+ 2 |  2 |  1 |  1 |  1 |  0 |    0.000000000 |   -0.000000000 ✔
+ 2 |  2 |  1 |  1 |  1 |  1 |    1.000000000 |    1.000003369 ✔
+ 2 |  3 |  0 |  0 |  0 |  0 |    0.000000000 |   -0.000001541 ✔
+ 2 |  3 |  0 |  1 |  0 | -1 |    0.000000000 |   -0.000014077 ✔
+ 2 |  3 |  0 |  1 |  0 |  0 |    0.000000000 |    0.000000163 ✔
+ 2 |  3 |  0 |  1 |  0 |  1 |    0.000000000 |    0.000014077 ✔
+ 2 |  3 |  0 |  2 |  0 | -2 |    0.000000000 |    0.000154504 ✔
+ 2 |  3 |  0 |  2 |  0 | -1 |    0.000000000 |   -0.000000000 ✔
+ 2 |  3 |  0 |  2 |  0 |  0 |    0.000000000 |   -0.000293967 ✔
+ 2 |  3 |  0 |  2 |  0 |  1 |    0.000000000 |    0.000000000 ✔
+ 2 |  3 |  0 |  2 |  0 |  2 |    0.000000000 |    0.000154504 ✔
+ 2 |  3 |  1 |  0 | -1 |  0 |    0.000000000 |   -0.000010891 ✔
+ 2 |  3 |  1 |  0 |  0 |  0 |    0.000000000 |   -0.000000000 ✔
+ 2 |  3 |  1 |  0 |  1 |  0 |    0.000000000 |    0.000010891 ✔
+ 2 |  3 |  1 |  1 | -1 | -1 |    0.000000000 |   -0.000012431 ✔
+ 2 |  3 |  1 |  1 | -1 |  0 |    0.000000000 |    0.000000000 ✔
+ 2 |  3 |  1 |  1 | -1 |  1 |    0.000000000 |    0.000055042 ✔
+ 2 |  3 |  1 |  1 |  0 | -1 |    0.000000000 |   -0.000000000 ✔
+ 2 |  3 |  1 |  1 |  0 |  0 |    0.000000000 |   -0.000006532 ✔
+ 2 |  3 |  1 |  1 |  0 |  1 |    0.000000000 |    0.000000000 ✔
+ 2 |  3 |  1 |  1 |  1 | -1 |    0.000000000 |    0.000055042 ✔
+ 2 |  3 |  1 |  1 |  1 |  0 |    0.000000000 |   -0.000000000 ✔
+ 2 |  3 |  1 |  1 |  1 |  1 |    0.000000000 |   -0.000012431 ✔
+ 2 |  3 |  1 |  2 | -1 | -2 |    0.000000000 |    0.000015338 ✔
+ 2 |  3 |  1 |  2 | -1 | -1 |    0.000000000 |    0.000000042 ✔
+ 2 |  3 |  1 |  2 | -1 |  0 |    0.000000000 |    0.000108904 ✔
+ 2 |  3 |  1 |  2 | -1 |  1 |    0.000000000 |    0.000000000 ✔
+ 2 |  3 |  1 |  2 | -1 |  2 |    0.000000000 |   -0.000010855 ✔
+ 2 |  3 |  1 |  2 |  0 | -2 |    0.000000000 |   -0.000000000 ✔
+ 2 |  3 |  1 |  2 |  0 | -1 |    0.000000000 |   -0.000004996 ✔
+ 2 |  3 |  1 |  2 |  0 |  0 |    0.000000000 |   -0.000000000 ✔
+ 2 |  3 |  1 |  2 |  0 |  1 |    0.000000000 |    0.000004996 ✔
+ 2 |  3 |  1 |  2 |  0 |  2 |    0.000000000 |   -0.000000000 ✔
+ 2 |  3 |  1 |  2 |  1 | -2 |    0.000000000 |    0.000010855 ✔
+ 2 |  3 |  1 |  2 |  1 | -1 |    0.000000000 |    0.000000000 ✔
+ 2 |  3 |  1 |  2 |  1 |  0 |    0.000000000 |   -0.000108904 ✔
+ 2 |  3 |  1 |  2 |  1 |  1 |    0.000000000 |    0.000000042 ✔
+ 2 |  3 |  1 |  2 |  1 |  2 |    0.000000000 |   -0.000015338 ✔
+ 3 |  1 |  0 |  0 |  0 |  0 |    0.000000000 |    0.000000099 ✔
+ 3 |  1 |  1 |  0 | -1 |  0 |    0.000000000 |    0.000004353 ✔
+ 3 |  1 |  1 |  0 |  0 |  0 |    0.000000000 |   -0.000000000 ✔
+ 3 |  1 |  1 |  0 |  1 |  0 |    0.000000000 |   -0.000004353 ✔
+ 3 |  1 |  2 |  0 | -2 |  0 |    0.000000000 |    0.000025511 ✔
+ 3 |  1 |  2 |  0 | -1 |  0 |    0.000000000 |    0.000000026 ✔
+ 3 |  1 |  2 |  0 |  0 |  0 |    0.000000000 |   -0.000011896 ✔
+ 3 |  1 |  2 |  0 |  1 |  0 |    0.000000000 |   -0.000000026 ✔
+ 3 |  1 |  2 |  0 |  2 |  0 |    0.000000000 |    0.000025511 ✔
+ 3 |  2 |  0 |  0 |  0 |  0 |    0.000000000 |   -0.000001541 ✔
+ 3 |  2 |  0 |  1 |  0 | -1 |    0.000000000 |   -0.000010891 ✔
+ 3 |  2 |  0 |  1 |  0 |  0 |    0.000000000 |   -0.000000000 ✔
+ 3 |  2 |  0 |  1 |  0 |  1 |    0.000000000 |    0.000010891 ✔
+ 3 |  2 |  1 |  0 | -1 |  0 |    0.000000000 |   -0.000014077 ✔
+ 3 |  2 |  1 |  0 |  0 |  0 |    0.000000000 |   -0.000000000 ✔
+ 3 |  2 |  1 |  0 |  1 |  0 |    0.000000000 |    0.000014077 ✔
+ 3 |  2 |  1 |  1 | -1 | -1 |    0.000000000 |   -0.000012431 ✔
+ 3 |  2 |  1 |  1 | -1 |  0 |    0.000000000 |   -0.000000000 ✔
+ 3 |  2 |  1 |  1 | -1 |  1 |    0.000000000 |    0.000055042 ✔
+ 3 |  2 |  1 |  1 |  0 | -1 |    0.000000000 |   -0.000000000 ✔
+ 3 |  2 |  1 |  1 |  0 |  0 |    0.000000000 |   -0.000006532 ✔
+ 3 |  2 |  1 |  1 |  0 |  1 |    0.000000000 |    0.000000000 ✔
+ 3 |  2 |  1 |  1 |  1 | -1 |    0.000000000 |    0.000055042 ✔
+ 3 |  2 |  1 |  1 |  1 |  0 |    0.000000000 |    0.000000000 ✔
+ 3 |  2 |  1 |  1 |  1 |  1 |    0.000000000 |   -0.000012431 ✔
+ 3 |  2 |  2 |  0 | -2 |  0 |    0.000000000 |    0.000154504 ✔
+ 3 |  2 |  2 |  0 | -1 |  0 |    0.000000000 |    0.000000000 ✔
+ 3 |  2 |  2 |  0 |  0 |  0 |    0.000000000 |   -0.000293967 ✔
+ 3 |  2 |  2 |  0 |  1 |  0 |    0.000000000 |   -0.000000000 ✔
+ 3 |  2 |  2 |  0 |  2 |  0 |    0.000000000 |    0.000154504 ✔
+ 3 |  2 |  2 |  1 | -2 | -1 |    0.000000000 |    0.000015338 ✔
+ 3 |  2 |  2 |  1 | -2 |  0 |    0.000000000 |   -0.000000000 ✔
+ 3 |  2 |  2 |  1 | -2 |  1 |    0.000000000 |    0.000010855 ✔
+ 3 |  2 |  2 |  1 | -1 | -1 |    0.000000000 |   -0.000000042 ✔
+ 3 |  2 |  2 |  1 | -1 |  0 |    0.000000000 |   -0.000004996 ✔
+ 3 |  2 |  2 |  1 | -1 |  1 |    0.000000000 |    0.000000000 ✔
+ 3 |  2 |  2 |  1 |  0 | -1 |    0.000000000 |    0.000108904 ✔
+ 3 |  2 |  2 |  1 |  0 |  0 |    0.000000000 |   -0.000000000 ✔
+ 3 |  2 |  2 |  1 |  0 |  1 |    0.000000000 |   -0.000108904 ✔
+ 3 |  2 |  2 |  1 |  1 | -1 |    0.000000000 |    0.000000000 ✔
+ 3 |  2 |  2 |  1 |  1 |  0 |    0.000000000 |    0.000004996 ✔
+ 3 |  2 |  2 |  1 |  1 |  1 |    0.000000000 |   -0.000000042 ✔
+ 3 |  2 |  2 |  1 |  2 | -1 |    0.000000000 |   -0.000010855 ✔
+ 3 |  2 |  2 |  1 |  2 |  0 |    0.000000000 |   -0.000000000 ✔
+ 3 |  2 |  2 |  1 |  2 |  1 |    0.000000000 |   -0.000015338 ✔
+ 3 |  3 |  0 |  0 |  0 |  0 |    1.000000000 |    1.000000527 ✔
+ 3 |  3 |  0 |  1 |  0 | -1 |    0.000000000 |    0.000004118 ✔
+ 3 |  3 |  0 |  1 |  0 |  0 |    0.000000000 |    0.000000000 ✔
+ 3 |  3 |  0 |  1 |  0 |  1 |    0.000000000 |   -0.000004118 ✔
+ 3 |  3 |  0 |  2 |  0 | -2 |    0.000000000 |    0.005210186 ✔
+ 3 |  3 |  0 |  2 |  0 | -1 |    0.000000000 |   -0.000000000 ✔
+ 3 |  3 |  0 |  2 |  0 |  0 |    0.000000000 |    0.000029733 ✔
+ 3 |  3 |  0 |  2 |  0 |  1 |    0.000000000 |    0.000000000 ✔
+ 3 |  3 |  0 |  2 |  0 |  2 |    0.000000000 |    0.005210186 ✔
+ 3 |  3 |  1 |  0 | -1 |  0 |    0.000000000 |    0.000004118 ✔
+ 3 |  3 |  1 |  0 |  0 |  0 |    0.000000000 |    0.000000000 ✔
+ 3 |  3 |  1 |  0 |  1 |  0 |    0.000000000 |   -0.000004118 ✔
+ 3 |  3 |  1 |  1 | -1 | -1 |    1.000000000 |    0.999988568 ✔
+ 3 |  3 |  1 |  1 | -1 |  0 |    0.000000000 |   -0.000000000 ✔
+ 3 |  3 |  1 |  1 | -1 |  1 |    0.000000000 |   -0.007917562 ✔
+ 3 |  3 |  1 |  1 |  0 | -1 |    0.000000000 |   -0.000000000 ✔
+ 3 |  3 |  1 |  1 |  0 |  0 |    1.000000000 |    1.000041898 ✔
+ 3 |  3 |  1 |  1 |  0 |  1 |    0.000000000 |    0.000000000 ✔
+ 3 |  3 |  1 |  1 |  1 | -1 |    0.000000000 |   -0.007917562 ✔
+ 3 |  3 |  1 |  1 |  1 |  0 |    0.000000000 |    0.000000000 ✔
+ 3 |  3 |  1 |  1 |  1 |  1 |    1.000000000 |    0.999988568 ✔
+ 3 |  3 |  1 |  2 | -1 | -2 |    0.000000000 |   -0.000086839 ✔
+ 3 |  3 |  1 |  2 | -1 | -1 |    0.000000000 |   -0.000000000 ✔
+ 3 |  3 |  1 |  2 | -1 |  0 |    0.000000000 |    0.000487545 ✔
+ 3 |  3 |  1 |  2 | -1 |  1 |    0.000000000 |    0.000000000 ✔
+ 3 |  3 |  1 |  2 | -1 |  2 |    0.000000000 |    0.000001116 ✔
+ 3 |  3 |  1 |  2 |  0 | -2 |    0.000000000 |   -0.000000000 ✔
+ 3 |  3 |  1 |  2 |  0 | -1 |    0.000000000 |    0.000001627 ✔
+ 3 |  3 |  1 |  2 |  0 |  0 |    0.000000000 |    0.000000000 ✔
+ 3 |  3 |  1 |  2 |  0 |  1 |    0.000000000 |   -0.000001627 ✔
+ 3 |  3 |  1 |  2 |  0 |  2 |    0.000000000 |   -0.000000000 ✔
+ 3 |  3 |  1 |  2 |  1 | -2 |    0.000000000 |   -0.000001116 ✔
+ 3 |  3 |  1 |  2 |  1 | -1 |    0.000000000 |    0.000000000 ✔
+ 3 |  3 |  1 |  2 |  1 |  0 |    0.000000000 |   -0.000487545 ✔
+ 3 |  3 |  1 |  2 |  1 |  1 |    0.000000000 |   -0.000000000 ✔
+ 3 |  3 |  1 |  2 |  1 |  2 |    0.000000000 |    0.000086839 ✔
+ 3 |  3 |  2 |  0 | -2 |  0 |    0.000000000 |    0.005210186 ✔
+ 3 |  3 |  2 |  0 | -1 |  0 |    0.000000000 |   -0.000000000 ✔
+ 3 |  3 |  2 |  0 |  0 |  0 |    0.000000000 |    0.000029733 ✔
+ 3 |  3 |  2 |  0 |  1 |  0 |    0.000000000 |    0.000000000 ✔
+ 3 |  3 |  2 |  0 |  2 |  0 |    0.000000000 |    0.005210186 ✔
+ 3 |  3 |  2 |  1 | -2 | -1 |    0.000000000 |   -0.000086839 ✔
+ 3 |  3 |  2 |  1 | -2 |  0 |    0.000000000 |   -0.000000000 ✔
+ 3 |  3 |  2 |  1 | -2 |  1 |    0.000000000 |   -0.000001116 ✔
+ 3 |  3 |  2 |  1 | -1 | -1 |    0.000000000 |   -0.000000000 ✔
+ 3 |  3 |  2 |  1 | -1 |  0 |    0.000000000 |    0.000001627 ✔
+ 3 |  3 |  2 |  1 | -1 |  1 |    0.000000000 |    0.000000000 ✔
+ 3 |  3 |  2 |  1 |  0 | -1 |    0.000000000 |    0.000487545 ✔
+ 3 |  3 |  2 |  1 |  0 |  0 |    0.000000000 |    0.000000000 ✔
+ 3 |  3 |  2 |  1 |  0 |  1 |    0.000000000 |   -0.000487545 ✔
+ 3 |  3 |  2 |  1 |  1 | -1 |    0.000000000 |    0.000000000 ✔
+ 3 |  3 |  2 |  1 |  1 |  0 |    0.000000000 |   -0.000001627 ✔
+ 3 |  3 |  2 |  1 |  1 |  1 |    0.000000000 |   -0.000000000 ✔
+ 3 |  3 |  2 |  1 |  2 | -1 |    0.000000000 |    0.000001116 ✔
+ 3 |  3 |  2 |  1 |  2 |  0 |    0.000000000 |   -0.000000000 ✔
+ 3 |  3 |  2 |  1 |  2 |  1 |    0.000000000 |    0.000086839 ✔
+ 3 |  3 |  2 |  2 | -2 | -2 |    1.000000000 |    0.999997476 ✔
+ 3 |  3 |  2 |  2 | -2 | -1 |    0.000000000 |   -0.000000000 ✔
+ 3 |  3 |  2 |  2 | -2 |  0 |    0.000000000 |   -0.002766702 ✔
+ 3 |  3 |  2 |  2 | -2 |  1 |    0.000000000 |   -0.000002196 ✔
+ 3 |  3 |  2 |  2 | -2 |  2 |    0.000000000 |    0.003238344 ✔
+ 3 |  3 |  2 |  2 | -1 | -2 |    0.000000000 |   -0.000000000 ✔
+ 3 |  3 |  2 |  2 | -1 | -1 |    1.000000000 |    1.000379973 ✔
+ 3 |  3 |  2 |  2 | -1 |  0 |    0.000000000 |    0.000000000 ✔
+ 3 |  3 |  2 |  2 | -1 |  1 |    0.000000000 |   -0.002322810 ✔
+ 3 |  3 |  2 |  2 | -1 |  2 |    0.000000000 |   -0.000076604 ✔
+ 3 |  3 |  2 |  2 |  0 | -2 |    0.000000000 |   -0.002766702 ✔
+ 3 |  3 |  2 |  2 |  0 | -1 |    0.000000000 |   -0.000000000 ✔
+ 3 |  3 |  2 |  2 |  0 |  0 |    1.000000000 |    1.000005135 ✔
+ 3 |  3 |  2 |  2 |  0 |  1 |    0.000000000 |    0.000000000 ✔
+ 3 |  3 |  2 |  2 |  0 |  2 |    0.000000000 |   -0.002766702 ✔
+ 3 |  3 |  2 |  2 |  1 | -2 |    0.000000000 |    0.000076604 ✔
+ 3 |  3 |  2 |  2 |  1 | -1 |    0.000000000 |   -0.002322810 ✔
+ 3 |  3 |  2 |  2 |  1 |  0 |    0.000000000 |   -0.000000000 ✔
+ 3 |  3 |  2 |  2 |  1 |  1 |    1.000000000 |    1.000379973 ✔
+ 3 |  3 |  2 |  2 |  1 |  2 |    0.000000000 |    0.000000000 ✔
+ 3 |  3 |  2 |  2 |  2 | -2 |    0.000000000 |    0.003238344 ✔
+ 3 |  3 |  2 |  2 |  2 | -1 |    0.000000000 |    0.000002196 ✔
+ 3 |  3 |  2 |  2 |  2 |  0 |    0.000000000 |   -0.002766702 ✔
+ 3 |  3 |  2 |  2 |  2 |  1 |    0.000000000 |    0.000000000 ✔
+ 3 |  3 |  2 |  2 |  2 |  2 |    1.000000000 |    0.999997476 ✔</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../HydrogenAtom/">« Hydrogen Atom</a><a class="docs-footer-nextpage" href="../API/">API reference »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.14.1 on <span class="colophon-date" title="Monday 11 August 2025 15:44">Monday 11 August 2025</span>. Using Julia version 1.11.6.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
