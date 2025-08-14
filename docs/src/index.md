@@ -28,16 +28,90 @@ Or run `import Pkg; Pkg.add(; name="Antique", version="0.12.0")` to install on J
 using Antique
 ```
 
-The energy `E()`, the wave function `ψ()`, the potential `V()` and some other functions will be exported. There are two ways to avoid function name conflicts. Run `import Antique` instead of `using Antique`, and use the energy `Antique.E()`, the wave function `Antique.ψ()` and the potential `Antique.V()`. Or try giving other function names like `using Antique: V as potential, E as energy, ψ as wavefuntion, HydrogenAtom`. Here are examples for the hydrogen-like atom. The analytical notation of the energy (the eigen value of the Hamiltonian) is written as
+The energy `E()`, the wave function `ψ()`, the potential `V()` and some other functions will be exported. There are two ways to avoid function name conflicts. Run `import Antique` instead of `using Antique`, and use the energy `Antique.E()`, the wave function `Antique.ψ()` and the potential `Antique.V()`. 
+In the current version, one can access the Greek letters in the section [Greek Letters and Symbols](#greek-letters-and-symbols).
+Or try giving other function names like `using Antique: V as potential, E as energy, ψ as wavefuntion, HydrogenAtom`.
+Here we show two examples: (1) the infinite potential well, and (2) the hydrogen-like atom. There are more examples on each model page.
+
+### (1) the infinite potential well
+
+First, we demonstrate one of the simplest models: the infinite potential well. We choose `InfinitePotentialWell` as the model.  Then, we specify the model parameters as follows:
+
+```julia
+IPW = InfinitePotentialWell(L=1.0, m=1.0, ℏ=1.0)
+```
+
+We can access each parameter as follows:
+```julia
+IPW.L
+# output> 1.0
+IPW.m
+# output> 1.0
+IPW.ℏ
+# output> 1.0
+```
+
+The eigenvalues 
+```math
+E_n = \frac{\hbar^2 n^2 \pi^2}{2 m L^2}
+```
+can be computed as follows:
+```julia
+E(IPW, n=1)
+# output> 4.934802200544679
+E(IPW, n=2)
+# output> 19.739208802178716
+```
+
+One of the important features is the wave function 
+```math
+\psi_n(x) = \sqrt{\frac{2}{L}} \sin \frac{n\pi x}{L}
+```
+for different values of `n` and position `x`. We can plot the wave function as follows:
+
+```julia
+using CairoMakie
+
+# settings
+f = Figure()
+ax = Axis(f[1,1], xlabel=L"$x$", ylabel=L"$\psi(x)$")
+
+# plot
+w1 = lines!(ax, 0..1, x -> ψ(IPW, x, n=1))
+w2 = lines!(ax, 0..1, x -> ψ(IPW, x, n=2))
+w3 = lines!(ax, 0..1, x -> ψ(IPW, x, n=3))
+w4 = lines!(ax, 0..1, x -> ψ(IPW, x, n=4))
+w5 = lines!(ax, 0..1, x -> ψ(IPW, x, n=5))
+
+# legend
+axislegend(ax, [w1, w2, w3, w4, w5], [L"n=1", L"n=2", L"n=3", L"n=4", L"n=5"], position=:lb)
+
+f
+```
+![](assets/fig/ipw_wavefunction.png)
+
+
+### (2) the hydrogen-like atom
+
+For the hydrogen atom, one need to choose `HydrogenAtom` model and the parameters can be set as 
+```julia
+H = HydrogenAtom(Z=1, mₑ=1.0, a₀=1.0, Eₕ=1.0, ℏ=1.0)
+```
+Or you can simply use
+```julia
+H = HydrogenAtom(Z=1)
+```
+The the other parameters use default value.
+The Hydrogen atom has the symbol $\mathrm{H}$ and atomic number 1 ($Z=1$). 
+
+The analytical notation of the energy (the eigen value of the Hamiltonian) is written as
 
 ```math
 E_n = -\frac{Z^2}{2n^2} E_\mathrm{h}.
 ```
-
-The Hydrogen atom has the symbol $\mathrm{H}$ and atomic number 1 ($Z=1$). Therefore the ground state ($n=1$) energy is $-\frac{1}{2} E_\mathrm{h}$.
+Therefore the ground state ($n=1$) energy is $-\frac{1}{2} E_\mathrm{h}$.
 
 ```julia
-H = HydrogenAtom(Z=1)
 E(H, n=1)
 # output> -0.5
 ```
@@ -50,7 +124,87 @@ E(He⁺, n=1)
 # output> -2.0
 ```
 
-There are more examples on each model page.
+One important application is plotting the radial wave function of the hydrogen atom:
+```math
+R_{nl}(r) = -\sqrt{\frac{(n-l-1)!}{2n(n+l)!} \left(\frac{2Z}{n a_0}\right)^3} \left(\frac{2Zr}{n a_0}\right)^l \exp \left(-\frac{Zr}{n a_0}\right) L_{n+l}^{2l+1} \left(\frac{2Zr}{n a_0}\right)
+```
+Details of this formula can be found on the **HydrogenAtom** model page.  
+We can plot the radial probability density for several states using the following code:
+
+```julia
+using CairoMakie
+using LaTeXStrings
+
+# setting
+f = Figure()
+ax = Axis(f[1,1], xlabel=L"$r~/~a_0$", ylabel=L"$r^2|R_{nl}(r)|^2~/~a_0^{-1}$", limits=(0,20,0,0.58))
+
+# plot
+ws = []
+ls = []
+for n in 1:3
+  for l in 0:n-1
+    w = lines!(
+        ax,
+        0..20,
+        r -> r^2 * Antique.R(H,r,n=n,l=l)^2,
+        linewidth = 2,
+        linestyle = [:solid,:dash,:dot,:dashdot,:dashdotdot][l+1],
+        color = n,
+        colormap = :tab10,
+        colorrange = (1,10)
+    )
+    push!(ws, w)
+    push!(ls, latexstring("n=$n, l=$l"))
+  end
+end
+
+# legend
+axislegend(ax, ws, ls, position=:rt)
+
+f
+```
+
+![](assets/fig/H_wavefunction.png)
+
+## Greek Letters and Symbols
+
+This section lists the Greek letters and symbols used in various models in this package. These symbols are sometimes not easily accessible, so we provide them here for convenience. You may copy them as needed to call the relevant functions or quantities.
+
+| Symbol | Meaning |
+|--------|---------|
+| E | Energy |
+| V | Potential |
+| ψ | Wave function |
+| ℏ | Planck constant |
+| Eₕ | Hartree energy |
+| λ | Potential strength |
+| α | Potential strength / Exponent in generalized Laguerre polynomial |
+| m | Particle mass / z-component of angular momentum (l) |
+| m₁ | Mass of particle 1 |
+| m₂ | Mass of particle 2 |
+| mₑ | Electron mass |
+| µ | Reduced mass |
+| Dₑ | Well depth |
+| L | Length of the box / Laguerre polynomial |
+| l | Angular momentum quantum number |
+| θ | Polar angle |
+| φ | Azimuthal angle |
+| k | Force constant / Exponent in associated Laguerre polynomial |
+| n | Excitation level |
+| nₘₐₓ | Maximum excitation level |
+| Y | Spherical harmonics |
+| P | Legendre polynomial |
+| x | Position |
+| x₀ | Characteristic length or dimension |
+| r | Position vector |
+| rₑ | Equilibrium bond distance |
+| a₀ | Bohr radius |
+| R | Distance |
+| Z | Atomic number |
+| z₁ | Charge of particle 1 |
+| z₂ | Charge of particle 2 |
+
 
 ## Supported Models
 
