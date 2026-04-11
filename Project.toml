@@ -14,6 +14,7 @@ LaTeXStrings = "1.4.0"
 Latexify = "0.16.6"
 QuadGK = "2.11.2"
 SpecialFunctions = "2.3.1"
+Symbolics = "5.14.1"
 Zygote = "0.7.4"
 julia = "1.7"
 
