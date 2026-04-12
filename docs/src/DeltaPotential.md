@@ -100,5 +100,5 @@ Unit testing and integration testing were done using numerical integration ([Qua
 ```@eval
 using Markdown
 using Antique
-Markdown.parse(Antique.load("../../test/result/DeltaPotential.md"))
+Markdown.parse(Base.read("../../test/result/DeltaPotential.md", String))
 ```
