@@ -193,5 +193,5 @@ Unit testing and Integration testing were done using a computer algebra system (
 ```@eval
 using Markdown
 using Antique
-Markdown.parse(Antique.load("../../test/result/HydrogenAtom.md"))
+Markdown.parse(Base.read("../../test/result/HydrogenAtom.md", String))
 ```

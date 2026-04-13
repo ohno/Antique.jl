@@ -298,5 +298,5 @@ Unit testing and integration testing were done using a computer algebra system (
 ```@eval
 using Markdown
 using Antique
-Markdown.parse(Antique.load("../../test/result/CoulombTwoBody.md"))
+Markdown.parse(Base.read("../../test/result/CoulombTwoBody.md", String))
 ```

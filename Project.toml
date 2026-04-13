@@ -1,7 +1,7 @@
 name = "Antique"
 uuid = "be6e5d0e-34a5-4c8f-af83-e1b5389203d8"
 authors = ["Shuhei Ohno"]
-version = "0.12.1"
+version = "0.13.0"
 
 [deps]
 SpecialFunctions = "276daf66-3868-5448-9aa4-cd146d93841b"
@@ -14,6 +14,7 @@ LaTeXStrings = "1.4.0"
 Latexify = "0.16.6"
 QuadGK = "2.11.2"
 SpecialFunctions = "2.3.1"
+Symbolics = "5.14.1"
 Zygote = "0.7.4"
 julia = "1.7"
 
