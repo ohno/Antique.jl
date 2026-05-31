@@ -1,5 +1,5 @@
 io = open("./result/SphericalOscillator.md", "w")
-SO = SphericalOscillator(k=1.0, μ=1.0, ℏ=1.0)
+SO = SphericalOscillator(k=1.0, mu=1.0, hbar=1.0)
 
 
 # Pₙᵐ(x) = √(1-x²)ᵐ dᵐ/dxᵐ Pₙ(x); Pₙ(x) = 1/(2ⁿn!) dⁿ/dxⁿ (x²-1)ⁿ

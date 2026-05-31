@@ -1,10 +1,23 @@
 export HarmonicOscillator, V, E, ψ
 
 # parameters
-@kwdef struct HarmonicOscillator
-  k = 1.0
-  m = 1.0
-  ℏ = 1.0
+struct HarmonicOscillator
+  k::Float64
+  m::Float64
+  hbar::Float64
+end
+
+function HarmonicOscillator(;
+  k=1.0,
+  m=1.0,
+  hbar=1.0, ℏ=hbar,
+)
+  return HarmonicOscillator(k, m, ℏ)
+end
+
+function Base.getproperty(model::HarmonicOscillator, sym::Symbol)
+  sym === :ℏ && return getfield(model, :hbar)
+  return getfield(model, sym)
 end
 
 # potential
@@ -20,9 +33,9 @@ function E(model::HarmonicOscillator; n::Int=0)
   end
   k = model.k
   m = model.m
-  ℏ = model.ℏ
+  hbar = model.hbar
   ω = sqrt(k/m)
-  return ℏ * ω * (n+1//2)
+  return hbar * ω * (n+1//2)
 end
 
 # eigenfunctions
@@ -32,10 +45,10 @@ function ψ(model::HarmonicOscillator, x; n::Int=0)
   end
   k = model.k
   m = model.m
-  ℏ = model.ℏ
+  hbar = model.hbar
   ω = sqrt(k/m)
-  A = sqrt(1//(factorial(n)*2^n)*sqrt(m*ω/(π*ℏ)))
-  ξ = sqrt(m*ω/ℏ) * x
+  A = sqrt(1//(factorial(n)*2^n)*sqrt(m*ω/(π*hbar)))
+  ξ = sqrt(m*ω/hbar) * x
   return A * H(model,ξ,n=n) * exp(-ξ^2/2)
 end
 

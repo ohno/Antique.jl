@@ -1,10 +1,24 @@
 export DeltaPotential, V, E, ψ
 
 # parameters
-@kwdef struct DeltaPotential
-  α = 1.0
-  m = 1.0
-  ℏ = 1.0
+struct DeltaPotential
+  alpha::Float64
+  m::Float64
+  hbar::Float64
+end
+
+function DeltaPotential(;
+  alpha=1.0, α=alpha,
+  m=1.0,
+  hbar=1.0, ℏ=hbar,
+)
+  return DeltaPotential(α, m, ℏ)
+end
+
+function Base.getproperty(model::DeltaPotential, sym::Symbol)
+  sym === :α && return getfield(model, :alpha)
+  sym === :ℏ && return getfield(model, :hbar)
+  return getfield(model, sym)
 end
 
 # potential
@@ -14,17 +28,17 @@ end
 
 # eigenvalues
 function E(model::DeltaPotential)
-  α = model.α
+  α = model.alpha
   m = model.m
-  ℏ = model.ℏ
+  ℏ = model.hbar
   return -(m*α^2)/(2*ℏ^2)
 end
 
 # eigenfunctions
 function ψ(model::DeltaPotential, x)
-  α = model.α
+  α = model.alpha
   m = model.m
-  ℏ = model.ℏ
+  ℏ = model.hbar
   return sqrt(m*α)/ℏ * exp.(-m*α*abs.(x)/ℏ^2)
 end
 

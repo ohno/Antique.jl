@@ -1,10 +1,23 @@
 export InfinitePotentialWell, V, E, ψ
 
 # parameters
-@kwdef struct InfinitePotentialWell
-  L = 1.0
-  m = 1.0
-  ℏ = 1.0
+struct InfinitePotentialWell
+  L::Float64
+  m::Float64
+  hbar::Float64
+end
+
+function InfinitePotentialWell(;
+  L=1.0,
+  m=1.0,
+  hbar=1.0, ℏ=hbar,
+)
+  return InfinitePotentialWell(L, m, ℏ)
+end
+
+function Base.getproperty(model::InfinitePotentialWell, sym::Symbol)
+  sym === :ℏ && return getfield(model, :hbar)
+  return getfield(model, sym)
 end
 
 # potential
@@ -20,7 +33,7 @@ function E(model::InfinitePotentialWell; n::Int=1)
   end
   L = model.L
   m = model.m
-  ℏ = model.ℏ
+  ℏ = model.hbar
   return (ℏ^2*n^2*π^2) / (2*m*L^2)
 end
 

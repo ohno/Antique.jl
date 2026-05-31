@@ -1,25 +1,44 @@
 export PoschlTeller, V, E, ψ, nₘₐₓ
 
 # parameters
-@kwdef struct PoschlTeller
-  λ::Int = 1 # Currently only integer values for λ are supported.
-  m = 1.0
-  ℏ = 1.0
-  x₀ = 1.0
+struct PoschlTeller
+  lambda::Int
+  m::Float64
+  hbar::Float64
+  x_0::Float64
+end
+
+function PoschlTeller(;
+  lambda=1, λ=lambda,
+  m=1.0,
+  hbar=1.0, ℏ=hbar,
+  x_0=1.0, x₀=x_0,
+)
+  if !isinteger(λ)
+    throw(DomainError("λ = $λ", "λ must be an integer."))
+  end
+  return PoschlTeller(Int(λ), m, ℏ, x₀)
+end
+
+function Base.getproperty(model::PoschlTeller, sym::Symbol)
+  sym === :λ && return getfield(model, :lambda)
+  sym === :x₀ && return getfield(model, :x_0)
+  sym === :ℏ && return getfield(model, :hbar)
+  return getfield(model, sym)
 end
 
 # potential
 function V(model::PoschlTeller, x)
-  λ  = model.λ
+  λ  = model.lambda
   m  = model.m
-  ℏ  = model.ℏ
-  x₀ = model.x₀
+  ℏ  = model.hbar
+  x₀ = model.x_0
   return -ℏ^2/(m*x₀^2) * λ*(λ+1)/2 / cosh(x/x₀)^2
 end
 
 # maximum quantum number
 function nₘₐₓ(model::PoschlTeller)
-  λ = model.λ
+  λ = model.lambda
   return Int(floor(λ-1)) # if counting n from zero
 end
 
@@ -29,10 +48,10 @@ function E(model::PoschlTeller; n::Int=0, nocheck=false)
   if !(0 ≤ n ≤ nₘₐₓ(model) || nocheck)
     throw(DomainError("(n,nₘₐₓ(model)) = ($n,$(nₘₐₓ(model)))", "This function is defined for 0 ≤ n ≤ nₘₐₓ(model)."))
   end
-  λ  = model.λ
+  λ  = model.lambda
   m  = model.m
-  ℏ  = model.ℏ
-  x₀ = model.x₀
+  ℏ  = model.hbar
+  x₀ = model.x_0
   μ  = n_max - n + 1
   return -ℏ^2/(m*x₀^2) * μ^2/2
 end
@@ -43,8 +62,8 @@ function ψ(model::PoschlTeller, x; n::Int=0)
   if !(0 ≤ n ≤ nₘₐₓ(model))
     throw(DomainError("(n,nₘₐₓ(model)) = ($n,$(nₘₐₓ(model)))", "This function is defined for 0 ≤ n ≤ nₘₐₓ(model)."))
   end
-  λ  = model.λ
-  x₀ = model.x₀
+  λ  = model.lambda
+  x₀ = model.x_0
   μ  = n_max - n + 1
   return (-1)^μ / sqrt(x₀) * P(model,tanh(x/x₀),n=Int64(λ),m=μ) * sqrt(μ*gamma(λ-μ+1)/gamma(λ+μ+1))
 end

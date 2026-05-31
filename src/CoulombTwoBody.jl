@@ -1,82 +1,107 @@
 export CoulombTwoBody, V, E, ψ
 
 # parameters
-@kwdef struct CoulombTwoBody
-  z₁ = -1
-  z₂ = 1
-  m₁ = 1.0
-  m₂ = 1.0
-  mₑ = 1.0
-  a₀ = 1.0
-  Eₕ = 1.0
-  ℏ = 1.0
+struct CoulombTwoBody
+  z_1::Int
+  z_2::Int
+  m_1::Float64
+  m_2::Float64
+  m_e::Float64
+  a_0::Float64
+  E_h::Float64
+  hbar::Float64
+end
+
+function CoulombTwoBody(;
+  z_1::Int=-1, z₁=z_1,
+  z_2::Int=1, z₂=z_2,
+  m_1=1.0, m₁=m_1,
+  m_2=1.0, m₂=m_2,
+  m_e=1.0, mₑ=m_e,
+  a_0=1.0, a₀=a_0,
+  E_h=1.0, Eₕ=E_h,
+  hbar=1.0, ℏ=hbar,
+)
+  return CoulombTwoBody(z₁, z₂, m₁, m₂, mₑ, a₀, Eₕ, ℏ)
+end
+
+function Base.getproperty(model::CoulombTwoBody, sym::Symbol)
+  sym === :z₁ && return getfield(model, :z_1)
+  sym === :z₂ && return getfield(model, :z_2)
+  sym === :m₁ && return getfield(model, :m_1)
+  sym === :m₂ && return getfield(model, :m_2)
+  sym === :mₑ && return getfield(model, :m_e)
+  sym === :a₀ && return getfield(model, :a_0)
+  sym === :Eₕ && return getfield(model, :E_h)
+  sym === :ℏ && return getfield(model, :hbar)
+  return getfield(model, sym)
 end
 
 # potential
 function V(model::CoulombTwoBody, r)
-  z₁ = model.z₁
-  z₂ = model.z₂
-  a₀ = model.a₀
-  Eₕ = model.Eₕ
+  z_1 = model.z_1
+  z_2 = model.z_2
+  a_0 = model.a_0
+  E_h = model.E_h
   if !(0 ≤ r)
     throw(DomainError("r = $r", "r must be non-negative: 0 ≤ r."))
   end
-  return z₁*z₂/abs(r/a₀) * Eₕ
+  return z_1*z_2/abs(r/a_0) * E_h
 end
 
 # eigenvalues
 function E(model::CoulombTwoBody; n::Int=1)
-  z₁ = model.z₁
-  z₂ = model.z₂
-  m₁ = model.m₁
-  m₂ = model.m₂
-  mₑ = model.mₑ
-  μ = (1/m₁ + 1/m₂)^(-1)
-  Eₕ = model.Eₕ
+  z_1 = model.z_1
+  z_2 = model.z_2
+  m_1 = model.m_1
+  m_2 = model.m_2
+  m_e = model.m_e
+  μ = (1/m_1 + 1/m_2)^(-1)
+  E_h = model.E_h
   if !(1 ≤ n)
     throw(DomainError("n = $n", "n must be 1 or more: 1 ≤ n."))
   end
-  if !(z₁*z₂ < 0)
-    throw(DomainError("(z₁,z₂) = ($z₁,$z₂)", "This function is defined for z₁*z₂ < 0."))
+  if !(z_1*z_2 < 0)
+    throw(DomainError("(z_1,z_2) = ($z_1,$z_2)", "This function is defined for z_1*z_2 < 0."))
   end
-  if !(0 < m₁ && 0 < m₂)
-    throw(DomainError("(m₁,m₂) = ($m₁,$m₂)", "This function is defined for 0 < m₁, 0 < m₂."))
+  if !(0 < m_1 && 0 < m_2)
+    throw(DomainError("(m_1,m_2) = ($m_1,$m_2)", "This function is defined for 0 < m_1, 0 < m_2."))
   end
-  return -(z₁*z₂)^2/(2*n^2) * μ/mₑ * Eₕ
+  return -(z_1*z_2)^2/(2*n^2) * μ/m_e * E_h
 end
 
 # eigenfunctions
 function ψ(model::CoulombTwoBody, r, θ, φ; n::Int=1, l::Int=0, m::Int=0)
-  z₁ = model.z₁
-  z₂ = model.z₂
-  m₁ = model.m₁
-  m₂ = model.m₂
+  z_1 = model.z_1
+  z_2 = model.z_2
+  m_1 = model.m_1
+  m_2 = model.m_2
   if !(1 ≤ n && 0 ≤ l < n && -l ≤ m ≤ l)
     throw(DomainError("(n,l,m) = ($n,$l,$m)", "This function is defined for 1 ≤ n, 0 ≤ l < n and -l ≤ m ≤ l."))
   end
   if !(0 ≤ r && 0 ≤ θ < π && 0 ≤ φ < 2π)
     throw(DomainError("(r,θ,φ) = ($r,$θ,$φ)", "This function is defined for 0 ≤ r, 0 ≤ θ < π, 0 ≤ φ < 2π."))
   end
-  if !(z₁*z₂ < 0)
-    throw(DomainError("(z₁,z₂) = ($z₁,$z₂)", "This function is defined for z₁*z₂ < 0."))
+  if !(z_1*z_2 < 0)
+    throw(DomainError("(z_1,z_2) = ($z_1,$z_2)", "This function is defined for z_1*z_2 < 0."))
   end
-  if !(0 < m₁ && 0 < m₂)
-    throw(DomainError("(m₁,m₂) = ($m₁,$m₂)", "This function is defined for 0 < m₁, 0 < m₂."))
+  if !(0 < m_1 && 0 < m_2)
+    throw(DomainError("(m_1,m_2) = ($m_1,$m_2)", "This function is defined for 0 < m_1, 0 < m_2."))
   end
   return R(model, r, n=n, l=l) * Y(model, θ, φ, l=l, m=m)
 end
 
 # radial function
 function R(model::CoulombTwoBody, r; n=1, l=0)
-  z₁ = model.z₁
-  z₂ = model.z₂
-  a₀ = model.a₀
-  m₁ = model.m₁
-  m₂ = model.m₂
-  mₑ = model.mₑ
-  μ  = (1/m₁ + 1/m₂)^(-1)
-  aμ = a₀ * mₑ / μ
-  Z  = -z₁*z₂
+  z_1 = model.z_1
+  z_2 = model.z_2
+  a_0 = model.a_0
+  m_1 = model.m_1
+  m_2 = model.m_2
+  m_e = model.m_e
+  μ  = (1/m_1 + 1/m_2)^(-1)
+  aμ = a_0 * m_e / μ
+  Z  = -z_1*z_2
   ρ = 2*Z*r/(n*aμ)
   N = -sqrt( factorial(n-l-1)/(2*n*factorial(n+l)) * (2*Z/(n*aμ))^3 )
   return N*ρ^l * exp(-ρ/2) * L(model, ρ, n=n+l, k=2*l+1)

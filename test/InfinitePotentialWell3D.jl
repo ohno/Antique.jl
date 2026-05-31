@@ -14,12 +14,12 @@ println(io, raw"""
 ```""")
 
 @testset "IPW3D: <ψᵢ|ψⱼ> = ∫ψₙ*ψₙdx = δᵢⱼ" begin
-  IPW3D = InfinitePotentialWell3D(L=[1.0,1.0,1.0], m=1.0, ℏ=1.0)
+  IPW3D = InfinitePotentialWell3D(L=[1.0,1.0,1.0], m=1.0, hbar=1.0)
   @show IPW3D
   @show ψ(IPW3D,[0.5,0.5,0.5])
   for IPW3D in [
-    InfinitePotentialWell3D(L=[1.0,1.0,1.0], m=1.0, ℏ=1.0)
-    InfinitePotentialWell3D(L=[1.2,3.4,4.5], m=2.0, ℏ=3.0)
+    InfinitePotentialWell3D(L=[1.0,1.0,1.0], m=1.0, hbar=1.0)
+    InfinitePotentialWell3D(L=[1.2,3.4,4.5], m=2.0, hbar=3.0)
   ]
     println(io, "IPW3D = $IPW3D")
     println(io, "ix | iy | iz | jx | jy | jz |     analytical |      numerical ")
@@ -117,16 +117,16 @@ are given by the sum of 2 Taylor series:
 ```""")
 
 @testset "IPW3D: <ψₙ|H|ψₙ> = ∫ψₙ*Tψₙdx = Eₙ" begin
-  IPW3D = InfinitePotentialWell3D(L=[1.0,1.0,1.0], m=1.0, ℏ=1.0)
+  IPW3D = InfinitePotentialWell3D(L=[1.0,1.0,1.0], m=1.0, hbar=1.0)
   ∇²ψ(model,r;n=[1,1,1]) = sum(first(Zygote.diaghessian(x -> ψ(model,x,n=n), r)))
-  ψTψ(model,r;n=[1,1,1]) = -model.ℏ^2/(2*model.m) * conj(ψ(model,r,n=n)) * ∇²ψ(model,r,n=n)
+  ψTψ(model,r;n=[1,1,1]) = -model.hbar^2/(2*model.m) * conj(ψ(model,r,n=n)) * ∇²ψ(model,r,n=n)
   @show IPW3D
   @show ψ(IPW3D,[0.5,0.5,0.5])
   @show ∇²ψ(IPW3D,[0.5,0.5,0.5])
   @show ψTψ(IPW3D,[0.5,0.5,0.5])
   for IPW3D in [
-    InfinitePotentialWell3D(L=[1.0,1.0,1.0], m=1.0, ℏ=1.0)
-    InfinitePotentialWell3D(L=[1.2,3.4,4.5], m=2.0, ℏ=3.0)
+    InfinitePotentialWell3D(L=[1.0,1.0,1.0], m=1.0, hbar=1.0)
+    InfinitePotentialWell3D(L=[1.2,3.4,4.5], m=2.0, hbar=3.0)
   ]
     println(io, "IPW3D = $IPW3D")
     println(io, " nx | ny | nz |     analytical |      numerical ")

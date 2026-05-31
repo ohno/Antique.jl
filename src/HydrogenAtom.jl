@@ -1,12 +1,30 @@
 export HydrogenAtom, V, E, ψ
 
 # parameters
-@kwdef struct HydrogenAtom
-  Z = 1
-  mₑ = 1.0
-  a₀ = 1.0
-  Eₕ = 1.0
-  ℏ = 1.0
+struct HydrogenAtom
+  Z::Int
+  m_e::Float64
+  a_0::Float64
+  E_h::Float64
+  hbar::Float64
+end
+
+function HydrogenAtom(;
+  Z::Int=1,
+  m_e=1.0, mₑ=m_e,
+  a_0=1.0, a₀=a_0,
+  E_h=1.0, Eₕ=E_h,
+  hbar=1.0, ℏ=hbar,
+)
+  return HydrogenAtom(Z, mₑ, a₀, Eₕ, ℏ)
+end
+
+function Base.getproperty(model::HydrogenAtom, sym::Symbol)
+  sym === :mₑ && return getfield(model, :m_e)
+  sym === :a₀ && return getfield(model, :a_0)
+  sym === :Eₕ && return getfield(model, :E_h)
+  sym === :ℏ && return getfield(model, :hbar)
+  return getfield(model, sym)
 end
 
 # potential
@@ -15,9 +33,9 @@ function V(model::HydrogenAtom, r)
     throw(DomainError("r = $r", "r must be non-negative: 0 ≤ r."))
   end
   Z = model.Z
-  a₀ = model.a₀
-  Eₕ = model.Eₕ
-  return -Z/abs(r/a₀) * Eₕ
+  a_0 = model.a_0
+  E_h = model.E_h
+  return -Z/abs(r/a_0) * E_h
 end
 
 # eigenvalues
@@ -26,8 +44,8 @@ function E(model::HydrogenAtom; n::Int=1)
     throw(DomainError("n = $n", "n must be 1 or more: 1 ≤ n."))
   end
   Z = model.Z
-  Eₕ = model.Eₕ
-  return -Z^2/(2*n^2) * Eₕ
+  E_h = model.E_h
+  return -Z^2/(2*n^2) * E_h
 end
 
 # eigenfunctions
@@ -44,9 +62,9 @@ end
 # radial function
 function R(model::HydrogenAtom, r; n=1, l=0)
   Z = model.Z
-  a₀ = model.a₀
-  ρ = 2*Z*r/(n*a₀)
-  N = -sqrt( factorial(n-l-1)/(2*n*factorial(n+l)) * (2*Z/(n*a₀))^3 )
+  a_0 = model.a_0
+  ρ = 2*Z*r/(n*a_0)
+  N = -sqrt( factorial(n-l-1)/(2*n*factorial(n+l)) * (2*Z/(n*a_0))^3 )
   return N*ρ^l * exp(-ρ/2) * L(model, ρ, n=n+l, k=2*l+1)
 end
 

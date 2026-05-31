@@ -181,7 +181,7 @@ are given by the sum of 2 Taylor series:
 ```""")
 
 @testset "MP: <ψₙ|H|ψₙ> = ∫ψₙ*Hψₙdx = Eₙ" begin
-  ψHψ(MP, r; n=0, Δr=0.005) = V(MP,r)*ψ(MP,r,n=n)^2 - MP.ℏ^2/(2*MP.μ)*conj(ψ(MP,r,n=n))*(ψ(MP,r+Δr,n=n)-2*ψ(MP,r,n=n)+ψ(MP,r-Δr,n=n))/Δr^2
+  ψHψ(MP, r; n=0, Δr=0.005) = V(MP,r)*ψ(MP,r,n=n)^2 - MP.hbar^2/(2*MP.mu)*conj(ψ(MP,r,n=n))*(ψ(MP,r+Δr,n=n)-2*ψ(MP,r,n=n)+ψ(MP,r-Δr,n=n))/Δr^2
   println(io, "  k |  n |     analytical |      numerical ")
   println(io, "--- | -- | -------------- | -------------- ")
   for k in [0.1,0.2,0.3,MP.k]

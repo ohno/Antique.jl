@@ -1,10 +1,24 @@
 export SphericalOscillator, V, E, ψ
 
 # parameters
-@kwdef struct SphericalOscillator
-  k = 1.0
-  μ = 1.0
-  ℏ = 1.0
+struct SphericalOscillator
+  k::Float64
+  mu::Float64
+  hbar::Float64
+end
+
+function SphericalOscillator(;
+  k=1.0,
+  mu=1.0, μ=mu,
+  hbar=1.0, ℏ=hbar,
+)
+  return SphericalOscillator(k, μ, ℏ)
+end
+
+function Base.getproperty(model::SphericalOscillator, sym::Symbol)
+  sym === :μ && return getfield(model, :mu)
+  sym === :ℏ && return getfield(model, :hbar)
+  return getfield(model, sym)
 end
 
 # potential
@@ -21,8 +35,8 @@ function E(model::SphericalOscillator; n::Int=0, l::Int=0)
   if !(0 ≤ n && 0 ≤ l)
     throw(DomainError("(n,l) = ($n,$l)", "This function is defined for 0 ≤ n and 0 ≤ l"))
   end
-  ℏ = model.ℏ
-  μ = model.μ
+  ℏ = model.hbar
+  μ = model.mu
   k = model.k 
   ω = sqrt(k/μ)
   return (2*n + l + 3/2) * ℏ * ω
@@ -47,8 +61,8 @@ ffact(n) = n>0 ? n*ffact(n-2) : 1
 
 # radial function
 function R(model::SphericalOscillator, r; n=0, l=0)
-  ℏ = model.ℏ
-  μ = model.μ
+  ℏ = model.hbar
+  μ = model.mu
   k = model.k 
   ω = sqrt(k/μ)
   γ = μ*ω/ℏ

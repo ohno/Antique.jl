@@ -1,5 +1,5 @@
 io = open("./result/PoschlTeller.md", "w")
-PT = PoschlTeller(λ=4.0)
+PT = PoschlTeller(lambda=4)
 
 
 # Pₙᵐ(x) = √(1-x²)ᵐ dᵐ/dxᵐ Pₙ(x); Pₙ(x) = 1/(2ⁿn!) dⁿ/dxⁿ (x²-1)ⁿ
@@ -67,13 +67,13 @@ println(io, raw"""
 ```""")
 
 @testset "PT: <ψᵢ|ψⱼ> = δᵢⱼ" begin
-  println(io, "  λ |   m |   ℏ |  x₀ |  i |  j |     analytical |      numerical ")
+  println(io, "  λ |   m |   ℏ |  x0 |  i |  j |     analytical |      numerical ")
   println(io, "--- | --- | --- | --- | -- | -- | -------------- | -------------- ")
   for λ in [1,2,3]
   for m in [1.0,2.0,exp(1)]
   for ℏ in [1.0,2.0,exp(1)]
   for x₀ in [1.0,2.0,exp(1)]
-    PT = PoschlTeller(λ=λ, m=m, ℏ=ℏ, x₀=x₀)
+    PT = PoschlTeller(lambda=λ, m=m, hbar=ℏ, x_0=x₀)
     for i in 0:nₘₐₓ(PT)
     for j in 0:nₘₐₓ(PT)
       analytical = (i == j ? 1 : 0)
@@ -161,14 +161,14 @@ are given by the sum of 2 Taylor series:
 ```""")
 
 @testset "PT: ∫ψₙ*Hψₙdx = <ψₙ|H|ψₙ> = Eₙ" begin
-  ψHψ(PT, x; n=0, Δx=0.005) = V(PT,x)*ψ(PT,x,n=n)^2 - PT.ℏ^2/(2*PT.m)*conj(ψ(PT,x,n=n))*(ψ(PT,x+Δx,n=n)-2*ψ(PT,x,n=n)+ψ(PT,x-Δx,n=n))/Δx^2
+  ψHψ(PT, x; n=0, Δx=0.005) = V(PT,x)*ψ(PT,x,n=n)^2 - PT.hbar^2/(2*PT.m)*conj(ψ(PT,x,n=n))*(ψ(PT,x+Δx,n=n)-2*ψ(PT,x,n=n)+ψ(PT,x-Δx,n=n))/Δx^2
   println(io, "  λ |   m |   ℏ |  x₀ |  n |     analytical |      numerical ")
   println(io, "--- | --- | --- | --- | -- | -------------- | -------------- ")
   for λ in [1,2,3]
   for m in [1.0,2.0,exp(1)]
   for ℏ in [1.0,2.0,exp(1)]
   for x₀ in [1.0,2.0,exp(1)]
-    PT = PoschlTeller(λ=λ, m=m, ℏ=ℏ, x₀=x₀)
+    PT = PoschlTeller(lambda=λ, m=m, hbar=ℏ, x_0=x₀)
     for n in 0:λ-1
       analytical = E(PT, n=n)
       numerical  = quadgk(x -> ψHψ(PT, x, n=n, Δx=0.001), -Inf, Inf, atol=1e-5)[1]
@@ -181,7 +181,7 @@ are given by the sum of 2 Taylor series:
   end
   end
 end
-PT = PoschlTeller(λ=1.0, m=1.0, ℏ=1.0)
+PT = PoschlTeller(lambda=1, m=1.0, hbar=1.0)
 
 println(io, """```\n""")
 
@@ -215,10 +215,10 @@ n_\mathrm{max} = \left\lfloor \lambda \right\rfloor - 1
 
 @testset "PT: 0 < Eₙ₊₁ - Eₙ for 0 ≤ n ≤ nₘₐₓ" begin
   for PT in [
-    PoschlTeller(λ=2, m=1.0, ℏ=1.0, x₀=1.0),
-    PoschlTeller(λ=3, m=1.0, ℏ=1.0, x₀=1.0),
-    PoschlTeller(λ=4, m=1.0, ℏ=1.0, x₀=1.0),
-    PoschlTeller(λ=10, m=1.0, ℏ=1.0, x₀=1.0),
+    PoschlTeller(lambda=2, m=1.0, hbar=1.0, x_0=1.0),
+    PoschlTeller(lambda=3, m=1.0, hbar=1.0, x_0=1.0),
+    PoschlTeller(lambda=4, m=1.0, hbar=1.0, x_0=1.0),
+    PoschlTeller(lambda=10, m=1.0, hbar=1.0, x_0=1.0),
   ]
     println(io, "PT = $PT")
     println(io, " n  Eₙ          ΔE")

@@ -4,15 +4,33 @@ export MorsePotential, V, E, ψ, nₘₐₓ
 using SpecialFunctions
 
 # parameters
-@kwdef struct MorsePotential
-  # The simplified parameters for H₂⁺
-  # F. M. Fernández, J. Garcia, ChemistrySelect, 6, 9527−9534(2021) https://doi.org/10.1002/slct.202102509
+struct MorsePotential
+  r_e::Float64
+  D_e::Float64
+  k::Float64
+  mu::Float64
+  hbar::Float64
+end
+
+function MorsePotential(;
+  # The simplified parameters for H2+
+  # F. M. Fernandez, J. Garcia, ChemistrySelect, 6, 9527-9534(2021) https://doi.org/10.1002/slct.202102509
   # CODATA recommended values of the fundamental physical constants: 2018 https://physics.nist.gov/cgi-bin/cuu/Value?mpsme
-  rₑ = 2.0   # 1.997193319969992120068298141276
-  Dₑ = 0.1   # - 0.5 - (-0.602634619106539878727562156289)
-  k  = 0.1   # 2*((-1.1026342144949464615+1/2.00) - (-0.602634619106539878727562156289)) / (2.00 - rₑ)^2
-  µ  = 918.1 # 1/(1/1836.15267343 + 1/1836.15267343)
-  ℏ  = 1.0
+  r_e=2.0, rₑ=r_e,
+  D_e=0.1, Dₑ=D_e,
+  k=0.1,
+  mu=918.1, μ=mu,
+  hbar=1.0, ℏ=hbar,
+)
+  return MorsePotential(rₑ, Dₑ, k, μ, ℏ)
+end
+
+function Base.getproperty(model::MorsePotential, sym::Symbol)
+  sym === :rₑ && return getfield(model, :r_e)
+  sym === :Dₑ && return getfield(model, :D_e)
+  sym === :μ && return getfield(model, :mu)
+  sym === :ℏ && return getfield(model, :hbar)
+  return getfield(model, sym)
 end
 
 # potential
@@ -20,11 +38,11 @@ function V(model::MorsePotential, r)
   if !(0 ≤ r)
     throw(DomainError("r = $r", "r must be non-negative: 0 ≤ r."))
   end
-  rₑ = model.rₑ
-  Dₑ = model.Dₑ
+  r_e = model.r_e
+  D_e = model.D_e
   k = model.k
-  a = sqrt(k/(2*Dₑ))
-  return Dₑ*( exp(-2*a*(r-rₑ)) -2*exp(-a*(r-rₑ)) )
+  a = sqrt(k/(2*D_e))
+  return D_e*( exp(-2*a*(r-r_e)) -2*exp(-a*(r-r_e)) )
 end
 
 # eigenvalues
@@ -32,10 +50,10 @@ function E(model::MorsePotential; n::Int=0, nocheck=false)
   if !(0 ≤ n ≤ nₘₐₓ(model) || nocheck)
     throw(DomainError("(n,nₘₐₓ(model)) = ($n,$(nₘₐₓ(model)))", "This function is defined for 0 ≤ n ≤ nₘₐₓ(model)."))
   end
-  Dₑ = model.Dₑ
+  Dₑ = model.D_e
   k = model.k
-  µ = model.µ
-  ℏ = model.ℏ
+  µ = model.mu
+  ℏ = model.hbar
   ω = sqrt(k/µ)
   χ = ℏ*ω/(4*Dₑ)
   return - Dₑ + ℏ*ω*(n+1/2) - χ*ℏ*ω*(n+1/2)^2
@@ -43,9 +61,9 @@ end
 
 # maximum quantum number
 function nₘₐₓ(model::MorsePotential)
-  Dₑ = model.Dₑ
+  Dₑ = model.D_e
   k = model.k
-  µ = model.µ
+  µ = model.mu
   ω = sqrt(k/µ)
   return Int(floor((2*Dₑ - ω)/ω))
 end
@@ -58,11 +76,11 @@ function ψ(model::MorsePotential, r; n::Int=0)
   if !(0 ≤ r)
     throw(DomainError("r = $r", "r must be non-negative: 0 ≤ r."))
   end
-  rₑ = model.rₑ
-  Dₑ = model.Dₑ
+  rₑ = model.r_e
+  Dₑ = model.D_e
   k = model.k
-  µ = model.µ
-  ℏ = model.ℏ
+  µ = model.mu
+  ℏ = model.hbar
   a = sqrt(k/(2*Dₑ))
   λ = sqrt(2*µ*Dₑ) / (a*ℏ)
   ξ = 2*λ*exp(-a*(r-rₑ))
@@ -98,7 +116,7 @@ and the Hamiltonian
 where ``a = \sqrt{\frac{k}{2Dₑ}}`` is defined. Parameters are specified with the following struct:
 
 ```
-MP = MorsePotential(rₑ=2.0, Dₑ=0.1, k=0.1, µ=918.1, ℏ=1.0)
+MP = MorsePotential(rₑ=2.0, Dₑ=0.1, k=0.1, μ=918.1, ℏ=1.0)
 ```
 
 ``r_\mathrm{e}`` is the equilibrium bond distance, ``D_\mathrm{e}`` is the the well depth , ``k`` is the force constant, ``\mu`` is the reduced mass and ``\hbar`` is the reduced Planck constant (Dirac's constant).

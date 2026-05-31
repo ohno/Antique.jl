@@ -1,5 +1,5 @@
 io = open("./result/CoulombTwoBody.md", "w")
-CTB = CoulombTwoBody(z₁=-1, z₂=1, m₁=1.0, m₂=1.0, mₑ=1.0, a₀=1.0, Eₕ=1.0, ℏ=1.0)
+CTB = CoulombTwoBody(z_1=-1, z_2=1, m_1=1.0, m_2=1.0, m_e=1.0, a_0=1.0, E_h=1.0, hbar=1.0)
 MP = MorsePotential()
 
 
@@ -268,24 +268,24 @@ Reference:
 
 @testset "CTB: <r> = ∫r|Rₙₗ(r)|²r²dr = (a₀×mₑ/μ)/2Z × [3n²-l(l+1)]" begin
   for CTB in [
-    CoulombTwoBody(z₁=-1, z₂=+1, m₁=1.0, m₂=1.0),
-    CoulombTwoBody(z₁=-1, z₂=+1, m₁=1.0, m₂=206.7682830),
-    CoulombTwoBody(z₁=-1, z₂=+1, m₁=1.0, m₂=1836.15267343),
-    CoulombTwoBody(z₁=-1, z₂=+1, m₁=1.0, m₂=Inf),
-    CoulombTwoBody(z₁=-1, z₂=+1, m₁=206.7682830, m₂=1836.15267343),
-    CoulombTwoBody(z₁=-1, z₂=+2, m₁=206.7682830, m₂=7294.29954142)
+    CoulombTwoBody(z_1=-1, z_2=+1, m_1=1.0, m_2=1.0),
+    CoulombTwoBody(z_1=-1, z_2=+1, m_1=1.0, m_2=206.7682830),
+    CoulombTwoBody(z_1=-1, z_2=+1, m_1=1.0, m_2=1836.15267343),
+    CoulombTwoBody(z_1=-1, z_2=+1, m_1=1.0, m_2=Inf),
+    CoulombTwoBody(z_1=-1, z_2=+1, m_1=206.7682830, m_2=1836.15267343),
+    CoulombTwoBody(z_1=-1, z_2=+2, m_1=206.7682830, m_2=7294.29954142)
   ]
     println(io, CTB)
     println(io, " n |  l |     analytical |      numerical ")
     println(io, "-- | -- | -------------- | -------------- ")
     for n in 1:9
     for l in 0:n-1
-      z₁ = CTB.z₁
-      z₂ = CTB.z₂
-      m₁ = CTB.m₁
-      m₂ = CTB.m₂
-      mₑ = CTB.mₑ
-      a₀ = CTB.a₀
+      z₁ = CTB.z_1
+      z₂ = CTB.z_2
+      m₁ = CTB.m_1
+      m₂ = CTB.m_2
+      mₑ = CTB.m_e
+      a₀ = CTB.a_0
       μ = (1/m₁ + 1/m₂)^(-1)
       aμ = a₀ * mₑ/μ
       Z = abs(z₁*z₂)
@@ -325,24 +325,24 @@ Reference:
 
 @testset "CTB: <r²> = ∫r²|Rₙₗ(r)|²r²dr = (a₀×mₑ/μ)²/2Z² × n²[5n²+1-3l(l+1)]; 1/μ = 1/mₑ + 1/mₚ" begin
   for CTB in [
-    CoulombTwoBody(z₁=-1, z₂=+1, m₁=1.0, m₂=1.0),
-    CoulombTwoBody(z₁=-1, z₂=+1, m₁=1.0, m₂=206.7682830),
-    CoulombTwoBody(z₁=-1, z₂=+1, m₁=1.0, m₂=1836.15267343),
-    CoulombTwoBody(z₁=-1, z₂=+1, m₁=1.0, m₂=Inf),
-    CoulombTwoBody(z₁=-1, z₂=+1, m₁=206.7682830, m₂=1836.15267343),
-    CoulombTwoBody(z₁=-1, z₂=+2, m₁=206.7682830, m₂=7294.29954142)
+    CoulombTwoBody(z_1=-1, z_2=+1, m_1=1.0, m_2=1.0),
+    CoulombTwoBody(z_1=-1, z_2=+1, m_1=1.0, m_2=206.7682830),
+    CoulombTwoBody(z_1=-1, z_2=+1, m_1=1.0, m_2=1836.15267343),
+    CoulombTwoBody(z_1=-1, z_2=+1, m_1=1.0, m_2=Inf),
+    CoulombTwoBody(z_1=-1, z_2=+1, m_1=206.7682830, m_2=1836.15267343),
+    CoulombTwoBody(z_1=-1, z_2=+2, m_1=206.7682830, m_2=7294.29954142)
   ]
     println(io, CTB)
     println(io, " n |  l |     analytical |      numerical ")
     println(io, "-- | -- | -------------- | -------------- ")
     for n in 1:9
     for l in 0:n-1
-      z₁ = CTB.z₁
-      z₂ = CTB.z₂
-      m₁ = CTB.m₁
-      m₂ = CTB.m₂
-      mₑ = CTB.mₑ
-      a₀ = CTB.a₀
+      z₁ = CTB.z_1
+      z₂ = CTB.z_2
+      m₁ = CTB.m_1
+      m₂ = CTB.m_2
+      mₑ = CTB.m_e
+      a₀ = CTB.a_0
       μ = (1/m₁ + 1/m₂)^(-1)
       aμ = a₀ * mₑ/μ
       Z = abs(z₁*z₂)
@@ -382,19 +382,19 @@ The virial theorem $2\langle T \rangle + \langle V \rangle = 0$ and the definiti
 
 @testset "CTB: <ψₙ|V|ψₙ> / 2 = Eₙ" begin
   for CTB in [
-    CoulombTwoBody(z₁=-1, z₂=+1, m₁=1.0, m₂=1.0),
-    CoulombTwoBody(z₁=-1, z₂=+1, m₁=1.0, m₂=206.7682830),
-    CoulombTwoBody(z₁=-1, z₂=+1, m₁=1.0, m₂=1836.15267343),
-    CoulombTwoBody(z₁=-1, z₂=+1, m₁=1.0, m₂=Inf),
-    CoulombTwoBody(z₁=-1, z₂=+1, m₁=206.7682830, m₂=1836.15267343),
-    CoulombTwoBody(z₁=-1, z₂=+2, m₁=206.7682830, m₂=7294.29954142),
-    CoulombTwoBody(z₁=-1, z₂=+2, Eₕ=27.211386245988, a₀=1.0, mₑ=1.0, ℏ=1.0),
-    CoulombTwoBody(z₁=-1, z₂=+2, m₁=9.1093837015e-31, m₂=1.67262192595e-27, Eₕ=4.3597447222071e-18, a₀=5.29177210903e-11, mₑ=9.1093837015e-31, ℏ=1.054571817e-34),
+    CoulombTwoBody(z_1=-1, z_2=+1, m_1=1.0, m_2=1.0),
+    CoulombTwoBody(z_1=-1, z_2=+1, m_1=1.0, m_2=206.7682830),
+    CoulombTwoBody(z_1=-1, z_2=+1, m_1=1.0, m_2=1836.15267343),
+    CoulombTwoBody(z_1=-1, z_2=+1, m_1=1.0, m_2=Inf),
+    CoulombTwoBody(z_1=-1, z_2=+1, m_1=206.7682830, m_2=1836.15267343),
+    CoulombTwoBody(z_1=-1, z_2=+2, m_1=206.7682830, m_2=7294.29954142),
+    CoulombTwoBody(z_1=-1, z_2=+2, E_h=27.211386245988, a_0=1.0, m_e=1.0, hbar=1.0),
+    CoulombTwoBody(z_1=-1, z_2=+2, m_1=9.1093837015e-31, m_2=1.67262192595e-27, E_h=4.3597447222071e-18, a_0=5.29177210903e-11, m_e=9.1093837015e-31, hbar=1.054571817e-34),
   ]
-    a₀ = CTB.a₀
-    m₁ = CTB.m₁
-    m₂ = CTB.m₂
-    mₑ = CTB.mₑ
+    a₀ = CTB.a_0
+    m₁ = CTB.m_1
+    m₂ = CTB.m_2
+    mₑ = CTB.m_e
     μ  = (1/m₁ + 1/m₂)^(-1)
     aμ = a₀ * mₑ / μ
     println(io, CTB)

@@ -1,11 +1,27 @@
 export RigidRotor, V, E, ψ
 
 # parameters
-@kwdef struct RigidRotor
-  m₁ = 1.0
-  m₂ = 1.0
-  R  = 1.0
-  ℏ  = 1.0
+struct RigidRotor
+  m_1::Float64
+  m_2::Float64
+  R::Float64
+  hbar::Float64
+end
+
+function RigidRotor(;
+  m_1=1.0, m₁=m_1,
+  m_2=1.0, m₂=m_2,
+  R=1.0,
+  hbar=1.0, ℏ=hbar,
+)
+  return RigidRotor(m₁, m₂, R, ℏ)
+end
+
+function Base.getproperty(model::RigidRotor, sym::Symbol)
+  sym === :m₁ && return getfield(model, :m_1)
+  sym === :m₂ && return getfield(model, :m_2)
+  sym === :ℏ && return getfield(model, :hbar)
+  return getfield(model, sym)
 end
 
 # potential
@@ -21,10 +37,10 @@ function E(model::RigidRotor; l::Int=0)
   if !(0 ≤ l)
     throw(DomainError("l = $l", "l must be non-negative: 0 ≤ l."))
   end
-  m₁ = model.m₁
-  m₂ = model.m₂
+  m₁ = model.m_1
+  m₂ = model.m_2
   R = model.R
-  ℏ = model.ℏ
+  ℏ = model.hbar
   μ = (1/m₁ + 1/m₂)^(-1)
   I = μ * R^2
   return ℏ^2/(2*I) *l*(l+1)

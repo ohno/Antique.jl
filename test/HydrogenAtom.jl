@@ -1,5 +1,5 @@
 io = open("./result/HydrogenAtom.md", "w")
-HA = HydrogenAtom(Z=1, Eₕ=1.0, a₀=1.0, mₑ=1.0, ℏ=1.0)
+HA = HydrogenAtom(Z=1, E_h=1.0, a_0=1.0, m_e=1.0, hbar=1.0)
 MP = MorsePotential()
 
 
@@ -271,7 +271,7 @@ Reference:
   println(io, "-- | -- | -------------- | -------------- ")
   for n in 1:9
   for l in 0:n-1
-    analytical = HA.a₀/2/HA.Z * (3*n^2-l*(l+1))
+    analytical = HA.a_0/2/HA.Z * (3*n^2-l*(l+1))
     numerical  = quadgk(r -> r^3 * Antique.R(HA,r,n=n,l=l)^2, 0, Inf, maxevals=10^3)[1]
     acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-5) : isapprox(analytical, numerical, rtol=1e-5)
     @test acceptance
@@ -307,7 +307,7 @@ Reference:
   println(io, "-- | -- | -------------- | -------------- ")
   for n in 1:9
   for l in 0:n-1
-    analytical = HA.a₀^2/2/HA.Z^2 * n^2*(5*n^2+1-3*l*(l+1))
+    analytical = HA.a_0^2/2/HA.Z^2 * n^2*(5*n^2+1-3*l*(l+1))
     numerical  = quadgk(r -> r^4 * Antique.R(HA,r,n=n,l=l)^2, 0, Inf, maxevals=10^3)[1]
     acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-5) : isapprox(analytical, numerical, rtol=1e-5)
     @test acceptance
@@ -341,18 +341,18 @@ The virial theorem $2\langle T \rangle + \langle V \rangle = 0$ and the definiti
 
 @testset "HA: <ψₙ|V|ψₙ> / 2 = Eₙ" begin
   for HA in [
-    HydrogenAtom(Z=1, Eₕ=1.0, a₀=1.0, mₑ=1.0, ℏ=1.0),
-    HydrogenAtom(Z=1, Eₕ=1.0, a₀=2.0, mₑ=1.0, ℏ=1.0),
-    HydrogenAtom(Z=2, Eₕ=1.0, a₀=1.0, mₑ=1.0, ℏ=1.0),
-    HydrogenAtom(Z=2, Eₕ=27.211386245988, a₀=1.0, mₑ=1.0, ℏ=1.0),
-    HydrogenAtom(Z=2, Eₕ=4.3597447222071e-18, a₀=5.29177210903e-11, mₑ=9.1093837015e-31, ℏ=1.054571817e-34),
+    HydrogenAtom(Z=1, E_h=1.0, a_0=1.0, m_e=1.0, hbar=1.0),
+    HydrogenAtom(Z=1, E_h=1.0, a_0=2.0, m_e=1.0, hbar=1.0),
+    HydrogenAtom(Z=2, E_h=1.0, a_0=1.0, m_e=1.0, hbar=1.0),
+    HydrogenAtom(Z=2, E_h=27.211386245988, a_0=1.0, m_e=1.0, hbar=1.0),
+    HydrogenAtom(Z=2, E_h=4.3597447222071e-18, a_0=5.29177210903e-11, m_e=9.1093837015e-31, hbar=1.054571817e-34),
   ]
     println(io, HA)
     println(io, " n |          analytical |           numerical ")
     println(io, "-- | ------------------- | ------------------- ")
     for n in 1:10
       analytical = E(HA, n=n)
-      numerical  = quadgk(r -> 4*π*r^2 * conj(ψ(HA,r,0,0, n=n)) * V(HA,r) * ψ(HA,r,0,0, n=n), 0, HA.a₀*50*n, maxevals=10^3)[1] / 2
+      numerical  = quadgk(r -> 4*π*r^2 * conj(ψ(HA,r,0,0, n=n)) * V(HA,r) * ψ(HA,r,0,0, n=n), 0, HA.a_0*50*n, maxevals=10^3)[1] / 2
       acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-5) : isapprox(analytical, numerical, rtol=1e-5)
       @test acceptance
       @printf(io, "%2d | %17.12e | %17.12e %s\n", n, analytical, numerical, acceptance ? "✔" : "✗")

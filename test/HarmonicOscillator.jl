@@ -1,5 +1,5 @@
 io = open("./result/HarmonicOscillator.md", "w")
-HO = HarmonicOscillator(k=1.0, m=1.0, ℏ=1.0)
+HO = HarmonicOscillator(k=1.0, m=1.0, hbar=1.0)
 
 
 # Hₙ(x) = (-1)ⁿ exp(x²) dⁿ/dxⁿ　exp(-x²) = ...
@@ -208,7 +208,7 @@ are given by the sum of 2 Taylor series:
 ```""")
 
 @testset "HO: ∫ψₙ*Hψₙdx = <ψₙ|H|ψₙ> = Eₙ" begin
-  ψHψ(HO, x; n=0, Δx=0.005) = V(HO,x)*ψ(HO,x,n=n)^2 - HO.ℏ^2/(2*HO.m)*conj(ψ(HO,x,n=n))*(ψ(HO,x+Δx,n=n)-2*ψ(HO,x,n=n)+ψ(HO,x-Δx,n=n))/Δx^2
+  ψHψ(HO, x; n=0, Δx=0.005) = V(HO,x)*ψ(HO,x,n=n)^2 - HO.hbar^2/(2*HO.m)*conj(ψ(HO,x,n=n))*(ψ(HO,x+Δx,n=n)-2*ψ(HO,x,n=n)+ψ(HO,x-Δx,n=n))/Δx^2
   println(io, "  k |  n |     analytical |      numerical ")
   println(io, "--- | -- | -------------- | -------------- ")
   for k in [0.1,0.5,1.0,5.0]
@@ -222,7 +222,7 @@ are given by the sum of 2 Taylor series:
   end
   end
 end
-HO = HarmonicOscillator(k=1.0, m=1.0, ℏ=1.0)
+HO = HarmonicOscillator(k=1.0, m=1.0, hbar=1.0)
 
 println(io, """```\n""")
 

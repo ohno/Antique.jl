@@ -1,10 +1,23 @@
 export InfinitePotentialWell3D, V, E, ψ
 
 # parameters
-@kwdef struct InfinitePotentialWell3D
-  L = [1.0, 1.0, 1.0]
-  m = 1.0
-  ℏ = 1.0
+struct InfinitePotentialWell3D
+  L::Vector{Float64}
+  m::Float64
+  hbar::Float64
+end
+
+function InfinitePotentialWell3D(;
+  L=[1.0, 1.0, 1.0],
+  m=1.0,
+  hbar=1.0, ℏ=hbar,
+)
+  return InfinitePotentialWell3D(Float64.(L), m, ℏ)
+end
+
+function Base.getproperty(model::InfinitePotentialWell3D, sym::Symbol)
+  sym === :ℏ && return getfield(model, :hbar)
+  return getfield(model, sym)
 end
 
 # potential
@@ -20,7 +33,7 @@ function E(model::InfinitePotentialWell3D; n::Vector{Int}=[1,1,1])
   end
   L = model.L
   m = model.m
-  ℏ = model.ℏ
+  ℏ = model.hbar
   return sum(@. (ℏ^2*n^2*π^2) / (2*m*L^2))
 end
 

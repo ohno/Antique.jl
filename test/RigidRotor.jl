@@ -1,5 +1,5 @@
 io = open("./result/RigidRotor.md", "w")
-RR = RigidRotor(m₁=1.0, m₂=1.0, R=1.0, ℏ=1.0)
+RR = RigidRotor(m_1=1.0, m_2=1.0, R=1.0, hbar=1.0)
 
 
 # Pₙᵐ(x) = √(1-x²)ᵐ dᵐ/dxᵐ Pₙ(x); Pₙ(x) = 1/(2ⁿn!) dⁿ/dxⁿ (x²-1)ⁿ
@@ -148,7 +148,7 @@ where $l$ is angular momentum quantum number and $I$ is the moment of intertia.
 
 @testset "RR: <ψₙ|H|ψₙ> = ∫ψₙ*Hψₙdx = Eₙ" begin
   function ψHψ(RR;l)
-      μ = (1/RR.m₁ + 1/RR.m₂)^(-1)
+      μ = (1/RR.m_1 + 1/RR.m_2)^(-1)
       I = μ * RR.R^2
       YY = real(quadgk(φ -> quadgk(θ -> conj(Antique.Y(RR,θ,φ,l=l,m=0)) * Antique.Y(RR,θ,φ,l=l,m=0) * sin(θ), 0, π, maxevals=10)[1], 0, 2π, maxevals=10)[1])
       T = l*(l+1)/2/I * YY
@@ -162,7 +162,7 @@ where $l$ is angular momentum quantum number and $I$ is the moment of intertia.
   for m₂ in [0.5, 2.0]
   for R in [0.5, 2.0]
   for l in [1, 2, 3]
-      RR = RigidRotor(m₁=m₁, m₂=m₂, R=R, ℏ=ℏ)
+      RR = RigidRotor(m_1=m₁, m_2=m₂, R=R, hbar=ℏ)
       analytical = E(RR,l=l)
       numerical = ψHψ(RR,l=l)
       acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-4) : isapprox(analytical, numerical, rtol=1e-4)

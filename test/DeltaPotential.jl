@@ -19,7 +19,7 @@ println(io, raw"""
   for α in [0.1, 1.0, 7.0]
   for m in [0.1, 1.0, 7.0]
   for ℏ in [0.1, 1.0, 7.0]
-    DP = DeltaPotential(α=α, m=m, ℏ=ℏ)
+    DP = DeltaPotential(alpha=α, m=m, hbar=ℏ)
     analytical = 1
     numerical  = quadgk(x -> conj(ψ(DP, x)) * ψ(DP, x), -Inf, Inf, maxevals=10^3, order=10)[1]
     acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-5) : isapprox(analytical, numerical, rtol=1e-5)
@@ -53,9 +53,9 @@ where the $\kappa=m\alpha/\hbar^2$ and the integration with the delta function y
 
 @testset "DP: <ψₙ|H|ψₙ> = ∫ψₙ*Hψₙdx = Eₙ" begin
   function ∫ψHψdx(DP)
-    κ = DP.m * DP.α/ DP.ℏ^2
-    T = -DP.ℏ^2 / (2 * DP.m) *( κ^2 - 2κ * ψ(DP,0)^2 )
-    V = -DP.α * ψ(DP, 0)^2
+    κ = DP.m * DP.alpha / DP.hbar^2
+    T = -DP.hbar^2 / (2 * DP.m) *( κ^2 - 2κ * ψ(DP,0)^2 )
+    V = -DP.alpha * ψ(DP, 0)^2
     return T + V
   end
   println(io, "  α |   m |   ℏ |     analytical |      numerical ")
@@ -63,7 +63,7 @@ where the $\kappa=m\alpha/\hbar^2$ and the integration with the delta function y
   for α in [0.1, 1.0, 7.0]
   for m in [0.1, 1.0, 7.0]
   for ℏ in [0.1, 1.0, 7.0]
-    DP = DeltaPotential(α=α, m=m, ℏ=ℏ)
+    DP = DeltaPotential(alpha=α, m=m, hbar=ℏ)
     analytical = E(DP)
     numerical = ∫ψHψdx(DP)
     acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-4) : isapprox(analytical, numerical, rtol=1e-4)
