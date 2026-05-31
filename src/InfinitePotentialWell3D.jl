@@ -1,7 +1,12 @@
-export InfinitePotentialWell3D, V, E, ψ
+module InfinitePotentialWell3Ds
+
+import ..AbstractModel
+import ..energy, ..potential, ..wavefunction
+
+export InfinitePotentialWell3D, energy, potential, wavefunction
 
 # parameters
-struct InfinitePotentialWell3D
+struct InfinitePotentialWell3D <: AbstractModel
   L::Vector{Float64}
   m::Float64
   hbar::Float64
@@ -21,13 +26,13 @@ function Base.getproperty(model::InfinitePotentialWell3D, sym::Symbol)
 end
 
 # potential
-function V(model::InfinitePotentialWell3D, x)
+function potential(model::InfinitePotentialWell3D, x)
   L = model.L
   return prod(@. 0<x<L) ? 0 : Inf
 end
 
 # eigenvalues
-function E(model::InfinitePotentialWell3D; n::Vector{Int}=[1,1,1])
+function energy(model::InfinitePotentialWell3D; n::Vector{Int}=[1,1,1])
   if !(prod(1 .≤ n))
     throw(DomainError("n = $n", "This function is defined for 1 .≤ n."))
   end
@@ -38,7 +43,7 @@ function E(model::InfinitePotentialWell3D; n::Vector{Int}=[1,1,1])
 end
 
 # eigenfunctions
-function ψ(model::InfinitePotentialWell3D, x; n::Vector{Int}=[1,1,1])
+function wavefunction(model::InfinitePotentialWell3D, x; n::Vector{Int}=[1,1,1])
   if !(prod(1 .≤ n))
     throw(DomainError("n = $n", "This function is defined for 1 .≤ n."))
   end
@@ -73,7 +78,7 @@ IPW3D = InfinitePotentialWell3D(L=[1.0,1.0,1.0], m=1.0, ℏ=1.0)
 """ InfinitePotentialWell3D
 
 @doc raw"""
-`V(model::InfinitePotentialWell3D, x)`
+`potential(model::InfinitePotentialWell3D, x)`
 
 ```math
 V(x,y,z) =
@@ -84,10 +89,10 @@ V(x,y,z) =
   \end{array}
 \right.
 ```
-""" V(model::InfinitePotentialWell3D, x)
+""" potential(model::InfinitePotentialWell3D, x)
 
 @doc raw"""
-`E(model::InfinitePotentialWell3D; n::Vector{Int}=[1,1,1])`
+`energy(model::InfinitePotentialWell3D; n::Vector{Int}=[1,1,1])`
 
 ```math
 E_{n_x,n_y,n_z}
@@ -95,10 +100,10 @@ E_{n_x,n_y,n_z}
 + \frac{\hbar^2 n_y^2 \pi^2}{2 m L_y^2}
 + \frac{\hbar^2 n_z^2 \pi^2}{2 m L_z^2}
 ```
-""" E(model::InfinitePotentialWell3D; n::Vector{Int})
+""" energy(model::InfinitePotentialWell3D; n::Vector{Int})
 
 @doc raw"""
-`ψ(model::InfinitePotentialWell3D, x; n::Vector{Int}=[1,1,1])`
+`wavefunction(model::InfinitePotentialWell3D, x; n::Vector{Int}=[1,1,1])`
 
 The wave functions can be expressed as products of wave functions in a one-dimensional box.
 
@@ -113,4 +118,6 @@ The wave functions can be expressed as products of wave functions in a one-dimen
   \times \sqrt{\frac{2}{L_z}} \sin \frac{n_z \pi z}{L_z}
 \end{aligned}
 ```
-""" ψ(model::InfinitePotentialWell3D, x; n::Vector{Int})
+""" wavefunction(model::InfinitePotentialWell3D, x; n::Vector{Int})
+
+end # module InfinitePotentialWell3Ds

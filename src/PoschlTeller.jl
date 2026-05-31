@@ -1,7 +1,12 @@
-export PoschlTeller, V, E, ψ, nₘₐₓ
+module PoschlTellers
+
+import ..AbstractModel
+import ..energy, ..potential, ..wavefunction, ..n_max, ..rodrigues_formula
+
+export PoschlTeller, energy, potential, wavefunction, n_max, rodrigues_formula
 
 # parameters
-struct PoschlTeller
+struct PoschlTeller <: AbstractModel
   lambda::Int
   m::Float64
   hbar::Float64
@@ -28,7 +33,7 @@ function Base.getproperty(model::PoschlTeller, sym::Symbol)
 end
 
 # potential
-function V(model::PoschlTeller, x)
+function potential(model::PoschlTeller, x)
   λ  = model.lambda
   m  = model.m
   ℏ  = model.hbar
@@ -37,39 +42,39 @@ function V(model::PoschlTeller, x)
 end
 
 # maximum quantum number
-function nₘₐₓ(model::PoschlTeller)
+function n_max(model::PoschlTeller)
   λ = model.lambda
   return Int(floor(λ-1)) # if counting n from zero
 end
 
 # eigenvalues
-function E(model::PoschlTeller; n::Int=0, nocheck=false)
-  n_max = nₘₐₓ(model)
-  if !(0 ≤ n ≤ nₘₐₓ(model) || nocheck)
-    throw(DomainError("(n,nₘₐₓ(model)) = ($n,$(nₘₐₓ(model)))", "This function is defined for 0 ≤ n ≤ nₘₐₓ(model)."))
+function energy(model::PoschlTeller; n::Int=0, nocheck=false)
+  max_n = n_max(model)
+  if !(0 ≤ n ≤ n_max(model) || nocheck)
+    throw(DomainError("(n,n_max(model)) = ($n,$(n_max(model)))", "This function is defined for 0 ≤ n ≤ n_max(model)."))
   end
   λ  = model.lambda
   m  = model.m
   ℏ  = model.hbar
   x₀ = model.x_0
-  μ  = n_max - n + 1
+  μ  = max_n - n + 1
   return -ℏ^2/(m*x₀^2) * μ^2/2
 end
 
 # eigenfunctions
-function ψ(model::PoschlTeller, x; n::Int=0)
-  n_max = nₘₐₓ(model)
-  if !(0 ≤ n ≤ nₘₐₓ(model))
-    throw(DomainError("(n,nₘₐₓ(model)) = ($n,$(nₘₐₓ(model)))", "This function is defined for 0 ≤ n ≤ nₘₐₓ(model)."))
+function wavefunction(model::PoschlTeller, x; n::Int=0)
+  max_n = n_max(model)
+  if !(0 ≤ n ≤ n_max(model))
+    throw(DomainError("(n,n_max(model)) = ($n,$(n_max(model)))", "This function is defined for 0 ≤ n ≤ n_max(model)."))
   end
   λ  = model.lambda
   x₀ = model.x_0
-  μ  = n_max - n + 1
-  return (-1)^μ / sqrt(x₀) * P(model,tanh(x/x₀),n=Int64(λ),m=μ) * sqrt(μ*gamma(λ-μ+1)/gamma(λ+μ+1))
+  μ  = max_n - n + 1
+  return (-1)^μ / sqrt(x₀) * rodrigues_formula(model,tanh(x/x₀),n=Int64(λ),m=μ) * sqrt(μ*gamma(λ-μ+1)/gamma(λ+μ+1))
 end
 
 # associated Legendre polynomials
-function P(model::PoschlTeller, x; n=0, m=0) # same definition as in hydrogen atom: additional factor (-1)^m taken out
+function rodrigues_formula(model::PoschlTeller, x; n=0, m=0) # same definition as in hydrogen atom: additional factor (-1)^m taken out
   return (1//2)^n * (1-x^2)^(m//2) * sum((-1)^j * factorial(2*n-2*j) // (factorial(j) * factorial(n-j) * factorial(n-2*j-m)) * x^(n-2*j-m) for j ∈ 0:Int(floor((n-m)/2)))
 end
 
@@ -116,7 +121,7 @@ PT = PoschlTeller(λ=1, m=1.0, ℏ=1.0, x₀=1.0)
 """ PoschlTeller
 
 @doc raw"""
-`V(model::PoschlTeller, x)`
+`potential(model::PoschlTeller, x)`
 
 ```math
 \begin{aligned}
@@ -125,39 +130,39 @@ V(x)
 &= -\frac{\hbar^2}{m x_0^2} \frac{\lambda(\lambda+1)}{2} \frac{1}{\mathrm{cosh}^2(x/x_0)} .
 \end{aligned}
 ```
-""" V(model::PoschlTeller, x)
+""" potential(model::PoschlTeller, x)
 
 @doc raw"""
-`nₘₐₓ(model::PoschlTeller)`
+`n_max(model::PoschlTeller)`
 
 !!! note
-    Note that the number of bound states `nₘₐₓ + 1` is not equal to the maximum quantum number `nₘₐₓ`, since we count the ground state from `n=0` in this model.
+    Note that the number of bound states `n_max + 1` is not equal to the maximum quantum number `n_max`, since we count the ground state from `n=0` in this model.
 
 ```math
 n_\mathrm{max} = \left\lfloor \lambda \right\rfloor - 1.
 ```
-""" nₘₐₓ(model::PoschlTeller)
+""" n_max(model::PoschlTeller)
 
 @doc raw"""
-`E(model::PoschlTeller; n::Int=0, nocheck=false)`
+`energy(model::PoschlTeller; n::Int=0, nocheck=false)`
 
 ```math
 E_n = -\frac{\hbar^2}{m x_0^2}\frac{\mu^2}{2},
 ```
 where ``\mu = \mu(n) = n_\mathrm{max}-n+1``, and ``n_\mathrm{max} = \left\lfloor \lambda \right\rfloor - 1``.
-""" E(model::PoschlTeller; n::Int=0, nocheck=false)
+""" energy(model::PoschlTeller; n::Int=0, nocheck=false)
 
 @doc raw"""
-`ψ(model::PoschlTeller, x; n::Int=0)`
+`wavefunction(model::PoschlTeller, x; n::Int=0)`
 
 ```math
 \psi_n(x) = \frac{(-1)^μ}{\sqrt{x_0}} P_\lambda^{\mu}(\mathrm{tanh}(x/x_0)) \sqrt{\mu\frac{\Gamma(\lambda-\mu+1)}{\Gamma(\lambda+\mu+1)}},
 ```
 where ``\mu = \mu(n) = n_\mathrm{max}-n+1``, and ``n_\mathrm{max} = \left\lfloor \lambda \right\rfloor - 1`` and ``P_\lambda^{\mu}`` are the associated Legendre functions.
-""" ψ(model::PoschlTeller, x; n::Int=0)
+""" wavefunction(model::PoschlTeller, x; n::Int=0)
 
 @doc raw"""
-`P(model::PoschlTeller, x; n=0, m=0)`
+`rodrigues_formula(model::PoschlTeller, x; n=0, m=0)`
 
 Associated Legendre polynomials are the associated Legendre functions for integer indices. Here we use the same notation of the associated Legendre functions as in the model HydrogenAtom.
 
@@ -170,4 +175,6 @@ P_n^m(x)
 \end{aligned}
 ```
 
-""" P(model::PoschlTeller, x; n=0, m=0)
+""" rodrigues_formula(model::PoschlTeller, x; n=0, m=0)
+
+end # module PoschlTellers

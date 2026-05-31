@@ -1,7 +1,12 @@
-export HarmonicOscillator, V, E, ψ
+module HarmonicOscillators
+
+import ..AbstractModel
+import ..energy, ..potential, ..wavefunction, ..hermite
+
+export HarmonicOscillator, energy, potential, wavefunction, hermite
 
 # parameters
-struct HarmonicOscillator
+struct HarmonicOscillator <: AbstractModel
   k::Float64
   m::Float64
   hbar::Float64
@@ -21,13 +26,13 @@ function Base.getproperty(model::HarmonicOscillator, sym::Symbol)
 end
 
 # potential
-function V(model::HarmonicOscillator, x)
+function potential(model::HarmonicOscillator, x)
   k = model.k
   return 1//2 * k * x^2
 end
 
 # eigenvalues
-function E(model::HarmonicOscillator; n::Int=0)
+function energy(model::HarmonicOscillator; n::Int=0)
   if !(0 ≤ n)
     throw(DomainError("n = $n", "n must be non-negative: 0 ≤ n."))
   end
@@ -39,7 +44,7 @@ function E(model::HarmonicOscillator; n::Int=0)
 end
 
 # eigenfunctions
-function ψ(model::HarmonicOscillator, x; n::Int=0)
+function wavefunction(model::HarmonicOscillator, x; n::Int=0)
   if !(0 ≤ n)
     throw(DomainError("n = $n", "n must be non-negative: 0 ≤ n."))
   end
@@ -49,11 +54,11 @@ function ψ(model::HarmonicOscillator, x; n::Int=0)
   ω = sqrt(k/m)
   A = sqrt(1//(factorial(n)*2^n)*sqrt(m*ω/(π*hbar)))
   ξ = sqrt(m*ω/hbar) * x
-  return A * H(model,ξ,n=n) * exp(-ξ^2/2)
+  return A * hermite(model,ξ,n=n) * exp(-ξ^2/2)
 end
 
 # Hermite polynomials
-function H(model::HarmonicOscillator, x; n=0)
+function hermite(model::HarmonicOscillator, x; n=0)
   return factorial(n) * sum((-1)^i // (factorial(i)  * factorial(n-2*i)) * (2*x)^(n-2*i) for i ∈ 0:Int(floor(n/2)))
 end
 
@@ -98,7 +103,7 @@ Supplemental:
 """ HarmonicOscillator
 
 @doc raw"""
-`V(model::HarmonicOscillator, x)`
+`potential(model::HarmonicOscillator, x)`
 
 ```math
 V(x)
@@ -107,28 +112,28 @@ V(x)
 = \frac{1}{2} \hbar \omega \xi^2,
 ```
 where ``\omega = \sqrt{k/m}`` is the angular frequency and ``\xi = \sqrt{\frac{m\omega}{\hbar}}x``.
-""" V(model::HarmonicOscillator, x)
+""" potential(model::HarmonicOscillator, x)
 
 @doc raw"""
-`E(model::HarmonicOscillator; n::Int=0)`
+`energy(model::HarmonicOscillator; n::Int=0)`
 
 ```math
 E_n = \hbar \omega \left( n + \frac{1}{2} \right),
 ```
 where ``\omega = \sqrt{k/m}`` is the angular frequency.
-""" E(model::HarmonicOscillator; n::Int=0)
+""" energy(model::HarmonicOscillator; n::Int=0)
 
 @doc raw"""
-`ψ(model::HarmonicOscillator, x; n::Int=0)`
+`wavefunction(model::HarmonicOscillator, x; n::Int=0)`
 
 ```math
 \psi_n(x) = A_n H_n(\xi) \exp{\left( -\frac{\xi^2}{2} \right)},
 ```
 where ``\omega = \sqrt{k/m}``, ``\xi = \sqrt{\frac{m\omega}{\hbar}}x``, ``A_n = \sqrt{\frac{1}{n! 2^n} \sqrt{\frac{m\omega}{\pi\hbar}}}``, ``H_n(x) = (-1)^n \mathrm{e}^{x^2} \frac{\mathrm{d}^n}{\mathrm{d}x^n} \mathrm{e}^{-x^2}`` are defined.
-""" ψ(model::HarmonicOscillator, x; n::Int=0)
+""" wavefunction(model::HarmonicOscillator, x; n::Int=0)
 
 @doc raw"""
-`H(model::HarmonicOscillator, x; n=0)`
+`hermite(model::HarmonicOscillator, x; n=0)`
 
 Rodrigues' formula & closed-form:
 ```math
@@ -154,4 +159,6 @@ Examples:
   &\vdots
 \end{aligned}
 ```
-""" H(model::HarmonicOscillator, x; n=0)
+""" hermite(model::HarmonicOscillator, x; n=0)
+
+end # module HarmonicOscillators

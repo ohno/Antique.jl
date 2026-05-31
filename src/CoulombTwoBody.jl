@@ -1,7 +1,12 @@
-export CoulombTwoBody, V, E, ψ
+module CoulombTwoBodies
+
+import ..AbstractModel
+import ..energy, ..potential, ..wavefunction, ..radial_function, ..laguerre, ..spherical_harmonic, ..rodrigues_formula
+
+export CoulombTwoBody, energy, potential, wavefunction, radial_function, laguerre, spherical_harmonic, rodrigues_formula
 
 # parameters
-struct CoulombTwoBody
+struct CoulombTwoBody <: AbstractModel
   z_1::Int
   z_2::Int
   m_1::Float64
@@ -38,7 +43,7 @@ function Base.getproperty(model::CoulombTwoBody, sym::Symbol)
 end
 
 # potential
-function V(model::CoulombTwoBody, r)
+function potential(model::CoulombTwoBody, r)
   z_1 = model.z_1
   z_2 = model.z_2
   a_0 = model.a_0
@@ -50,7 +55,7 @@ function V(model::CoulombTwoBody, r)
 end
 
 # eigenvalues
-function E(model::CoulombTwoBody; n::Int=1)
+function energy(model::CoulombTwoBody; n::Int=1)
   z_1 = model.z_1
   z_2 = model.z_2
   m_1 = model.m_1
@@ -71,7 +76,7 @@ function E(model::CoulombTwoBody; n::Int=1)
 end
 
 # eigenfunctions
-function ψ(model::CoulombTwoBody, r, θ, φ; n::Int=1, l::Int=0, m::Int=0)
+function wavefunction(model::CoulombTwoBody, r, θ, φ; n::Int=1, l::Int=0, m::Int=0)
   z_1 = model.z_1
   z_2 = model.z_2
   m_1 = model.m_1
@@ -88,11 +93,11 @@ function ψ(model::CoulombTwoBody, r, θ, φ; n::Int=1, l::Int=0, m::Int=0)
   if !(0 < m_1 && 0 < m_2)
     throw(DomainError("(m_1,m_2) = ($m_1,$m_2)", "This function is defined for 0 < m_1, 0 < m_2."))
   end
-  return R(model, r, n=n, l=l) * Y(model, θ, φ, l=l, m=m)
+  return radial_function(model, r, n=n, l=l) * spherical_harmonic(model, θ, φ, l=l, m=m)
 end
 
 # radial function
-function R(model::CoulombTwoBody, r; n=1, l=0)
+function radial_function(model::CoulombTwoBody, r; n=1, l=0)
   z_1 = model.z_1
   z_2 = model.z_2
   a_0 = model.a_0
@@ -104,22 +109,22 @@ function R(model::CoulombTwoBody, r; n=1, l=0)
   Z  = -z_1*z_2
   ρ = 2*Z*r/(n*aμ)
   N = -sqrt( factorial(n-l-1)/(2*n*factorial(n+l)) * (2*Z/(n*aμ))^3 )
-  return N*ρ^l * exp(-ρ/2) * L(model, ρ, n=n+l, k=2*l+1)
+  return N*ρ^l * exp(-ρ/2) * laguerre(model, ρ, n=n+l, k=2*l+1)
 end
 
 # associated Laguerre polynomials
-function L(model::CoulombTwoBody, x; n=0, k=0)
+function laguerre(model::CoulombTwoBody, x; n=0, k=0)
   return sum((-1)^(m+k) * factorial(n) // (factorial(m) * factorial(m+k) * factorial(n-m-k)) * x^m for m ∈ 0:n-k)
 end
 
 # spherical harmonics
-function Y(model::CoulombTwoBody, θ, φ; l=0, m=0)
+function spherical_harmonic(model::CoulombTwoBody, θ, φ; l=0, m=0)
   N = (-1)^((abs(m)+m)/2) * sqrt( (2*l+1)*factorial(l-Int(abs(m))) / (2*factorial(l+Int(abs(m)))) )
-  return N * P(model,cos(θ), n=l, m=Int(abs(m))) * exp(im*m*φ) / sqrt(2*π)
+  return N * rodrigues_formula(model,cos(θ), n=l, m=Int(abs(m))) * exp(im*m*φ) / sqrt(2*π)
 end
 
 # associated Legendre polynomials
-function P(model::CoulombTwoBody, x; n=0, m=0)
+function rodrigues_formula(model::CoulombTwoBody, x; n=0, m=0)
   return (1//2)^n * (1-x^2)^(m//2) * sum((-1)^j * factorial(2*n-2*j) // (factorial(j) * factorial(n-j) * factorial(n-2*j-m)) * x^(n-2*j-m) for j ∈ 0:Int(floor((n-m)/2)))
 end
 
@@ -161,7 +166,7 @@ CTB = CoulombTwoBody(z₁=-1, z₂=1, m₁=1.0, m₂=1.0, mₑ=1.0, a₀=1.0, E�
 """ CoulombTwoBody
 
 @doc raw"""
-`V(model::CoulombTwoBody, r)`
+`potential(model::CoulombTwoBody, r)`
 
 ```math
 \begin{aligned}
@@ -172,38 +177,38 @@ CTB = CoulombTwoBody(z₁=-1, z₂=1, m₁=1.0, m₂=1.0, mₑ=1.0, a₀=1.0, E�
 \end{aligned}
 ```
 where ``E_\mathrm{h} = \frac{\hbar^2}{m_\mathrm{e}{a_0}^2} = \frac{e^2}{4\pi\varepsilon_0a_0} = \frac{m_\mathrm{e}e^4}{\left(4\pi\varepsilon_0\right)^2\hbar^2}`` is the Hartree energy, one of atomic unit. The domain is $0\leq r \lt \infty$.
-""" V(model::CoulombTwoBody, r)
+""" potential(model::CoulombTwoBody, r)
 
 @doc raw"""
-`E(model::CoulombTwoBody; n::Int=1)`
+`energy(model::CoulombTwoBody; n::Int=1)`
 
 ```math
 E_n
 = -\frac{(z_1 z_2)^2}{2n^2} \frac{\mu}{m_\mathrm{e}} E_\mathrm{h},
 ```
 where $\mu=\left(\frac{1}{m_1}+\frac{1}{m_2}\right)^{-1}$ is the reduced mass of particle 1 and particle 2, ``E_\mathrm{h} = \frac{\hbar^2}{m_\mathrm{e}{a_0}^2} = \frac{e^2}{4\pi\varepsilon_0a_0} = \frac{m_\mathrm{e}e^4}{\left(4\pi\varepsilon_0\right)^2\hbar^2}`` is the Hartree energy, one of atomic unit. About atomic units, see section 3.9.2 of the [IUPAC GreenBook](https://iupac.org/what-we-do/books/greenbook/). In other units, ``E_\mathrm{h} = 27.211~386~245~988(53)~\mathrm{eV}`` from [here](https://physics.nist.gov/cgi-bin/cuu/Value?hrev).
-""" E(model::CoulombTwoBody; n::Int=1)
+""" energy(model::CoulombTwoBody; n::Int=1)
 
 @doc raw"""
-`ψ(model::CoulombTwoBody, r, θ, φ; n::Int=1, l::Int=0, m::Int=0)`
+`wavefunction(model::CoulombTwoBody, r, θ, φ; n::Int=1, l::Int=0, m::Int=0)`
 
 ```math
 \psi_{nlm}(\pmb{r}) = R_{nl}(r) Y_{lm}(\theta,\varphi)
 ```
 The domain is $0\leq r \lt \infty, 0\leq \theta \lt \pi, 0\leq \varphi \lt 2\pi$.
-""" ψ(model::CoulombTwoBody, r, θ, φ; n::Int=1, l::Int=0, m::Int=0)
+""" wavefunction(model::CoulombTwoBody, r, θ, φ; n::Int=1, l::Int=0, m::Int=0)
 
 @doc raw"""
-`R(model::CoulombTwoBody, r; n=1, l=0)`
+`radial_function(model::CoulombTwoBody, r; n=1, l=0)`
 
 ```math
 R_{nl}(r) = -\sqrt{\frac{(n-l-1)!}{2n(n+l)!} \left(\frac{2Z}{n a_\mu}\right)^3} \left(\frac{2Zr}{n a_\mu}\right)^l \exp \left(-\frac{Zr}{n a_\mu}\right) L_{n+l}^{2l+1} \left(\frac{2Zr}{n a_\mu}\right),
 ```
 where ``\frac{1}{\mu} = \frac{1}{m_1}+\frac{1}{m_2}``, ``a_\mu = a_0 \frac{m_\mathrm{e}}{\mu}``, ``Z = - z_1 z_2``, the Laguerre polynomials are defined as ``L_n(x) = \frac{1}{n!} \mathrm{e}^x \frac{\mathrm{d}^n}{\mathrm{d}x ^n} \left( \mathrm{e}^{-x} x^n \right)``, and the associated Laguerre polynomials are defined as ``L_n^{k}(x) = \frac{\mathrm{d}^k}{\mathrm{d}x^k} L_n(x)``. Note that replace ``2n(n+l)!`` with ``2n[(n+l)!]^3`` if the Laguerre polynomials are defined as ``L_n(x) = \mathrm{e}^x \frac{\mathrm{d}^n}{\mathrm{d}x ^n} \left( \mathrm{e}^{-x} x^n \right)``. Note that replace ``L_{n+l}^{2l+1}(x)`` with ``- L_{n-l-1}^{2l+1}(x)`` if the associated Laguerre polynomials are defined as ``L_n^{k}(x) = (-1)^k \frac{\mathrm{d}^k}{\mathrm{d}x^k} L_{n+k}(x)``, which we call the generalized Laguerre polynomials. The domain is $0\leq r \lt \infty$.
-""" R(model::CoulombTwoBody, r; n=1, l=0)
+""" radial_function(model::CoulombTwoBody, r; n=1, l=0)
 
 @doc raw"""
-`L(model::CoulombTwoBody, x; n=0, k=0)`
+`laguerre(model::CoulombTwoBody, x; n=0, k=0)`
 
 !!! note
     The associated Laguerre polynomials $L_n^{k}(x)$, not the generalized Laguerre polynomials $L_n^{(\alpha)}(x)$, are used in this model.
@@ -241,10 +246,10 @@ Examples:
   \vdots
 \end{aligned}
 ```
-""" L(model::CoulombTwoBody, x; n=0, k=0)
+""" laguerre(model::CoulombTwoBody, x; n=0, k=0)
 
 @doc raw"""
-`Y(model::CoulombTwoBody, θ, φ; l=0, m=0)`
+`spherical_harmonic(model::CoulombTwoBody, θ, φ; l=0, m=0)`
 
 ```math
 Y_{lm}(\theta,\varphi) = (-1)^{\frac{|m|+m}{2}} \sqrt{\frac{2l+1}{4\pi} \frac{(l-|m|)!}{(l+|m|)!}} P_l^{|m|} (\cos\theta) \mathrm{e}^{im\varphi}.
@@ -254,10 +259,10 @@ The domain is $0\leq \theta \lt \pi, 0\leq \varphi \lt 2\pi$. Note that some var
 i^{|m|+m} \sqrt{\frac{(l-|m|)!}{(l+|m|)!}} P_l^{|m|} = (-1)^{\frac{|m|+m}{2}} \sqrt{\frac{(l-|m|)!}{(l+|m|)!}} P_l^{|m|} = (-1)^m \sqrt{\frac{(l-m)!}{(l+m)!}} P_l^{m}.
 ```
 
-""" Y(model::CoulombTwoBody, θ, φ; l=0, m=0)
+""" spherical_harmonic(model::CoulombTwoBody, θ, φ; l=0, m=0)
 
 @doc raw"""
-`P(model::CoulombTwoBody, x; n=0, m=0)`
+`rodrigues_formula(model::CoulombTwoBody, x; n=0, m=0)`
 
 Rodrigues' formula & closed-form:
 ```math
@@ -291,4 +296,6 @@ Examples:
   & \vdots
 \end{aligned}
 ```
-""" P(model::CoulombTwoBody, x; n=0, m=0)
+""" rodrigues_formula(model::CoulombTwoBody, x; n=0, m=0)
+
+end # module CoulombTwoBodies

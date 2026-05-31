@@ -1,7 +1,12 @@
-export SphericalOscillator, V, E, ψ
+module SphericalOscillators
+
+import ..AbstractModel
+import ..energy, ..potential, ..wavefunction, ..radial_function, ..laguerre, ..spherical_harmonic, ..rodrigues_formula
+
+export SphericalOscillator, energy, potential, wavefunction, radial_function, laguerre, spherical_harmonic, rodrigues_formula
 
 # parameters
-struct SphericalOscillator
+struct SphericalOscillator <: AbstractModel
   k::Float64
   mu::Float64
   hbar::Float64
@@ -22,7 +27,7 @@ function Base.getproperty(model::SphericalOscillator, sym::Symbol)
 end
 
 # potential
-function V(model::SphericalOscillator, r)
+function potential(model::SphericalOscillator, r)
   if !(0 ≤ r)
     throw(DomainError("r = $r", "r must be non-negative: 0 ≤ r."))
   end
@@ -31,7 +36,7 @@ function V(model::SphericalOscillator, r)
 end
 
 # eigenvalues
-function E(model::SphericalOscillator; n::Int=0, l::Int=0)
+function energy(model::SphericalOscillator; n::Int=0, l::Int=0)
   if !(0 ≤ n && 0 ≤ l)
     throw(DomainError("(n,l) = ($n,$l)", "This function is defined for 0 ≤ n and 0 ≤ l"))
   end
@@ -43,14 +48,14 @@ function E(model::SphericalOscillator; n::Int=0, l::Int=0)
 end
 
 # eigenfunctions
-function ψ(model::SphericalOscillator, r, θ, φ; n::Int=0, l::Int=0, m::Int=0)
+function wavefunction(model::SphericalOscillator, r, θ, φ; n::Int=0, l::Int=0, m::Int=0)
   if !(0 ≤ n && 0 ≤ l && -l ≤ m ≤ l)
     throw(DomainError("(n,l,m) = ($n,$l,$m)", "This function is defined for 0 ≤ n, 0 ≤ l and -l ≤ m ≤ l."))
   end
   if !(0 ≤ r && 0 ≤ θ < π && 0 ≤ φ < 2π)
     throw(DomainError("(r,θ,φ) = ($r,$θ,$φ)", "This function is defined for 0 ≤ r, 0 ≤ θ < π, 0 ≤ φ < 2π."))
   end
-  return R(model, r, n=n, l=l) * Y(model, θ, φ, l=l, m=m)
+  return radial_function(model, r, n=n, l=l) * spherical_harmonic(model, θ, φ, l=l, m=m)
 end
 
 # n!
@@ -60,7 +65,7 @@ fact(n) = n>0 ? n*fact(n-1) : 1
 ffact(n) = n>0 ? n*ffact(n-2) : 1
 
 # radial function
-function R(model::SphericalOscillator, r; n=0, l=0)
+function radial_function(model::SphericalOscillator, r; n=0, l=0)
   ℏ = model.hbar
   μ = model.mu
   k = model.k 
@@ -68,28 +73,28 @@ function R(model::SphericalOscillator, r; n=0, l=0)
   γ = μ*ω/ℏ
   ξ = sqrt(γ)*abs(r)
   N = sqrt(γ^(3/2)/(2*sqrt(π))) * sqrt( 2^(n+l+3) * fact(n)/ffact(2n+2l+1))
-  return N * ξ^l * exp(-ξ^2/2) * L(model, ξ^2, n=n, α=l+1/2)
+  return N * ξ^l * exp(-ξ^2/2) * laguerre(model, ξ^2, n=n, α=l+1/2)
 end
 
 # generalized Laguerre polynomials
-function L(model::SphericalOscillator, x; n=0, α=0)
-  return L(model, n, α, x)
+function laguerre(model::SphericalOscillator, x; n=0, α=0)
+  return laguerre(model, n, α, x)
 end
-function L(model::SphericalOscillator, n::Int, α::Int, x)
+function laguerre(model::SphericalOscillator, n::Int, α::Int, x)
   return sum((-1)^(k) * (Int(gamma(α+n+1)) // Int((gamma(α+1+k)*gamma(n-k+1)))) * x^k * 1 // factorial(k) for k ∈ 0:n)
 end
-function L(model::SphericalOscillator, n::Int, α::Real, x)
+function laguerre(model::SphericalOscillator, n::Int, α::Real, x)
   return sum((-1)^(k) * (gamma(α+n+1) / (gamma(α+1+k)*gamma(n-k+1))) * x^k / factorial(k) for k ∈ 0:n)
 end
 
 # spherical harmonics
-function Y(model::SphericalOscillator, θ, φ; l=0, m=0)
+function spherical_harmonic(model::SphericalOscillator, θ, φ; l=0, m=0)
   N = (-1)^((abs(m)+m)/2) * sqrt( (2*l+1)*factorial(l-Int(abs(m))) / (2*factorial(l+Int(abs(m)))) )
-  return N * P(model,cos(θ), n=l, m=Int(abs(m))) * exp(im*m*φ) / sqrt(2*π)
+  return N * rodrigues_formula(model,cos(θ), n=l, m=Int(abs(m))) * exp(im*m*φ) / sqrt(2*π)
 end
 
 # associated Legendre polynomials
-function P(model::SphericalOscillator, x; n=0, m=0)
+function rodrigues_formula(model::SphericalOscillator, x; n=0, m=0)
   return (1//2)^n * (1-x^2)^(m//2) * sum((-1)^j * factorial(2*n-2*j) // (factorial(j) * factorial(n-j) * factorial(n-2*j-m)) * x^(n-2*j-m) for j ∈ 0:Int(floor((n-m)/2)))
 end
 
@@ -121,7 +126,7 @@ SO = SphericalOscillator(k=1.0, μ=1.0, ℏ=1.0)
 """ SphericalOscillator
 
 @doc raw"""
-`V(model::SphericalOscillator, r)`
+`potential(model::SphericalOscillator, r)`
 
 ```math
 V(r)
@@ -130,38 +135,38 @@ V(r)
 = \frac{1}{2} \hbar \omega \xi^2,
 ```
 where ``\omega = \sqrt{k/\mu}`` is the angular frequency and ``\xi = \sqrt{\frac{\mu\omega}{\hbar}}r``.
-""" V(model::SphericalOscillator, x)
+""" potential(model::SphericalOscillator, r)
 
 @doc raw"""
-`E(model::SphericalOscillator; n::Int=0, l::Int=0)`
+`energy(model::SphericalOscillator; n::Int=0, l::Int=0)`
 
 ```math
 E_{nl}
 = \left(2n + l + \frac{3}{2}\right)\hbar \omega,
 ```
 where ``\omega = \sqrt{k/\mu}``.
-""" E(model::SphericalOscillator; n::Int=0, l::Int=0)
+""" energy(model::SphericalOscillator; n::Int=0, l::Int=0)
 
 @doc raw"""
-`ψ(model::SphericalOscillator, r, θ, φ; n::Int=0, l::Int=0, m::Int=0)`
+`wavefunction(model::SphericalOscillator, r, θ, φ; n::Int=0, l::Int=0, m::Int=0)`
 
 ```math
 \psi_{nlm}(\pmb{r}) = R_{nl}(r) Y_{lm}(\theta,\varphi)
 ```
 The domain is $0\leq r \lt \infty, 0\leq \theta \lt \pi, 0\leq \varphi \lt 2\pi$.
-""" ψ(model::SphericalOscillator, r, θ, φ; n::Int=0, l::Int=0, m::Int=0)
+""" wavefunction(model::SphericalOscillator, r, θ, φ; n::Int=0, l::Int=0, m::Int=0)
 
 @doc raw"""
-`R(model::SphericalOscillator, r; n=0, l=0)`
+`radial_function(model::SphericalOscillator, r; n=0, l=0)`
 
 ```math
 R_{nl}(r) = \sqrt{ \frac{\gamma^{3/2}}{2\sqrt{\pi}}} \sqrt{\frac{2^{n+l+3} n!}{(2n+2l+1)!!}} \xi^l \exp\left(-\xi^2/2\right)L_{n}^{(l+\frac{1}{2})} \left(\xi^2\right),
 ```
 where ``\gamma = \mu\omega/\hbar`` and ``\xi = \sqrt{\gamma}r = \sqrt{\mu\omega/\hbar}r`` are defined. The generalized Laguerre polynomials are defined as ``L_n^{(\alpha)}(x) = \frac{x^{-\alpha} \mathrm{e}^x}{n !} \frac{\mathrm{d}^n}{\mathrm{d} x^n}\left(\mathrm{e}^{-x} x^{n+\alpha}\right)``. The domain is $0\leq r \lt \infty$.
-""" R(model::SphericalOscillator, r; n=0, l=0)
+""" radial_function(model::SphericalOscillator, r; n=0, l=0)
 
 @doc raw"""
-`L(model::SphericalOscillator, x; n=0, α=0)`
+`laguerre(model::SphericalOscillator, x; n=0, α=0)`
 
 !!! note
     The generalized Laguerre polynomials $L_n^{(\alpha)}(x)$, not the associated Laguerre polynomials $L_n^{k}(x)$, are used in this model.
@@ -196,10 +201,10 @@ Examples:
   \vdots
 \end{aligned}
 ```
-""" L(model::SphericalOscillator, x; n=0, α=0)
+""" laguerre(model::SphericalOscillator, x; n=0, α=0)
 
 @doc raw"""
-`Y(model::SphericalOscillator, θ, φ; l=0, m=0)`
+`spherical_harmonic(model::SphericalOscillator, θ, φ; l=0, m=0)`
 
 ```math
 Y_{lm}(\theta,\varphi) = (-1)^{\frac{|m|+m}{2}} \sqrt{\frac{2l+1}{4\pi} \frac{(l-|m|)!}{(l+|m|)!}} P_l^{|m|} (\cos\theta) \mathrm{e}^{im\varphi}.
@@ -209,10 +214,10 @@ The domain is $0\leq \theta \lt \pi, 0\leq \varphi \lt 2\pi$. Note that some var
 i^{|m|+m} \sqrt{\frac{(l-|m|)!}{(l+|m|)!}} P_l^{|m|} = (-1)^{\frac{|m|+m}{2}} \sqrt{\frac{(l-|m|)!}{(l+|m|)!}} P_l^{|m|} = (-1)^m \sqrt{\frac{(l-m)!}{(l+m)!}} P_l^{m}.
 ```
 
-""" Y(model::SphericalOscillator, θ, φ; l=0, m=0)
+""" spherical_harmonic(model::SphericalOscillator, θ, φ; l=0, m=0)
 
 @doc raw"""
-`P(model::SphericalOscillator, x; n=0, m=0)`
+`rodrigues_formula(model::SphericalOscillator, x; n=0, m=0)`
 
 Rodrigues' formula & closed-form:
 ```math
@@ -246,4 +251,6 @@ Examples:
   & \vdots
 \end{aligned}
 ```
-""" P(model::SphericalOscillator, x; n=0, m=0)
+""" rodrigues_formula(model::SphericalOscillator, x; n=0, m=0)
+
+end # module SphericalOscillators
