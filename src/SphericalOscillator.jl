@@ -5,6 +5,9 @@ import ..energy, ..potential, ..wavefunction, ..radial_function, ..laguerre, ..s
 
 export SphericalOscillator, energy, potential, wavefunction, radial_function, laguerre, spherical_harmonic, rodrigues_formula
 
+# packages
+using SpecialFunctions
+
 # parameters
 struct SphericalOscillator <: AbstractModel
   k::Float64

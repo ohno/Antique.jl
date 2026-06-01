@@ -1,4 +1,4 @@
-io = open("./result/SphericalOscillator.md", "w")
+﻿io = open("./result/SphericalOscillator.md", "w")
 SO = SphericalOscillator(k=1.0, mu=1.0, hbar=1.0)
 
 
@@ -30,7 +30,7 @@ println(io, raw"""
     c = (1 - x^2)^(m//2) * Dm(a * Dn(b))                  # Rodrigues' formula
     d = expand_derivatives(c)                             # expand dⁿ/dxⁿ and dᵐ/dxᵐ
     e = simplify(d, expand=true)                          # simplify
-    f = simplify(Antique.P(SO, x, n=n, m=m), expand=true) # closed-form
+    f = simplify(Antique.rodrigues_formula(SO, x, n=n, m=m), expand=true) # closed-form
     # latexify
     eq1 = latexify(e, env=:raw)
     eq2 = latexify(f, env=:raw)
@@ -73,7 +73,7 @@ println(io, raw"""
   for i in m:9
   for j in m:9
     analytical = 2*factorial(j+m)/(2*j+1)/factorial(j-m)*(i == j ? 1 : 0)
-    numerical  = quadgk(x -> Antique.P(SO, x, n=i, m=m) * Antique.P(SO, x, n=j, m=m), -1, 1, maxevals=10^3)[1]
+    numerical  = quadgk(x -> Antique.rodrigues_formula(SO, x, n=i, m=m) * Antique.rodrigues_formula(SO, x, n=j, m=m), -1, 1, maxevals=10^3)[1]
     acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-5) : isapprox(analytical, numerical, rtol=1e-5)
     @test acceptance
     @printf(io, "%2d | %2d | %2d | %14.9f | %14.9f %s\n", m, i, j, analytical, numerical, acceptance ? "✔" : "✗")
@@ -112,7 +112,7 @@ Y_{lm}(\theta,\varphi)^* Y_{l'm'}(\theta,\varphi) \sin(\theta)
     numerical  = real(
       quadgk(φ ->
       quadgk(θ ->
-        conj(Antique.Y(SO,θ,φ,l=l1,m=m1)) * Antique.Y(SO,θ,φ,l=l2,m=m2) * sin(θ)
+        conj(Antique.spherical_harmonic(SO,θ,φ,l=l1,m=m1)) * Antique.spherical_harmonic(SO,θ,φ,l=l2,m=m2) * sin(θ)
       , 0, π, maxevals=50)[1]
       , 0, 2π, maxevals=100)[1]
     )
@@ -154,7 +154,7 @@ println(io, raw"""
     c = a * D(b)                                          # Rodrigues' formula
     d = expand_derivatives(c)                             # expand dⁿ/dxⁿ
     e = simplify(d, expand=true)                          # simplify
-    f = simplify(Antique.L(SO, x, n=n, α=α), expand=true) # closed-form
+    f = simplify(Antique.laguerre(SO, x, n=n, α=α), expand=true) # closed-form
     # latexify
     eq1 = latexify(e, env=:raw)
     eq2 = latexify(f, env=:raw)
@@ -197,7 +197,7 @@ println(io, raw"""
   for i in 0:9
   for j in 0:9
     analytical = gamma(i+α+1)/factorial(i)*(i == j ? 1 : 0)
-    numerical  = quadgk(x -> real(Antique.L(SO, x, n=i, α=α)) * real(Antique.L(SO, x, n=j, α=α)) * x^α * exp(-x), 0, Inf, maxevals=10^3)[1]
+    numerical  = quadgk(x -> real(Antique.laguerre(SO, x, n=i, α=α)) * real(Antique.laguerre(SO, x, n=j, α=α)) * x^α * exp(-x), 0, Inf, maxevals=10^3)[1]
     acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-5) : isapprox(analytical, numerical, rtol=1e-5)
     @test acceptance
     @printf(io, "%4.2f | %2d | %2d | %14.9f | %14.9f %s\n", α, i, j, analytical, numerical, acceptance ? "✔" : "✗")
@@ -227,7 +227,7 @@ println(io, raw"""
   for n in 0:5
   for l in 0:n
     analytical = 1
-    numerical  = quadgk(r ->Antique.R(SO,r,n=n,l=l)^2 * r^2, 0, Inf, maxevals=10^3)[1]
+    numerical  = quadgk(r ->Antique.radial_function(SO,r,n=n,l=l)^2 * r^2, 0, Inf, maxevals=10^3)[1]
     acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-5) : isapprox(analytical, numerical, rtol=1e-5)
     @test acceptance
     @printf(io, "%2d | %2d | %14.9f | %14.9f %s\n", n, l, analytical, numerical, acceptance ? "✔" : "✗")
@@ -247,28 +247,28 @@ println(io, raw"""
 The virial theorem $\langle T \rangle = \langle V \rangle$ and the definition of Hamiltonian $\langle H \rangle = \langle T \rangle + \langle V \rangle$ derive $\langle H \rangle = 2 \langle V \rangle$.
 
 ```math
-2 \langle V \rangle = 2 \times \int \psi_i^\ast(r,\theta,\varphi) V(r) \psi_j(r,\theta,\varphi) r^2 \sin(\theta) \mathrm{d}r \mathrm{d}\theta \mathrm{d}\varphi = 2 \times \int V(r) |R_{nl}(r)|^2 r^2 \mathrm{d}r = E_n
+2 \langle V \rangle = 2 \times \int \psi_i^\ast(r,\theta,\varphi) potential(r) \psi_j(r,\theta,\varphi) r^2 \sin(\theta) \mathrm{d}r \mathrm{d}\theta \mathrm{d}\varphi = 2 \times \int potential(r) |R_{nl}(r)|^2 r^2 \mathrm{d}r = E_n
 ```
 
 ```""")
 
-@testset "SO: 2 * <ψₙₗₘ|V|ψₙₗₘ> = 2∫ψ*ₙₗₘ(r,θ,φ)V(r)ψₙₗₘ(r,θ,φ)r²sin(θ)drdθdφ = Eₙ" begin
+@testset "SO: 2 * <ψₙₗₘ|V|ψₙₗₘ> = 2∫ψ*ₙₗₘ(r,θ,φ)potential(r)ψₙₗₘ(r,θ,φ)r²sin(θ)drdθdφ = Eₙ" begin
   println(io, " n |  l |  m |     analytical |      numerical ")
   println(io, "-- | -- | -- | -------------- | -------------- ")
   for n in 0:3
   for l in 0:n
   for m in -l:l
-    analytical = E(SO, n=n, l=l)
+    analytical = energy(SO, n=n, l=l)
     # numerical = real(
     #   quadgk(phi ->
     #   quadgk(theta ->
     #   quadgk(r ->
-    #     2 * V(SO,r) * r^2 * sin(theta) * conj(ψ(SO,r,theta,phi,n=n,l=l,m=m)) * ψ(SO,r,theta,phi,n=n,l=l,m=m)
+    #     2 * potential(SO,r) * r^2 * sin(theta) * conj(wavefunction(SO,r,theta,phi,n=n,l=l,m=m)) * wavefunction(SO,r,theta,phi,n=n,l=l,m=m)
     #   , 0, Inf, maxevals=50)[1]
     #   , 0, π, maxevals=4)[1]
     #   , 0, 2π, maxevals=8)[1]
     # )
-    numerical = real(first(hcubature(r -> 2 * V(SO,r[1]) * r[1]^2 * sin(r[2]) * conj(ψ(SO,r[1],r[2],r[3],n=n,l=l,m=m)) * ψ(SO,r[1],r[2],r[3],n=n,l=l,m=m), [0,0,0], [100,π,2π], maxevals=2000)))
+    numerical = real(first(hcubature(r -> 2 * potential(SO,r[1]) * r[1]^2 * sin(r[2]) * conj(wavefunction(SO,r[1],r[2],r[3],n=n,l=l,m=m)) * wavefunction(SO,r[1],r[2],r[3],n=n,l=l,m=m), [0,0,0], [100,π,2π], maxevals=2000)))
     acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-1) : isapprox(analytical, numerical, rtol=1e-1)
     @test acceptance
     @printf(io, "%2d | %2d | %2d | %14.9f | %14.9f %s\n", n, l, m, analytical, numerical, acceptance ? "✔" : "✗")
@@ -281,13 +281,13 @@ println(io, """```
 
 ```""")
 
-@testset "SO: 2 * <ψₙₗₘ|V|ψₙₗₘ> = 2∫V(r)|Rₙₗ(r)|²r²dr = Eₙ" begin
+@testset "SO: 2 * <ψₙₗₘ|V|ψₙₗₘ> = 2∫potential(r)|Rₙₗ(r)|²r²dr = Eₙ" begin
   println(io, " n |  l |     analytical |      numerical ")
   println(io, "-- | -- | -------------- | -------------- ")
   for n in 0:5
     for l in 0:n
-      analytical = E(SO, n=n, l=l)
-      numerical  = 2 * quadgk(r -> V(SO,r) *Antique.R(SO,r,n=n,l=l)^2 * r^2, 0, Inf, maxevals=10^3)[1]
+      analytical = energy(SO, n=n, l=l)
+      numerical  = 2 * quadgk(r -> potential(SO,r) *Antique.radial_function(SO,r,n=n,l=l)^2 * r^2, 0, Inf, maxevals=10^3)[1]
       acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-5) : isapprox(analytical, numerical, rtol=1e-5)
       @test acceptance
       @printf(io, "%2d | %2d | %14.9f | %14.9f %s\n", n, l, analytical, numerical, acceptance ? "✔" : "✗")
@@ -324,12 +324,12 @@ println(io, raw"""
     #   quadgk(phi ->
     #   quadgk(theta ->
     #   quadgk(r ->
-    #     r^2 * sin(theta) * conj(ψ(SO,r,theta,phi,n=n1,l=l1,m=m1)) * ψ(SO,r,theta,phi,n=n2,l=l2,m=m2)
+    #     r^2 * sin(theta) * conj(wavefunction(SO,r,theta,phi,n=n1,l=l1,m=m1)) * wavefunction(SO,r,theta,phi,n=n2,l=l2,m=m2)
     #   , 0, Inf, maxevals=50)[1]
     #   , 0, π, maxevals=4)[1]
     #   , 0, 2π, maxevals=8)[1]
     # )
-    numerical = real(first(hcubature(r -> r[1]^2 * sin(r[2]) * conj(ψ(SO,r[1],r[2],r[3],n=n1,l=l1,m=m1)) * ψ(SO,r[1],r[2],r[3],n=n2,l=l2,m=m2), [0,0,0], [100,π,2π], maxevals=2000)))
+    numerical = real(first(hcubature(r -> r[1]^2 * sin(r[2]) * conj(wavefunction(SO,r[1],r[2],r[3],n=n1,l=l1,m=m1)) * wavefunction(SO,r[1],r[2],r[3],n=n2,l=l2,m=m2), [0,0,0], [100,π,2π], maxevals=2000)))
     acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-1) : isapprox(analytical, numerical, rtol=1e-1)
     @test acceptance
     @printf(io, "%2d | %2d | %2d | %2d | %2d | %2d | %14.9f | %14.9f %s\n", n1, n2, l1, l2, m1, m2, analytical, numerical, acceptance ? "✔" : "✗")

@@ -1,4 +1,4 @@
-io = open("./result/CoulombTwoBody.md", "w")
+﻿io = open("./result/CoulombTwoBody.md", "w")
 CTB = CoulombTwoBody(z_1=-1, z_2=1, m_1=1.0, m_2=1.0, m_e=1.0, a_0=1.0, E_h=1.0, hbar=1.0)
 MP = MorsePotential()
 
@@ -31,7 +31,7 @@ println(io, raw"""
       c = (1 - x^2)^(m//2) * Dm(a * Dn(b))                   # Rodrigues' formula
       d = expand_derivatives(c)                              # expand dⁿ/dxⁿ and dᵐ/dxᵐ
       e = simplify(d, expand=true)                           # simplify
-      f = simplify(Antique.P(CTB, x, n=n, m=m), expand=true) # closed-form
+      f = simplify(Antique.rodrigues_formula(CTB, x, n=n, m=m), expand=true) # closed-form
       # latexify
       eq1 = latexify(e, env=:raw)
       eq2 = latexify(f, env=:raw)
@@ -74,7 +74,7 @@ println(io, raw"""
   for i in m:9
   for j in m:9
     analytical = 2*factorial(j+m)/(2*j+1)/factorial(j-m)*(i == j ? 1 : 0)
-    numerical  = quadgk(x -> Antique.P(CTB, x, n=i, m=m) * Antique.P(CTB, x, n=j, m=m), -1, 1, maxevals=10^3)[1]
+    numerical  = quadgk(x -> Antique.rodrigues_formula(CTB, x, n=i, m=m) * Antique.rodrigues_formula(CTB, x, n=j, m=m), -1, 1, maxevals=10^3)[1]
     acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-5) : isapprox(analytical, numerical, rtol=1e-5)
     @test acceptance
     @printf(io, "%2d | %2d | %2d | %14.9f | %14.9f %s\n", m, i, j, analytical, numerical, acceptance ? "✔" : "✗")
@@ -113,7 +113,7 @@ Y_{lm}(\theta,\varphi)^* Y_{l'm'}(\theta,\varphi) \sin(\theta)
     numerical  = real(
       quadgk(φ ->
       quadgk(θ ->
-        conj(Antique.Y(CTB,θ,φ,l=l1,m=m1)) * Antique.Y(CTB,θ,φ,l=l2,m=m2) * sin(θ)
+        conj(Antique.spherical_harmonic(CTB,θ,φ,l=l1,m=m1)) * Antique.spherical_harmonic(CTB,θ,φ,l=l2,m=m2) * sin(θ)
       , 0, π, maxevals=50)[1]
       , 0, 2π, maxevals=100)[1]
     )
@@ -158,8 +158,8 @@ println(io, raw"""
     c = Dk(a * Dn(b))                                            # Rodrigues' formula
     d = expand_derivatives(c)                                    # expand dⁿ/dxⁿ and dᵐ/dxᵐ
     e = simplify(d, expand=true)                                 # simplify
-    f = simplify(Antique.L(CTB, x, n=n, k=k), expand=true)       # closed-form
-    g = simplify((-1)^k * Antique.L(MP, n-k, k, x), expand=true) # closed-form
+    f = simplify(Antique.laguerre(CTB, x, n=n, k=k), expand=true)       # closed-form
+    g = simplify((-1)^k * Antique.laguerre(MP, n-k, k, x), expand=true) # closed-form
     # latexify
     eq1 = latexify(e, env=:raw)
     eq2 = latexify(f, env=:raw)
@@ -205,7 +205,7 @@ Replace $n+k$ with $n$ for [the definition of Wolfram MathWorld](https://mathwor
   for j in 0:7
   for k in 0:min(i,j)
     analytical = factorial(i) / factorial(i-k) * (i == j ? 1 : 0)
-    numerical  = quadgk(x -> exp(-x) * x^k * Antique.L(CTB, x, n=i, k=k) * Antique.L(CTB, x, n=j, k=k), 0, Inf, maxevals=10^3)[1]
+    numerical  = quadgk(x -> exp(-x) * x^k * Antique.laguerre(CTB, x, n=i, k=k) * Antique.laguerre(CTB, x, n=j, k=k), 0, Inf, maxevals=10^3)[1]
     acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-5) : isapprox(analytical, numerical, rtol=1e-5)
     @test acceptance
     @printf(io, "%2d | %2d | %2d | %14.9f | %14.9f %s\n", i, j, k, analytical, numerical, acceptance ? "✔" : "✗")
@@ -235,7 +235,7 @@ println(io, raw"""
   for n in 1:9
   for l in 0:n-1
     analytical = 1
-    numerical  = quadgk(r -> r^2 *Antique.R(CTB,r,n=n,l=l)^2, 0, Inf, maxevals=10^3)[1]
+    numerical  = quadgk(r -> r^2 *Antique.radial_function(CTB,r,n=n,l=l)^2, 0, Inf, maxevals=10^3)[1]
     acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-5) : isapprox(analytical, numerical, rtol=1e-5)
     @test acceptance
     @printf(io, "%2d | %2d | %14.9f | %14.9f %s\n", n, l, analytical, numerical, acceptance ? "✔" : "✗")
@@ -290,7 +290,7 @@ Reference:
       aμ = a₀ * mₑ/μ
       Z = abs(z₁*z₂)
       analytical =  aμ/2/Z * (3*n^2-l*(l+1))
-      numerical  = quadgk(r -> r^3 *Antique.R(CTB,r,n=n,l=l)^2, 0, Inf, maxevals=10^3)[1]
+      numerical  = quadgk(r -> r^3 *Antique.radial_function(CTB,r,n=n,l=l)^2, 0, Inf, maxevals=10^3)[1]
       acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-5) : isapprox(analytical, numerical, rtol=1e-5)
       @test acceptance
       @printf(io, "%2d | %2d | %14.9f | %14.9f %s\n", n, l, analytical, numerical, acceptance ? "✔" : "✗")
@@ -347,7 +347,7 @@ Reference:
       aμ = a₀ * mₑ/μ
       Z = abs(z₁*z₂)
       analytical =  aμ^2/2/Z^2 * n^2 * (5*n^2+1-3*l*(l+1))
-      numerical  = quadgk(r -> r^4 *Antique.R(CTB,r,n=n,l=l)^2, 0, Inf, maxevals=10^3)[1]
+      numerical  = quadgk(r -> r^4 *Antique.radial_function(CTB,r,n=n,l=l)^2, 0, Inf, maxevals=10^3)[1]
       acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-5) : isapprox(analytical, numerical, rtol=1e-5)
       @test acceptance
       @printf(io, "%2d | %2d | %14.9f | %14.9f %s\n", n, l, analytical, numerical, acceptance ? "✔" : "✗")
@@ -369,7 +369,7 @@ println(io, raw"""
 The virial theorem $2\langle T \rangle + \langle V \rangle = 0$ and the definition of Hamiltonian $\langle H \rangle = \langle T \rangle + \langle V \rangle$ derive $\langle H \rangle = \frac{1}{2} \langle V \rangle$ and $\langle H \rangle = -\langle T \rangle$.
 
 ```math
-\frac{1}{2} \int \psi_n^\ast(x) V(x) \psi_n(x) \mathrm{d}x = E_n
+\frac{1}{2} \int \psi_n^\ast(x) potential(x) \psi_n(x) \mathrm{d}x = E_n
 ```
 
 ```""")
@@ -401,8 +401,8 @@ The virial theorem $2\langle T \rangle + \langle V \rangle = 0$ and the definiti
     println(io, " n |     analytical |      numerical ")
     println(io, "-- | -------------- | -------------- ")
     for n in 1:10
-      analytical = E(CTB, n=n)
-      numerical  = quadgk(r -> 4*π*r^2 * conj(ψ(CTB,r,0,0, n=n)) * V(CTB,r) * ψ(CTB,r,0,0, n=n), 0, aμ*50*n, maxevals=10^3)[1] / 2
+      analytical = energy(CTB, n=n)
+      numerical  = quadgk(r -> 4*π*r^2 * conj(wavefunction(CTB,r,0,0, n=n)) * potential(CTB,r) * wavefunction(CTB,r,0,0, n=n), 0, aμ*50*n, maxevals=10^3)[1] / 2
       acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-5) : isapprox(analytical, numerical, rtol=1e-5)
       @test acceptance
       @printf(io, "%2d | %14.9f | %14.9f %s\n", n, analytical, numerical, acceptance ? "✔" : "✗")
@@ -440,12 +440,12 @@ println(io, raw"""
     #   quadgk(phi ->
     #   quadgk(theta ->
     #   quadgk(r ->
-    #     r^2 * sin(theta) * conj(ψ(CTB,r,theta,phi,n=n1,l=l1,m=m1)) * ψ(CTB,r,theta,phi,n=n2,l=l2,m=m2)
+    #     r^2 * sin(theta) * conj(wavefunction(CTB,r,theta,phi,n=n1,l=l1,m=m1)) * wavefunction(CTB,r,theta,phi,n=n2,l=l2,m=m2)
     #   , 0, Inf, maxevals=100)[1]
     #   , 0, π, maxevals=4)[1]
     #   , 0, 2π, maxevals=8)[1]
     # )
-    numerical = real(first(hcubature(r -> r[1]^2 * sin(r[2]) * conj(ψ(CTB,r[1],r[2],r[3],n=n1,l=l1,m=m1)) * ψ(CTB,r[1],r[2],r[3],n=n2,l=l2,m=m2), [0,0,0], [100,π,2π], maxevals=2000)))
+    numerical = real(first(hcubature(r -> r[1]^2 * sin(r[2]) * conj(wavefunction(CTB,r[1],r[2],r[3],n=n1,l=l1,m=m1)) * wavefunction(CTB,r[1],r[2],r[3],n=n2,l=l2,m=m2), [0,0,0], [100,π,2π], maxevals=2000)))
     acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-1) : isapprox(analytical, numerical, rtol=1e-1)
     @test acceptance
     @printf(io, "%2d | %2d | %2d | %2d | %2d | %2d | %14.9f | %14.9f %s\n", n1, n2, l1, l2, m1, m2, analytical, numerical, acceptance ? "✔" : "✗")

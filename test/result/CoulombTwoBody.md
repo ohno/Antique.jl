@@ -1085,7 +1085,7 @@ Reference:
 - [Quan­tum Me­chan­ics for En­gi­neers by Leon van Dom­me­len](https://web1.eng.famu.fsu.edu/~dommelen/quantum/style_a/nt_rsexp.html)
 
 ```
-Antique.CoulombTwoBody(z₁=-1, z₂=1, m₁=1.0, m₂=1.0, mₑ=1.0, a₀=1.0, Eₕ=1.0, ħ=1.0)
+Antique.CoulombTwoBody(z_1=-1, z_2=1, m_1=1.0, m_2=1.0, m_e=1.0, a_0=1.0, E_h=1.0, hbar=1.0)
  n |  l |     analytical |      numerical 
 -- | -- | -------------- | -------------- 
  1 |  0 |    3.000000000 |    3.000000000 ✔
@@ -1134,7 +1134,7 @@ Antique.CoulombTwoBody(z₁=-1, z₂=1, m₁=1.0, m₂=1.0, mₑ=1.0, a₀=1.0, 
  9 |  7 |  187.000000000 |  187.000000000 ✔
  9 |  8 |  171.000000000 |  171.000000000 ✔
 
-Antique.CoulombTwoBody(z₁=-1, z₂=1, m₁=1.0, m₂=206.768283, mₑ=1.0, a₀=1.0, Eₕ=1.0, ħ=1.0)
+Antique.CoulombTwoBody(z_1=-1, z_2=1, m_1=1.0, m_2=206.768283, m_e=1.0, a_0=1.0, E_h=1.0, hbar=1.0)
  n |  l |     analytical |      numerical 
 -- | -- | -------------- | -------------- 
  1 |  0 |    1.507254498 |    1.507254498 ✔
@@ -1183,7 +1183,7 @@ Antique.CoulombTwoBody(z₁=-1, z₂=1, m₁=1.0, m₂=206.768283, mₑ=1.0, a�
  9 |  7 |   93.952197013 |   93.952197013 ✔
  9 |  8 |   85.913506360 |   85.913506360 ✔
 
-Antique.CoulombTwoBody(z₁=-1, z₂=1, m₁=1.0, m₂=1836.15267343, mₑ=1.0, a₀=1.0, Eₕ=1.0, ħ=1.0)
+Antique.CoulombTwoBody(z_1=-1, z_2=1, m_1=1.0, m_2=1836.15267343, m_e=1.0, a_0=1.0, E_h=1.0, hbar=1.0)
  n |  l |     analytical |      numerical 
 -- | -- | -------------- | -------------- 
  1 |  0 |    1.500816926 |    1.500816926 ✔
@@ -1232,7 +1232,7 @@ Antique.CoulombTwoBody(z₁=-1, z₂=1, m₁=1.0, m₂=1836.15267343, mₑ=1.0, 
  9 |  7 |   93.550921692 |   93.550921692 ✔
  9 |  8 |   85.546564755 |   85.546564755 ✔
 
-Antique.CoulombTwoBody(z₁=-1, z₂=1, m₁=1.0, m₂=Inf, mₑ=1.0, a₀=1.0, Eₕ=1.0, ħ=1.0)
+Antique.CoulombTwoBody(z_1=-1, z_2=1, m_1=1.0, m_2=Inf, m_e=1.0, a_0=1.0, E_h=1.0, hbar=1.0)
  n |  l |     analytical |      numerical 
 -- | -- | -------------- | -------------- 
  1 |  0 |    1.500000000 |    1.500000000 ✔
@@ -1281,7 +1281,7 @@ Antique.CoulombTwoBody(z₁=-1, z₂=1, m₁=1.0, m₂=Inf, mₑ=1.0, a₀=1.0, 
  9 |  7 |   93.500000000 |   93.500000000 ✔
  9 |  8 |   85.500000000 |   85.500000000 ✔
 
-Antique.CoulombTwoBody(z₁=-1, z₂=1, m₁=206.768283, m₂=1836.15267343, mₑ=1.0, a₀=1.0, Eₕ=1.0, ħ=1.0)
+Antique.CoulombTwoBody(z_1=-1, z_2=1, m_1=206.768283, m_2=1836.15267343, m_e=1.0, a_0=1.0, E_h=1.0, hbar=1.0)
  n |  l |     analytical |      numerical 
 -- | -- | -------------- | -------------- 
  1 |  0 |    0.008071423 |    0.008071423 ✔
@@ -1330,7 +1330,7 @@ Antique.CoulombTwoBody(z₁=-1, z₂=1, m₁=206.768283, m₂=1836.15267343, m�
  9 |  7 |    0.503118705 |    0.503118705 ✔
  9 |  8 |    0.460071115 |    0.460071115 ✔
 
-Antique.CoulombTwoBody(z₁=-1, z₂=2, m₁=206.768283, m₂=7294.29954142, mₑ=1.0, a₀=1.0, Eₕ=1.0, ħ=1.0)
+Antique.CoulombTwoBody(z_1=-1, z_2=2, m_1=206.768283, m_2=7294.29954142, m_e=1.0, a_0=1.0, E_h=1.0, hbar=1.0)
  n |  l |     analytical |      numerical 
 -- | -- | -------------- | -------------- 
  1 |  0 |    0.003730069 |    0.003730069 ✔
@@ -1396,7 +1396,7 @@ Reference:
 - [ Quan­tum Me­chan­ics for En­gi­neers by Leon van Dom­me­len](https://web1.eng.famu.fsu.edu/~dommelen/quantum/style_a/nt_rsexp.html)
 
 ```
-Antique.CoulombTwoBody(z₁=-1, z₂=1, m₁=1.0, m₂=1.0, mₑ=1.0, a₀=1.0, Eₕ=1.0, ħ=1.0)
+Antique.CoulombTwoBody(z_1=-1, z_2=1, m_1=1.0, m_2=1.0, m_e=1.0, a_0=1.0, E_h=1.0, hbar=1.0)
  n |  l |     analytical |      numerical 
 -- | -- | -------------- | -------------- 
  1 |  0 |   12.000000000 |   12.000000000 ✔
@@ -1445,7 +1445,7 @@ Antique.CoulombTwoBody(z₁=-1, z₂=1, m₁=1.0, m₂=1.0, mₑ=1.0, a₀=1.0, 
  9 |  7 | 38556.000000000 | 38556.000000000 ✔
  9 |  8 | 30780.000000000 | 30780.000000000 ✔
 
-Antique.CoulombTwoBody(z₁=-1, z₂=1, m₁=1.0, m₂=206.768283, mₑ=1.0, a₀=1.0, Eₕ=1.0, ħ=1.0)
+Antique.CoulombTwoBody(z_1=-1, z_2=1, m_1=1.0, m_2=206.768283, m_e=1.0, a_0=1.0, E_h=1.0, hbar=1.0)
  n |  l |     analytical |      numerical 
 -- | -- | -------------- | -------------- 
  1 |  0 |    3.029088160 |    3.029088160 ✔
@@ -1494,7 +1494,7 @@ Antique.CoulombTwoBody(z₁=-1, z₂=1, m₁=1.0, m₂=206.768283, mₑ=1.0, a�
  9 |  7 | 9732.460259576 | 9732.460259576 ✔
  9 |  8 | 7769.611131594 | 7769.611131594 ✔
 
-Antique.CoulombTwoBody(z₁=-1, z₂=1, m₁=1.0, m₂=1836.15267343, mₑ=1.0, a₀=1.0, Eₕ=1.0, ħ=1.0)
+Antique.CoulombTwoBody(z_1=-1, z_2=1, m_1=1.0, m_2=1836.15267343, m_e=1.0, a_0=1.0, E_h=1.0, hbar=1.0)
  n |  l |     analytical |      numerical 
 -- | -- | -------------- | -------------- 
  1 |  0 |    3.003268592 |    3.003268592 ✔
@@ -1543,7 +1543,7 @@ Antique.CoulombTwoBody(z₁=-1, z₂=1, m₁=1.0, m₂=1836.15267343, mₑ=1.0, 
  9 |  7 | 9649.501985942 | 9649.501985942 ✔
  9 |  8 | 7703.383938357 | 7703.383938357 ✔
 
-Antique.CoulombTwoBody(z₁=-1, z₂=1, m₁=1.0, m₂=Inf, mₑ=1.0, a₀=1.0, Eₕ=1.0, ħ=1.0)
+Antique.CoulombTwoBody(z_1=-1, z_2=1, m_1=1.0, m_2=Inf, m_e=1.0, a_0=1.0, E_h=1.0, hbar=1.0)
  n |  l |     analytical |      numerical 
 -- | -- | -------------- | -------------- 
  1 |  0 |    3.000000000 |    3.000000000 ✔
@@ -1592,7 +1592,7 @@ Antique.CoulombTwoBody(z₁=-1, z₂=1, m₁=1.0, m₂=Inf, mₑ=1.0, a₀=1.0, 
  9 |  7 | 9639.000000000 | 9639.000000000 ✔
  9 |  8 | 7695.000000000 | 7695.000000000 ✔
 
-Antique.CoulombTwoBody(z₁=-1, z₂=1, m₁=206.768283, m₂=1836.15267343, mₑ=1.0, a₀=1.0, Eₕ=1.0, ħ=1.0)
+Antique.CoulombTwoBody(z_1=-1, z_2=1, m_1=206.768283, m_2=1836.15267343, m_e=1.0, a_0=1.0, E_h=1.0, hbar=1.0)
  n |  l |     analytical |      numerical 
 -- | -- | -------------- | -------------- 
  1 |  0 |    0.000086864 |    0.000086864 ✔
@@ -1641,7 +1641,7 @@ Antique.CoulombTwoBody(z₁=-1, z₂=1, m₁=206.768283, m₂=1836.15267343, m�
  9 |  7 |    0.279093477 |    0.279093477 ✔
  9 |  8 |    0.222805717 |    0.222805717 ✔
 
-Antique.CoulombTwoBody(z₁=-1, z₂=2, m₁=206.768283, m₂=7294.29954142, mₑ=1.0, a₀=1.0, Eₕ=1.0, ħ=1.0)
+Antique.CoulombTwoBody(z_1=-1, z_2=2, m_1=206.768283, m_2=7294.29954142, m_e=1.0, a_0=1.0, E_h=1.0, hbar=1.0)
  n |  l |     analytical |      numerical 
 -- | -- | -------------- | -------------- 
  1 |  0 |    0.000018551 |    0.000018551 ✔
@@ -1697,11 +1697,11 @@ Antique.CoulombTwoBody(z₁=-1, z₂=2, m₁=206.768283, m₂=7294.29954142, m�
 The virial theorem $2\langle T \rangle + \langle V \rangle = 0$ and the definition of Hamiltonian $\langle H \rangle = \langle T \rangle + \langle V \rangle$ derive $\langle H \rangle = \frac{1}{2} \langle V \rangle$ and $\langle H \rangle = -\langle T \rangle$.
 
 ```math
-\frac{1}{2} \int \psi_n^\ast(x) V(x) \psi_n(x) \mathrm{d}x = E_n
+\frac{1}{2} \int \psi_n^\ast(x) potential(x) \psi_n(x) \mathrm{d}x = E_n
 ```
 
 ```
-Antique.CoulombTwoBody(z₁=-1, z₂=1, m₁=1.0, m₂=1.0, mₑ=1.0, a₀=1.0, Eₕ=1.0, ħ=1.0)
+Antique.CoulombTwoBody(z_1=-1, z_2=1, m_1=1.0, m_2=1.0, m_e=1.0, a_0=1.0, E_h=1.0, hbar=1.0)
  n |     analytical |      numerical 
 -- | -------------- | -------------- 
  1 |   -0.250000000 |   -0.250000000 ✔
@@ -1715,7 +1715,7 @@ Antique.CoulombTwoBody(z₁=-1, z₂=1, m₁=1.0, m₂=1.0, mₑ=1.0, a₀=1.0, 
  9 |   -0.003086420 |   -0.003086420 ✔
 10 |   -0.002500000 |   -0.002500000 ✔
 
-Antique.CoulombTwoBody(z₁=-1, z₂=1, m₁=1.0, m₂=206.768283, mₑ=1.0, a₀=1.0, Eₕ=1.0, ħ=1.0)
+Antique.CoulombTwoBody(z_1=-1, z_2=1, m_1=1.0, m_2=206.768283, m_e=1.0, a_0=1.0, E_h=1.0, hbar=1.0)
  n |     analytical |      numerical 
 -- | -------------- | -------------- 
  1 |   -0.497593473 |   -0.497593473 ✔
@@ -1729,7 +1729,7 @@ Antique.CoulombTwoBody(z₁=-1, z₂=1, m₁=1.0, m₂=206.768283, mₑ=1.0, a�
  9 |   -0.006143129 |   -0.006143129 ✔
 10 |   -0.004975935 |   -0.004975935 ✔
 
-Antique.CoulombTwoBody(z₁=-1, z₂=1, m₁=1.0, m₂=1836.15267343, mₑ=1.0, a₀=1.0, Eₕ=1.0, ħ=1.0)
+Antique.CoulombTwoBody(z_1=-1, z_2=1, m_1=1.0, m_2=1836.15267343, m_e=1.0, a_0=1.0, E_h=1.0, hbar=1.0)
  n |     analytical |      numerical 
 -- | -------------- | -------------- 
  1 |   -0.499727840 |   -0.499727840 ✔
@@ -1743,7 +1743,7 @@ Antique.CoulombTwoBody(z₁=-1, z₂=1, m₁=1.0, m₂=1836.15267343, mₑ=1.0, 
  9 |   -0.006169480 |   -0.006169480 ✔
 10 |   -0.004997278 |   -0.004997278 ✔
 
-Antique.CoulombTwoBody(z₁=-1, z₂=1, m₁=1.0, m₂=Inf, mₑ=1.0, a₀=1.0, Eₕ=1.0, ħ=1.0)
+Antique.CoulombTwoBody(z_1=-1, z_2=1, m_1=1.0, m_2=Inf, m_e=1.0, a_0=1.0, E_h=1.0, hbar=1.0)
  n |     analytical |      numerical 
 -- | -------------- | -------------- 
  1 |   -0.500000000 |   -0.500000000 ✔
@@ -1757,7 +1757,7 @@ Antique.CoulombTwoBody(z₁=-1, z₂=1, m₁=1.0, m₂=Inf, mₑ=1.0, a₀=1.0, 
  9 |   -0.006172840 |   -0.006172840 ✔
 10 |   -0.005000000 |   -0.005000000 ✔
 
-Antique.CoulombTwoBody(z₁=-1, z₂=1, m₁=206.768283, m₂=1836.15267343, mₑ=1.0, a₀=1.0, Eₕ=1.0, ħ=1.0)
+Antique.CoulombTwoBody(z_1=-1, z_2=1, m_1=206.768283, m_2=1836.15267343, m_e=1.0, a_0=1.0, E_h=1.0, hbar=1.0)
  n |     analytical |      numerical 
 -- | -------------- | -------------- 
  1 |  -92.920417311 |  -92.920417311 ✔
@@ -1771,7 +1771,7 @@ Antique.CoulombTwoBody(z₁=-1, z₂=1, m₁=206.768283, m₂=1836.15267343, m�
  9 |   -1.147165646 |   -1.147165646 ✔
 10 |   -0.929204173 |   -0.929204173 ✔
 
-Antique.CoulombTwoBody(z₁=-1, z₂=2, m₁=206.768283, m₂=7294.29954142, mₑ=1.0, a₀=1.0, Eₕ=1.0, ħ=1.0)
+Antique.CoulombTwoBody(z_1=-1, z_2=2, m_1=206.768283, m_2=7294.29954142, m_e=1.0, a_0=1.0, E_h=1.0, hbar=1.0)
  n |     analytical |      numerical 
 -- | -------------- | -------------- 
  1 | -402.137356219 | -402.137356219 ✔
@@ -1785,7 +1785,7 @@ Antique.CoulombTwoBody(z₁=-1, z₂=2, m₁=206.768283, m₂=7294.29954142, m�
  9 |   -4.964658719 |   -4.964658719 ✔
 10 |   -4.021373562 |   -4.021373562 ✔
 
-Antique.CoulombTwoBody(z₁=-1, z₂=2, m₁=1.0, m₂=1.0, mₑ=1.0, a₀=1.0, Eₕ=27.211386245988, ħ=1.0)
+Antique.CoulombTwoBody(z_1=-1, z_2=2, m_1=1.0, m_2=1.0, m_e=1.0, a_0=1.0, E_h=27.211386245988, hbar=1.0)
  n |     analytical |      numerical 
 -- | -------------- | -------------- 
  1 |  -27.211386246 |  -27.211386246 ✔
@@ -1799,7 +1799,7 @@ Antique.CoulombTwoBody(z₁=-1, z₂=2, m₁=1.0, m₂=1.0, mₑ=1.0, a₀=1.0, 
  9 |   -0.335943040 |   -0.335943040 ✔
 10 |   -0.272113862 |   -0.272113862 ✔
 
-Antique.CoulombTwoBody(z₁=-1, z₂=2, m₁=9.1093837015e-31, m₂=1.67262192595e-27, mₑ=9.1093837015e-31, a₀=5.29177210903e-11, Eₕ=4.3597447222071e-18, ħ=1.054571817e-34)
+Antique.CoulombTwoBody(z_1=-1, z_2=2, m_1=9.1093837015e-31, m_2=1.67262192595e-27, m_e=9.1093837015e-31, a_0=5.29177210903e-11, E_h=4.3597447222071e-18, hbar=1.054571817e-34)
  n |     analytical |      numerical 
 -- | -------------- | -------------- 
  1 |   -0.000000000 |   -0.000000000 ✔

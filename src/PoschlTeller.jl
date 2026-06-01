@@ -5,6 +5,9 @@ import ..energy, ..potential, ..wavefunction, ..n_max, ..rodrigues_formula
 
 export PoschlTeller, energy, potential, wavefunction, n_max, rodrigues_formula
 
+# packages
+using SpecialFunctions
+
 # parameters
 struct PoschlTeller <: AbstractModel
   lambda::Int

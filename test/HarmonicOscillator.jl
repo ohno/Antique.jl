@@ -1,4 +1,4 @@
-io = open("./result/HarmonicOscillator.md", "w")
+﻿io = open("./result/HarmonicOscillator.md", "w")
 HO = HarmonicOscillator(k=1.0, m=1.0, hbar=1.0)
 
 
@@ -27,7 +27,7 @@ println(io, raw"""
     c = a * D(b)                                     # Rodrigues' formula
     d = expand_derivatives(c)                        # expand dⁿ/dxⁿ
     e = simplify(d, expand=true)                     # simplify
-    f = simplify(Antique.H(HO, x, n=n), expand=true) # closed-form
+    f = simplify(Antique.hermite(HO, x, n=n), expand=true) # closed-form
     # latexify
     eq1 = latexify(e, env=:raw)
     eq2 = latexify(f, env=:raw)
@@ -68,7 +68,7 @@ println(io, raw"""
   for i in 0:9
   for j in 0:9
     analytical = sqrt(π)*2^j*factorial(j)*(i == j ? 1 : 0)
-    numerical  = quadgk(x -> Antique.H(HO, x, n=j) * Antique.H(HO, x, n=i)* exp(-x^2), -Inf, Inf, maxevals=10^3)[1]
+    numerical  = quadgk(x -> Antique.hermite(HO, x, n=j) * Antique.hermite(HO, x, n=i)* exp(-x^2), -Inf, Inf, maxevals=10^3)[1]
     acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-5) : isapprox(analytical, numerical, rtol=1e-5)
     @test acceptance
     @printf(io, "%2d | %2d | %14.9f | %14.9f %s\n", i, j, analytical, numerical, acceptance ? "✔" : "✗")
@@ -97,7 +97,7 @@ println(io, raw"""
   for i in 0:9
   for j in 0:9
     analytical = (i == j ? 1 : 0)
-    numerical  = quadgk(x -> conj(ψ(HO, x, n=i)) * ψ(HO, x, n=j), -Inf, Inf, maxevals=10^3)[1]
+    numerical  = quadgk(x -> conj(wavefunction(HO, x, n=i)) * wavefunction(HO, x, n=j), -Inf, Inf, maxevals=10^3)[1]
     acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-5) : isapprox(analytical, numerical, rtol=1e-5)
     @test acceptance
     @printf(io, "%2d | %2d | %14.9f | %14.9f %s\n", i, j, analytical, numerical, acceptance ? "✔" : "✗")
@@ -117,7 +117,7 @@ println(io, raw"""
 The virial theorem $\langle T \rangle = \langle V \rangle$ and the definition of Hamiltonian $\langle H \rangle = \langle T \rangle + \langle V \rangle$ derive $\langle H \rangle = 2 \langle V \rangle = 2 \langle T \rangle$.
 
 ```math
-2 \int \psi_n^\ast(x) V(x) \psi_n(x) \mathrm{d}x = E_n
+2 \int \psi_n^\ast(x) potential(x) \psi_n(x) \mathrm{d}x = E_n
 ```
 
 ```""")
@@ -127,8 +127,8 @@ The virial theorem $\langle T \rangle = \langle V \rangle$ and the definition of
   println(io, "--- | -- | -------------- | -------------- ")
   for k in [0.1,0.5,1.0,5.0]
   for n in 0:9
-    analytical = E(HO, n=n)
-    numerical  = 2 * quadgk(x -> conj(ψ(HO, x, n=n)) * V(HO, x) * ψ(HO, x, n=n), -Inf, Inf, maxevals=10^3)[1]
+    analytical = energy(HO, n=n)
+    numerical  = 2 * quadgk(x -> conj(wavefunction(HO, x, n=n)) * potential(HO, x) * wavefunction(HO, x, n=n), -Inf, Inf, maxevals=10^3)[1]
     acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-5) : isapprox(analytical, numerical, rtol=1e-5)
     @test acceptance
     @printf(io, "%.1f | %2d | %14.9f | %14.9f %s\n", k, n, analytical, numerical, acceptance ? "✔" : "✗")
@@ -150,8 +150,8 @@ println(io, raw"""
     E_n
     &=      \int \psi^\ast_n(x) \hat{H} \psi_n(x) \mathrm{d}x \\
     &=      \int \psi^\ast_n(x) \left[ \hat{V} + \hat{T} \right] \psi(x) \mathrm{d}x \\
-    &=      \int \psi^\ast_n(x) \left[ V(x) - \frac{\hbar^2}{2m} \frac{\mathrm{d}^{2}}{\mathrm{d} x^{2}} \right] \psi(x) \mathrm{d}x \\
-    &\simeq \int \psi^\ast_n(x) \left[ V(x)\psi(x) -\frac{\hbar^2}{2m} \frac{\psi(x+\Delta x) - 2\psi(x) + \psi(x-\Delta x)}{\Delta x^{2}} \right] \mathrm{d}x.
+    &=      \int \psi^\ast_n(x) \left[ potential(x) - \frac{\hbar^2}{2m} \frac{\mathrm{d}^{2}}{\mathrm{d} x^{2}} \right] \psi(x) \mathrm{d}x \\
+    &\simeq \int \psi^\ast_n(x) \left[ potential(x)\psi(x) -\frac{\hbar^2}{2m} \frac{\psi(x+\Delta x) - 2\psi(x) + \psi(x-\Delta x)}{\Delta x^{2}} \right] \mathrm{d}x.
   \end{aligned}
 ```
 
@@ -208,14 +208,14 @@ are given by the sum of 2 Taylor series:
 ```""")
 
 @testset "HO: ∫ψₙ*Hψₙdx = <ψₙ|H|ψₙ> = Eₙ" begin
-  ψHψ(HO, x; n=0, Δx=0.005) = V(HO,x)*ψ(HO,x,n=n)^2 - HO.hbar^2/(2*HO.m)*conj(ψ(HO,x,n=n))*(ψ(HO,x+Δx,n=n)-2*ψ(HO,x,n=n)+ψ(HO,x-Δx,n=n))/Δx^2
+  ψHwavefunction(HO, x; n=0, Δx=0.005) = potential(HO,x)*wavefunction(HO,x,n=n)^2 - HO.hbar^2/(2*HO.m)*conj(wavefunction(HO,x,n=n))*(wavefunction(HO,x+Δx,n=n)-2*wavefunction(HO,x,n=n)+wavefunction(HO,x-Δx,n=n))/Δx^2
   println(io, "  k |  n |     analytical |      numerical ")
   println(io, "--- | -- | -------------- | -------------- ")
   for k in [0.1,0.5,1.0,5.0]
   for n in 0:9
     HO = HarmonicOscillator(k=k)
-    analytical = E(HO, n=n)
-    numerical  = quadgk(x -> ψHψ(HO, x, n=n, Δx=0.001), -Inf, Inf, maxevals=10^3)[1]
+    analytical = energy(HO, n=n)
+    numerical  = quadgk(x -> ψHwavefunction(HO, x, n=n, Δx=0.001), -Inf, Inf, maxevals=10^3)[1]
     acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-5) : isapprox(analytical, numerical, rtol=1e-5)
     @test acceptance
     @printf(io, "%.1f | %2d | %14.9f | %14.9f %s\n", k, n, analytical, numerical, acceptance ? "✔" : "✗")
