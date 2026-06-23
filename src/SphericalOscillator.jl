@@ -117,7 +117,7 @@ and the Hamiltonian
 Parameters are specified with the following struct:
 
 ```
-SO = SphericalOscillator(k=1.0, μ=1.0, ℏ=1.0)
+SO = SphericalOscillator(k=1.0, mu=1.0, hbar=1.0)
 ```
 
 ``k`` is the force constant, ``μ`` is the mass of particle and ``\hbar`` is the reduced Planck constant (Dirac's constant).

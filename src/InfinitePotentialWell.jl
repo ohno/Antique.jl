@@ -67,7 +67,7 @@ and the Hamiltonian
 Parameters are specified with the following struct:
 
 ```
-IPW = InfinitePotentialWell(L=1.0, m=1.0, ℏ=1.0)
+IPW = InfinitePotentialWell(L=1.0, m=1.0, hbar=1.0)
 ```
 
 ``L`` is the length of the box, ``m`` is the mass of particle and ``\hbar`` is the reduced Planck constant (Dirac's constant).

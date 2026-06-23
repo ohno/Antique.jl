@@ -121,7 +121,7 @@ and the Hamiltonian
 where ``a = \sqrt{\frac{k}{2Dₑ}}`` is defined. Parameters are specified with the following struct:
 
 ```
-MP = MorsePotential(rₑ=2.0, Dₑ=0.1, k=0.1, μ=918.1, ℏ=1.0)
+MP = MorsePotential(r_e=2.0, D_e=0.1, k=0.1, mu=918.1, hbar=1.0)
 ```
 
 ``r_\mathrm{e}`` is the equilibrium bond distance, ``D_\mathrm{e}`` is the the well depth , ``k`` is the force constant, ``\mu`` is the reduced mass and ``\hbar`` is the reduced Planck constant (Dirac's constant).

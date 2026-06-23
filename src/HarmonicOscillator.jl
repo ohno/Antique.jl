@@ -78,7 +78,7 @@ and the Hamiltonian
 Parameters are specified with the following struct:
 
 ```
-HO = HarmonicOscillator(k=1.0, m=1.0, ℏ=1.0)
+HO = HarmonicOscillator(k=1.0, m=1.0, hbar=1.0)
 ```
 
 ``k`` is the force constant, ``m`` is the mass of the particle and ``\hbar`` is the reduced Planck constant (Dirac's constant).

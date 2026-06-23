@@ -67,7 +67,7 @@ and the Hamiltonian
 Parameters are specified with the following struct:
 
 ```
-IPW3D = InfinitePotentialWell3D(L=[1.0,1.0,1.0], m=1.0, ℏ=1.0)
+IPW3D = InfinitePotentialWell3D(L=[1.0,1.0,1.0], m=1.0, hbar=1.0)
 ```
 
 ``L`` is a vector of the lengths of the box in ``x``,``y``,``z``-direction, ``m`` is the mass of the particle and ``\hbar`` is the reduced Planck constant (Dirac's constant).
