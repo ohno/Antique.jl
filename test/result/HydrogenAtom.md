@@ -1202,11 +1202,11 @@ Reference:
 The virial theorem $2\langle T \rangle + \langle V \rangle = 0$ and the definition of Hamiltonian $\langle H \rangle = \langle T \rangle + \langle V \rangle$ derive $\langle H \rangle = \frac{1}{2} \langle V \rangle$ and $\langle H \rangle = -\langle T \rangle$.
 
 ```math
-\frac{1}{2} \int \psi_n^\ast(x) V(x) \psi_n(x) \mathrm{d}x = E_n
+\frac{1}{2} \int \psi_n^\ast(x) potential(x) \psi_n(x) \mathrm{d}x = E_n
 ```
 
 ```
-Antique.HydrogenAtom(Z=1, mₑ=1.0, a₀=1.0, Eₕ=1.0, ħ=1.0)
+Antique.HydrogenAtom(Z=1, m_e=1.0, a_0=1.0, E_h=1.0, hbar=1.0)
  n |          analytical |           numerical 
 -- | ------------------- | ------------------- 
  1 | -5.000000000000e-01 | -5.000000000000e-01 ✔
@@ -1220,7 +1220,7 @@ Antique.HydrogenAtom(Z=1, mₑ=1.0, a₀=1.0, Eₕ=1.0, ħ=1.0)
  9 | -6.172839506173e-03 | -6.172839506173e-03 ✔
 10 | -5.000000000000e-03 | -5.000000000000e-03 ✔
 
-Antique.HydrogenAtom(Z=1, mₑ=1.0, a₀=2.0, Eₕ=1.0, ħ=1.0)
+Antique.HydrogenAtom(Z=1, m_e=1.0, a_0=2.0, E_h=1.0, hbar=1.0)
  n |          analytical |           numerical 
 -- | ------------------- | ------------------- 
  1 | -5.000000000000e-01 | -5.000000000000e-01 ✔
@@ -1234,7 +1234,7 @@ Antique.HydrogenAtom(Z=1, mₑ=1.0, a₀=2.0, Eₕ=1.0, ħ=1.0)
  9 | -6.172839506173e-03 | -6.172839506173e-03 ✔
 10 | -5.000000000000e-03 | -5.000000000000e-03 ✔
 
-Antique.HydrogenAtom(Z=2, mₑ=1.0, a₀=1.0, Eₕ=1.0, ħ=1.0)
+Antique.HydrogenAtom(Z=2, m_e=1.0, a_0=1.0, E_h=1.0, hbar=1.0)
  n |          analytical |           numerical 
 -- | ------------------- | ------------------- 
  1 | -2.000000000000e+00 | -2.000000000000e+00 ✔
@@ -1248,7 +1248,7 @@ Antique.HydrogenAtom(Z=2, mₑ=1.0, a₀=1.0, Eₕ=1.0, ħ=1.0)
  9 | -2.469135802469e-02 | -2.469135802469e-02 ✔
 10 | -2.000000000000e-02 | -2.000000000000e-02 ✔
 
-Antique.HydrogenAtom(Z=2, mₑ=1.0, a₀=1.0, Eₕ=27.211386245988, ħ=1.0)
+Antique.HydrogenAtom(Z=2, m_e=1.0, a_0=1.0, E_h=27.211386245988, hbar=1.0)
  n |          analytical |           numerical 
 -- | ------------------- | ------------------- 
  1 | -5.442277249198e+01 | -5.442277249198e+01 ✔
@@ -1262,7 +1262,7 @@ Antique.HydrogenAtom(Z=2, mₑ=1.0, a₀=1.0, Eₕ=27.211386245988, ħ=1.0)
  9 | -6.718860801479e-01 | -6.718860801478e-01 ✔
 10 | -5.442277249198e-01 | -5.442277249198e-01 ✔
 
-Antique.HydrogenAtom(Z=2, mₑ=9.1093837015e-31, a₀=5.29177210903e-11, Eₕ=4.3597447222071e-18, ħ=1.054571817e-34)
+Antique.HydrogenAtom(Z=2, m_e=9.1093837015e-31, a_0=5.29177210903e-11, E_h=4.3597447222071e-18, hbar=1.054571817e-34)
  n |          analytical |           numerical 
 -- | ------------------- | ------------------- 
  1 | -8.719489444414e-18 | -8.719489444414e-18 ✔

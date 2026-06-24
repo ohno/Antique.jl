@@ -1,30 +1,49 @@
-export DeltaPotential, V, E, ψ
+module DeltaPotentials
+
+import ..AbstractModel
+import ..energy, ..potential, ..wavefunction
+
+export DeltaPotential, energy, potential, wavefunction
 
 # parameters
-@kwdef struct DeltaPotential
-  α = 1.0
-  m = 1.0
-  ℏ = 1.0
+struct DeltaPotential <: AbstractModel
+  alpha::Float64
+  m::Float64
+  hbar::Float64
+end
+
+function DeltaPotential(;
+  alpha=1.0, α=alpha,
+  m=1.0,
+  hbar=1.0, ℏ=hbar,
+)
+  return DeltaPotential(α, m, ℏ)
+end
+
+function Base.getproperty(model::DeltaPotential, sym::Symbol)
+  sym === :α && return getfield(model, :alpha)
+  sym === :ℏ && return getfield(model, :hbar)
+  return getfield(model, sym)
 end
 
 # potential
-function V(model::DeltaPotential, x)
+function potential(model::DeltaPotential, x)
   return x==0 ? -Inf : 0
 end
 
 # eigenvalues
-function E(model::DeltaPotential)
-  α = model.α
+function energy(model::DeltaPotential)
+  α = model.alpha
   m = model.m
-  ℏ = model.ℏ
+  ℏ = model.hbar
   return -(m*α^2)/(2*ℏ^2)
 end
 
 # eigenfunctions
-function ψ(model::DeltaPotential, x)
-  α = model.α
+function wavefunction(model::DeltaPotential, x)
+  α = model.alpha
   m = model.m
-  ℏ = model.ℏ
+  ℏ = model.hbar
   return sqrt(m*α)/ℏ * exp.(-m*α*abs.(x)/ℏ^2)
 end
 
@@ -44,7 +63,7 @@ and the Hamiltonian
 Parameters are specified with the following struct:
 
 ```
-DP = DeltaPotential(α=1.0, m=1.0, ℏ=1.0)
+DP = DeltaPotential(alpha=1.0, m=1.0, hbar=1.0)
 ```
 
 ``\alpha`` is the potential strength, ``m`` is the mass of particle and ``\hbar`` is the reduced Planck constant (Dirac's constant).
@@ -56,25 +75,27 @@ DP = DeltaPotential(α=1.0, m=1.0, ℏ=1.0)
 """ DeltaPotential
 
 @doc raw"""
-`V(model::DeltaPotential, x)`
+`potential(model::DeltaPotential, x)`
 
 ```math
 V(x) = -\alpha \delta(x).
 ```
-""" V(model::DeltaPotential, x) 
+""" potential(model::DeltaPotential, x) 
 
 @doc raw"""
-`E(model::DeltaPotential)`
+`energy(model::DeltaPotential)`
 
 ```math
 E = - \frac{m\alpha^2}{2\hbar^2}
 ```
-""" E(model::DeltaPotential)
+""" energy(model::DeltaPotential)
 
 @doc raw"""
-`ψ(model::DeltaPotential, x)`
+`wavefunction(model::DeltaPotential, x)`
 
 ```math
 \psi(x) = \frac{\sqrt{m\alpha}}{\hbar} \mathrm{e}^{-m\alpha |x|/\hbar^2}
 ```
-""" ψ(model::DeltaPotential, x)
+""" wavefunction(model::DeltaPotential, x)
+
+end # module DeltaPotentials

@@ -1,5 +1,5 @@
-io = open("./result/CoulombTwoBody.md", "w")
-CTB = CoulombTwoBody(z₁=-1, z₂=1, m₁=1.0, m₂=1.0, mₑ=1.0, a₀=1.0, Eₕ=1.0, ℏ=1.0)
+﻿io = open("./result/CoulombTwoBody.md", "w")
+CTB = CoulombTwoBody(z_1=-1, z_2=1, m_1=1.0, m_2=1.0, m_e=1.0, a_0=1.0, E_h=1.0, hbar=1.0)
 MP = MorsePotential()
 
 
@@ -31,7 +31,7 @@ println(io, raw"""
       c = (1 - x^2)^(m//2) * Dm(a * Dn(b))                   # Rodrigues' formula
       d = expand_derivatives(c)                              # expand dⁿ/dxⁿ and dᵐ/dxᵐ
       e = simplify(d, expand=true)                           # simplify
-      f = simplify(Antique.P(CTB, x, n=n, m=m), expand=true) # closed-form
+      f = simplify(Antique.legendre_polynomial(CTB, x, n=n, m=m), expand=true) # closed-form
       # latexify
       eq1 = latexify(e, env=:raw)
       eq2 = latexify(f, env=:raw)
@@ -74,7 +74,7 @@ println(io, raw"""
   for i in m:9
   for j in m:9
     analytical = 2*factorial(j+m)/(2*j+1)/factorial(j-m)*(i == j ? 1 : 0)
-    numerical  = quadgk(x -> Antique.P(CTB, x, n=i, m=m) * Antique.P(CTB, x, n=j, m=m), -1, 1, maxevals=10^3)[1]
+    numerical  = quadgk(x -> Antique.legendre_polynomial(CTB, x, n=i, m=m) * Antique.legendre_polynomial(CTB, x, n=j, m=m), -1, 1, maxevals=10^3)[1]
     acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-5) : isapprox(analytical, numerical, rtol=1e-5)
     @test acceptance
     @printf(io, "%2d | %2d | %2d | %14.9f | %14.9f %s\n", m, i, j, analytical, numerical, acceptance ? "✔" : "✗")
@@ -113,7 +113,7 @@ Y_{lm}(\theta,\varphi)^* Y_{l'm'}(\theta,\varphi) \sin(\theta)
     numerical  = real(
       quadgk(φ ->
       quadgk(θ ->
-        conj(Antique.Y(CTB,θ,φ,l=l1,m=m1)) * Antique.Y(CTB,θ,φ,l=l2,m=m2) * sin(θ)
+        conj(Antique.spherical_harmonic(CTB,θ,φ,l=l1,m=m1)) * Antique.spherical_harmonic(CTB,θ,φ,l=l2,m=m2) * sin(θ)
       , 0, π, maxevals=50)[1]
       , 0, 2π, maxevals=100)[1]
     )
@@ -158,8 +158,8 @@ println(io, raw"""
     c = Dk(a * Dn(b))                                            # Rodrigues' formula
     d = expand_derivatives(c)                                    # expand dⁿ/dxⁿ and dᵐ/dxᵐ
     e = simplify(d, expand=true)                                 # simplify
-    f = simplify(Antique.L(CTB, x, n=n, k=k), expand=true)       # closed-form
-    g = simplify((-1)^k * Antique.L(MP, n-k, k, x), expand=true) # closed-form
+    f = simplify(Antique.laguerre_polynomial(CTB, x, n=n, k=k), expand=true)       # closed-form
+    g = simplify((-1)^k * Antique.laguerre_polynomial(MP, n-k, k, x), expand=true) # closed-form
     # latexify
     eq1 = latexify(e, env=:raw)
     eq2 = latexify(f, env=:raw)
@@ -205,7 +205,7 @@ Replace $n+k$ with $n$ for [the definition of Wolfram MathWorld](https://mathwor
   for j in 0:7
   for k in 0:min(i,j)
     analytical = factorial(i) / factorial(i-k) * (i == j ? 1 : 0)
-    numerical  = quadgk(x -> exp(-x) * x^k * Antique.L(CTB, x, n=i, k=k) * Antique.L(CTB, x, n=j, k=k), 0, Inf, maxevals=10^3)[1]
+    numerical  = quadgk(x -> exp(-x) * x^k * Antique.laguerre_polynomial(CTB, x, n=i, k=k) * Antique.laguerre_polynomial(CTB, x, n=j, k=k), 0, Inf, maxevals=10^3)[1]
     acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-5) : isapprox(analytical, numerical, rtol=1e-5)
     @test acceptance
     @printf(io, "%2d | %2d | %2d | %14.9f | %14.9f %s\n", i, j, k, analytical, numerical, acceptance ? "✔" : "✗")
@@ -235,7 +235,7 @@ println(io, raw"""
   for n in 1:9
   for l in 0:n-1
     analytical = 1
-    numerical  = quadgk(r -> r^2 *Antique.R(CTB,r,n=n,l=l)^2, 0, Inf, maxevals=10^3)[1]
+    numerical  = quadgk(r -> r^2 *Antique.radial_function(CTB,r,n=n,l=l)^2, 0, Inf, maxevals=10^3)[1]
     acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-5) : isapprox(analytical, numerical, rtol=1e-5)
     @test acceptance
     @printf(io, "%2d | %2d | %14.9f | %14.9f %s\n", n, l, analytical, numerical, acceptance ? "✔" : "✗")
@@ -268,29 +268,29 @@ Reference:
 
 @testset "CTB: <r> = ∫r|Rₙₗ(r)|²r²dr = (a₀×mₑ/μ)/2Z × [3n²-l(l+1)]" begin
   for CTB in [
-    CoulombTwoBody(z₁=-1, z₂=+1, m₁=1.0, m₂=1.0),
-    CoulombTwoBody(z₁=-1, z₂=+1, m₁=1.0, m₂=206.7682830),
-    CoulombTwoBody(z₁=-1, z₂=+1, m₁=1.0, m₂=1836.15267343),
-    CoulombTwoBody(z₁=-1, z₂=+1, m₁=1.0, m₂=Inf),
-    CoulombTwoBody(z₁=-1, z₂=+1, m₁=206.7682830, m₂=1836.15267343),
-    CoulombTwoBody(z₁=-1, z₂=+2, m₁=206.7682830, m₂=7294.29954142)
+    CoulombTwoBody(z_1=-1, z_2=+1, m_1=1.0, m_2=1.0),
+    CoulombTwoBody(z_1=-1, z_2=+1, m_1=1.0, m_2=206.7682830),
+    CoulombTwoBody(z_1=-1, z_2=+1, m_1=1.0, m_2=1836.15267343),
+    CoulombTwoBody(z_1=-1, z_2=+1, m_1=1.0, m_2=Inf),
+    CoulombTwoBody(z_1=-1, z_2=+1, m_1=206.7682830, m_2=1836.15267343),
+    CoulombTwoBody(z_1=-1, z_2=+2, m_1=206.7682830, m_2=7294.29954142)
   ]
     println(io, CTB)
     println(io, " n |  l |     analytical |      numerical ")
     println(io, "-- | -- | -------------- | -------------- ")
     for n in 1:9
     for l in 0:n-1
-      z₁ = CTB.z₁
-      z₂ = CTB.z₂
-      m₁ = CTB.m₁
-      m₂ = CTB.m₂
-      mₑ = CTB.mₑ
-      a₀ = CTB.a₀
+      z₁ = CTB.z_1
+      z₂ = CTB.z_2
+      m₁ = CTB.m_1
+      m₂ = CTB.m_2
+      mₑ = CTB.m_e
+      a₀ = CTB.a_0
       μ = (1/m₁ + 1/m₂)^(-1)
       aμ = a₀ * mₑ/μ
       Z = abs(z₁*z₂)
       analytical =  aμ/2/Z * (3*n^2-l*(l+1))
-      numerical  = quadgk(r -> r^3 *Antique.R(CTB,r,n=n,l=l)^2, 0, Inf, maxevals=10^3)[1]
+      numerical  = quadgk(r -> r^3 *Antique.radial_function(CTB,r,n=n,l=l)^2, 0, Inf, maxevals=10^3)[1]
       acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-5) : isapprox(analytical, numerical, rtol=1e-5)
       @test acceptance
       @printf(io, "%2d | %2d | %14.9f | %14.9f %s\n", n, l, analytical, numerical, acceptance ? "✔" : "✗")
@@ -325,29 +325,29 @@ Reference:
 
 @testset "CTB: <r²> = ∫r²|Rₙₗ(r)|²r²dr = (a₀×mₑ/μ)²/2Z² × n²[5n²+1-3l(l+1)]; 1/μ = 1/mₑ + 1/mₚ" begin
   for CTB in [
-    CoulombTwoBody(z₁=-1, z₂=+1, m₁=1.0, m₂=1.0),
-    CoulombTwoBody(z₁=-1, z₂=+1, m₁=1.0, m₂=206.7682830),
-    CoulombTwoBody(z₁=-1, z₂=+1, m₁=1.0, m₂=1836.15267343),
-    CoulombTwoBody(z₁=-1, z₂=+1, m₁=1.0, m₂=Inf),
-    CoulombTwoBody(z₁=-1, z₂=+1, m₁=206.7682830, m₂=1836.15267343),
-    CoulombTwoBody(z₁=-1, z₂=+2, m₁=206.7682830, m₂=7294.29954142)
+    CoulombTwoBody(z_1=-1, z_2=+1, m_1=1.0, m_2=1.0),
+    CoulombTwoBody(z_1=-1, z_2=+1, m_1=1.0, m_2=206.7682830),
+    CoulombTwoBody(z_1=-1, z_2=+1, m_1=1.0, m_2=1836.15267343),
+    CoulombTwoBody(z_1=-1, z_2=+1, m_1=1.0, m_2=Inf),
+    CoulombTwoBody(z_1=-1, z_2=+1, m_1=206.7682830, m_2=1836.15267343),
+    CoulombTwoBody(z_1=-1, z_2=+2, m_1=206.7682830, m_2=7294.29954142)
   ]
     println(io, CTB)
     println(io, " n |  l |     analytical |      numerical ")
     println(io, "-- | -- | -------------- | -------------- ")
     for n in 1:9
     for l in 0:n-1
-      z₁ = CTB.z₁
-      z₂ = CTB.z₂
-      m₁ = CTB.m₁
-      m₂ = CTB.m₂
-      mₑ = CTB.mₑ
-      a₀ = CTB.a₀
+      z₁ = CTB.z_1
+      z₂ = CTB.z_2
+      m₁ = CTB.m_1
+      m₂ = CTB.m_2
+      mₑ = CTB.m_e
+      a₀ = CTB.a_0
       μ = (1/m₁ + 1/m₂)^(-1)
       aμ = a₀ * mₑ/μ
       Z = abs(z₁*z₂)
       analytical =  aμ^2/2/Z^2 * n^2 * (5*n^2+1-3*l*(l+1))
-      numerical  = quadgk(r -> r^4 *Antique.R(CTB,r,n=n,l=l)^2, 0, Inf, maxevals=10^3)[1]
+      numerical  = quadgk(r -> r^4 *Antique.radial_function(CTB,r,n=n,l=l)^2, 0, Inf, maxevals=10^3)[1]
       acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-5) : isapprox(analytical, numerical, rtol=1e-5)
       @test acceptance
       @printf(io, "%2d | %2d | %14.9f | %14.9f %s\n", n, l, analytical, numerical, acceptance ? "✔" : "✗")
@@ -369,7 +369,7 @@ println(io, raw"""
 The virial theorem $2\langle T \rangle + \langle V \rangle = 0$ and the definition of Hamiltonian $\langle H \rangle = \langle T \rangle + \langle V \rangle$ derive $\langle H \rangle = \frac{1}{2} \langle V \rangle$ and $\langle H \rangle = -\langle T \rangle$.
 
 ```math
-\frac{1}{2} \int \psi_n^\ast(x) V(x) \psi_n(x) \mathrm{d}x = E_n
+\frac{1}{2} \int \psi_n^\ast(x) potential(x) \psi_n(x) \mathrm{d}x = E_n
 ```
 
 ```""")
@@ -382,27 +382,27 @@ The virial theorem $2\langle T \rangle + \langle V \rangle = 0$ and the definiti
 
 @testset "CTB: <ψₙ|V|ψₙ> / 2 = Eₙ" begin
   for CTB in [
-    CoulombTwoBody(z₁=-1, z₂=+1, m₁=1.0, m₂=1.0),
-    CoulombTwoBody(z₁=-1, z₂=+1, m₁=1.0, m₂=206.7682830),
-    CoulombTwoBody(z₁=-1, z₂=+1, m₁=1.0, m₂=1836.15267343),
-    CoulombTwoBody(z₁=-1, z₂=+1, m₁=1.0, m₂=Inf),
-    CoulombTwoBody(z₁=-1, z₂=+1, m₁=206.7682830, m₂=1836.15267343),
-    CoulombTwoBody(z₁=-1, z₂=+2, m₁=206.7682830, m₂=7294.29954142),
-    CoulombTwoBody(z₁=-1, z₂=+2, Eₕ=27.211386245988, a₀=1.0, mₑ=1.0, ℏ=1.0),
-    CoulombTwoBody(z₁=-1, z₂=+2, m₁=9.1093837015e-31, m₂=1.67262192595e-27, Eₕ=4.3597447222071e-18, a₀=5.29177210903e-11, mₑ=9.1093837015e-31, ℏ=1.054571817e-34),
+    CoulombTwoBody(z_1=-1, z_2=+1, m_1=1.0, m_2=1.0),
+    CoulombTwoBody(z_1=-1, z_2=+1, m_1=1.0, m_2=206.7682830),
+    CoulombTwoBody(z_1=-1, z_2=+1, m_1=1.0, m_2=1836.15267343),
+    CoulombTwoBody(z_1=-1, z_2=+1, m_1=1.0, m_2=Inf),
+    CoulombTwoBody(z_1=-1, z_2=+1, m_1=206.7682830, m_2=1836.15267343),
+    CoulombTwoBody(z_1=-1, z_2=+2, m_1=206.7682830, m_2=7294.29954142),
+    CoulombTwoBody(z_1=-1, z_2=+2, E_h=27.211386245988, a_0=1.0, m_e=1.0, hbar=1.0),
+    CoulombTwoBody(z_1=-1, z_2=+2, m_1=9.1093837015e-31, m_2=1.67262192595e-27, E_h=4.3597447222071e-18, a_0=5.29177210903e-11, m_e=9.1093837015e-31, hbar=1.054571817e-34),
   ]
-    a₀ = CTB.a₀
-    m₁ = CTB.m₁
-    m₂ = CTB.m₂
-    mₑ = CTB.mₑ
+    a₀ = CTB.a_0
+    m₁ = CTB.m_1
+    m₂ = CTB.m_2
+    mₑ = CTB.m_e
     μ  = (1/m₁ + 1/m₂)^(-1)
     aμ = a₀ * mₑ / μ
     println(io, CTB)
     println(io, " n |     analytical |      numerical ")
     println(io, "-- | -------------- | -------------- ")
     for n in 1:10
-      analytical = E(CTB, n=n)
-      numerical  = quadgk(r -> 4*π*r^2 * conj(ψ(CTB,r,0,0, n=n)) * V(CTB,r) * ψ(CTB,r,0,0, n=n), 0, aμ*50*n, maxevals=10^3)[1] / 2
+      analytical = energy(CTB, n=n)
+      numerical  = quadgk(r -> 4*π*r^2 * conj(wavefunction(CTB,r,0,0, n=n)) * potential(CTB,r) * wavefunction(CTB,r,0,0, n=n), 0, aμ*50*n, maxevals=10^3)[1] / 2
       acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-5) : isapprox(analytical, numerical, rtol=1e-5)
       @test acceptance
       @printf(io, "%2d | %14.9f | %14.9f %s\n", n, analytical, numerical, acceptance ? "✔" : "✗")
@@ -440,12 +440,12 @@ println(io, raw"""
     #   quadgk(phi ->
     #   quadgk(theta ->
     #   quadgk(r ->
-    #     r^2 * sin(theta) * conj(ψ(CTB,r,theta,phi,n=n1,l=l1,m=m1)) * ψ(CTB,r,theta,phi,n=n2,l=l2,m=m2)
+    #     r^2 * sin(theta) * conj(wavefunction(CTB,r,theta,phi,n=n1,l=l1,m=m1)) * wavefunction(CTB,r,theta,phi,n=n2,l=l2,m=m2)
     #   , 0, Inf, maxevals=100)[1]
     #   , 0, π, maxevals=4)[1]
     #   , 0, 2π, maxevals=8)[1]
     # )
-    numerical = real(first(hcubature(r -> r[1]^2 * sin(r[2]) * conj(ψ(CTB,r[1],r[2],r[3],n=n1,l=l1,m=m1)) * ψ(CTB,r[1],r[2],r[3],n=n2,l=l2,m=m2), [0,0,0], [100,π,2π], maxevals=2000)))
+    numerical = real(first(hcubature(r -> r[1]^2 * sin(r[2]) * conj(wavefunction(CTB,r[1],r[2],r[3],n=n1,l=l1,m=m1)) * wavefunction(CTB,r[1],r[2],r[3],n=n2,l=l2,m=m2), [0,0,0], [100,π,2π], maxevals=2000)))
     acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-1) : isapprox(analytical, numerical, rtol=1e-1)
     @test acceptance
     @printf(io, "%2d | %2d | %2d | %2d | %2d | %2d | %14.9f | %14.9f %s\n", n1, n2, l1, l2, m1, m2, analytical, numerical, acceptance ? "✔" : "✗")

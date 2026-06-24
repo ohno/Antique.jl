@@ -1,4 +1,4 @@
-io = open("./result/InfinitePotentialWell.md", "w")
+﻿io = open("./result/InfinitePotentialWell.md", "w")
 
 
 # <ψᵢ|ψⱼ> = ∫ψₙ*ψₙdx = δᵢⱼ
@@ -19,9 +19,9 @@ println(io, raw"""
   for ℏ in [0.1, 1.0]
   for i in 1:10
   for j in 1:10
-    IPW = InfinitePotentialWell(L=L, m=m, ℏ=ℏ)
+    IPW = InfinitePotentialWell(L=L, m=m, hbar=ℏ)
     analytical = (i == j ? 1 : 0)
-    numerical  = quadgk(x -> conj(ψ(IPW, x, n=i)) * ψ(IPW, x, n=j), 0.0, IPW.L, maxevals=10^3)[1]
+    numerical  = quadgk(x -> conj(wavefunction(IPW, x, n=i)) * wavefunction(IPW, x, n=j), 0.0, IPW.L, maxevals=10^3)[1]
     acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-5) : isapprox(analytical, numerical, rtol=1e-5)
     @test acceptance
     @printf(io, "%2d | %2d | %14.9f | %14.9f %s\n", i, j, analytical, numerical, acceptance ? "✔" : "✗")
@@ -104,19 +104,19 @@ are given by the sum of 2 Taylor series:
 ```""")
 
 @testset "IPW: <ψₙ|H|ψₙ>  = ∫ψₙ*Tψₙdx = Eₙ" begin
-  # dψ(model, x) = ForwardDiff.derivative(x -> ψ(model, x), x)
-  # d²ψ(model, x) = ForwardDiff.derivative(x -> dψ(model, x), x)
-  # Hψ(model, x) = -DP.ℏ^2 / (2 * DP.m) * d²ψ(model, x) + * ψ(model, 0)^2
-  ψTψ(IPW, x; n=0, Δx=0.01) = -IPW.ℏ^2/(2*IPW.m)*conj(ψ(IPW,x,n=n))*(ψ(IPW,x+Δx,n=n)-2*ψ(IPW,x,n=n)+ψ(IPW,x-Δx,n=n))/Δx^2
+  # dwavefunction(model, x) = ForwardDiff.derivative(x -> wavefunction(model, x), x)
+  # d²wavefunction(model, x) = ForwardDiff.derivative(x -> dwavefunction(model, x), x)
+  # Hwavefunction(model, x) = -DP.ℏ^2 / (2 * DP.m) * d²wavefunction(model, x) + * wavefunction(model, 0)^2
+  ψTwavefunction(IPW, x; n=0, Δx=0.01) = -IPW.hbar^2/(2*IPW.m)*conj(wavefunction(IPW,x,n=n))*(wavefunction(IPW,x+Δx,n=n)-2*wavefunction(IPW,x,n=n)+wavefunction(IPW,x-Δx,n=n))/Δx^2
   println(io, "  L |   m |   ℏ |  n |     analytical |      numerical ")
   println(io, "--- | --- | --- | -- | -------------- | -------------- ")
   for L in [0.1, 1.0]
   for m in [0.1, 1.0]
   for ℏ in [0.1, 1.0]
   for n in 1:10
-    IPW = InfinitePotentialWell(L=L, m=m, ℏ=ℏ)
-    analytical = E(IPW, n=n)
-    numerical  = quadgk(x -> ψTψ(IPW, x, n=n, Δx=L*0.0001), 0, L, maxevals=10^3)[1]
+    IPW = InfinitePotentialWell(L=L, m=m, hbar=ℏ)
+    analytical = energy(IPW, n=n)
+    numerical  = quadgk(x -> ψTwavefunction(IPW, x, n=n, Δx=L*0.0001), 0, L, maxevals=10^3)[1]
     acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-5) : isapprox(analytical, numerical, rtol=1e-5)
     @test acceptance
     @printf(io, "%.1f | %.1f | %.1f | %2d | %14.9f | %14.9f %s\n", L, m, ℏ, n, numerical, analytical, acceptance ? "✔" :  "✗")
@@ -151,9 +151,9 @@ Reference:
   println(io, "--- | -- | -------------- | -------------- ")
   for L in [0.1, 0.5, 1.0, 7.0]
   for n in 1:1
-    IPW = InfinitePotentialWell(L=L, m=1.0, ℏ=1.0)
+    IPW = InfinitePotentialWell(L=L, m=1.0, hbar=1.0)
     analytical = L/2
-    numerical  = quadgk(x -> conj(ψ(IPW, x, n=n)) * x * ψ(IPW, x, n=n), 0, L, maxevals=10^3)[1]
+    numerical  = quadgk(x -> conj(wavefunction(IPW, x, n=n)) * x * wavefunction(IPW, x, n=n), 0, L, maxevals=10^3)[1]
     acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-5) : isapprox(analytical, numerical, rtol=1e-5)
     @test acceptance
     @printf(io, "%.1f | %2d | %14.9f | %14.9f %s\n", L, n, numerical, analytical, acceptance ? "✔" :  "✗")
@@ -185,9 +185,9 @@ Reference:
   println(io, "--- | -- | -------------- | -------------- ")
   for L in [0.1, 0.5, 1.0, 7.0]
   for n in 1:1
-    IPW = InfinitePotentialWell(L=L, m=1.0, ℏ=1.0)
+    IPW = InfinitePotentialWell(L=L, m=1.0, hbar=1.0)
     analytical = 2*L^2/π^3 * (π^3/6 - π/4)
-    numerical  = quadgk(x -> conj(ψ(IPW, x, n=n)) * x^2 * ψ(IPW, x, n=n), 0, L, maxevals=10^3)[1]
+    numerical  = quadgk(x -> conj(wavefunction(IPW, x, n=n)) * x^2 * wavefunction(IPW, x, n=n), 0, L, maxevals=10^3)[1]
     acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-5) : isapprox(analytical, numerical, rtol=1e-5)
     @test acceptance
     @printf(io, "%.1f | %2d | %14.9f | %14.9f %s\n", L, n, numerical, analytical, acceptance ? "✔" :  "✗")
@@ -275,14 +275,14 @@ are given by the sum of 2 Taylor series:
 ```""")
 
 @testset "IPW: <ψₙ|p|ψₙ>  = ∫ψₙ*(-iℏd/dx)ψₙdx = 0" begin
-  ψpψ(IPW, x; n=0, Δx=0.01) = -im*IPW.ℏ*conj(ψ(IPW,x,n=n))*(ψ(IPW,x+Δx,n=n)-ψ(IPW,x-Δx,n=n))/2/Δx
+  ψpwavefunction(IPW, x; n=0, Δx=0.01) = -im*IPW.hbar*conj(wavefunction(IPW,x,n=n))*(wavefunction(IPW,x+Δx,n=n)-wavefunction(IPW,x-Δx,n=n))/2/Δx
   println(io, "  L |  n |     analytical |      numerical ")
   println(io, "--- | -- | -------------- | -------------- ")
   for L in [0.1, 0.5, 1.0, 7.0]
   for n in 1:1
-    IPW = InfinitePotentialWell(L=L, m=1.0, ℏ=1.0)
+    IPW = InfinitePotentialWell(L=L, m=1.0, hbar=1.0)
     analytical = 0
-    numerical  = abs(quadgk(x -> ψpψ(IPW, x, n=n, Δx=L*0.0001), 0, L, maxevals=10^3)[1])
+    numerical  = abs(quadgk(x -> ψpwavefunction(IPW, x, n=n, Δx=L*0.0001), 0, L, maxevals=10^3)[1])
     acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-5) : isapprox(analytical, numerical, rtol=1e-5)
     @test acceptance
     @printf(io, "%.1f | %2d | %14.9f | %14.9f %s\n", L, n, numerical, analytical, acceptance ? "✔" :  "✗")
@@ -372,14 +372,14 @@ are given by the sum of 2 Taylor series:
 ```""")
 
 @testset "IPW: <ψₙ|p²|ψₙ> = ∫ψₙ*(-ℏ²d²/dx²)ψₙdx = π²ℏ²/L²" begin
-  ψp²ψ(IPW, x; n=0, Δx=0.01) = -IPW.ℏ^2*conj(ψ(IPW,x,n=n))*(ψ(IPW,x+Δx,n=n)-2*ψ(IPW,x,n=n)+ψ(IPW,x-Δx,n=n))/Δx^2
+  ψp²wavefunction(IPW, x; n=0, Δx=0.01) = -IPW.hbar^2*conj(wavefunction(IPW,x,n=n))*(wavefunction(IPW,x+Δx,n=n)-2*wavefunction(IPW,x,n=n)+wavefunction(IPW,x-Δx,n=n))/Δx^2
   println(io, "  L |  n |     analytical |      numerical ")
   println(io, "--- | -- | -------------- | -------------- ")
   for L in [0.1, 0.5, 1.0, 7.0]
   for n in 1:1
-    IPW = InfinitePotentialWell(L=L, m=1.0, ℏ=1.0)
-    analytical = π^2*IPW.ℏ^2/L^2
-    numerical  = quadgk(x -> ψp²ψ(IPW, x, n=n, Δx=L*0.0001), 0, L, maxevals=10^3)[1]
+    IPW = InfinitePotentialWell(L=L, m=1.0, hbar=1.0)
+    analytical = π^2*IPW.hbar^2/L^2
+    numerical  = quadgk(x -> ψp²wavefunction(IPW, x, n=n, Δx=L*0.0001), 0, L, maxevals=10^3)[1]
     acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-5) : isapprox(analytical, numerical, rtol=1e-5)
     @test acceptance
     @printf(io, "%.1f | %2d | %14.9f | %14.9f %s\n", L, n, numerical, analytical, acceptance ? "✔" :  "✗")

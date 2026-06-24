@@ -1,31 +1,49 @@
-export InfinitePotentialWell, V, E, ψ
+module InfinitePotentialWells
+
+import ..AbstractModel
+import ..energy, ..potential, ..wavefunction
+
+export InfinitePotentialWell, energy, potential, wavefunction
 
 # parameters
-@kwdef struct InfinitePotentialWell
-  L = 1.0
-  m = 1.0
-  ℏ = 1.0
+struct InfinitePotentialWell <: AbstractModel
+  L::Float64
+  m::Float64
+  hbar::Float64
+end
+
+function InfinitePotentialWell(;
+  L=1.0,
+  m=1.0,
+  hbar=1.0, ℏ=hbar,
+)
+  return InfinitePotentialWell(L, m, ℏ)
+end
+
+function Base.getproperty(model::InfinitePotentialWell, sym::Symbol)
+  sym === :ℏ && return getfield(model, :hbar)
+  return getfield(model, sym)
 end
 
 # potential
-function V(model::InfinitePotentialWell, x)
+function potential(model::InfinitePotentialWell, x)
   L = model.L
   return 0<x<L ? 0 : Inf
 end
 
 # eigenvalues
-function E(model::InfinitePotentialWell; n::Int=1)
+function energy(model::InfinitePotentialWell; n::Int=1)
   if !(1 ≤ n)
     throw(DomainError("n = $n", "n must be 1 or more: 1 ≤ n."))
   end
   L = model.L
   m = model.m
-  ℏ = model.ℏ
+  ℏ = model.hbar
   return (ℏ^2*n^2*π^2) / (2*m*L^2)
 end
 
 # eigenfunctions
-function ψ(model::InfinitePotentialWell, x; n::Int=1)
+function wavefunction(model::InfinitePotentialWell, x; n::Int=1)
   if !(1 ≤ n)
     throw(DomainError("n = $n", "n must be 1 or more: 1 ≤ n."))
   end
@@ -49,7 +67,7 @@ and the Hamiltonian
 Parameters are specified with the following struct:
 
 ```
-IPW = InfinitePotentialWell(L=1.0, m=1.0, ℏ=1.0)
+IPW = InfinitePotentialWell(L=1.0, m=1.0, hbar=1.0)
 ```
 
 ``L`` is the length of the box, ``m`` is the mass of particle and ``\hbar`` is the reduced Planck constant (Dirac's constant).
@@ -65,7 +83,7 @@ IPW = InfinitePotentialWell(L=1.0, m=1.0, ℏ=1.0)
 """ InfinitePotentialWell
 
 @doc raw"""
-`V(model::InfinitePotentialWell; x)`
+`potential(model::InfinitePotentialWell; x)`
 
 ```math
 V(x) =
@@ -76,20 +94,22 @@ V(x) =
   \end{array}
 \right.
 ```
-""" V(model::InfinitePotentialWell, x)
+""" potential(model::InfinitePotentialWell, x)
 
 @doc raw"""
-`E(model::InfinitePotentialWell; n::Int=1)`
+`energy(model::InfinitePotentialWell; n::Int=1)`
 
 ```math
 E_n = \frac{\hbar^2 n^2 \pi^2}{2 m L^2}
 ```
-""" E(model::InfinitePotentialWell; n::Int=1)
+""" energy(model::InfinitePotentialWell; n::Int=1)
 
 @doc raw"""
-`ψ(model::InfinitePotentialWell, x; n::Int=1)`
+`wavefunction(model::InfinitePotentialWell, x; n::Int=1)`
 
 ```math
 \psi_n(x) = \sqrt{\frac{2}{L}} \sin \frac{n\pi x}{L}
 ```
-""" ψ(model::InfinitePotentialWell, x; n::Int=1)
+""" wavefunction(model::InfinitePotentialWell, x; n::Int=1)
+
+end # module InfinitePotentialWells

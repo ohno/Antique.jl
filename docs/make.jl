@@ -1,3 +1,9 @@
+using Pkg
+
+Pkg.activate(@__DIR__)
+Pkg.develop(path=joinpath(@__DIR__, ".."))
+Pkg.instantiate()
+
 using Antique
 using CairoMakie
 using Documenter
@@ -36,7 +42,7 @@ makedocs(;
     "Hydrogen Atom"                => "HydrogenAtom.md"           ,
     "Coulomb 2-Body System"        => "CoulombTwoBody.md"         ,
     "API reference"                => "API.md"                    ,
-    "References"                   => "references.md"                   ,
+    "References"                   => "references.md"             ,
   ],
   plugins=[bib],
 )

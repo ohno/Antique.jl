@@ -28,7 +28,7 @@ Or run `import Pkg; Pkg.add(; name="Antique", version="0.13.0")` to install on J
 using Antique
 ```
 
-The energy `E()`, the wave function `ψ()`, the potential `V()` and some other functions will be exported. There are two ways to avoid function name conflicts. Run `import Antique` instead of `using Antique`, and use the energy `Antique.E()`, the wave function `Antique.ψ()` and the potential `Antique.V()`. Or try giving other function names like `using Antique: V as potential, E as energy, ψ as wavefuntion, HydrogenAtom`. Here are examples for the hydrogen-like atom. The analytical notation of the energy (the eigen value of the Hamiltonian) is written as
+The energy `energy()`, the wave function `wavefunction()`, the potential `potential()` and some other functions will be exported. There are two ways to avoid function name conflicts. Run `import Antique` instead of `using Antique`, and use the energy `Antique.energy()`, the wave function `Antique.wavefunction()` and the potential `Antique.potential()`. Or try importing selected names like `using Antique: potential, energy, wavefunction, HydrogenAtom`. Here are examples for the hydrogen-like atom. The analytical notation of the energy (the eigen value of the Hamiltonian) is written as
 
 ```math
 E_n = -\frac{Z^2}{2n^2} E_\mathrm{h}.
@@ -38,7 +38,7 @@ The Hydrogen atom has the symbol $\mathrm{H}$ and atomic number 1 ($Z=1$). There
 
 ```julia
 H = HydrogenAtom(Z=1)
-E(H, n=1)
+energy(H, n=1)
 # output> -0.5
 ```
 
@@ -46,7 +46,7 @@ The Helium cation has the symbol $\mathrm{He}^+$ and atomic number 2 ($Z=2$). Th
 
 ```julia
 He⁺ = HydrogenAtom(Z=2)
-E(He⁺, n=1)
+energy(He⁺, n=1)
 # output> -2.0
 ```
 
@@ -109,20 +109,20 @@ E, C = eigen(Symmetric(H),Symmetric(S))
 
 # norm & energy
 import Antique
-HA = Antique.HydrogenAtom(Z=1, Eₕ=1.0, a₀=1.0, mₑ=1.0, ℏ=1.0)
+HA = Antique.HydrogenAtom(Z=1, E_h=1.0, a_0=1.0, m_e=1.0, hbar=1.0)
 println("Norm")
 println("  numerical : ", transpose(C[:,1]) * S * C[:,1])
 println("  analytical: ", 1)
 println("Energy")
 println("  numerical : ", E[1])
-println("  analytical: ", Antique.E(HA,n=1))
+println("  analytical: ", Antique.energy(HA,n=1))
 
 # wave function
 using CairoMakie
 fig = Figure(size=(420,300), fontsize=11, backgroundcolor=:transparent)
 axis = Axis(fig[1,1], xlabel=L"$r$", ylabel=L"$\psi(r,0,0)$", limits=(0,4,0,0.6), ylabelsize=16.5, xlabelsize=16.5)
 lines!(axis, 0:0.01:10, r -> sum(C[:,1] .* exp.(-α*r^2)), label="Numerical, Thijssen(2007)")
-lines!(axis, 0:0.01:10, r -> real(Antique.ψ(HA,r,0,0)), color=:black, linestyle=:dash, label="Analytical, Antique.jl")
+lines!(axis, 0:0.01:10, r -> real(Antique.wavefunction(HA,r,0,0)), color=:black, linestyle=:dash, label="Analytical, Antique.jl")
 axislegend(axis, position=:rt, framevisible=false)
 fig
 save("assets/fig/demonstration.png", fig) # hide

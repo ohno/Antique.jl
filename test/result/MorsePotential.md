@@ -587,8 +587,8 @@
     E_n
     &=      \int \psi^\ast_n(r) \hat{H} \psi_n(r) \mathrm{d}r \\
     &=      \int \psi^\ast_n(r) \left[ \hat{V} + \hat{T} \right] \psi(r) \mathrm{d}r \\
-    &=      \int \psi^\ast_n(r) \left[ V(r) - \frac{\hbar^2}{2m} \frac{\mathrm{d}^{2}}{\mathrm{d} r^{2}} \right] \psi(r) \mathrm{d}r \\
-    &\simeq \int \psi^\ast_n(r) \left[ V(r)\psi(r) -\frac{\hbar^2}{2m} \frac{\psi(r+\Delta r) - 2\psi(r) + \psi(r-\Delta r)}{\Delta r^{2}} \right] \mathrm{d}r.
+    &=      \int \psi^\ast_n(r) \left[ potential(r) - \frac{\hbar^2}{2m} \frac{\mathrm{d}^{2}}{\mathrm{d} r^{2}} \right] \psi(r) \mathrm{d}r \\
+    &\simeq \int \psi^\ast_n(r) \left[ potential(r)\psi(r) -\frac{\hbar^2}{2m} \frac{\psi(r+\Delta r) - 2\psi(r) + \psi(r-\Delta r)}{\Delta r^{2}} \right] \mathrm{d}r.
   \end{aligned}
 ```
 
@@ -729,7 +729,7 @@ n_\mathrm{max} = \left\lfloor\frac{2 D_{\mathrm{e}}-h \nu_0}{h \nu_0}\right\rflo
 16  -0.001932  +0.001178  0 < ΔE  ✔
 17  -0.000754  +0.000634  0 < ΔE  ✔
 18  -0.000120  +0.000089  0 < ΔE  ✔
------------------------------  nₘₐₓ(MP) = 18
+-----------------------------  n_max(MP) = 18
 19  -0.000031  -0.000456  ΔE < 0  ✔
 20  -0.000486  -0.001000  ΔE < 0  ✔
 21  -0.001487  -0.001545  ΔE < 0  ✔
