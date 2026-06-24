@@ -34,7 +34,7 @@ Antique.wavefunction(::MorsePotential, ::Any)
 
 #### Generalized Laguerre Polynomials
 ```@docs; canonical=false
-Antique.laguerre(::MorsePotential, ::Any)
+Antique.laguerre_polynomial(::MorsePotential, ::Any)
 ```
 
 ## Usage & Examples

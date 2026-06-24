@@ -34,7 +34,7 @@ Antique.radial_function(::CoulombTwoBody, ::Any)
 
 #### Associated Laguerre Polynomials
 ```@docs; canonical=false
-Antique.laguerre(::CoulombTwoBody, ::Any)
+Antique.laguerre_polynomial(::CoulombTwoBody, ::Any)
 ```
 
 #### Spherical Harmonics
@@ -44,7 +44,7 @@ Antique.spherical_harmonic(::CoulombTwoBody, ::Any, ::Any)
 
 #### Associated Legendre Polynomials
 ```@docs; canonical=false
-Antique.rodrigues_formula(::CoulombTwoBody, ::Any)
+Antique.legendre_polynomial(::CoulombTwoBody, ::Any)
 ```
 
 ## Usage & Examples

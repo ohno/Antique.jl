@@ -34,7 +34,7 @@ Antique.radial_function(::SphericalOscillator, ::Any)
 
 #### Generalized Laguerre Polynomials
 ```@docs; canonical=false
-Antique.laguerre(::SphericalOscillator, ::Any)
+Antique.laguerre_polynomial(::SphericalOscillator, ::Any)
 ```
 
 #### Spherical Harmonics
@@ -44,7 +44,7 @@ Antique.spherical_harmonic(::SphericalOscillator, ::Any, ::Any)
 
 #### Associated Legendre Polynomials
 ```@docs; canonical=false
-Antique.rodrigues_formula(::SphericalOscillator, ::Any)
+Antique.legendre_polynomial(::SphericalOscillator, ::Any)
 ```
 
 ## Usage & Examples

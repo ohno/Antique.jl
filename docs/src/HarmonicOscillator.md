@@ -29,7 +29,7 @@ Antique.wavefunction(::HarmonicOscillator, ::Any)
 
 #### Hermite Polynomials
 ```@docs; canonical=false
-Antique.hermite(::HarmonicOscillator, ::Any)
+Antique.laguerre_polynomial(::HarmonicOscillator, ::Any)
 ```
 
 ## Usage & Examples

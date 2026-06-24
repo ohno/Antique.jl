@@ -1,9 +1,9 @@
 module HarmonicOscillators
 
 import ..AbstractModel
-import ..energy, ..potential, ..wavefunction, ..hermite
+import ..energy, ..potential, ..wavefunction, ..laguerre_polynomial
 
-export HarmonicOscillator, energy, potential, wavefunction, hermite
+export HarmonicOscillator, energy, potential, wavefunction, laguerre_polynomial
 
 # parameters
 struct HarmonicOscillator <: AbstractModel
@@ -54,11 +54,11 @@ function wavefunction(model::HarmonicOscillator, x; n::Int=0)
   ω = sqrt(k/m)
   A = sqrt(1//(factorial(n)*2^n)*sqrt(m*ω/(π*hbar)))
   ξ = sqrt(m*ω/hbar) * x
-  return A * hermite(model,ξ,n=n) * exp(-ξ^2/2)
+  return A * laguerre_polynomial(model,ξ,n=n) * exp(-ξ^2/2)
 end
 
 # Hermite polynomials
-function hermite(model::HarmonicOscillator, x; n=0)
+function laguerre_polynomial(model::HarmonicOscillator, x; n=0)
   return factorial(n) * sum((-1)^i // (factorial(i)  * factorial(n-2*i)) * (2*x)^(n-2*i) for i ∈ 0:Int(floor(n/2)))
 end
 
@@ -87,7 +87,7 @@ HO = HarmonicOscillator(k=1.0, m=1.0, hbar=1.0)
 
 Main:
 - _The Digital Library of Mathematical Functions_ (DLMF) [18.5.18](https://dlmf.nist.gov/18.5#E18)
-- _cpprefjp_, [hermite](https://cpprefjp.github.io/reference/cmath/hermite.html)
+- _cpprefjp_, [laguerre_polynomial](https://cpprefjp.github.io/reference/cmath/laguerre_polynomial.html)
 - [D. J. Griffiths, D. F. Schroeter, _Introduction to Quantum Mechanics_ **Third Edition** (Cambridge University Press, 2018)](https://doi.org/10.1017/9781316995433) p.48, 2.3.2 Analytic Method
 
 Supplemental:
@@ -133,7 +133,7 @@ where ``\omega = \sqrt{k/m}``, ``\xi = \sqrt{\frac{m\omega}{\hbar}}x``, ``A_n = 
 """ wavefunction(model::HarmonicOscillator, x; n::Int=0)
 
 @doc raw"""
-`hermite(model::HarmonicOscillator, x; n=0)`
+`laguerre_polynomial(model::HarmonicOscillator, x; n=0)`
 
 Rodrigues' formula & closed-form:
 ```math
@@ -159,6 +159,6 @@ Examples:
   &\vdots
 \end{aligned}
 ```
-""" hermite(model::HarmonicOscillator, x; n=0)
+""" laguerre_polynomial(model::HarmonicOscillator, x; n=0)
 
 end # module HarmonicOscillators

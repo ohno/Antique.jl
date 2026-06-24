@@ -1,6 +1,6 @@
 module Antique
 
-  export energy, potential, wavefunction, radial_function, laguerre, spherical_harmonic, rodrigues_formula, hermite, n_max
+  export energy, potential, wavefunction, radial_function, laguerre_polynomial, spherical_harmonic, legendre_polynomial, laguerre_polynomial, n_max
   export InfinitePotentialWell, HarmonicOscillator, MorsePotential, HydrogenAtom, DeltaPotential
   export PoschlTeller, SphericalOscillator, RigidRotor, InfinitePotentialWell3D, CoulombTwoBody
 
@@ -33,11 +33,11 @@ module Antique
   function radial_function end
 
   """
-    laguerre(model, args...; kwargs...)
+    laguerre_polynomial(model, args...; kwargs...)
 
   Evaluate a Laguerre polynomial for a given `model`.
   """
-  function laguerre end
+  function laguerre_polynomial end
 
   """
     spherical_harmonic(model, args...; kwargs...)
@@ -47,18 +47,18 @@ module Antique
   function spherical_harmonic end
 
   """
-    rodrigues_formula(model, args...; kwargs...)
+    legendre_polynomial(model, args...; kwargs...)
 
   Evaluate a Rodrigues-form polynomial/function for a given `model`.
   """
-  function rodrigues_formula end
+  function legendre_polynomial end
 
   """
-    hermite(model, args...; kwargs...)
+    laguerre_polynomial(model, args...; kwargs...)
 
   Evaluate a Hermite polynomial for a given `model`.
   """
-  function hermite end
+  function laguerre_polynomial end
 
   """
     n_max(model)

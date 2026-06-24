@@ -1,9 +1,9 @@
 module HydrogenAtoms
 
 import ..AbstractModel
-import ..energy, ..potential, ..wavefunction, ..radial_function, ..laguerre, ..spherical_harmonic, ..rodrigues_formula
+import ..energy, ..potential, ..wavefunction, ..radial_function, ..laguerre_polynomial, ..spherical_harmonic, ..legendre_polynomial
 
-export HydrogenAtom, energy, potential, wavefunction, radial_function, laguerre, spherical_harmonic, rodrigues_formula
+export HydrogenAtom, energy, potential, wavefunction, radial_function, laguerre_polynomial, spherical_harmonic, legendre_polynomial
 
 # parameters
 struct HydrogenAtom <: AbstractModel
@@ -70,22 +70,22 @@ function radial_function(model::HydrogenAtom, r; n=1, l=0)
   a_0 = model.a_0
   ρ = 2*Z*r/(n*a_0)
   N = -sqrt( factorial(n-l-1)/(2*n*factorial(n+l)) * (2*Z/(n*a_0))^3 )
-  return N*ρ^l * exp(-ρ/2) * laguerre(model, ρ, n=n+l, k=2*l+1)
+  return N*ρ^l * exp(-ρ/2) * laguerre_polynomial(model, ρ, n=n+l, k=2*l+1)
 end
 
 # associated Laguerre polynomials
-function laguerre(model::HydrogenAtom, x; n=0, k=0)
+function laguerre_polynomial(model::HydrogenAtom, x; n=0, k=0)
   return sum((-1)^(m+k) * factorial(n) // (factorial(m) * factorial(m+k) * factorial(n-m-k)) * x^m for m ∈ 0:n-k)
 end
 
 # spherical harmonics
 function spherical_harmonic(model::HydrogenAtom, θ, φ; l=0, m=0)
   N = (-1)^((abs(m)+m)/2) * sqrt( (2*l+1)*factorial(l-Int(abs(m))) / (2*factorial(l+Int(abs(m)))) )
-  return N * rodrigues_formula(model,cos(θ), n=l, m=Int(abs(m))) * exp(im*m*φ) / sqrt(2*π)
+  return N * legendre_polynomial(model,cos(θ), n=l, m=Int(abs(m))) * exp(im*m*φ) / sqrt(2*π)
 end
 
 # associated Legendre polynomials
-function rodrigues_formula(model::HydrogenAtom, x; n=0, m=0)
+function legendre_polynomial(model::HydrogenAtom, x; n=0, m=0)
   return (1//2)^n * (1-x^2)^(m//2) * sum((-1)^j * factorial(2*n-2*j) // (factorial(j) * factorial(n-j) * factorial(n-2*j-m)) * x^(n-2*j-m) for j ∈ 0:Int(floor((n-m)/2)))
 end
 
@@ -118,7 +118,7 @@ Main:
 - A. Messiah, _Quanfum Mechanics_ **VOLUME Ⅰ** (North-Holland Publishing Company, 1961), p.412 (XI.3), p.419 (XI.18) (XI.18a) (XI.18b), p.483 (B.12), p.493 (B.71) (B.72), p.494 (B.81), p495 (B.93)
 
 Supplemental:
-- cpprefjp, [legendre](https://cpprefjp.github.io/reference/cmath/legendre.html), [assoc_legendre](https://cpprefjp.github.io/reference/cmath/assoc_legendre.html), [laguerre](https://cpprefjp.github.io/reference/cmath/laguerre.html), [assoc_laguerre](https://cpprefjp.github.io/reference/cmath/assoc_laguerre.html)
+- cpprefjp, [legendre](https://cpprefjp.github.io/reference/cmath/legendre.html), [assoc_legendre](https://cpprefjp.github.io/reference/cmath/assoc_legendre.html), [laguerre_polynomial](https://cpprefjp.github.io/reference/cmath/laguerre_polynomial.html), [assoc_laguerre](https://cpprefjp.github.io/reference/cmath/assoc_laguerre.html)
 - The Digital Library of Mathematical Functions (DLMF), [18.3 Table1](https://dlmf.nist.gov/18.3#T1), [18.5 Table1](https://dlmf.nist.gov/18.5#T1), [18.5.16](https://dlmf.nist.gov/18.5#E16), [18.5.17](https://dlmf.nist.gov/18.5#E17), [18.5.12](https://dlmf.nist.gov/18.5#E12)
 - L. D. Landau, E. M. Lifshitz, Quantum Mechanics (Pergamon Press, 1965), [p.598 (c.1)](https://archive.org/details/ost-physics-landaulifshitz-quantummechanics/page/n611/mode/2up), [p.598 (c.4)](https://archive.org/details/ost-physics-landaulifshitz-quantummechanics/page/n611/mode/2up), [p.603 (d.13)](https://archive.org/details/ost-physics-landaulifshitz-quantummechanics/page/n615/mode/2up)
 - L. I. Schiff, Quantum Mechanics (McGraw-Hill Book Company, 1968), [p.79 (14.12)](https://archive.org/details/ost-physics-schiff-quantummechanics/page/n95/mode/1up), [p.93 (16.19)](https://archive.org/details/ost-physics-schiff-quantummechanics/page/n109/mode/1up)
@@ -174,7 +174,7 @@ where the Laguerre polynomials are defined as ``L_n(x) = \frac{1}{n!} \mathrm{e}
 """ radial_function(model::HydrogenAtom, r; n=1, l=0)
 
 @doc raw"""
-`laguerre(model::HydrogenAtom, x; n=0, k=0)`
+`laguerre_polynomial(model::HydrogenAtom, x; n=0, k=0)`
 
 !!! note
     The associated Laguerre polynomials $L_n^{k}(x)$, not the generalized Laguerre polynomials $L_n^{(\alpha)}(x)$, are used in this model.
@@ -212,7 +212,7 @@ Examples:
   \vdots
 \end{aligned}
 ```
-""" laguerre(model::HydrogenAtom, x; n=0, k=0)
+""" laguerre_polynomial(model::HydrogenAtom, x; n=0, k=0)
 
 @doc raw"""
 `spherical_harmonic(model::HydrogenAtom, θ, φ; l=0, m=0)`
@@ -228,7 +228,7 @@ i^{|m|+m} \sqrt{\frac{(l-|m|)!}{(l+|m|)!}} P_l^{|m|} = (-1)^{\frac{|m|+m}{2}} \s
 """ spherical_harmonic(model::HydrogenAtom, θ, φ; l=0, m=0)
 
 @doc raw"""
-`rodrigues_formula(model::HydrogenAtom, x; n=0, m=0)`
+`legendre_polynomial(model::HydrogenAtom, x; n=0, m=0)`
 
 Rodrigues' formula & closed-form:
 ```math
@@ -262,6 +262,6 @@ Examples:
   & \vdots
 \end{aligned}
 ```
-""" rodrigues_formula(model::HydrogenAtom, x; n=0, m=0)
+""" legendre_polynomial(model::HydrogenAtom, x; n=0, m=0)
 
 end # module HydrogenAtoms

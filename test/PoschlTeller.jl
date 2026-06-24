@@ -30,7 +30,7 @@ println(io, raw"""
     c = (1 - x^2)^(m//2) * Dm(a * Dn(b))                  # Rodrigues' formula
     d = expand_derivatives(c)                             # expand dⁿ/dxⁿ and dᵐ/dxᵐ
     e = simplify(d, expand=true)                          # simplify
-    f = simplify(Antique.rodrigues_formula(PT, x, n=n, m=m), expand=true) # closed-form
+    f = simplify(Antique.legendre_polynomial(PT, x, n=n, m=m), expand=true) # closed-form
     # latexify
     eq1 = latexify(e, env=:raw)
     eq2 = latexify(f, env=:raw)

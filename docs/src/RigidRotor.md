@@ -34,7 +34,7 @@ Antique.spherical_harmonic(::RigidRotor, ::Any, ::Any)
 
 #### Associated Legendre Polynomials
 ```@docs; canonical=false
-Antique.rodrigues_formula(::RigidRotor, ::Any)
+Antique.legendre_polynomial(::RigidRotor, ::Any)
 ```
 
 ## Usage & Examples

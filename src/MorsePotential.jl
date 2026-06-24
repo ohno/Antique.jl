@@ -1,9 +1,9 @@
 module MorsePotentials
 
 import ..AbstractModel
-import ..energy, ..potential, ..wavefunction, ..n_max, ..laguerre
+import ..energy, ..potential, ..wavefunction, ..n_max, ..laguerre_polynomial
 
-export MorsePotential, energy, potential, wavefunction, n_max, laguerre
+export MorsePotential, energy, potential, wavefunction, n_max, laguerre_polynomial
 
 # packages
 using SpecialFunctions
@@ -91,17 +91,17 @@ function wavefunction(model::MorsePotential, r; n::Int=0)
   ξ = 2*λ*exp(-a*(r-rₑ))
   s  = 2*λ - 2*n - 1
   N  = sqrt(factorial(n) * s * a / gamma(s+n+1))
-  return N * ξ^(s/2) * exp(-ξ/2) * laguerre(model, ξ, n=n, α=s)
+  return N * ξ^(s/2) * exp(-ξ/2) * laguerre_polynomial(model, ξ, n=n, α=s)
 end
 
 # generalized Laguerre polynomials
-function laguerre(model::MorsePotential, x; n=0, α=0)
-  return laguerre(model, n, α, x)
+function laguerre_polynomial(model::MorsePotential, x; n=0, α=0)
+  return laguerre_polynomial(model, n, α, x)
 end
-function laguerre(model::MorsePotential, n::Int, α::Int, x)
+function laguerre_polynomial(model::MorsePotential, n::Int, α::Int, x)
   return sum((-1)^(k) * (Int(gamma(α+n+1)) // Int((gamma(α+1+k)*gamma(n-k+1)))) * x^k * 1 // factorial(k) for k ∈ 0:n)
 end
-function laguerre(model::MorsePotential, n::Int, α::Real, x)
+function laguerre_polynomial(model::MorsePotential, n::Int, α::Real, x)
   return sum((-1)^(k) * (gamma(α+n+1) / (gamma(α+1+k)*gamma(n-k+1))) * x^k / factorial(k) for k ∈ 0:n)
 end
 
@@ -176,7 +176,7 @@ where ``\omega = \sqrt{k/µ}`` is defined.
 """ wavefunction(model::MorsePotential, r; n::Int=0)
 
 @doc raw"""
-`laguerre(model::MorsePotential, x; n=0, α=0)`
+`laguerre_polynomial(model::MorsePotential, x; n=0, α=0)`
 
 !!! note
     The generalized Laguerre polynomials $L_n^{(\alpha)}(x)$, not the associated Laguerre polynomials $L_n^{k}(x)$, are used in this model.
@@ -211,6 +211,6 @@ Examples:
   \vdots
 \end{aligned}
 ```
-""" laguerre(model::MorsePotential, x; n=0, α=0)
+""" laguerre_polynomial(model::MorsePotential, x; n=0, α=0)
 
 end # module MorsePotentials

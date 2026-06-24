@@ -1,9 +1,9 @@
 module PoschlTellers
 
 import ..AbstractModel
-import ..energy, ..potential, ..wavefunction, ..n_max, ..rodrigues_formula
+import ..energy, ..potential, ..wavefunction, ..n_max, ..legendre_polynomial
 
-export PoschlTeller, energy, potential, wavefunction, n_max, rodrigues_formula
+export PoschlTeller, energy, potential, wavefunction, n_max, legendre_polynomial
 
 # packages
 using SpecialFunctions
@@ -73,11 +73,11 @@ function wavefunction(model::PoschlTeller, x; n::Int=0)
   λ  = model.lambda
   x₀ = model.x_0
   μ  = max_n - n + 1
-  return (-1)^μ / sqrt(x₀) * rodrigues_formula(model,tanh(x/x₀),n=Int64(λ),m=μ) * sqrt(μ*gamma(λ-μ+1)/gamma(λ+μ+1))
+  return (-1)^μ / sqrt(x₀) * legendre_polynomial(model,tanh(x/x₀),n=Int64(λ),m=μ) * sqrt(μ*gamma(λ-μ+1)/gamma(λ+μ+1))
 end
 
 # associated Legendre polynomials
-function rodrigues_formula(model::PoschlTeller, x; n=0, m=0) # same definition as in hydrogen atom: additional factor (-1)^m taken out
+function legendre_polynomial(model::PoschlTeller, x; n=0, m=0) # same definition as in hydrogen atom: additional factor (-1)^m taken out
   return (1//2)^n * (1-x^2)^(m//2) * sum((-1)^j * factorial(2*n-2*j) // (factorial(j) * factorial(n-j) * factorial(n-2*j-m)) * x^(n-2*j-m) for j ∈ 0:Int(floor((n-m)/2)))
 end
 
@@ -165,7 +165,7 @@ where ``\mu = \mu(n) = n_\mathrm{max}-n+1``, and ``n_\mathrm{max} = \left\lfloor
 """ wavefunction(model::PoschlTeller, x; n::Int=0)
 
 @doc raw"""
-`rodrigues_formula(model::PoschlTeller, x; n=0, m=0)`
+`legendre_polynomial(model::PoschlTeller, x; n=0, m=0)`
 
 Associated Legendre polynomials are the associated Legendre functions for integer indices. Here we use the same notation of the associated Legendre functions as in the model HydrogenAtom.
 
@@ -178,6 +178,6 @@ P_n^m(x)
 \end{aligned}
 ```
 
-""" rodrigues_formula(model::PoschlTeller, x; n=0, m=0)
+""" legendre_polynomial(model::PoschlTeller, x; n=0, m=0)
 
 end # module PoschlTellers

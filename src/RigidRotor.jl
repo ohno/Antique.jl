@@ -1,9 +1,9 @@
 module RigidRotors
 
 import ..AbstractModel
-import ..energy, ..potential, ..wavefunction, ..spherical_harmonic, ..rodrigues_formula
+import ..energy, ..potential, ..wavefunction, ..spherical_harmonic, ..legendre_polynomial
 
-export RigidRotor, energy, potential, wavefunction, spherical_harmonic, rodrigues_formula
+export RigidRotor, energy, potential, wavefunction, spherical_harmonic, legendre_polynomial
 
 # parameters
 struct RigidRotor <: AbstractModel
@@ -65,11 +65,11 @@ end
 # spherical harmonics
 function spherical_harmonic(model::RigidRotor, θ, φ; l=0, m=0)
   N = (-1)^((abs(m)+m)/2) * sqrt( (2*l+1)*factorial(l-Int(abs(m))) / (2*factorial(l+Int(abs(m)))) )
-  return N * rodrigues_formula(model,cos(θ), n=l, m=Int(abs(m))) * exp(im*m*φ) / sqrt(2*π)
+  return N * legendre_polynomial(model,cos(θ), n=l, m=Int(abs(m))) * exp(im*m*φ) / sqrt(2*π)
 end
 
 # associated Legendre polynomials
-function rodrigues_formula(model::RigidRotor, x; n=0, m=0)
+function legendre_polynomial(model::RigidRotor, x; n=0, m=0)
   return (1//2)^n * (1-x^2)^(m//2) * sum((-1)^j * factorial(2*n-2*j) // (factorial(j) * factorial(n-j) * factorial(n-2*j-m)) * x^(n-2*j-m) for j ∈ 0:Int(floor((n-m)/2)))
 end
 
@@ -148,7 +148,7 @@ i^{|m|+m} \sqrt{\frac{(l-|m|)!}{(l+|m|)!}} P_l^{|m|} = (-1)^{\frac{|m|+m}{2}} \s
 """ spherical_harmonic(model::RigidRotor, θ, φ; l=0, m=0)
 
 @doc raw"""
-`rodrigues_formula(model::RigidRotor, x; n=0, m=0)`
+`legendre_polynomial(model::RigidRotor, x; n=0, m=0)`
 
 Rodrigues' formula & closed-form:
 ```math
@@ -182,6 +182,6 @@ Examples:
   & \vdots
 \end{aligned}
 ```
-""" rodrigues_formula(model::RigidRotor, x; n=0, m=0)
+""" legendre_polynomial(model::RigidRotor, x; n=0, m=0)
 
 end # module RigidRotors

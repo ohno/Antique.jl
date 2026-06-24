@@ -31,7 +31,7 @@ println(io, raw"""
       c = (1 - x^2)^(m//2) * Dm(a * Dn(b))                   # Rodrigues' formula
       d = expand_derivatives(c)                              # expand dⁿ/dxⁿ and dᵐ/dxᵐ
       e = simplify(d, expand=true)                           # simplify
-      f = simplify(Antique.rodrigues_formula(CTB, x, n=n, m=m), expand=true) # closed-form
+      f = simplify(Antique.legendre_polynomial(CTB, x, n=n, m=m), expand=true) # closed-form
       # latexify
       eq1 = latexify(e, env=:raw)
       eq2 = latexify(f, env=:raw)
@@ -74,7 +74,7 @@ println(io, raw"""
   for i in m:9
   for j in m:9
     analytical = 2*factorial(j+m)/(2*j+1)/factorial(j-m)*(i == j ? 1 : 0)
-    numerical  = quadgk(x -> Antique.rodrigues_formula(CTB, x, n=i, m=m) * Antique.rodrigues_formula(CTB, x, n=j, m=m), -1, 1, maxevals=10^3)[1]
+    numerical  = quadgk(x -> Antique.legendre_polynomial(CTB, x, n=i, m=m) * Antique.legendre_polynomial(CTB, x, n=j, m=m), -1, 1, maxevals=10^3)[1]
     acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-5) : isapprox(analytical, numerical, rtol=1e-5)
     @test acceptance
     @printf(io, "%2d | %2d | %2d | %14.9f | %14.9f %s\n", m, i, j, analytical, numerical, acceptance ? "✔" : "✗")
@@ -158,8 +158,8 @@ println(io, raw"""
     c = Dk(a * Dn(b))                                            # Rodrigues' formula
     d = expand_derivatives(c)                                    # expand dⁿ/dxⁿ and dᵐ/dxᵐ
     e = simplify(d, expand=true)                                 # simplify
-    f = simplify(Antique.laguerre(CTB, x, n=n, k=k), expand=true)       # closed-form
-    g = simplify((-1)^k * Antique.laguerre(MP, n-k, k, x), expand=true) # closed-form
+    f = simplify(Antique.laguerre_polynomial(CTB, x, n=n, k=k), expand=true)       # closed-form
+    g = simplify((-1)^k * Antique.laguerre_polynomial(MP, n-k, k, x), expand=true) # closed-form
     # latexify
     eq1 = latexify(e, env=:raw)
     eq2 = latexify(f, env=:raw)
@@ -205,7 +205,7 @@ Replace $n+k$ with $n$ for [the definition of Wolfram MathWorld](https://mathwor
   for j in 0:7
   for k in 0:min(i,j)
     analytical = factorial(i) / factorial(i-k) * (i == j ? 1 : 0)
-    numerical  = quadgk(x -> exp(-x) * x^k * Antique.laguerre(CTB, x, n=i, k=k) * Antique.laguerre(CTB, x, n=j, k=k), 0, Inf, maxevals=10^3)[1]
+    numerical  = quadgk(x -> exp(-x) * x^k * Antique.laguerre_polynomial(CTB, x, n=i, k=k) * Antique.laguerre_polynomial(CTB, x, n=j, k=k), 0, Inf, maxevals=10^3)[1]
     acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-5) : isapprox(analytical, numerical, rtol=1e-5)
     @test acceptance
     @printf(io, "%2d | %2d | %2d | %14.9f | %14.9f %s\n", i, j, k, analytical, numerical, acceptance ? "✔" : "✗")

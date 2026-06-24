@@ -30,7 +30,7 @@ println(io, raw"""
       c = (1 - x^2)^(m//2) * Dm(a * Dn(b))                  # Rodrigues' formula
       d = expand_derivatives(c)                             # expand dⁿ/dxⁿ and dᵐ/dxᵐ
       e = simplify(d, expand=true)                          # simplify
-      f = simplify(Antique.rodrigues_formula(RR, x, n=n, m=m), expand=true) # closed-form
+      f = simplify(Antique.legendre_polynomial(RR, x, n=n, m=m), expand=true) # closed-form
       # latexify
       eq1 = latexify(e, env=:raw)
       eq2 = latexify(f, env=:raw)
@@ -73,7 +73,7 @@ println(io, raw"""
   for i in m:9
   for j in m:9
     analytical = 2*factorial(j+m)/(2*j+1)/factorial(j-m)*(i == j ? 1 : 0)
-    numerical  = quadgk(x -> Antique.rodrigues_formula(RR, x, n=i, m=m) * Antique.rodrigues_formula(RR, x, n=j, m=m), -1, 1, maxevals=10^3)[1]
+    numerical  = quadgk(x -> Antique.legendre_polynomial(RR, x, n=i, m=m) * Antique.legendre_polynomial(RR, x, n=j, m=m), -1, 1, maxevals=10^3)[1]
     acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-5) : isapprox(analytical, numerical, rtol=1e-5)
     @test acceptance
     @printf(io, "%2d | %2d | %2d | %14.9f | %14.9f %s\n", m, i, j, analytical, numerical, acceptance ? "✔" : "✗")

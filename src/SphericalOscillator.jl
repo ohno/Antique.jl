@@ -1,9 +1,9 @@
 module SphericalOscillators
 
 import ..AbstractModel
-import ..energy, ..potential, ..wavefunction, ..radial_function, ..laguerre, ..spherical_harmonic, ..rodrigues_formula
+import ..energy, ..potential, ..wavefunction, ..radial_function, ..laguerre_polynomial, ..spherical_harmonic, ..legendre_polynomial
 
-export SphericalOscillator, energy, potential, wavefunction, radial_function, laguerre, spherical_harmonic, rodrigues_formula
+export SphericalOscillator, energy, potential, wavefunction, radial_function, laguerre_polynomial, spherical_harmonic, legendre_polynomial
 
 # packages
 using SpecialFunctions
@@ -76,28 +76,28 @@ function radial_function(model::SphericalOscillator, r; n=0, l=0)
   γ = μ*ω/ℏ
   ξ = sqrt(γ)*abs(r)
   N = sqrt(γ^(3/2)/(2*sqrt(π))) * sqrt( 2^(n+l+3) * fact(n)/ffact(2n+2l+1))
-  return N * ξ^l * exp(-ξ^2/2) * laguerre(model, ξ^2, n=n, α=l+1/2)
+  return N * ξ^l * exp(-ξ^2/2) * laguerre_polynomial(model, ξ^2, n=n, α=l+1/2)
 end
 
 # generalized Laguerre polynomials
-function laguerre(model::SphericalOscillator, x; n=0, α=0)
-  return laguerre(model, n, α, x)
+function laguerre_polynomial(model::SphericalOscillator, x; n=0, α=0)
+  return laguerre_polynomial(model, n, α, x)
 end
-function laguerre(model::SphericalOscillator, n::Int, α::Int, x)
+function laguerre_polynomial(model::SphericalOscillator, n::Int, α::Int, x)
   return sum((-1)^(k) * (Int(gamma(α+n+1)) // Int((gamma(α+1+k)*gamma(n-k+1)))) * x^k * 1 // factorial(k) for k ∈ 0:n)
 end
-function laguerre(model::SphericalOscillator, n::Int, α::Real, x)
+function laguerre_polynomial(model::SphericalOscillator, n::Int, α::Real, x)
   return sum((-1)^(k) * (gamma(α+n+1) / (gamma(α+1+k)*gamma(n-k+1))) * x^k / factorial(k) for k ∈ 0:n)
 end
 
 # spherical harmonics
 function spherical_harmonic(model::SphericalOscillator, θ, φ; l=0, m=0)
   N = (-1)^((abs(m)+m)/2) * sqrt( (2*l+1)*factorial(l-Int(abs(m))) / (2*factorial(l+Int(abs(m)))) )
-  return N * rodrigues_formula(model,cos(θ), n=l, m=Int(abs(m))) * exp(im*m*φ) / sqrt(2*π)
+  return N * legendre_polynomial(model,cos(θ), n=l, m=Int(abs(m))) * exp(im*m*φ) / sqrt(2*π)
 end
 
 # associated Legendre polynomials
-function rodrigues_formula(model::SphericalOscillator, x; n=0, m=0)
+function legendre_polynomial(model::SphericalOscillator, x; n=0, m=0)
   return (1//2)^n * (1-x^2)^(m//2) * sum((-1)^j * factorial(2*n-2*j) // (factorial(j) * factorial(n-j) * factorial(n-2*j-m)) * x^(n-2*j-m) for j ∈ 0:Int(floor((n-m)/2)))
 end
 
@@ -169,7 +169,7 @@ where ``\gamma = \mu\omega/\hbar`` and ``\xi = \sqrt{\gamma}r = \sqrt{\mu\omega/
 """ radial_function(model::SphericalOscillator, r; n=0, l=0)
 
 @doc raw"""
-`laguerre(model::SphericalOscillator, x; n=0, α=0)`
+`laguerre_polynomial(model::SphericalOscillator, x; n=0, α=0)`
 
 !!! note
     The generalized Laguerre polynomials $L_n^{(\alpha)}(x)$, not the associated Laguerre polynomials $L_n^{k}(x)$, are used in this model.
@@ -204,7 +204,7 @@ Examples:
   \vdots
 \end{aligned}
 ```
-""" laguerre(model::SphericalOscillator, x; n=0, α=0)
+""" laguerre_polynomial(model::SphericalOscillator, x; n=0, α=0)
 
 @doc raw"""
 `spherical_harmonic(model::SphericalOscillator, θ, φ; l=0, m=0)`
@@ -220,7 +220,7 @@ i^{|m|+m} \sqrt{\frac{(l-|m|)!}{(l+|m|)!}} P_l^{|m|} = (-1)^{\frac{|m|+m}{2}} \s
 """ spherical_harmonic(model::SphericalOscillator, θ, φ; l=0, m=0)
 
 @doc raw"""
-`rodrigues_formula(model::SphericalOscillator, x; n=0, m=0)`
+`legendre_polynomial(model::SphericalOscillator, x; n=0, m=0)`
 
 Rodrigues' formula & closed-form:
 ```math
@@ -254,6 +254,6 @@ Examples:
   & \vdots
 \end{aligned}
 ```
-""" rodrigues_formula(model::SphericalOscillator, x; n=0, m=0)
+""" legendre_polynomial(model::SphericalOscillator, x; n=0, m=0)
 
 end # module SphericalOscillators

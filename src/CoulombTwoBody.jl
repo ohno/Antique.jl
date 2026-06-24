@@ -1,9 +1,9 @@
 module CoulombTwoBodies
 
 import ..AbstractModel
-import ..energy, ..potential, ..wavefunction, ..radial_function, ..laguerre, ..spherical_harmonic, ..rodrigues_formula
+import ..energy, ..potential, ..wavefunction, ..radial_function, ..laguerre_polynomial, ..spherical_harmonic, ..legendre_polynomial
 
-export CoulombTwoBody, energy, potential, wavefunction, radial_function, laguerre, spherical_harmonic, rodrigues_formula
+export CoulombTwoBody, energy, potential, wavefunction, radial_function, laguerre_polynomial, spherical_harmonic, legendre_polynomial
 
 # parameters
 struct CoulombTwoBody <: AbstractModel
@@ -109,22 +109,22 @@ function radial_function(model::CoulombTwoBody, r; n=1, l=0)
   Z  = -z_1*z_2
   ρ = 2*Z*r/(n*aμ)
   N = -sqrt( factorial(n-l-1)/(2*n*factorial(n+l)) * (2*Z/(n*aμ))^3 )
-  return N*ρ^l * exp(-ρ/2) * laguerre(model, ρ, n=n+l, k=2*l+1)
+  return N*ρ^l * exp(-ρ/2) * laguerre_polynomial(model, ρ, n=n+l, k=2*l+1)
 end
 
 # associated Laguerre polynomials
-function laguerre(model::CoulombTwoBody, x; n=0, k=0)
+function laguerre_polynomial(model::CoulombTwoBody, x; n=0, k=0)
   return sum((-1)^(m+k) * factorial(n) // (factorial(m) * factorial(m+k) * factorial(n-m-k)) * x^m for m ∈ 0:n-k)
 end
 
 # spherical harmonics
 function spherical_harmonic(model::CoulombTwoBody, θ, φ; l=0, m=0)
   N = (-1)^((abs(m)+m)/2) * sqrt( (2*l+1)*factorial(l-Int(abs(m))) / (2*factorial(l+Int(abs(m)))) )
-  return N * rodrigues_formula(model,cos(θ), n=l, m=Int(abs(m))) * exp(im*m*φ) / sqrt(2*π)
+  return N * legendre_polynomial(model,cos(θ), n=l, m=Int(abs(m))) * exp(im*m*φ) / sqrt(2*π)
 end
 
 # associated Legendre polynomials
-function rodrigues_formula(model::CoulombTwoBody, x; n=0, m=0)
+function legendre_polynomial(model::CoulombTwoBody, x; n=0, m=0)
   return (1//2)^n * (1-x^2)^(m//2) * sum((-1)^j * factorial(2*n-2*j) // (factorial(j) * factorial(n-j) * factorial(n-2*j-m)) * x^(n-2*j-m) for j ∈ 0:Int(floor((n-m)/2)))
 end
 
@@ -208,7 +208,7 @@ where ``\frac{1}{\mu} = \frac{1}{m_1}+\frac{1}{m_2}``, ``a_\mu = a_0 \frac{m_\ma
 """ radial_function(model::CoulombTwoBody, r; n=1, l=0)
 
 @doc raw"""
-`laguerre(model::CoulombTwoBody, x; n=0, k=0)`
+`laguerre_polynomial(model::CoulombTwoBody, x; n=0, k=0)`
 
 !!! note
     The associated Laguerre polynomials $L_n^{k}(x)$, not the generalized Laguerre polynomials $L_n^{(\alpha)}(x)$, are used in this model.
@@ -246,7 +246,7 @@ Examples:
   \vdots
 \end{aligned}
 ```
-""" laguerre(model::CoulombTwoBody, x; n=0, k=0)
+""" laguerre_polynomial(model::CoulombTwoBody, x; n=0, k=0)
 
 @doc raw"""
 `spherical_harmonic(model::CoulombTwoBody, θ, φ; l=0, m=0)`
@@ -262,7 +262,7 @@ i^{|m|+m} \sqrt{\frac{(l-|m|)!}{(l+|m|)!}} P_l^{|m|} = (-1)^{\frac{|m|+m}{2}} \s
 """ spherical_harmonic(model::CoulombTwoBody, θ, φ; l=0, m=0)
 
 @doc raw"""
-`rodrigues_formula(model::CoulombTwoBody, x; n=0, m=0)`
+`legendre_polynomial(model::CoulombTwoBody, x; n=0, m=0)`
 
 Rodrigues' formula & closed-form:
 ```math
@@ -296,6 +296,6 @@ Examples:
   & \vdots
 \end{aligned}
 ```
-""" rodrigues_formula(model::CoulombTwoBody, x; n=0, m=0)
+""" legendre_polynomial(model::CoulombTwoBody, x; n=0, m=0)
 
 end # module CoulombTwoBodies

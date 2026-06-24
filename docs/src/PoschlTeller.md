@@ -34,7 +34,7 @@ Antique.wavefunction(::PoschlTeller, ::Any)
 
 #### Associated Legendre Polynomials
 ```@docs; canonical=false
-Antique.rodrigues_formula(::PoschlTeller, ::Any)
+Antique.legendre_polynomial(::PoschlTeller, ::Any)
 ```
 
 ## Usage & Examples

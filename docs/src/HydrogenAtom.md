@@ -34,7 +34,7 @@ Antique.radial_function(::HydrogenAtom, ::Any)
 
 #### Associated Laguerre Polynomials
 ```@docs; canonical=false
-Antique.laguerre(::HydrogenAtom, ::Any)
+Antique.laguerre_polynomial(::HydrogenAtom, ::Any)
 ```
 
 #### Spherical Harmonics
@@ -44,7 +44,7 @@ Antique.spherical_harmonic(::HydrogenAtom, ::Any, ::Any)
 
 #### Associated Legendre Polynomials
 ```@docs; canonical=false
-Antique.rodrigues_formula(::HydrogenAtom, ::Any)
+Antique.legendre_polynomial(::HydrogenAtom, ::Any)
 ```
 
 ## Usage & Examples
