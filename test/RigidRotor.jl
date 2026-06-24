@@ -1,4 +1,4 @@
-io = open("./result/RigidRotor.md", "w")
+﻿io = open("./result/RigidRotor.md", "w")
 RR = RigidRotor(m_1=1.0, m_2=1.0, R=1.0, hbar=1.0)
 
 
@@ -30,7 +30,7 @@ println(io, raw"""
       c = (1 - x^2)^(m//2) * Dm(a * Dn(b))                  # Rodrigues' formula
       d = expand_derivatives(c)                             # expand dⁿ/dxⁿ and dᵐ/dxᵐ
       e = simplify(d, expand=true)                          # simplify
-      f = simplify(Antique.P(RR, x, n=n, m=m), expand=true) # closed-form
+      f = simplify(Antique.legendre_polynomial(RR, x, n=n, m=m), expand=true) # closed-form
       # latexify
       eq1 = latexify(e, env=:raw)
       eq2 = latexify(f, env=:raw)
@@ -73,7 +73,7 @@ println(io, raw"""
   for i in m:9
   for j in m:9
     analytical = 2*factorial(j+m)/(2*j+1)/factorial(j-m)*(i == j ? 1 : 0)
-    numerical  = quadgk(x -> Antique.P(RR, x, n=i, m=m) * Antique.P(RR, x, n=j, m=m), -1, 1, maxevals=10^3)[1]
+    numerical  = quadgk(x -> Antique.legendre_polynomial(RR, x, n=i, m=m) * Antique.legendre_polynomial(RR, x, n=j, m=m), -1, 1, maxevals=10^3)[1]
     acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-5) : isapprox(analytical, numerical, rtol=1e-5)
     @test acceptance
     @printf(io, "%2d | %2d | %2d | %14.9f | %14.9f %s\n", m, i, j, analytical, numerical, acceptance ? "✔" : "✗")
@@ -112,7 +112,7 @@ Y_{lm}(\theta,\varphi)^* Y_{l'm'}(\theta,\varphi) \sin(\theta)
     numerical  = real(
       quadgk(φ ->
       quadgk(θ ->
-        conj(Antique.Y(RR,θ,φ,l=l1,m=m₁)) * Antique.Y(RR,θ,φ,l=l2,m=m₂) * sin(θ)
+        conj(Antique.spherical_harmonic(RR,θ,φ,l=l1,m=m₁)) * Antique.spherical_harmonic(RR,θ,φ,l=l2,m=m₂) * sin(θ)
       , 0, π, maxevals=50)[1]
       , 0, 2π, maxevals=100)[1]
     )
@@ -147,10 +147,10 @@ where $l$ is angular momentum quantum number and $I$ is the moment of intertia.
 ```""")
 
 @testset "RR: <ψₙ|H|ψₙ> = ∫ψₙ*Hψₙdx = Eₙ" begin
-  function ψHψ(RR;l)
+  function ψHwavefunction(RR;l)
       μ = (1/RR.m_1 + 1/RR.m_2)^(-1)
       I = μ * RR.R^2
-      YY = real(quadgk(φ -> quadgk(θ -> conj(Antique.Y(RR,θ,φ,l=l,m=0)) * Antique.Y(RR,θ,φ,l=l,m=0) * sin(θ), 0, π, maxevals=10)[1], 0, 2π, maxevals=10)[1])
+      YY = real(quadgk(φ -> quadgk(θ -> conj(Antique.spherical_harmonic(RR,θ,φ,l=l,m=0)) * Antique.spherical_harmonic(RR,θ,φ,l=l,m=0) * sin(θ), 0, π, maxevals=10)[1], 0, 2π, maxevals=10)[1])
       T = l*(l+1)/2/I * YY
       return T 
   end
@@ -163,8 +163,8 @@ where $l$ is angular momentum quantum number and $I$ is the moment of intertia.
   for R in [0.5, 2.0]
   for l in [1, 2, 3]
       RR = RigidRotor(m_1=m₁, m_2=m₂, R=R, hbar=ℏ)
-      analytical = E(RR,l=l)
-      numerical = ψHψ(RR,l=l)
+      analytical = energy(RR,l=l)
+      numerical = ψHwavefunction(RR,l=l)
       acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-4) : isapprox(analytical, numerical, rtol=1e-4)
       @test acceptance
       @printf(io, "%.1f | %.1f | %.1f | %.1f | %14.9f | %14.9f %s\n", m₁, m₂, R, l,analytical, numerical, acceptance ? "✔" : "✗") 

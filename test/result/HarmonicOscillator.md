@@ -335,7 +335,7 @@
 The virial theorem $\langle T \rangle = \langle V \rangle$ and the definition of Hamiltonian $\langle H \rangle = \langle T \rangle + \langle V \rangle$ derive $\langle H \rangle = 2 \langle V \rangle = 2 \langle T \rangle$.
 
 ```math
-2 \int \psi_n^\ast(x) V(x) \psi_n(x) \mathrm{d}x = E_n
+2 \int \psi_n^\ast(x) potential(x) \psi_n(x) \mathrm{d}x = E_n
 ```
 
 ```
@@ -390,8 +390,8 @@ The virial theorem $\langle T \rangle = \langle V \rangle$ and the definition of
     E_n
     &=      \int \psi^\ast_n(x) \hat{H} \psi_n(x) \mathrm{d}x \\
     &=      \int \psi^\ast_n(x) \left[ \hat{V} + \hat{T} \right] \psi(x) \mathrm{d}x \\
-    &=      \int \psi^\ast_n(x) \left[ V(x) - \frac{\hbar^2}{2m} \frac{\mathrm{d}^{2}}{\mathrm{d} x^{2}} \right] \psi(x) \mathrm{d}x \\
-    &\simeq \int \psi^\ast_n(x) \left[ V(x)\psi(x) -\frac{\hbar^2}{2m} \frac{\psi(x+\Delta x) - 2\psi(x) + \psi(x-\Delta x)}{\Delta x^{2}} \right] \mathrm{d}x.
+    &=      \int \psi^\ast_n(x) \left[ potential(x) - \frac{\hbar^2}{2m} \frac{\mathrm{d}^{2}}{\mathrm{d} x^{2}} \right] \psi(x) \mathrm{d}x \\
+    &\simeq \int \psi^\ast_n(x) \left[ potential(x)\psi(x) -\frac{\hbar^2}{2m} \frac{\psi(x+\Delta x) - 2\psi(x) + \psi(x-\Delta x)}{\Delta x^{2}} \right] \mathrm{d}x.
   \end{aligned}
 ```
 

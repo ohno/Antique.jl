@@ -1,4 +1,4 @@
-io = open("./result/InfinitePotentialWell3D.md", "w")
+﻿io = open("./result/InfinitePotentialWell3D.md", "w")
 
 
 # <ψᵢ|ψⱼ> = ∫ψₙ*ψₙdx = δᵢⱼ
@@ -16,7 +16,7 @@ println(io, raw"""
 @testset "IPW3D: <ψᵢ|ψⱼ> = ∫ψₙ*ψₙdx = δᵢⱼ" begin
   IPW3D = InfinitePotentialWell3D(L=[1.0,1.0,1.0], m=1.0, hbar=1.0)
   @show IPW3D
-  @show ψ(IPW3D,[0.5,0.5,0.5])
+  @show wavefunction(IPW3D,[0.5,0.5,0.5])
   for IPW3D in [
     InfinitePotentialWell3D(L=[1.0,1.0,1.0], m=1.0, hbar=1.0)
     InfinitePotentialWell3D(L=[1.2,3.4,4.5], m=2.0, hbar=3.0)
@@ -31,7 +31,7 @@ println(io, raw"""
     for jy in 1:2
     for jz in 1:2
       Δr = 0.01
-      numerical  = first(hcubature(r -> conj(ψ(IPW3D, r, n=[ix,iy,iz])) * ψ(IPW3D, r, n=[jx,jy,jz]), [Δr,Δr,Δr], IPW3D.L .- Δr, maxevals=1000))
+      numerical  = first(hcubature(r -> conj(wavefunction(IPW3D, r, n=[ix,iy,iz])) * wavefunction(IPW3D, r, n=[jx,jy,jz]), [Δr,Δr,Δr], IPW3D.L .- Δr, maxevals=1000))
       analytical = ((ix==jx && iy==jy && iz==jz) ? 1 : 0)
       acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-1) : isapprox(analytical, numerical, rtol=1e-1)
       @printf(io, "%2d | %2d | %2d | %2d | %2d | %2d | %14.9f | %14.9f %s\n", ix, iy, iz, jx, jy, jz, analytical, numerical, acceptance ? "✔" : "✗")
@@ -118,12 +118,12 @@ are given by the sum of 2 Taylor series:
 
 @testset "IPW3D: <ψₙ|H|ψₙ> = ∫ψₙ*Tψₙdx = Eₙ" begin
   IPW3D = InfinitePotentialWell3D(L=[1.0,1.0,1.0], m=1.0, hbar=1.0)
-  ∇²ψ(model,r;n=[1,1,1]) = sum(first(Zygote.diaghessian(x -> ψ(model,x,n=n), r)))
-  ψTψ(model,r;n=[1,1,1]) = -model.hbar^2/(2*model.m) * conj(ψ(model,r,n=n)) * ∇²ψ(model,r,n=n)
+  ∇²wavefunction(model,r;n=[1,1,1]) = sum(first(Zygote.diaghessian(x -> wavefunction(model,x,n=n), r)))
+  ψTwavefunction(model,r;n=[1,1,1]) = -model.hbar^2/(2*model.m) * conj(wavefunction(model,r,n=n)) * ∇²wavefunction(model,r,n=n)
   @show IPW3D
-  @show ψ(IPW3D,[0.5,0.5,0.5])
-  @show ∇²ψ(IPW3D,[0.5,0.5,0.5])
-  @show ψTψ(IPW3D,[0.5,0.5,0.5])
+  @show wavefunction(IPW3D,[0.5,0.5,0.5])
+  @show ∇²wavefunction(IPW3D,[0.5,0.5,0.5])
+  @show ψTwavefunction(IPW3D,[0.5,0.5,0.5])
   for IPW3D in [
     InfinitePotentialWell3D(L=[1.0,1.0,1.0], m=1.0, hbar=1.0)
     InfinitePotentialWell3D(L=[1.2,3.4,4.5], m=2.0, hbar=3.0)
@@ -135,8 +135,8 @@ are given by the sum of 2 Taylor series:
     for ny in [1,2]
     for nz in [1,2]
       Δr = 0.01
-      analytical = E(IPW3D, n=[nx,ny,nz])
-      numerical  = first(hcubature(r -> ψTψ(IPW3D, r, n=[nx,ny,nz]), [Δr,Δr,Δr], IPW3D.L .- Δr, maxevals=1000))
+      analytical = energy(IPW3D, n=[nx,ny,nz])
+      numerical  = first(hcubature(r -> ψTwavefunction(IPW3D, r, n=[nx,ny,nz]), [Δr,Δr,Δr], IPW3D.L .- Δr, maxevals=1000))
       acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-1) : isapprox(analytical, numerical, rtol=1e-1)
       @test acceptance
       @printf(io, " %2d | %2d | %2d | %14.9f | %14.9f %s\n", nx, ny, nz, numerical, analytical, acceptance ? "✔" :  "✗")

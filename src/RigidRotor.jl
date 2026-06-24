@@ -1,7 +1,12 @@
-export RigidRotor, V, E, ψ
+module RigidRotors
+
+import ..AbstractModel
+import ..energy, ..potential, ..wavefunction, ..spherical_harmonic, ..legendre_polynomial
+
+export RigidRotor, energy, potential, wavefunction, spherical_harmonic, legendre_polynomial
 
 # parameters
-struct RigidRotor
+struct RigidRotor <: AbstractModel
   m_1::Float64
   m_2::Float64
   R::Float64
@@ -25,7 +30,7 @@ function Base.getproperty(model::RigidRotor, sym::Symbol)
 end
 
 # potential
-function V(model::RigidRotor, r)
+function potential(model::RigidRotor, r)
   if !(0 ≤ r)
     throw(DomainError("r = $r", "r must be non-negative: 0 ≤ r."))
   end
@@ -33,7 +38,7 @@ function V(model::RigidRotor, r)
 end
 
 # eigenvalues
-function E(model::RigidRotor; l::Int=0)
+function energy(model::RigidRotor; l::Int=0)
   if !(0 ≤ l)
     throw(DomainError("l = $l", "l must be non-negative: 0 ≤ l."))
   end
@@ -47,24 +52,24 @@ function E(model::RigidRotor; l::Int=0)
 end
 
 # eigenfunctions
-function ψ(model::RigidRotor, θ, φ; l::Int=0, m::Int=0)
+function wavefunction(model::RigidRotor, θ, φ; l::Int=0, m::Int=0)
   if !(0 ≤ l && -l ≤ m ≤ l)
     throw(DomainError("(l,m) = ($l,$m)", "This function is defined for 0 ≤ l and -l ≤ m ≤ l."))
   end
   if !(0 ≤ θ < π && 0 ≤ φ < 2π)
     throw(DomainError("(θ,φ) = ($θ,$φ)", "This function is defined for 0 ≤ θ < π and 0 ≤ φ < 2π."))
   end
-  return Y(model, θ, φ; l=l, m=m)
+  return spherical_harmonic(model, θ, φ; l=l, m=m)
 end
 
 # spherical harmonics
-function Y(model::RigidRotor, θ, φ; l=0, m=0)
+function spherical_harmonic(model::RigidRotor, θ, φ; l=0, m=0)
   N = (-1)^((abs(m)+m)/2) * sqrt( (2*l+1)*factorial(l-Int(abs(m))) / (2*factorial(l+Int(abs(m)))) )
-  return N * P(model,cos(θ), n=l, m=Int(abs(m))) * exp(im*m*φ) / sqrt(2*π)
+  return N * legendre_polynomial(model,cos(θ), n=l, m=Int(abs(m))) * exp(im*m*φ) / sqrt(2*π)
 end
 
 # associated Legendre polynomials
-function P(model::RigidRotor, x; n=0, m=0)
+function legendre_polynomial(model::RigidRotor, x; n=0, m=0)
   return (1//2)^n * (1-x^2)^(m//2) * sum((-1)^j * factorial(2*n-2*j) // (factorial(j) * factorial(n-j) * factorial(n-2*j-m)) * x^(n-2*j-m) for j ∈ 0:Int(floor((n-m)/2)))
 end
 
@@ -88,7 +93,7 @@ and the Hamiltonian
 where $I=\mu R^2$ is the moment of intertia, $\mu=\left(\frac{1}{m_1}+\frac{1}{m_2}\right)^{-1}$ is the reduced mass of two particles, $R$ is the distance between the two particles, and $L^2$ is the angular momentum operator. Parameters are specified with the following struct:
 
 ```
-RR = RigidRotor(m₁=1.0, m₂=1.0, R=1.0, ℏ=1.0)
+RR = RigidRotor(m_1=1.0, m_2=1.0, R=1.0, hbar=1.0)
 ```
 
 ``m₁`` and ``m₂`` are mass of two particles, ``R`` is the distance, and ``\hbar`` is the reduced Planck constant (Dirac's constant).
@@ -100,7 +105,7 @@ RR = RigidRotor(m₁=1.0, m₂=1.0, R=1.0, ℏ=1.0)
 """ RigidRotor
 
 @doc raw"""
-`V(model::RigidRotor, r)`
+`potential(model::RigidRotor, r)`
 
 ```math
 \begin{aligned}
@@ -108,29 +113,29 @@ RR = RigidRotor(m₁=1.0, m₂=1.0, R=1.0, ℏ=1.0)
   &= 0,
 \end{aligned}
 ```
-""" V(model::RigidRotor, r)
+""" potential(model::RigidRotor, r)
 
 @doc raw"""
-`E(model::RigidRotor; l::Int=0)`
+`energy(model::RigidRotor; l::Int=0)`
 
 ```math
 E_l
 = \frac{\hbar^2}{2I}l(l+1),
 ```
 where ``I=\mu R^2`` is the moment of inertia, ``R`` is the distance, and ``\mu`` is the reduced mass of the two particles.
-""" E(model::RigidRotor; l::Int=0)
+""" energy(model::RigidRotor; l::Int=0)
 
 @doc raw"""
-`ψ(model::RigidRotor, θ, φ; l::Int=0, m::Int=0)`
+`wavefunction(model::RigidRotor, θ, φ; l::Int=0, m::Int=0)`
 
 ```math
 \psi_{lm}(\theta,\varphi) = Y_{lm}(\theta,\varphi)
 ```
 The wave functions are the spherical harmonics. The domain is $0\leq \theta \lt \pi$ and $0\leq \varphi \lt 2\pi$.
-""" ψ(model::RigidRotor, θ, φ; l::Int=0, m::Int=0)
+""" wavefunction(model::RigidRotor, θ, φ; l::Int=0, m::Int=0)
 
 @doc raw"""
-`Y(model::RigidRotor, θ, φ; l=0, m=0)`
+`spherical_harmonic(model::RigidRotor, θ, φ; l=0, m=0)`
 
 ```math
 Y_{lm}(\theta,\varphi) = (-1)^{\frac{|m|+m}{2}} \sqrt{\frac{2l+1}{4\pi} \frac{(l-|m|)!}{(l+|m|)!}} P_l^{|m|} (\cos\theta) \mathrm{e}^{im\varphi}.
@@ -140,10 +145,10 @@ The domain is $0\leq \theta \lt \pi, 0\leq \varphi \lt 2\pi$. Note that some var
 i^{|m|+m} \sqrt{\frac{(l-|m|)!}{(l+|m|)!}} P_l^{|m|} = (-1)^{\frac{|m|+m}{2}} \sqrt{\frac{(l-|m|)!}{(l+|m|)!}} P_l^{|m|} = (-1)^m \sqrt{\frac{(l-m)!}{(l+m)!}} P_l^{m}.
 ```
 
-""" Y(model::RigidRotor, θ, φ; l=0, m=0)
+""" spherical_harmonic(model::RigidRotor, θ, φ; l=0, m=0)
 
 @doc raw"""
-`P(model::RigidRotor, x; n=0, m=0)`
+`legendre_polynomial(model::RigidRotor, x; n=0, m=0)`
 
 Rodrigues' formula & closed-form:
 ```math
@@ -177,4 +182,6 @@ Examples:
   & \vdots
 \end{aligned}
 ```
-""" P(model::RigidRotor, x; n=0, m=0)
+""" legendre_polynomial(model::RigidRotor, x; n=0, m=0)
+
+end # module RigidRotors

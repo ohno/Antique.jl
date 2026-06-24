@@ -1,4 +1,4 @@
-io = open("./result/MorsePotential.md", "w")
+﻿io = open("./result/MorsePotential.md", "w")
 MP = MorsePotential()
 
 
@@ -28,7 +28,7 @@ println(io, raw"""
     c = a * D(b)                                          # Rodrigues' formula
     d = expand_derivatives(c)                             # expand dⁿ/dxⁿ
     e = simplify(d, expand=true)                          # simplify
-    f = simplify(Antique.L(MP, x, n=n, α=α), expand=true) # closed-form
+    f = simplify(Antique.laguerre_polynomial(MP, x, n=n, α=α), expand=true) # closed-form
     # latexify
     eq1 = latexify(e, env=:raw)
     eq2 = latexify(f, env=:raw)
@@ -71,7 +71,7 @@ println(io, raw"""
   for i in 0:9
   for j in 0:9
     analytical = gamma(i+α+1)/factorial(i)*(i == j ? 1 : 0)
-    numerical  = quadgk(x -> real(Antique.L(MP, x, n=i, α=α)) * real(Antique.L(MP, x, n=j, α=α)) * x^α * exp(-x), 0, Inf, maxevals=10^3)[1]
+    numerical  = quadgk(x -> real(Antique.laguerre_polynomial(MP, x, n=i, α=α)) * real(Antique.laguerre_polynomial(MP, x, n=j, α=α)) * x^α * exp(-x), 0, Inf, maxevals=10^3)[1]
     acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-5) : isapprox(analytical, numerical, rtol=1e-5)
     @test acceptance
     @printf(io, "%4.2f | %2d | %2d | %14.9f | %14.9f %s\n", α, i, j, analytical, numerical, acceptance ? "✔" : "✗")
@@ -101,7 +101,7 @@ println(io, raw"""
   for i in 0:9
   for j in 0:9
     analytical = (i == j ? 1 : 0)
-    numerical  = quadgk(x -> conj(ψ(MP, x, n=i)) * ψ(MP, x, n=j), 0, Inf, maxevals=10^3)[1]
+    numerical  = quadgk(x -> conj(wavefunction(MP, x, n=i)) * wavefunction(MP, x, n=j), 0, Inf, maxevals=10^3)[1]
     acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-5) : isapprox(analytical, numerical, rtol=1e-5)
     @test acceptance
     @printf(io, "%2d | %2d | %14.9f | %14.9f %s\n", i, j, analytical, numerical, acceptance ? "✔" : "✗")
@@ -123,8 +123,8 @@ println(io, raw"""
     E_n
     &=      \int \psi^\ast_n(r) \hat{H} \psi_n(r) \mathrm{d}r \\
     &=      \int \psi^\ast_n(r) \left[ \hat{V} + \hat{T} \right] \psi(r) \mathrm{d}r \\
-    &=      \int \psi^\ast_n(r) \left[ V(r) - \frac{\hbar^2}{2m} \frac{\mathrm{d}^{2}}{\mathrm{d} r^{2}} \right] \psi(r) \mathrm{d}r \\
-    &\simeq \int \psi^\ast_n(r) \left[ V(r)\psi(r) -\frac{\hbar^2}{2m} \frac{\psi(r+\Delta r) - 2\psi(r) + \psi(r-\Delta r)}{\Delta r^{2}} \right] \mathrm{d}r.
+    &=      \int \psi^\ast_n(r) \left[ potential(r) - \frac{\hbar^2}{2m} \frac{\mathrm{d}^{2}}{\mathrm{d} r^{2}} \right] \psi(r) \mathrm{d}r \\
+    &\simeq \int \psi^\ast_n(r) \left[ potential(r)\psi(r) -\frac{\hbar^2}{2m} \frac{\psi(r+\Delta r) - 2\psi(r) + \psi(r-\Delta r)}{\Delta r^{2}} \right] \mathrm{d}r.
   \end{aligned}
 ```
 
@@ -181,14 +181,14 @@ are given by the sum of 2 Taylor series:
 ```""")
 
 @testset "MP: <ψₙ|H|ψₙ> = ∫ψₙ*Hψₙdx = Eₙ" begin
-  ψHψ(MP, r; n=0, Δr=0.005) = V(MP,r)*ψ(MP,r,n=n)^2 - MP.hbar^2/(2*MP.mu)*conj(ψ(MP,r,n=n))*(ψ(MP,r+Δr,n=n)-2*ψ(MP,r,n=n)+ψ(MP,r-Δr,n=n))/Δr^2
+  ψHwavefunction(MP, r; n=0, Δr=0.005) = potential(MP,r)*wavefunction(MP,r,n=n)^2 - MP.hbar^2/(2*MP.mu)*conj(wavefunction(MP,r,n=n))*(wavefunction(MP,r+Δr,n=n)-2*wavefunction(MP,r,n=n)+wavefunction(MP,r-Δr,n=n))/Δr^2
   println(io, "  k |  n |     analytical |      numerical ")
   println(io, "--- | -- | -------------- | -------------- ")
   for k in [0.1,0.2,0.3,MP.k]
   for n in 0:9
     MP = MorsePotential(k=k)
-    analytical = E(MP, n=n)
-    numerical  = quadgk(r -> ψHψ(MP, r, n=n, Δr=0.0001), 0.0001, Inf, maxevals=10^4)[1]
+    analytical = energy(MP, n=n)
+    numerical  = quadgk(r -> ψHwavefunction(MP, r, n=n, Δr=0.0001), 0.0001, Inf, maxevals=10^4)[1]
     acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-5) : isapprox(analytical, numerical, rtol=1e-5)
     @test acceptance
     @printf(io, "%.1f | %2d | %14.9f | %14.9f %s\n", k, n, analytical, numerical, acceptance ? "✔" : "✗")
@@ -228,12 +228,12 @@ n_\mathrm{max} = \left\lfloor\frac{2 D_{\mathrm{e}}-h \nu_0}{h \nu_0}\right\rflo
 
 @testset "MP: 0 < Eₙ₊₁ - Eₙ for 0 ≤ n ≤ nₘₐₓ" begin
   println(io, " n  Eₙ          ΔE")
-  for n in 0:nₘₐₓ(MP)+5
-    Eₙ₊₁ = E(MP, n=n+1, nocheck=true)
-    Eₙ   = E(MP, n=n, nocheck=true)
+  for n in 0:n_max(MP)+5
+    Eₙ₊₁ = energy(MP, n=n+1, nocheck=true)
+    Eₙ   = energy(MP, n=n, nocheck=true)
     ΔE  = Eₙ₊₁ - Eₙ
     @printf(io, "%2d  %+9.6f  %+9.6f  ", n, Eₙ, ΔE)
-    if n ≤ nₘₐₓ(MP)
+    if n ≤ n_max(MP)
       print(io, "0 < ΔE  ")
       acceptance = 0 < ΔE
     else
@@ -242,8 +242,8 @@ n_\mathrm{max} = \left\lfloor\frac{2 D_{\mathrm{e}}-h \nu_0}{h \nu_0}\right\rflo
     end
     @test acceptance
     println(io, acceptance ? "✔" : "✗")
-    if nₘₐₓ(MP) == n
-      println(io, "-----------------------------  nₘₐₓ(MP) = ", nₘₐₓ(MP))
+    if n_max(MP) == n
+      println(io, "-----------------------------  n_max(MP) = ", n_max(MP))
     end
   end
 end

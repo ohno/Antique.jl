@@ -1,4 +1,4 @@
-io = open("./result/PoschlTeller.md", "w")
+﻿io = open("./result/PoschlTeller.md", "w")
 PT = PoschlTeller(lambda=4)
 
 
@@ -30,7 +30,7 @@ println(io, raw"""
     c = (1 - x^2)^(m//2) * Dm(a * Dn(b))                  # Rodrigues' formula
     d = expand_derivatives(c)                             # expand dⁿ/dxⁿ and dᵐ/dxᵐ
     e = simplify(d, expand=true)                          # simplify
-    f = simplify(Antique.P(PT, x, n=n, m=m), expand=true) # closed-form
+    f = simplify(Antique.legendre_polynomial(PT, x, n=n, m=m), expand=true) # closed-form
     # latexify
     eq1 = latexify(e, env=:raw)
     eq2 = latexify(f, env=:raw)
@@ -74,10 +74,10 @@ println(io, raw"""
   for ℏ in [1.0,2.0,exp(1)]
   for x₀ in [1.0,2.0,exp(1)]
     PT = PoschlTeller(lambda=λ, m=m, hbar=ℏ, x_0=x₀)
-    for i in 0:nₘₐₓ(PT)
-    for j in 0:nₘₐₓ(PT)
+    for i in 0:n_max(PT)
+    for j in 0:n_max(PT)
       analytical = (i == j ? 1 : 0)
-      numerical  = quadgk(x -> conj(ψ(PT, x, n=i)) * ψ(PT, x, n=j), -Inf, Inf, maxevals=10^3)[1]
+      numerical  = quadgk(x -> conj(wavefunction(PT, x, n=i)) * wavefunction(PT, x, n=j), -Inf, Inf, maxevals=10^3)[1]
       acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-5) : isapprox(analytical, numerical, rtol=1e-5)
       @test acceptance
       @printf(io, "%.1f | %.1f | %.1f | %.1f | %2d | %2d | %14.9f | %14.9f %s\n", λ, m, ℏ, x₀, i, j, analytical, numerical, acceptance ? "✔" : "✗")
@@ -103,8 +103,8 @@ println(io, raw"""
     E_n
     &=      \int \psi^\ast_n(x) \hat{H} \psi_n(x) \mathrm{d}x \\
     &=      \int \psi^\ast_n(x) \left[ \hat{V} + \hat{T} \right] \psi(x) \mathrm{d}x \\
-    &=      \int \psi^\ast_n(x) \left[ V(x) - \frac{\hbar^2}{2m} \frac{\mathrm{d}^{2}}{\mathrm{d} x^{2}} \right] \psi(x) \mathrm{d}x \\
-    &\simeq \int \psi^\ast_n(x) \left[ V(x)\psi(x) -\frac{\hbar^2}{2m} \frac{\psi(x+\Delta x) - 2\psi(x) + \psi(x-\Delta x)}{\Delta x^{2}} \right] \mathrm{d}x.
+    &=      \int \psi^\ast_n(x) \left[ potential(x) - \frac{\hbar^2}{2m} \frac{\mathrm{d}^{2}}{\mathrm{d} x^{2}} \right] \psi(x) \mathrm{d}x \\
+    &\simeq \int \psi^\ast_n(x) \left[ potential(x)\psi(x) -\frac{\hbar^2}{2m} \frac{\psi(x+\Delta x) - 2\psi(x) + \psi(x-\Delta x)}{\Delta x^{2}} \right] \mathrm{d}x.
   \end{aligned}
 ```
 
@@ -161,7 +161,7 @@ are given by the sum of 2 Taylor series:
 ```""")
 
 @testset "PT: ∫ψₙ*Hψₙdx = <ψₙ|H|ψₙ> = Eₙ" begin
-  ψHψ(PT, x; n=0, Δx=0.005) = V(PT,x)*ψ(PT,x,n=n)^2 - PT.hbar^2/(2*PT.m)*conj(ψ(PT,x,n=n))*(ψ(PT,x+Δx,n=n)-2*ψ(PT,x,n=n)+ψ(PT,x-Δx,n=n))/Δx^2
+  ψHwavefunction(PT, x; n=0, Δx=0.005) = potential(PT,x)*wavefunction(PT,x,n=n)^2 - PT.hbar^2/(2*PT.m)*conj(wavefunction(PT,x,n=n))*(wavefunction(PT,x+Δx,n=n)-2*wavefunction(PT,x,n=n)+wavefunction(PT,x-Δx,n=n))/Δx^2
   println(io, "  λ |   m |   ℏ |  x₀ |  n |     analytical |      numerical ")
   println(io, "--- | --- | --- | --- | -- | -------------- | -------------- ")
   for λ in [1,2,3]
@@ -170,8 +170,8 @@ are given by the sum of 2 Taylor series:
   for x₀ in [1.0,2.0,exp(1)]
     PT = PoschlTeller(lambda=λ, m=m, hbar=ℏ, x_0=x₀)
     for n in 0:λ-1
-      analytical = E(PT, n=n)
-      numerical  = quadgk(x -> ψHψ(PT, x, n=n, Δx=0.001), -Inf, Inf, atol=1e-5)[1]
+      analytical = energy(PT, n=n)
+      numerical  = quadgk(x -> ψHwavefunction(PT, x, n=n, Δx=0.001), -Inf, Inf, atol=1e-5)[1]
       acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-3) : isapprox(analytical, numerical, rtol=1e-5)
       @test acceptance
       @printf(io, "%.1f | %.1f | %.1f | %.1f | %2d | %14.9f | %14.9f %s\n", λ, m, ℏ, x₀, n, analytical, numerical, acceptance ? "✔" : "✗")
@@ -222,12 +222,12 @@ n_\mathrm{max} = \left\lfloor \lambda \right\rfloor - 1
   ]
     println(io, "PT = $PT")
     println(io, " n  Eₙ          ΔE")
-    for n in 0:nₘₐₓ(PT)+5
-      Eₙ₊₁ = E(PT, n=n+1, nocheck=true)
-      Eₙ   = E(PT, n=n, nocheck=true)
+    for n in 0:n_max(PT)+5
+      Eₙ₊₁ = energy(PT, n=n+1, nocheck=true)
+      Eₙ   = energy(PT, n=n, nocheck=true)
       ΔE  = Eₙ₊₁ - Eₙ
       @printf(io, "%2d  %+9.6f  %+9.6f  ", n, Eₙ, ΔE)
-      if n ≤ nₘₐₓ(PT)
+      if n ≤ n_max(PT)
         print(io, "0 < ΔE  ")
         acceptance = 0 < ΔE
       else
@@ -236,8 +236,8 @@ n_\mathrm{max} = \left\lfloor \lambda \right\rfloor - 1
       end
       @test acceptance
       println(io, acceptance ? "✔" : "✗")
-      if n == nₘₐₓ(PT)
-        println(io, "-----------------------------  nₘₐₓ(PT) = ", nₘₐₓ(PT))
+      if n == n_max(PT)
+        println(io, "-----------------------------  n_max(PT) = ", n_max(PT))
       end
     end
     println(io, "")

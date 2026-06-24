@@ -1,7 +1,12 @@
-export DeltaPotential, V, E, ψ
+module DeltaPotentials
+
+import ..AbstractModel
+import ..energy, ..potential, ..wavefunction
+
+export DeltaPotential, energy, potential, wavefunction
 
 # parameters
-struct DeltaPotential
+struct DeltaPotential <: AbstractModel
   alpha::Float64
   m::Float64
   hbar::Float64
@@ -22,12 +27,12 @@ function Base.getproperty(model::DeltaPotential, sym::Symbol)
 end
 
 # potential
-function V(model::DeltaPotential, x)
+function potential(model::DeltaPotential, x)
   return x==0 ? -Inf : 0
 end
 
 # eigenvalues
-function E(model::DeltaPotential)
+function energy(model::DeltaPotential)
   α = model.alpha
   m = model.m
   ℏ = model.hbar
@@ -35,7 +40,7 @@ function E(model::DeltaPotential)
 end
 
 # eigenfunctions
-function ψ(model::DeltaPotential, x)
+function wavefunction(model::DeltaPotential, x)
   α = model.alpha
   m = model.m
   ℏ = model.hbar
@@ -58,7 +63,7 @@ and the Hamiltonian
 Parameters are specified with the following struct:
 
 ```
-DP = DeltaPotential(α=1.0, m=1.0, ℏ=1.0)
+DP = DeltaPotential(alpha=1.0, m=1.0, hbar=1.0)
 ```
 
 ``\alpha`` is the potential strength, ``m`` is the mass of particle and ``\hbar`` is the reduced Planck constant (Dirac's constant).
@@ -70,25 +75,27 @@ DP = DeltaPotential(α=1.0, m=1.0, ℏ=1.0)
 """ DeltaPotential
 
 @doc raw"""
-`V(model::DeltaPotential, x)`
+`potential(model::DeltaPotential, x)`
 
 ```math
 V(x) = -\alpha \delta(x).
 ```
-""" V(model::DeltaPotential, x) 
+""" potential(model::DeltaPotential, x) 
 
 @doc raw"""
-`E(model::DeltaPotential)`
+`energy(model::DeltaPotential)`
 
 ```math
 E = - \frac{m\alpha^2}{2\hbar^2}
 ```
-""" E(model::DeltaPotential)
+""" energy(model::DeltaPotential)
 
 @doc raw"""
-`ψ(model::DeltaPotential, x)`
+`wavefunction(model::DeltaPotential, x)`
 
 ```math
 \psi(x) = \frac{\sqrt{m\alpha}}{\hbar} \mathrm{e}^{-m\alpha |x|/\hbar^2}
 ```
-""" ψ(model::DeltaPotential, x)
+""" wavefunction(model::DeltaPotential, x)
+
+end # module DeltaPotentials

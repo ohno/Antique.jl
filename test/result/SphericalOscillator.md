@@ -1129,7 +1129,7 @@ l₁ | l₂ | m₁ | m₂ |     analytical |      numerical
 The virial theorem $\langle T \rangle = \langle V \rangle$ and the definition of Hamiltonian $\langle H \rangle = \langle T \rangle + \langle V \rangle$ derive $\langle H \rangle = 2 \langle V \rangle$.
 
 ```math
-2 \langle V \rangle = 2 \times \int \psi_i^\ast(r,\theta,\varphi) V(r) \psi_j(r,\theta,\varphi) r^2 \sin(\theta) \mathrm{d}r \mathrm{d}\theta \mathrm{d}\varphi = 2 \times \int V(r) |R_{nl}(r)|^2 r^2 \mathrm{d}r = E_n
+2 \langle V \rangle = 2 \times \int \psi_i^\ast(r,\theta,\varphi) potential(r) \psi_j(r,\theta,\varphi) r^2 \sin(\theta) \mathrm{d}r \mathrm{d}\theta \mathrm{d}\varphi = 2 \times \int potential(r) |R_{nl}(r)|^2 r^2 \mathrm{d}r = E_n
 ```
 
 ```

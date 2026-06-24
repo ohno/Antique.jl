@@ -1202,7 +1202,7 @@ Reference:
 The virial theorem $2\langle T \rangle + \langle V \rangle = 0$ and the definition of Hamiltonian $\langle H \rangle = \langle T \rangle + \langle V \rangle$ derive $\langle H \rangle = \frac{1}{2} \langle V \rangle$ and $\langle H \rangle = -\langle T \rangle$.
 
 ```math
-\frac{1}{2} \int \psi_n^\ast(x) V(x) \psi_n(x) \mathrm{d}x = E_n
+\frac{1}{2} \int \psi_n^\ast(x) potential(x) \psi_n(x) \mathrm{d}x = E_n
 ```
 
 ```

@@ -555,8 +555,8 @@
     E_n
     &=      \int \psi^\ast_n(x) \hat{H} \psi_n(x) \mathrm{d}x \\
     &=      \int \psi^\ast_n(x) \left[ \hat{V} + \hat{T} \right] \psi(x) \mathrm{d}x \\
-    &=      \int \psi^\ast_n(x) \left[ V(x) - \frac{\hbar^2}{2m} \frac{\mathrm{d}^{2}}{\mathrm{d} x^{2}} \right] \psi(x) \mathrm{d}x \\
-    &\simeq \int \psi^\ast_n(x) \left[ V(x)\psi(x) -\frac{\hbar^2}{2m} \frac{\psi(x+\Delta x) - 2\psi(x) + \psi(x-\Delta x)}{\Delta x^{2}} \right] \mathrm{d}x.
+    &=      \int \psi^\ast_n(x) \left[ potential(x) - \frac{\hbar^2}{2m} \frac{\mathrm{d}^{2}}{\mathrm{d} x^{2}} \right] \psi(x) \mathrm{d}x \\
+    &\simeq \int \psi^\ast_n(x) \left[ potential(x)\psi(x) -\frac{\hbar^2}{2m} \frac{\psi(x+\Delta x) - 2\psi(x) + \psi(x-\Delta x)}{\Delta x^{2}} \right] \mathrm{d}x.
   \end{aligned}
 ```
 
@@ -803,7 +803,7 @@ PT = Antique.PoschlTeller(lambda=2, m=1.0, hbar=1.0, x_0=1.0)
  n  Eₙ          ΔE
  0  -2.000000  +1.500000  0 < ΔE  ✔
  1  -0.500000  +0.500000  0 < ΔE  ✔
------------------------------  nₘₐₓ(PT) = 1
+-----------------------------  n_max(PT) = 1
  2  -0.000000  -0.500000  ΔE < 0  ✔
  3  -0.500000  -1.500000  ΔE < 0  ✔
  4  -2.000000  -2.500000  ΔE < 0  ✔
@@ -815,7 +815,7 @@ PT = Antique.PoschlTeller(lambda=3, m=1.0, hbar=1.0, x_0=1.0)
  0  -4.500000  +2.500000  0 < ΔE  ✔
  1  -2.000000  +1.500000  0 < ΔE  ✔
  2  -0.500000  +0.500000  0 < ΔE  ✔
------------------------------  nₘₐₓ(PT) = 2
+-----------------------------  n_max(PT) = 2
  3  -0.000000  -0.500000  ΔE < 0  ✔
  4  -0.500000  -1.500000  ΔE < 0  ✔
  5  -2.000000  -2.500000  ΔE < 0  ✔
@@ -828,7 +828,7 @@ PT = Antique.PoschlTeller(lambda=4, m=1.0, hbar=1.0, x_0=1.0)
  1  -4.500000  +2.500000  0 < ΔE  ✔
  2  -2.000000  +1.500000  0 < ΔE  ✔
  3  -0.500000  +0.500000  0 < ΔE  ✔
------------------------------  nₘₐₓ(PT) = 3
+-----------------------------  n_max(PT) = 3
  4  -0.000000  -0.500000  ΔE < 0  ✔
  5  -0.500000  -1.500000  ΔE < 0  ✔
  6  -2.000000  -2.500000  ΔE < 0  ✔
@@ -847,7 +847,7 @@ PT = Antique.PoschlTeller(lambda=10, m=1.0, hbar=1.0, x_0=1.0)
  7  -4.500000  +2.500000  0 < ΔE  ✔
  8  -2.000000  +1.500000  0 < ΔE  ✔
  9  -0.500000  +0.500000  0 < ΔE  ✔
------------------------------  nₘₐₓ(PT) = 9
+-----------------------------  n_max(PT) = 9
 10  -0.000000  -0.500000  ΔE < 0  ✔
 11  -0.500000  -1.500000  ΔE < 0  ✔
 12  -2.000000  -2.500000  ΔE < 0  ✔
