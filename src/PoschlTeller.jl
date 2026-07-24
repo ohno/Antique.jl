@@ -11,9 +11,9 @@ using SpecialFunctions
 # parameters
 struct PoschlTeller <: AbstractModel
   lambda::Int
-  m::Float64
-  hbar::Float64
-  x_0::Float64
+  m::Real
+  hbar::Real
+  x_0::Real
 end
 
 function PoschlTeller(;

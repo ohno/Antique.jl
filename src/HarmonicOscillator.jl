@@ -7,9 +7,9 @@ export HarmonicOscillator, energy, potential, wavefunction, laguerre_polynomial
 
 # parameters
 struct HarmonicOscillator <: AbstractModel
-  k::Float64
-  m::Float64
-  hbar::Float64
+  k::Real
+  m::Real
+  hbar::Real
 end
 
 function HarmonicOscillator(;

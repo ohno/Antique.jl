@@ -7,9 +7,9 @@ export InfinitePotentialWell, energy, potential, wavefunction
 
 # parameters
 struct InfinitePotentialWell <: AbstractModel
-  L::Float64
-  m::Float64
-  hbar::Float64
+  L::Real
+  m::Real
+  hbar::Real
 end
 
 function InfinitePotentialWell(;

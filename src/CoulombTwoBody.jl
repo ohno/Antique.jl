@@ -9,12 +9,12 @@ export CoulombTwoBody, energy, potential, wavefunction, radial_function, laguerr
 struct CoulombTwoBody <: AbstractModel
   z_1::Int
   z_2::Int
-  m_1::Float64
-  m_2::Float64
-  m_e::Float64
-  a_0::Float64
-  E_h::Float64
-  hbar::Float64
+  m_1::Real
+  m_2::Real
+  m_e::Real
+  a_0::Real
+  E_h::Real
+  hbar::Real
 end
 
 function CoulombTwoBody(;

@@ -8,10 +8,10 @@ export HydrogenAtom, energy, potential, wavefunction, radial_function, laguerre_
 # parameters
 struct HydrogenAtom <: AbstractModel
   Z::Int
-  m_e::Float64
-  a_0::Float64
-  E_h::Float64
-  hbar::Float64
+  m_e::Real
+  a_0::Real
+  E_h::Real
+  hbar::Real
 end
 
 function HydrogenAtom(;

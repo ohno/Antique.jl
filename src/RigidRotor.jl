@@ -7,10 +7,10 @@ export RigidRotor, energy, potential, wavefunction, spherical_harmonic, legendre
 
 # parameters
 struct RigidRotor <: AbstractModel
-  m_1::Float64
-  m_2::Float64
-  R::Float64
-  hbar::Float64
+  m_1::Real
+  m_2::Real
+  R::Real
+  hbar::Real
 end
 
 function RigidRotor(;

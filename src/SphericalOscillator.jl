@@ -10,9 +10,9 @@ using SpecialFunctions
 
 # parameters
 struct SphericalOscillator <: AbstractModel
-  k::Float64
-  mu::Float64
-  hbar::Float64
+  k::Real
+  mu::Real
+  hbar::Real
 end
 
 function SphericalOscillator(;

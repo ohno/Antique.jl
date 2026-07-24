@@ -10,11 +10,11 @@ using SpecialFunctions
 
 # parameters
 struct MorsePotential <: AbstractModel
-  r_e::Float64
-  D_e::Float64
-  k::Float64
-  mu::Float64
-  hbar::Float64
+  r_e::Real
+  D_e::Real
+  k::Real
+  mu::Real
+  hbar::Real
 end
 
 function MorsePotential(;
