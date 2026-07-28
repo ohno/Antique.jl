@@ -10,7 +10,7 @@ using SpecialFunctions
 
 # parameters
 struct PoschlTeller <: AbstractModel
-  lambda::Int
+  lambda::Integer
   m::Real
   hbar::Real
   x_0::Real
@@ -51,7 +51,7 @@ function n_max(model::PoschlTeller)
 end
 
 # eigenvalues
-function energy(model::PoschlTeller; n::Int=0, nocheck=false)
+function energy(model::PoschlTeller; n::Integer=0, nocheck=false)
   max_n = n_max(model)
   if !(0 ≤ n ≤ n_max(model) || nocheck)
     throw(DomainError("(n,n_max(model)) = ($n,$(n_max(model)))", "This function is defined for 0 ≤ n ≤ n_max(model)."))
@@ -65,7 +65,7 @@ function energy(model::PoschlTeller; n::Int=0, nocheck=false)
 end
 
 # eigenfunctions
-function wavefunction(model::PoschlTeller, x; n::Int=0)
+function wavefunction(model::PoschlTeller, x; n::Integer=0)
   max_n = n_max(model)
   if !(0 ≤ n ≤ n_max(model))
     throw(DomainError("(n,n_max(model)) = ($n,$(n_max(model)))", "This function is defined for 0 ≤ n ≤ n_max(model)."))
@@ -147,22 +147,22 @@ n_\mathrm{max} = \left\lfloor \lambda \right\rfloor - 1.
 """ n_max(model::PoschlTeller)
 
 @doc raw"""
-`energy(model::PoschlTeller; n::Int=0, nocheck=false)`
+`energy(model::PoschlTeller; n::Integer=0, nocheck=false)`
 
 ```math
 E_n = -\frac{\hbar^2}{m x_0^2}\frac{\mu^2}{2},
 ```
 where ``\mu = \mu(n) = n_\mathrm{max}-n+1``, and ``n_\mathrm{max} = \left\lfloor \lambda \right\rfloor - 1``.
-""" energy(model::PoschlTeller; n::Int=0, nocheck=false)
+""" energy(model::PoschlTeller; n::Integer=0, nocheck=false)
 
 @doc raw"""
-`wavefunction(model::PoschlTeller, x; n::Int=0)`
+`wavefunction(model::PoschlTeller, x; n::Integer=0)`
 
 ```math
 \psi_n(x) = \frac{(-1)^μ}{\sqrt{x_0}} P_\lambda^{\mu}(\mathrm{tanh}(x/x_0)) \sqrt{\mu\frac{\Gamma(\lambda-\mu+1)}{\Gamma(\lambda+\mu+1)}},
 ```
 where ``\mu = \mu(n) = n_\mathrm{max}-n+1``, and ``n_\mathrm{max} = \left\lfloor \lambda \right\rfloor - 1`` and ``P_\lambda^{\mu}`` are the associated Legendre functions.
-""" wavefunction(model::PoschlTeller, x; n::Int=0)
+""" wavefunction(model::PoschlTeller, x; n::Integer=0)
 
 @doc raw"""
 `legendre_polynomial(model::PoschlTeller, x; n=0, m=0)`

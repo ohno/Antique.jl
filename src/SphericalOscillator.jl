@@ -39,7 +39,7 @@ function potential(model::SphericalOscillator, r)
 end
 
 # eigenvalues
-function energy(model::SphericalOscillator; n::Int=0, l::Int=0)
+function energy(model::SphericalOscillator; n::Integer=0, l::Integer=0)
   if !(0 ≤ n && 0 ≤ l)
     throw(DomainError("(n,l) = ($n,$l)", "This function is defined for 0 ≤ n and 0 ≤ l"))
   end
@@ -51,7 +51,7 @@ function energy(model::SphericalOscillator; n::Int=0, l::Int=0)
 end
 
 # eigenfunctions
-function wavefunction(model::SphericalOscillator, r, θ, φ; n::Int=0, l::Int=0, m::Int=0)
+function wavefunction(model::SphericalOscillator, r, θ, φ; n::Integer=0, l::Integer=0, m::Integer=0)
   if !(0 ≤ n && 0 ≤ l && -l ≤ m ≤ l)
     throw(DomainError("(n,l,m) = ($n,$l,$m)", "This function is defined for 0 ≤ n, 0 ≤ l and -l ≤ m ≤ l."))
   end
@@ -83,10 +83,10 @@ end
 function laguerre_polynomial(model::SphericalOscillator, x; n=0, α=0)
   return laguerre_polynomial(model, n, α, x)
 end
-function laguerre_polynomial(model::SphericalOscillator, n::Int, α::Int, x)
+function laguerre_polynomial(model::SphericalOscillator, n::Integer, α::Integer, x)
   return sum((-1)^(k) * (Int(gamma(α+n+1)) // Int((gamma(α+1+k)*gamma(n-k+1)))) * x^k * 1 // factorial(k) for k ∈ 0:n)
 end
-function laguerre_polynomial(model::SphericalOscillator, n::Int, α::Real, x)
+function laguerre_polynomial(model::SphericalOscillator, n::Integer, α::Real, x)
   return sum((-1)^(k) * (gamma(α+n+1) / (gamma(α+1+k)*gamma(n-k+1))) * x^k / factorial(k) for k ∈ 0:n)
 end
 
@@ -141,23 +141,23 @@ where ``\omega = \sqrt{k/\mu}`` is the angular frequency and ``\xi = \sqrt{\frac
 """ potential(model::SphericalOscillator, r)
 
 @doc raw"""
-`energy(model::SphericalOscillator; n::Int=0, l::Int=0)`
+`energy(model::SphericalOscillator; n::Integer=0, l::Integer=0)`
 
 ```math
 E_{nl}
 = \left(2n + l + \frac{3}{2}\right)\hbar \omega,
 ```
 where ``\omega = \sqrt{k/\mu}``.
-""" energy(model::SphericalOscillator; n::Int=0, l::Int=0)
+""" energy(model::SphericalOscillator; n::Integer=0, l::Integer=0)
 
 @doc raw"""
-`wavefunction(model::SphericalOscillator, r, θ, φ; n::Int=0, l::Int=0, m::Int=0)`
+`wavefunction(model::SphericalOscillator, r, θ, φ; n::Integer=0, l::Integer=0, m::Integer=0)`
 
 ```math
 \psi_{nlm}(\pmb{r}) = R_{nl}(r) Y_{lm}(\theta,\varphi)
 ```
 The domain is $0\leq r \lt \infty, 0\leq \theta \lt \pi, 0\leq \varphi \lt 2\pi$.
-""" wavefunction(model::SphericalOscillator, r, θ, φ; n::Int=0, l::Int=0, m::Int=0)
+""" wavefunction(model::SphericalOscillator, r, θ, φ; n::Integer=0, l::Integer=0, m::Integer=0)
 
 @doc raw"""
 `radial_function(model::SphericalOscillator, r; n=0, l=0)`

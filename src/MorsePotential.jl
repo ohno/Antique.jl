@@ -51,7 +51,7 @@ function potential(model::MorsePotential, r)
 end
 
 # eigenvalues
-function energy(model::MorsePotential; n::Int=0, nocheck=false)
+function energy(model::MorsePotential; n::Integer=0, nocheck=false)
   if !(0 ≤ n ≤ n_max(model) || nocheck)
     throw(DomainError("(n,n_max(model)) = ($n,$(n_max(model)))", "This function is defined for 0 ≤ n ≤ n_max(model)."))
   end
@@ -74,7 +74,7 @@ function n_max(model::MorsePotential)
 end
 
 # eigenfunctions
-function wavefunction(model::MorsePotential, r; n::Int=0)
+function wavefunction(model::MorsePotential, r; n::Integer=0)
   if !(0 ≤ n ≤ n_max(model))
     throw(DomainError("(n,n_max(model)) = ($n,$(n_max(model)))", "This function is defined for 0 ≤ n ≤ n_max(model)."))
   end
@@ -98,10 +98,10 @@ end
 function laguerre_polynomial(model::MorsePotential, x; n=0, α=0)
   return laguerre_polynomial(model, n, α, x)
 end
-function laguerre_polynomial(model::MorsePotential, n::Int, α::Int, x)
+function laguerre_polynomial(model::MorsePotential, n::Integer, α::Integer, x)
   return sum((-1)^(k) * (Int(gamma(α+n+1)) // Int((gamma(α+1+k)*gamma(n-k+1)))) * x^k * 1 // factorial(k) for k ∈ 0:n)
 end
-function laguerre_polynomial(model::MorsePotential, n::Int, α::Real, x)
+function laguerre_polynomial(model::MorsePotential, n::Integer, α::Real, x)
   return sum((-1)^(k) * (gamma(α+n+1) / (gamma(α+1+k)*gamma(n-k+1))) * x^k / factorial(k) for k ∈ 0:n)
 end
 
@@ -144,13 +144,13 @@ where ``a = \sqrt{\frac{k}{2Dₑ}}`` is defined. The domain is $0\leq r \lt \inf
 """ potential(model::MorsePotential, r)
 
 @doc raw"""
-`energy(model::MorsePotential; n::Int=0, nocheck=false)`
+`energy(model::MorsePotential; n::Integer=0, nocheck=false)`
 
 ```math
 E_n = - D_\mathrm{e} + \hbar \omega \left( n + \frac{1}{2} \right) - \chi \hbar \omega \left( n + \frac{1}{2} \right)^2,
 ```
 where ``\omega = \sqrt{k/µ}`` and ``\chi = \frac{\hbar\omega}{4D_\mathrm{e}}`` are defined.
-""" energy(model::MorsePotential; n::Int=0, nocheck=false)
+""" energy(model::MorsePotential; n::Integer=0, nocheck=false)
 
 @doc raw"""
 `n_max(model::MorsePotential)`
@@ -165,7 +165,7 @@ where ``\omega = \sqrt{k/µ}`` is defined.
 """ n_max(model::MorsePotential)
 
 @doc raw"""
-`wavefunction(model::MorsePotential, r; n::Int=0)`
+`wavefunction(model::MorsePotential, r; n::Integer=0)`
 
 ```math
 \psi_n(r) = N_n z^{\lambda-n-1/2} \mathrm{e}^{-z/2} L_n^{(2\lambda-2n-1)}(\xi),
@@ -173,7 +173,7 @@ where ``\omega = \sqrt{k/µ}`` is defined.
 
 ``N_n = \sqrt{\frac{n!(2\lambda-2n-1)a}{\Gamma(2\lambda-n)}}``,
 ``\lambda = \frac{\sqrt{2\mu D_\mathrm{e}}}{a\hbar}``, ``a = \sqrt{\frac{k}{2Dₑ}}``, ``L_n^{(\alpha)}(x) = \frac{x^{-\alpha} \mathrm{e}^x}{n !} \frac{\mathrm{d}^n}{\mathrm{d} x^n}\left(\mathrm{e}^{-x} x^{n+\alpha}\right)``, ``\xi := 2\lambda\mathrm{e}^{-a(r-r_e)}`` are defined. The domain is $0\leq r \lt \infty$.
-""" wavefunction(model::MorsePotential, r; n::Int=0)
+""" wavefunction(model::MorsePotential, r; n::Integer=0)
 
 @doc raw"""
 `laguerre_polynomial(model::MorsePotential, x; n=0, α=0)`
