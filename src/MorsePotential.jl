@@ -181,6 +181,9 @@ where ``\omega = \sqrt{k/µ}`` is defined.
 !!! note
     The generalized Laguerre polynomials $L_n^{(\alpha)}(x)$, not the associated Laguerre polynomials $L_n^{k}(x)$, are used in this model.
 
+!!! note
+    The closed-form expression has been verified to be numerically stable up to $n=10$. For larger $n$, numerical instabilities may arise; a recurrence-relation implementation will address this limitation.
+
 Rodrigues' formula & closed-form:
 ```math
 \begin{aligned}

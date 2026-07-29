@@ -213,6 +213,9 @@ where ``\frac{1}{\mu} = \frac{1}{m_1}+\frac{1}{m_2}``, ``a_\mu = a_0 \frac{m_\ma
 !!! note
     The associated Laguerre polynomials $L_n^{k}(x)$, not the generalized Laguerre polynomials $L_n^{(\alpha)}(x)$, are used in this model.
 
+!!! note
+    The closed-form expression has been verified to be numerically stable up to $n=10$. For larger $n$, numerical instabilities may arise; a recurrence-relation implementation will address this limitation.
+
 Rodrigues' formula & closed-form:
 ```math
 \begin{aligned}
@@ -263,6 +266,9 @@ i^{|m|+m} \sqrt{\frac{(l-|m|)!}{(l+|m|)!}} P_l^{|m|} = (-1)^{\frac{|m|+m}{2}} \s
 
 @doc raw"""
 `legendre_polynomial(model::CoulombTwoBody, x; n=0, m=0)`
+
+!!! note
+    The closed-form expression has been verified to be numerically stable up to $n=10$. For larger $n$, numerical instabilities may arise; a recurrence-relation implementation will address this limitation.
 
 Rodrigues' formula & closed-form:
 ```math

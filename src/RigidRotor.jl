@@ -150,6 +150,9 @@ i^{|m|+m} \sqrt{\frac{(l-|m|)!}{(l+|m|)!}} P_l^{|m|} = (-1)^{\frac{|m|+m}{2}} \s
 @doc raw"""
 `legendre_polynomial(model::RigidRotor, x; n=0, m=0)`
 
+!!! note
+    The closed-form expression has been verified to be numerically stable up to $n=10$. For larger $n$, numerical instabilities may arise; a recurrence-relation implementation will address this limitation.
+
 Rodrigues' formula & closed-form:
 ```math
 \begin{aligned}
