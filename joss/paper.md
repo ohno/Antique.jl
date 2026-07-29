@@ -51,7 +51,7 @@ The Julia language removes this barrier by the multiple dispatch. The multiple d
 
 The quantum mechanical models with analytical solutions are useful for software testing in the development of numerical methods. Figure 1 shows an example of a variational calculation for the hydrogen atom [@Thijssen2007] and a comparison with the exact solution provided by Antique.jl.
 
-![\label{fig:usage}The radial density of four s-wave states of the hydrogen atom calculated by the Rayleigh-Ritz method, implemented in TwoBody.jl [@TwoBody]. We employed Gaussian basis functions $\phi_n(r) = \exp(-\nu_n r^2)$ whose exponents were determined by the geometric progression defined in the previous study [@Hiyama2018]. The numerical solution (solid blue line) is compared to the analytical solution (dashed black line) using Antique.jl. This figure is drawn using Mekie.jl [@Danisch2021].](./figure.pdf)
+![\label{fig:usage}The radial density of four s-wave states of the hydrogen atom calculated by the Rayleigh-Ritz method, implemented in TwoBody.jl [@TwoBody]. We employed Gaussian basis functions $\phi_n(r) = \exp(-\nu_n r^2)$ whose exponents were determined by the geometric progression defined in the previous study [@Hiyama2018]. The numerical solution (solid blue line) is compared to the analytical solution (dashed black line) using Antique.jl. This figure is drawn using Mekie.jl [@Danisch2021]. Deviations from the analytic solutions appear in excited states due to the limited number of basis functions, reflecting the accuracy limits of the numerical method. These deviations diminish with more basis functions, though an optimal number can be chosen for the system of interest.](./figure.pdf)
 
 # Acknowledgement
 
