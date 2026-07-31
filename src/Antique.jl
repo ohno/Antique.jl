@@ -1,8 +1,27 @@
 module Antique
 
-  export energy, potential, wavefunction, radial_function, laguerre_polynomial, spherical_harmonic, legendre_polynomial, laguerre_polynomial, n_max
-  export InfinitePotentialWell, HarmonicOscillator, MorsePotential, HydrogenAtom, DeltaPotential
-  export PoschlTeller, SphericalOscillator, RigidRotor, InfinitePotentialWell3D, CoulombTwoBody
+  # Export public functions
+  export energy
+  export potential
+  export wavefunction
+  export radial_function
+  export spherical_harmonic
+  export hermite_polynomial
+  export laguerre_polynomial
+  export legendre_polynomial
+  export n_max
+
+  # Export all models
+  export InfinitePotentialWell
+  export HarmonicOscillator
+  export MorsePotential
+  export HydrogenAtom
+  export DeltaPotential
+  export PoschlTeller
+  export SphericalOscillator
+  export RigidRotor
+  export InfinitePotentialWell3D
+  export CoulombTwoBody
 
   """
     energy(model; numbers..., parameters...)
@@ -40,6 +59,13 @@ module Antique
   function laguerre_polynomial end
 
   """
+    hermite_polynomial(model, args...; kwargs...)
+
+  Evaluate a Hermite polynomial for a given `model`.
+  """
+  function hermite_polynomial end
+
+  """
     spherical_harmonic(model, args...; kwargs...)
 
   Evaluate a spherical harmonic for a given `model`.
@@ -56,7 +82,7 @@ module Antique
   """
     laguerre_polynomial(model, args...; kwargs...)
 
-  Evaluate a Hermite polynomial for a given `model`.
+  Evaluate a Laguerre polynomial for a given `model`.
   """
   function laguerre_polynomial end
 
