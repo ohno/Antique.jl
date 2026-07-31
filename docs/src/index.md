@@ -135,9 +135,9 @@ save("assets/fig/demonstration.png", fig) # hide
 
 The candidate models are listed on the Wikipedia page of [List of quantum-mechanical systems with analytical solutions](https://en.wikipedia.org/wiki/List_of_quantum-mechanical_systems_with_analytical_solutions). Please submit your requests and suggestions as [issues on GitHub](https://github.com/ohno/Antique.jl/issues).
 
-## Developer's Guide
+## Developer Guide
 
-[Here](https://github.com/ohno/Antique.jl?tab=readme-ov-file#developers-guide) is the guideline for adding new models.
+[Here](@ref developer-guide) is the guideline for adding new models.
 
 ## Acknowledgment
 

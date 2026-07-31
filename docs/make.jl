@@ -43,6 +43,7 @@ makedocs(;
     "Coulomb 2-Body System"        => "CoulombTwoBody.md"         ,
     "API reference"                => "API.md"                    ,
     "References"                   => "references.md"             ,
+    "Developer Guide"              => "developer.md"              ,
   ],
   plugins=[bib],
 )
