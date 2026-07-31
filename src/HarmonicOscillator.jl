@@ -7,9 +7,9 @@ export HarmonicOscillator, energy, potential, wavefunction, laguerre_polynomial
 
 # parameters
 struct HarmonicOscillator <: AbstractModel
-  k::Float64
-  m::Float64
-  hbar::Float64
+  k::Real
+  m::Real
+  hbar::Real
 end
 
 function HarmonicOscillator(;
@@ -32,7 +32,7 @@ function potential(model::HarmonicOscillator, x)
 end
 
 # eigenvalues
-function energy(model::HarmonicOscillator; n::Int=0)
+function energy(model::HarmonicOscillator; n::Integer=0)
   if !(0 ≤ n)
     throw(DomainError("n = $n", "n must be non-negative: 0 ≤ n."))
   end
@@ -44,7 +44,7 @@ function energy(model::HarmonicOscillator; n::Int=0)
 end
 
 # eigenfunctions
-function wavefunction(model::HarmonicOscillator, x; n::Int=0)
+function wavefunction(model::HarmonicOscillator, x; n::Integer=0)
   if !(0 ≤ n)
     throw(DomainError("n = $n", "n must be non-negative: 0 ≤ n."))
   end
@@ -115,22 +115,22 @@ where ``\omega = \sqrt{k/m}`` is the angular frequency and ``\xi = \sqrt{\frac{m
 """ potential(model::HarmonicOscillator, x)
 
 @doc raw"""
-`energy(model::HarmonicOscillator; n::Int=0)`
+`energy(model::HarmonicOscillator; n::Integer=0)`
 
 ```math
 E_n = \hbar \omega \left( n + \frac{1}{2} \right),
 ```
 where ``\omega = \sqrt{k/m}`` is the angular frequency.
-""" energy(model::HarmonicOscillator; n::Int=0)
+""" energy(model::HarmonicOscillator; n::Integer=0)
 
 @doc raw"""
-`wavefunction(model::HarmonicOscillator, x; n::Int=0)`
+`wavefunction(model::HarmonicOscillator, x; n::Integer=0)`
 
 ```math
 \psi_n(x) = A_n H_n(\xi) \exp{\left( -\frac{\xi^2}{2} \right)},
 ```
 where ``\omega = \sqrt{k/m}``, ``\xi = \sqrt{\frac{m\omega}{\hbar}}x``, ``A_n = \sqrt{\frac{1}{n! 2^n} \sqrt{\frac{m\omega}{\pi\hbar}}}``, ``H_n(x) = (-1)^n \mathrm{e}^{x^2} \frac{\mathrm{d}^n}{\mathrm{d}x^n} \mathrm{e}^{-x^2}`` are defined.
-""" wavefunction(model::HarmonicOscillator, x; n::Int=0)
+""" wavefunction(model::HarmonicOscillator, x; n::Integer=0)
 
 @doc raw"""
 `laguerre_polynomial(model::HarmonicOscillator, x; n=0)`

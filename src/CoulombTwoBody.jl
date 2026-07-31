@@ -7,19 +7,19 @@ export CoulombTwoBody, energy, potential, wavefunction, radial_function, laguerr
 
 # parameters
 struct CoulombTwoBody <: AbstractModel
-  z_1::Int
-  z_2::Int
-  m_1::Float64
-  m_2::Float64
-  m_e::Float64
-  a_0::Float64
-  E_h::Float64
-  hbar::Float64
+  z_1::Integer
+  z_2::Integer
+  m_1::Real
+  m_2::Real
+  m_e::Real
+  a_0::Real
+  E_h::Real
+  hbar::Real
 end
 
 function CoulombTwoBody(;
-  z_1::Int=-1, z₁=z_1,
-  z_2::Int=1, z₂=z_2,
+  z_1::Integer=-1, z₁=z_1,
+  z_2::Integer=1, z₂=z_2,
   m_1=1.0, m₁=m_1,
   m_2=1.0, m₂=m_2,
   m_e=1.0, mₑ=m_e,
@@ -55,7 +55,7 @@ function potential(model::CoulombTwoBody, r)
 end
 
 # eigenvalues
-function energy(model::CoulombTwoBody; n::Int=1)
+function energy(model::CoulombTwoBody; n::Integer=1)
   z_1 = model.z_1
   z_2 = model.z_2
   m_1 = model.m_1
@@ -76,7 +76,7 @@ function energy(model::CoulombTwoBody; n::Int=1)
 end
 
 # eigenfunctions
-function wavefunction(model::CoulombTwoBody, r, θ, φ; n::Int=1, l::Int=0, m::Int=0)
+function wavefunction(model::CoulombTwoBody, r, θ, φ; n::Integer=1, l::Integer=0, m::Integer=0)
   z_1 = model.z_1
   z_2 = model.z_2
   m_1 = model.m_1
@@ -180,23 +180,23 @@ where ``E_\mathrm{h} = \frac{\hbar^2}{m_\mathrm{e}{a_0}^2} = \frac{e^2}{4\pi\var
 """ potential(model::CoulombTwoBody, r)
 
 @doc raw"""
-`energy(model::CoulombTwoBody; n::Int=1)`
+`energy(model::CoulombTwoBody; n::Integer=1)`
 
 ```math
 E_n
 = -\frac{(z_1 z_2)^2}{2n^2} \frac{\mu}{m_\mathrm{e}} E_\mathrm{h},
 ```
 where $\mu=\left(\frac{1}{m_1}+\frac{1}{m_2}\right)^{-1}$ is the reduced mass of particle 1 and particle 2, ``E_\mathrm{h} = \frac{\hbar^2}{m_\mathrm{e}{a_0}^2} = \frac{e^2}{4\pi\varepsilon_0a_0} = \frac{m_\mathrm{e}e^4}{\left(4\pi\varepsilon_0\right)^2\hbar^2}`` is the Hartree energy, one of atomic unit. About atomic units, see section 3.9.2 of the [IUPAC GreenBook](https://iupac.org/what-we-do/books/greenbook/). In other units, ``E_\mathrm{h} = 27.211~386~245~988(53)~\mathrm{eV}`` from [here](https://physics.nist.gov/cgi-bin/cuu/Value?hrev).
-""" energy(model::CoulombTwoBody; n::Int=1)
+""" energy(model::CoulombTwoBody; n::Integer=1)
 
 @doc raw"""
-`wavefunction(model::CoulombTwoBody, r, θ, φ; n::Int=1, l::Int=0, m::Int=0)`
+`wavefunction(model::CoulombTwoBody, r, θ, φ; n::Integer=1, l::Integer=0, m::Integer=0)`
 
 ```math
 \psi_{nlm}(\pmb{r}) = R_{nl}(r) Y_{lm}(\theta,\varphi)
 ```
 The domain is $0\leq r \lt \infty, 0\leq \theta \lt \pi, 0\leq \varphi \lt 2\pi$.
-""" wavefunction(model::CoulombTwoBody, r, θ, φ; n::Int=1, l::Int=0, m::Int=0)
+""" wavefunction(model::CoulombTwoBody, r, θ, φ; n::Integer=1, l::Integer=0, m::Integer=0)
 
 @doc raw"""
 `radial_function(model::CoulombTwoBody, r; n=1, l=0)`

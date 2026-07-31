@@ -7,10 +7,10 @@ export RigidRotor, energy, potential, wavefunction, spherical_harmonic, legendre
 
 # parameters
 struct RigidRotor <: AbstractModel
-  m_1::Float64
-  m_2::Float64
-  R::Float64
-  hbar::Float64
+  m_1::Real
+  m_2::Real
+  R::Real
+  hbar::Real
 end
 
 function RigidRotor(;
@@ -38,7 +38,7 @@ function potential(model::RigidRotor, r)
 end
 
 # eigenvalues
-function energy(model::RigidRotor; l::Int=0)
+function energy(model::RigidRotor; l::Integer=0)
   if !(0 ≤ l)
     throw(DomainError("l = $l", "l must be non-negative: 0 ≤ l."))
   end
@@ -52,7 +52,7 @@ function energy(model::RigidRotor; l::Int=0)
 end
 
 # eigenfunctions
-function wavefunction(model::RigidRotor, θ, φ; l::Int=0, m::Int=0)
+function wavefunction(model::RigidRotor, θ, φ; l::Integer=0, m::Integer=0)
   if !(0 ≤ l && -l ≤ m ≤ l)
     throw(DomainError("(l,m) = ($l,$m)", "This function is defined for 0 ≤ l and -l ≤ m ≤ l."))
   end
@@ -116,23 +116,23 @@ RR = RigidRotor(m_1=1.0, m_2=1.0, R=1.0, hbar=1.0)
 """ potential(model::RigidRotor, r)
 
 @doc raw"""
-`energy(model::RigidRotor; l::Int=0)`
+`energy(model::RigidRotor; l::Integer=0)`
 
 ```math
 E_l
 = \frac{\hbar^2}{2I}l(l+1),
 ```
 where ``I=\mu R^2`` is the moment of inertia, ``R`` is the distance, and ``\mu`` is the reduced mass of the two particles.
-""" energy(model::RigidRotor; l::Int=0)
+""" energy(model::RigidRotor; l::Integer=0)
 
 @doc raw"""
-`wavefunction(model::RigidRotor, θ, φ; l::Int=0, m::Int=0)`
+`wavefunction(model::RigidRotor, θ, φ; l::Integer=0, m::Integer=0)`
 
 ```math
 \psi_{lm}(\theta,\varphi) = Y_{lm}(\theta,\varphi)
 ```
 The wave functions are the spherical harmonics. The domain is $0\leq \theta \lt \pi$ and $0\leq \varphi \lt 2\pi$.
-""" wavefunction(model::RigidRotor, θ, φ; l::Int=0, m::Int=0)
+""" wavefunction(model::RigidRotor, θ, φ; l::Integer=0, m::Integer=0)
 
 @doc raw"""
 `spherical_harmonic(model::RigidRotor, θ, φ; l=0, m=0)`

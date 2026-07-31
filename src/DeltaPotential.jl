@@ -7,9 +7,9 @@ export DeltaPotential, energy, potential, wavefunction
 
 # parameters
 struct DeltaPotential <: AbstractModel
-  alpha::Float64
-  m::Float64
-  hbar::Float64
+  alpha::Real
+  m::Real
+  hbar::Real
 end
 
 function DeltaPotential(;

@@ -7,9 +7,9 @@ export InfinitePotentialWell, energy, potential, wavefunction
 
 # parameters
 struct InfinitePotentialWell <: AbstractModel
-  L::Float64
-  m::Float64
-  hbar::Float64
+  L::Real
+  m::Real
+  hbar::Real
 end
 
 function InfinitePotentialWell(;
@@ -32,7 +32,7 @@ function potential(model::InfinitePotentialWell, x)
 end
 
 # eigenvalues
-function energy(model::InfinitePotentialWell; n::Int=1)
+function energy(model::InfinitePotentialWell; n::Integer=1)
   if !(1 ≤ n)
     throw(DomainError("n = $n", "n must be 1 or more: 1 ≤ n."))
   end
@@ -43,7 +43,7 @@ function energy(model::InfinitePotentialWell; n::Int=1)
 end
 
 # eigenfunctions
-function wavefunction(model::InfinitePotentialWell, x; n::Int=1)
+function wavefunction(model::InfinitePotentialWell, x; n::Integer=1)
   if !(1 ≤ n)
     throw(DomainError("n = $n", "n must be 1 or more: 1 ≤ n."))
   end
@@ -97,19 +97,19 @@ V(x) =
 """ potential(model::InfinitePotentialWell, x)
 
 @doc raw"""
-`energy(model::InfinitePotentialWell; n::Int=1)`
+`energy(model::InfinitePotentialWell; n::Integer=1)`
 
 ```math
 E_n = \frac{\hbar^2 n^2 \pi^2}{2 m L^2}
 ```
-""" energy(model::InfinitePotentialWell; n::Int=1)
+""" energy(model::InfinitePotentialWell; n::Integer=1)
 
 @doc raw"""
-`wavefunction(model::InfinitePotentialWell, x; n::Int=1)`
+`wavefunction(model::InfinitePotentialWell, x; n::Integer=1)`
 
 ```math
 \psi_n(x) = \sqrt{\frac{2}{L}} \sin \frac{n\pi x}{L}
 ```
-""" wavefunction(model::InfinitePotentialWell, x; n::Int=1)
+""" wavefunction(model::InfinitePotentialWell, x; n::Integer=1)
 
 end # module InfinitePotentialWells

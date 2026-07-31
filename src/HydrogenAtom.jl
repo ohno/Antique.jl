@@ -7,15 +7,15 @@ export HydrogenAtom, energy, potential, wavefunction, radial_function, laguerre_
 
 # parameters
 struct HydrogenAtom <: AbstractModel
-  Z::Int
-  m_e::Float64
-  a_0::Float64
-  E_h::Float64
-  hbar::Float64
+  Z::Integer
+  m_e::Real
+  a_0::Real
+  E_h::Real
+  hbar::Real
 end
 
 function HydrogenAtom(;
-  Z::Int=1,
+  Z::Integer=1,
   m_e=1.0, mₑ=m_e,
   a_0=1.0, a₀=a_0,
   E_h=1.0, Eₕ=E_h,
@@ -44,7 +44,7 @@ function potential(model::HydrogenAtom, r)
 end
 
 # eigenvalues
-function energy(model::HydrogenAtom; n::Int=1)
+function energy(model::HydrogenAtom; n::Integer=1)
   if !(1 ≤ n)
     throw(DomainError("n = $n", "n must be 1 or more: 1 ≤ n."))
   end
@@ -54,7 +54,7 @@ function energy(model::HydrogenAtom; n::Int=1)
 end
 
 # eigenfunctions
-function wavefunction(model::HydrogenAtom, r, θ, φ; n::Int=1, l::Int=0, m::Int=0)
+function wavefunction(model::HydrogenAtom, r, θ, φ; n::Integer=1, l::Integer=0, m::Integer=0)
   if !(1 ≤ n && 0 ≤ l < n && -l ≤ m ≤ l)
     throw(DomainError("(n,l,m) = ($n,$l,$m)", "This function is defined for 1 ≤ n, 0 ≤ l < n and -l ≤ m ≤ l."))
   end
@@ -145,7 +145,7 @@ where ``E_\mathrm{h} = \frac{\hbar^2}{m_\mathrm{e}{a_0}^2} = \frac{e^2}{4\pi\var
 """ potential(model::HydrogenAtom, r)
 
 @doc raw"""
-`energy(model::HydrogenAtom; n::Int=1)`
+`energy(model::HydrogenAtom; n::Integer=1)`
 
 ```math
 E_n
@@ -153,16 +153,16 @@ E_n
 = -\frac{Z^2}{2n^2} E_\mathrm{h},
 ```
 where ``E_\mathrm{h} = \frac{\hbar^2}{m_\mathrm{e}{a_0}^2} = \frac{e^2}{4\pi\varepsilon_0a_0} = \frac{m_\mathrm{e}e^4}{\left(4\pi\varepsilon_0\right)^2\hbar^2}`` is the Hartree energy, one of atomic unit. About atomic units, see section 3.9.2 of the [IUPAC GreenBook](https://iupac.org/what-we-do/books/greenbook/). In other units, ``E_\mathrm{h} = 27.211~386~245~988(53)~\mathrm{eV}`` from [here](https://physics.nist.gov/cgi-bin/cuu/Value?hrev).
-""" energy(model::HydrogenAtom; n::Int=1)
+""" energy(model::HydrogenAtom; n::Integer=1)
 
 @doc raw"""
-`wavefunction(model::HydrogenAtom, r, θ, φ; n::Int=1, l::Int=0, m::Int=0)`
+`wavefunction(model::HydrogenAtom, r, θ, φ; n::Integer=1, l::Integer=0, m::Integer=0)`
 
 ```math
 \psi_{nlm}(\pmb{r}) = R_{nl}(r) Y_{lm}(\theta,\varphi)
 ```
 The domain is $0\leq r \lt \infty, 0\leq \theta \lt \pi, 0\leq \varphi \lt 2\pi$.
-""" wavefunction(model::HydrogenAtom, r, θ, φ; n::Int=1, l::Int=0, m::Int=0)
+""" wavefunction(model::HydrogenAtom, r, θ, φ; n::Integer=1, l::Integer=0, m::Integer=0)
 
 @doc raw"""
 `radial_function(model::HydrogenAtom, r; n=1, l=0)`
