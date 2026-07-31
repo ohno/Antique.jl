@@ -1,0 +1,32 @@
+.catalog {
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.catalog .dammy {
+  width: calc(100% / 2);
+}
+.catalog .item {
+  border: 1px solid #dbdbdb!important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 10px 10px 10px 10px;
+  box-sizing: border-box;
+}
+.catalog .item {
+  width: calc(100% / 2);
+}
+.item code {
+  white-space: nowrap;
+  font-size:  0.85em; /* 0.65em; */
+  margin-top: 6px;
+}
+@media screen and (max-width: 1055px) {
+  .catalog .dammy,
+  .catalog .item {
+    width: calc(100% / 2);
+  }
+}
