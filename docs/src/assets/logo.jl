@@ -1,9 +1,9 @@
-# Please run `include("./dev/logo.jl")` on RELP.
+# Please run `include("./docs/src/assets/logo.jl")` on RELP.
 
 # https://github.com/JuliaLang/julia-logo-graphics
 # https://products.aspose.app/imaging/conversion/svg-to-ico
 
-dir = "$(@__DIR__)/../"
+dir = "$(@__DIR__)/../../../"
 cd(dir)
 @show pwd()
 using Pkg
@@ -20,13 +20,13 @@ function XY2path(X,Y)
     return path
 end
 
-HA = HydrogenAtom(Z=1, Eₕ=1.0, a₀=1.0, mₑ=1.0, ℏ=1.0)
+HA = HydrogenAtom(Z=1, E_h=1.0, a_0=1.0, m_e=1.0, hbar=1.0)
 paths = Dict()
 X = 0.0:0.01:8
-Y1 = [x^2 * Antique.R(HA,x,n=1,l=0)^2 for x in X]
-Y2 = [x^2 * Antique.R(HA,x,n=2,l=0)^2 for x in X]
-Y3 = [x^2 * Antique.R(HA,x,n=2,l=1)^2 for x in X]
-Y4 = [x^2 * Antique.R(HA,x,n=3,l=0)^2 for x in X]
+Y1 = [x^2 * Antique.radial_function(HA,x,n=1,l=0)^2 for x in X]
+Y2 = [x^2 * Antique.radial_function(HA,x,n=2,l=0)^2 for x in X]
+Y3 = [x^2 * Antique.radial_function(HA,x,n=2,l=1)^2 for x in X]
+Y4 = [x^2 * Antique.radial_function(HA,x,n=3,l=0)^2 for x in X]
 paths[1] = XY2path(X,Y1)
 paths[2] = XY2path(X,Y2)
 paths[3] = XY2path(X,Y3)
