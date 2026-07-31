@@ -52,13 +52,6 @@ module Antique
   function radial_function end
 
   """
-    laguerre_polynomial(model, args...; kwargs...)
-
-  Evaluate a Laguerre polynomial for a given `model`.
-  """
-  function laguerre_polynomial end
-
-  """
     hermite_polynomial(model, args...; kwargs...)
 
   Evaluate a Hermite polynomial for a given `model`.
