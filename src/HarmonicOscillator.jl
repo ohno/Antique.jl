@@ -135,6 +135,9 @@ where ``\omega = \sqrt{k/m}``, ``\xi = \sqrt{\frac{m\omega}{\hbar}}x``, ``A_n = 
 @doc raw"""
 `laguerre_polynomial(model::HarmonicOscillator, x; n=0)`
 
+!!! note
+    The closed-form expression has been verified to be numerically stable up to $n=10$. For larger $n$, numerical instabilities may arise; a recurrence-relation implementation will address this limitation.
+
 Rodrigues' formula & closed-form:
 ```math
 \begin{aligned}
