@@ -8,7 +8,7 @@ CurrentModule = Antique
 [![Stable](https://img.shields.io/badge/docs-stable-blue.svg)](https://ohno.github.io/Antique.jl/stable/)
 [![Dev](https://img.shields.io/badge/docs-dev-blue.svg)](https://ohno.github.io/Antique.jl/dev/)
 
-Antique.jl provides self-contained, well-tested, and well-documented implementations of **an**aly**ti**cal solutions to solvable **qu**antum m**e**chanical models. Analytical solutions are the most reliable benchmarks for software testing in the development of numerical methods. In addition to testing numerical methods, this package is useful for teaching quantum mechanics. We aim to support researchers, lecturers, students, and any person who is interested in quantum mechanics.
+Antique.jl provides self-contained, well-tested, and well-documented implementations of **an**aly**ti**cal solutions to solvable **qu**antum m**e**chanical models. Analytical solutions serve as reliable test oracles for software testing in the development of numerical methods. In addition to testing numerical methods, this package is also useful for teaching quantum mechanics. We aim to support researchers, lecturers, students, and anyone interested in quantum mechanics.
 
 ## Install
 
@@ -24,30 +24,50 @@ Or run `import Pkg; Pkg.add(; name="Antique", version="0.15.0")` to install on J
 
 [Install Antique.jl](@ref Install) for the first use and run `using Antique` before each use.
 
-```julia
+```@example usage
 using Antique
 ```
 
-The energy `energy()`, the wave function `wavefunction()`, the potential `potential()` and some other functions will be exported. There are two ways to avoid function name conflicts. Run `import Antique` instead of `using Antique`, and use the energy `Antique.energy()`, the wave function `Antique.wavefunction()` and the potential `Antique.potential()`. Or try importing selected names like `using Antique: potential, energy, wavefunction, HydrogenAtom`. Here are examples for the hydrogen-like atom. The analytical notation of the energy (the eigen value of the Hamiltonian) is written as
+The three main functions are `energy(model; ...)` for the energy $E$, `potential(model, ...)` for the potential $V$, and `wavefunction(model, ...; ...)` for the wave function $\psi$. They are exported by `using Antique`. To avoid name conflicts, run `import Antique` and qualify them as `Antique.energy()`, `Antique.potential()`, and `Antique.wavefunction()`, or import only the names you need, for example `using Antique: potential, energy, wavefunction, HarmonicOscillator`.
 
-```math
-E_n = -\frac{Z^2}{2n^2} E_\mathrm{h}.
+First, create a [harmonic oscillator](@ref Harmonic-Oscillator) with unit force constant, mass, and reduced Planck constant.
+
+```@example usage
+HO = HarmonicOscillator(k=1.0, m=1.0, hbar=1.0)
+; #hide
 ```
 
-The Hydrogen atom has the symbol $\mathrm{H}$ and atomic number 1 ($Z=1$). Therefore the ground state ($n=1$) energy is $-\frac{1}{2} E_\mathrm{h}$.
+The model parameters can be accessed as properties.
 
-```julia
-H = HydrogenAtom(Z=1)
-energy(H, n=1)
-# output> -0.5
+```@repl usage
+HO.k
+HO.m
+HO.hbar
 ```
 
-The Helium cation has the symbol $\mathrm{He}^+$ and atomic number 2 ($Z=2$). Therefore the ground state ($n=1$) energy is $-2 E_\mathrm{h}$.
+Use [`energy`](@ref Harmonic-Oscillator-Potential) to calculate the energy of each state specified by the quantum number `n`.
 
-```julia
-He⁺ = HydrogenAtom(Z=2)
-energy(He⁺, n=1)
-# output> -2.0
+```@repl usage
+energy(HO, n=0)
+energy(HO, n=1)
+energy(HO, n=2)
+```
+
+Use [`potential`](@ref Harmonic-Oscillator-Eigenvalues) to evaluate the harmonic potential at a position `x`.
+
+```@repl usage
+potential(HO, 0.0)
+potential(HO, 1.0)
+potential(HO, 2.0)
+```
+
+Use [`wavefunction`](@ref Harmonic-Oscillator-Eigenfunctions) to evaluate a wave function for a state `n` at a position `x`.
+
+```@repl usage
+wavefunction(HO, 0.0, n=0)
+wavefunction(HO, 0.0, n=1)
+wavefunction(HO, 1.0, n=1)
+wavefunction(HO, 100.0, n=1)
 ```
 
 There are more examples on each model page.

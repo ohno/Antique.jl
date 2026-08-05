@@ -2,7 +2,7 @@
 CurrentModule = Antique
 ```
 
-# Harmonic Oscillator
+# [Harmonic Oscillator](@id Harmonic-Oscillator)
 
 The harmonic oscillator is the most frequently used model in quantum physics.
 
@@ -12,17 +12,17 @@ The harmonic oscillator is the most frequently used model in quantum physics.
 Antique.HarmonicOscillator
 ```
 
-#### Potential
+#### [Potential](@id Harmonic-Oscillator-Potential)
 ```@docs; canonical=false
 Antique.potential(::HarmonicOscillator, ::Any)
 ```
 
-#### Eigenvalues
+#### [Eigenvalues](@id Harmonic-Oscillator-Eigenvalues)
 ```@docs; canonical=false
 Antique.energy(::HarmonicOscillator)
 ```
 
-#### Eigenfunctions
+#### [Eigenfunctions](@id Harmonic-Oscillator-Eigenfunctions)
 ```@docs; canonical=false
 Antique.wavefunction(::HarmonicOscillator, ::Any)
 ```
