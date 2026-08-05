@@ -12,6 +12,14 @@ struct InfinitePotentialWell <: AbstractModel
   hbar::Real
 end
 
+function InfinitePotentialWell(;
+  L::Real=1.0,
+  m::Real=1.0,
+  hbar::Real=1.0,
+)
+  return InfinitePotentialWell(L, m, hbar)
+end
+
 # potential
 function potential(model::InfinitePotentialWell, x)
   L = model.L

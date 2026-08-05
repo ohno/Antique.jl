@@ -17,6 +17,19 @@ struct CoulombTwoBody <: AbstractModel
   hbar::Real
 end
 
+function CoulombTwoBody(;
+  z_1::Integer=-1,
+  z_2::Integer=1,
+  m_1::Real=1.0,
+  m_2::Real=1.0,
+  m_e::Real=1.0,
+  a_0::Real=1.0,
+  E_h::Real=1.0,
+  hbar::Real=1.0,
+)
+  return CoulombTwoBody(z_1, z_2, m_1, m_2, m_e, a_0, E_h, hbar)
+end
+
 # potential
 function potential(model::CoulombTwoBody, r)
   z_1 = model.z_1

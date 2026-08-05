@@ -12,6 +12,14 @@ struct HarmonicOscillator <: AbstractModel
   hbar::Real
 end
 
+function HarmonicOscillator(;
+  k::Real=1.0,
+  m::Real=1.0,
+  hbar::Real=1.0,
+)
+  return HarmonicOscillator(k, m, hbar)
+end
+
 # potential
 function potential(model::HarmonicOscillator, x)
   k = model.k

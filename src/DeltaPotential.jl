@@ -12,6 +12,14 @@ struct DeltaPotential <: AbstractModel
   hbar::Real
 end
 
+function DeltaPotential(;
+  alpha::Real=1.0,
+  m::Real=1.0,
+  hbar::Real=1.0,
+)
+  return DeltaPotential(alpha, m, hbar)
+end
+
 # potential
 function potential(model::DeltaPotential, x)
   return x==0 ? -Inf : 0

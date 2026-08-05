@@ -15,6 +15,14 @@ struct SphericalOscillator <: AbstractModel
   hbar::Real
 end
 
+function SphericalOscillator(;
+  k::Real=1.0,
+  mu::Real=1.0,
+  hbar::Real=1.0,
+)
+  return SphericalOscillator(k, mu, hbar)
+end
+
 # potential
 function potential(model::SphericalOscillator, r)
   if !(0 ≤ r)

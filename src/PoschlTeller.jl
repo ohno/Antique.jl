@@ -16,6 +16,15 @@ struct PoschlTeller <: AbstractModel
   x_0::Real
 end
 
+function PoschlTeller(;
+  lambda::Integer=1,
+  m::Real=1.0,
+  hbar::Real=1.0,
+  x_0::Real=1.0,
+)
+  return PoschlTeller(lambda, m, hbar, x_0)
+end
+
 # potential
 function potential(model::PoschlTeller, x)
   λ  = model.lambda

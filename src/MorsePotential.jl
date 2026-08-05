@@ -17,6 +17,16 @@ struct MorsePotential <: AbstractModel
   hbar::Real
 end
 
+function MorsePotential(;
+  r_e::Real=2.0,
+  D_e::Real=0.1,
+  k::Real=0.1,
+  mu::Real=918.1,
+  hbar::Real=1.0,
+)
+  return MorsePotential(r_e, D_e, k, mu, hbar)
+end
+
 # potential
 function potential(model::MorsePotential, r)
   if !(0 ≤ r)

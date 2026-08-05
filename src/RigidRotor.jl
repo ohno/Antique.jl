@@ -13,6 +13,15 @@ struct RigidRotor <: AbstractModel
   hbar::Real
 end
 
+function RigidRotor(;
+  m_1::Real=1.0,
+  m_2::Real=1.0,
+  R::Real=1.0,
+  hbar::Real=1.0,
+)
+  return RigidRotor(m_1, m_2, R, hbar)
+end
+
 # potential
 function potential(model::RigidRotor, r)
   if !(0 ≤ r)
