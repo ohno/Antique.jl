@@ -12,19 +12,6 @@ struct HarmonicOscillator <: AbstractModel
   hbar::Real
 end
 
-function HarmonicOscillator(;
-  k=1.0,
-  m=1.0,
-  hbar=1.0, ℏ=hbar,
-)
-  return HarmonicOscillator(k, m, ℏ)
-end
-
-function Base.getproperty(model::HarmonicOscillator, sym::Symbol)
-  sym === :ℏ && return getfield(model, :hbar)
-  return getfield(model, sym)
-end
-
 # potential
 function potential(model::HarmonicOscillator, x)
   k = model.k

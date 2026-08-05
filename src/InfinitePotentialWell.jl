@@ -12,19 +12,6 @@ struct InfinitePotentialWell <: AbstractModel
   hbar::Real
 end
 
-function InfinitePotentialWell(;
-  L=1.0,
-  m=1.0,
-  hbar=1.0, ℏ=hbar,
-)
-  return InfinitePotentialWell(L, m, ℏ)
-end
-
-function Base.getproperty(model::InfinitePotentialWell, sym::Symbol)
-  sym === :ℏ && return getfield(model, :hbar)
-  return getfield(model, sym)
-end
-
 # potential
 function potential(model::InfinitePotentialWell, x)
   L = model.L

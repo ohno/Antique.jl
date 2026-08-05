@@ -15,20 +15,6 @@ struct SphericalOscillator <: AbstractModel
   hbar::Real
 end
 
-function SphericalOscillator(;
-  k=1.0,
-  mu=1.0, μ=mu,
-  hbar=1.0, ℏ=hbar,
-)
-  return SphericalOscillator(k, μ, ℏ)
-end
-
-function Base.getproperty(model::SphericalOscillator, sym::Symbol)
-  sym === :μ && return getfield(model, :mu)
-  sym === :ℏ && return getfield(model, :hbar)
-  return getfield(model, sym)
-end
-
 # potential
 function potential(model::SphericalOscillator, r)
   if !(0 ≤ r)

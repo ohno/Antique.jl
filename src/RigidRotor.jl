@@ -13,22 +13,6 @@ struct RigidRotor <: AbstractModel
   hbar::Real
 end
 
-function RigidRotor(;
-  m_1=1.0, m₁=m_1,
-  m_2=1.0, m₂=m_2,
-  R=1.0,
-  hbar=1.0, ℏ=hbar,
-)
-  return RigidRotor(m₁, m₂, R, ℏ)
-end
-
-function Base.getproperty(model::RigidRotor, sym::Symbol)
-  sym === :m₁ && return getfield(model, :m_1)
-  sym === :m₂ && return getfield(model, :m_2)
-  sym === :ℏ && return getfield(model, :hbar)
-  return getfield(model, sym)
-end
-
 # potential
 function potential(model::RigidRotor, r)
   if !(0 ≤ r)

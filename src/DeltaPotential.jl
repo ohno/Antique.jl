@@ -12,20 +12,6 @@ struct DeltaPotential <: AbstractModel
   hbar::Real
 end
 
-function DeltaPotential(;
-  alpha=1.0, α=alpha,
-  m=1.0,
-  hbar=1.0, ℏ=hbar,
-)
-  return DeltaPotential(α, m, ℏ)
-end
-
-function Base.getproperty(model::DeltaPotential, sym::Symbol)
-  sym === :α && return getfield(model, :alpha)
-  sym === :ℏ && return getfield(model, :hbar)
-  return getfield(model, sym)
-end
-
 # potential
 function potential(model::DeltaPotential, x)
   return x==0 ? -Inf : 0

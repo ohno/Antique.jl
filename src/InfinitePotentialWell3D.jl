@@ -12,19 +12,6 @@ struct InfinitePotentialWell3D <: AbstractModel
   hbar::Real
 end
 
-function InfinitePotentialWell3D(;
-  L=[1.0, 1.0, 1.0],
-  m=1.0,
-  hbar=1.0, ℏ=hbar,
-)
-  return InfinitePotentialWell3D(Float64.(L), m, ℏ)
-end
-
-function Base.getproperty(model::InfinitePotentialWell3D, sym::Symbol)
-  sym === :ℏ && return getfield(model, :hbar)
-  return getfield(model, sym)
-end
-
 # potential
 function potential(model::InfinitePotentialWell3D, x)
   L = model.L

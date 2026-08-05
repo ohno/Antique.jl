@@ -14,24 +14,6 @@ struct HydrogenAtom <: AbstractModel
   hbar::Real
 end
 
-function HydrogenAtom(;
-  Z::Integer=1,
-  m_e=1.0, mₑ=m_e,
-  a_0=1.0, a₀=a_0,
-  E_h=1.0, Eₕ=E_h,
-  hbar=1.0, ℏ=hbar,
-)
-  return HydrogenAtom(Z, mₑ, a₀, Eₕ, ℏ)
-end
-
-function Base.getproperty(model::HydrogenAtom, sym::Symbol)
-  sym === :mₑ && return getfield(model, :m_e)
-  sym === :a₀ && return getfield(model, :a_0)
-  sym === :Eₕ && return getfield(model, :E_h)
-  sym === :ℏ && return getfield(model, :hbar)
-  return getfield(model, sym)
-end
-
 # potential
 function potential(model::HydrogenAtom, r)
   if !(0 ≤ r)

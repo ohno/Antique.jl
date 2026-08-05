@@ -17,27 +17,6 @@ struct MorsePotential <: AbstractModel
   hbar::Real
 end
 
-function MorsePotential(;
-  # The simplified parameters for H2+
-  # F. M. Fernandez, J. Garcia, ChemistrySelect, 6, 9527-9534(2021) https://doi.org/10.1002/slct.202102509
-  # CODATA recommended values of the fundamental physical constants: 2018 https://physics.nist.gov/cgi-bin/cuu/Value?mpsme
-  r_e=2.0, rₑ=r_e,
-  D_e=0.1, Dₑ=D_e,
-  k=0.1,
-  mu=918.1, μ=mu,
-  hbar=1.0, ℏ=hbar,
-)
-  return MorsePotential(rₑ, Dₑ, k, μ, ℏ)
-end
-
-function Base.getproperty(model::MorsePotential, sym::Symbol)
-  sym === :rₑ && return getfield(model, :r_e)
-  sym === :Dₑ && return getfield(model, :D_e)
-  sym === :μ && return getfield(model, :mu)
-  sym === :ℏ && return getfield(model, :hbar)
-  return getfield(model, sym)
-end
-
 # potential
 function potential(model::MorsePotential, r)
   if !(0 ≤ r)
