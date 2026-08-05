@@ -53,6 +53,10 @@ The quantum mechanical models with analytical solutions are useful for software 
 
 ![\label{fig:usage}The radial density of four s-wave states of the hydrogen atom calculated by the Rayleigh-Ritz method, implemented in TwoBody.jl [@TwoBody]. We employed Gaussian basis functions $\phi_n(r) = \exp(-\nu_n r^2)$ whose exponents were determined by the geometric progression defined in the previous study [@Hiyama2018]. The numerical solution (solid blue line) is compared to the analytical solution (dashed black line) using Antique.jl. This figure is drawn using Mekie.jl [@Danisch2021]. Deviations from the analytic solutions appear in excited states due to the limited number of basis functions, reflecting the accuracy limits of the numerical method. These deviations diminish with more basis functions, though an optimal number can be chosen for the system of interest.](./figure.pdf)
 
+# AI Usage Disclosure
+
+Generative AI tools were used in the development of this software. GitHub Copilot (automatic model selection, predominantly GPT-5.3-Codex) assisted with code refactoring, including renaming API functions and restructuring the codebase into per-model submodules. In each case, the authors created examples of the desired changes for the internal logic and notation, which Copilot then applied consistently across the remaining files, along with corresponding updates to documentation, docstrings, and tests. All AI-generated code was reviewed, tested, and validated by the authors, who made all architectural and design decisions and take full responsibility for the accuracy and originality of the submitted work.
+
 # Acknowledgement
 
 We acknowledge all contributors and sponsors. Special thanks to Yuto Horikawa for his help with managing the documentation and advice on the coding style. S. O. was supported by the RIKEN Junior Research Associate Program. A. J. A. and L. H. were supported by the RIKEN Special Postdoctoral Researcher Program.
