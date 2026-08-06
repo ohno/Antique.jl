@@ -12,6 +12,17 @@ using QuadGK
 using Zygote
 
 @testset verbose = true "Antique.jl" begin
+	@testset "Base.string" begin
+		@test string(HarmonicOscillator(k=2.0, m=3.0, hbar=4.0)) == "Antique.HarmonicOscillator(k=2.0, m=3.0, hbar=4.0)"
+		for model_name in Antique.models
+			model = getproperty(Antique, model_name)()
+			representation = string(model)
+			@test representation == sprint(show, model)
+			@test startswith(representation, "Antique.$(model_name)(")
+			@test which(Base.string, (typeof(model),)).module === Base
+		end
+	end
+
 	@testset "Field alias compatibility" begin
 		ha_ascii = HydrogenAtom(m_e=2.0, a_0=3.0, E_h=4.0, hbar=5.0)
 		@test ha_ascii.mₑ == 2.0
