@@ -6,22 +6,12 @@ import ..energy, ..potential, ..wavefunction, ..radial_function, ..laguerre_poly
 export HydrogenAtom, energy, potential, wavefunction, radial_function, laguerre_polynomial, spherical_harmonic, legendre_polynomial
 
 # parameters
-struct HydrogenAtom <: AbstractModel
-  Z::Integer
-  m_e::Real
-  a_0::Real
-  E_h::Real
-  hbar::Real
-end
-
-function HydrogenAtom(;
-  Z::Integer=1,
-  m_e::Real=1.0,
-  a_0::Real=1.0,
-  E_h::Real=1.0,
-  hbar::Real=1.0,
-)
-  return HydrogenAtom(Z, m_e, a_0, E_h, hbar)
+@kwdef struct HydrogenAtom <: AbstractModel
+  Z::Integer = 1
+  m_e::Real = 1.0
+  a_0::Real = 1.0
+  E_h::Real = 1.0
+  hbar::Real = 1.0
 end
 
 # potential

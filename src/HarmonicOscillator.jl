@@ -6,18 +6,10 @@ import ..energy, ..potential, ..wavefunction, ..laguerre_polynomial
 export HarmonicOscillator, energy, potential, wavefunction, laguerre_polynomial
 
 # parameters
-struct HarmonicOscillator <: AbstractModel
-  k::Real
-  m::Real
-  hbar::Real
-end
-
-function HarmonicOscillator(;
-  k::Real=1.0,
-  m::Real=1.0,
-  hbar::Real=1.0,
-)
-  return HarmonicOscillator(k, m, hbar)
+@kwdef struct HarmonicOscillator <: AbstractModel
+  k::Real = 1.0
+  m::Real = 1.0
+  hbar::Real = 1.0
 end
 
 # potential

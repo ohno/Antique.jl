@@ -9,20 +9,11 @@ export PoschlTeller, energy, potential, wavefunction, n_max, legendre_polynomial
 using SpecialFunctions
 
 # parameters
-struct PoschlTeller <: AbstractModel
-  lambda::Integer
-  m::Real
-  hbar::Real
-  x_0::Real
-end
-
-function PoschlTeller(;
-  lambda::Integer=1,
-  m::Real=1.0,
-  hbar::Real=1.0,
-  x_0::Real=1.0,
-)
-  return PoschlTeller(lambda, m, hbar, x_0)
+@kwdef struct PoschlTeller <: AbstractModel
+  lambda::Integer = 1
+  m::Real = 1.0
+  hbar::Real = 1.0
+  x_0::Real = 1.0
 end
 
 # potential

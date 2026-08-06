@@ -6,20 +6,11 @@ import ..energy, ..potential, ..wavefunction, ..spherical_harmonic, ..legendre_p
 export RigidRotor, energy, potential, wavefunction, spherical_harmonic, legendre_polynomial
 
 # parameters
-struct RigidRotor <: AbstractModel
-  m_1::Real
-  m_2::Real
-  R::Real
-  hbar::Real
-end
-
-function RigidRotor(;
-  m_1::Real=1.0,
-  m_2::Real=1.0,
-  R::Real=1.0,
-  hbar::Real=1.0,
-)
-  return RigidRotor(m_1, m_2, R, hbar)
+@kwdef struct RigidRotor <: AbstractModel
+  m_1::Real = 1.0
+  m_2::Real = 1.0
+  R::Real = 1.0
+  hbar::Real = 1.0
 end
 
 # potential

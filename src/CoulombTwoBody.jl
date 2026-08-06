@@ -6,28 +6,15 @@ import ..energy, ..potential, ..wavefunction, ..radial_function, ..laguerre_poly
 export CoulombTwoBody, energy, potential, wavefunction, radial_function, laguerre_polynomial, spherical_harmonic, legendre_polynomial
 
 # parameters
-struct CoulombTwoBody <: AbstractModel
-  z_1::Integer
-  z_2::Integer
-  m_1::Real
-  m_2::Real
-  m_e::Real
-  a_0::Real
-  E_h::Real
-  hbar::Real
-end
-
-function CoulombTwoBody(;
-  z_1::Integer=-1,
-  z_2::Integer=1,
-  m_1::Real=1.0,
-  m_2::Real=1.0,
-  m_e::Real=1.0,
-  a_0::Real=1.0,
-  E_h::Real=1.0,
-  hbar::Real=1.0,
-)
-  return CoulombTwoBody(z_1, z_2, m_1, m_2, m_e, a_0, E_h, hbar)
+@kwdef struct CoulombTwoBody <: AbstractModel
+  z_1::Integer = -1
+  z_2::Integer = 1
+  m_1::Real = 1.0
+  m_2::Real = 1.0
+  m_e::Real = 1.0
+  a_0::Real = 1.0
+  E_h::Real = 1.0
+  hbar::Real = 1.0
 end
 
 # potential

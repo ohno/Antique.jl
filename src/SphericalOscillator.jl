@@ -9,18 +9,10 @@ export SphericalOscillator, energy, potential, wavefunction, radial_function, la
 using SpecialFunctions
 
 # parameters
-struct SphericalOscillator <: AbstractModel
-  k::Real
-  mu::Real
-  hbar::Real
-end
-
-function SphericalOscillator(;
-  k::Real=1.0,
-  mu::Real=1.0,
-  hbar::Real=1.0,
-)
-  return SphericalOscillator(k, mu, hbar)
+@kwdef struct SphericalOscillator <: AbstractModel
+  k::Real = 1.0
+  mu::Real = 1.0
+  hbar::Real = 1.0
 end
 
 # potential

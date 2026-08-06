@@ -6,18 +6,10 @@ import ..energy, ..potential, ..wavefunction
 export InfinitePotentialWell3D, energy, potential, wavefunction
 
 # parameters
-struct InfinitePotentialWell3D <: AbstractModel
-  L::Vector{Real}
-  m::Real
-  hbar::Real
-end
-
-function InfinitePotentialWell3D(;
-  L=[1.0, 1.0, 1.0],
-  m::Real=1.0,
-  hbar::Real=1.0,
-)
-  return InfinitePotentialWell3D(L, m, hbar)
+@kwdef struct InfinitePotentialWell3D <: AbstractModel
+  L::Vector{Real} = [1.0, 1.0, 1.0]
+  m::Real = 1.0
+  hbar::Real = 1.0
 end
 
 # potential

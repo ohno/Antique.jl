@@ -6,18 +6,10 @@ import ..energy, ..potential, ..wavefunction
 export DeltaPotential, energy, potential, wavefunction
 
 # parameters
-struct DeltaPotential <: AbstractModel
-  alpha::Real
-  m::Real
-  hbar::Real
-end
-
-function DeltaPotential(;
-  alpha::Real=1.0,
-  m::Real=1.0,
-  hbar::Real=1.0,
-)
-  return DeltaPotential(alpha, m, hbar)
+@kwdef struct DeltaPotential <: AbstractModel
+  alpha::Real = 1.0
+  m::Real = 1.0
+  hbar::Real = 1.0
 end
 
 # potential
