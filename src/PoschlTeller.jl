@@ -1,5 +1,8 @@
 module PoschlTellers
 
+# for Julia 1.1
+import Base:@kwdef
+
 import ..AbstractModel
 import ..energy, ..potential, ..wavefunction, ..n_max, ..legendre_polynomial
 

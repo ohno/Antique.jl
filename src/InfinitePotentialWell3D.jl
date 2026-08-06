@@ -1,5 +1,8 @@
 module InfinitePotentialWell3Ds
 
+# for Julia 1.1
+import Base:@kwdef
+
 import ..AbstractModel
 import ..energy, ..potential, ..wavefunction
 

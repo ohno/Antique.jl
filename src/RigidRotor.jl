@@ -1,5 +1,8 @@
 module RigidRotors
 
+# for Julia 1.1
+import Base:@kwdef
+
 import ..AbstractModel
 import ..energy, ..potential, ..wavefunction, ..spherical_harmonic, ..legendre_polynomial
 
