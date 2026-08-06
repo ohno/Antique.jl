@@ -1,28 +1,18 @@
 module InfinitePotentialWell3Ds
 
+# for Julia 1.1
+import Base:@kwdef
+
 import ..AbstractModel
 import ..energy, ..potential, ..wavefunction
 
 export InfinitePotentialWell3D, energy, potential, wavefunction
 
 # parameters
-struct InfinitePotentialWell3D <: AbstractModel
-  L::Vector{Real}
-  m::Real
-  hbar::Real
-end
-
-function InfinitePotentialWell3D(;
-  L=[1.0, 1.0, 1.0],
-  m=1.0,
-  hbar=1.0, ℏ=hbar,
-)
-  return InfinitePotentialWell3D(Float64.(L), m, ℏ)
-end
-
-function Base.getproperty(model::InfinitePotentialWell3D, sym::Symbol)
-  sym === :ℏ && return getfield(model, :hbar)
-  return getfield(model, sym)
+@kwdef struct InfinitePotentialWell3D <: AbstractModel
+  L::Vector{Real} = [1.0, 1.0, 1.0]
+  m::Real = 1.0
+  hbar::Real = 1.0
 end
 
 # potential

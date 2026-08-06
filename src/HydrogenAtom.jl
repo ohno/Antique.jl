@@ -1,35 +1,20 @@
 module HydrogenAtoms
 
+# for Julia 1.1
+import Base:@kwdef
+
 import ..AbstractModel
 import ..energy, ..potential, ..wavefunction, ..radial_function, ..laguerre_polynomial, ..spherical_harmonic, ..legendre_polynomial
 
 export HydrogenAtom, energy, potential, wavefunction, radial_function, laguerre_polynomial, spherical_harmonic, legendre_polynomial
 
 # parameters
-struct HydrogenAtom <: AbstractModel
-  Z::Integer
-  m_e::Real
-  a_0::Real
-  E_h::Real
-  hbar::Real
-end
-
-function HydrogenAtom(;
-  Z::Integer=1,
-  m_e=1.0, mₑ=m_e,
-  a_0=1.0, a₀=a_0,
-  E_h=1.0, Eₕ=E_h,
-  hbar=1.0, ℏ=hbar,
-)
-  return HydrogenAtom(Z, mₑ, a₀, Eₕ, ℏ)
-end
-
-function Base.getproperty(model::HydrogenAtom, sym::Symbol)
-  sym === :mₑ && return getfield(model, :m_e)
-  sym === :a₀ && return getfield(model, :a_0)
-  sym === :Eₕ && return getfield(model, :E_h)
-  sym === :ℏ && return getfield(model, :hbar)
-  return getfield(model, sym)
+@kwdef struct HydrogenAtom <: AbstractModel
+  Z::Integer = 1
+  m_e::Real = 1.0
+  a_0::Real = 1.0
+  E_h::Real = 1.0
+  hbar::Real = 1.0
 end
 
 # potential

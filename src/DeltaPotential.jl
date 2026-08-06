@@ -1,29 +1,18 @@
 module DeltaPotentials
 
+# for Julia 1.1
+import Base:@kwdef
+
 import ..AbstractModel
 import ..energy, ..potential, ..wavefunction
 
 export DeltaPotential, energy, potential, wavefunction
 
 # parameters
-struct DeltaPotential <: AbstractModel
-  alpha::Real
-  m::Real
-  hbar::Real
-end
-
-function DeltaPotential(;
-  alpha=1.0, α=alpha,
-  m=1.0,
-  hbar=1.0, ℏ=hbar,
-)
-  return DeltaPotential(α, m, ℏ)
-end
-
-function Base.getproperty(model::DeltaPotential, sym::Symbol)
-  sym === :α && return getfield(model, :alpha)
-  sym === :ℏ && return getfield(model, :hbar)
-  return getfield(model, sym)
+@kwdef struct DeltaPotential <: AbstractModel
+  alpha::Real = 1.0
+  m::Real = 1.0
+  hbar::Real = 1.0
 end
 
 # potential

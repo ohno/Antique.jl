@@ -1,5 +1,8 @@
 module SphericalOscillators
 
+# for Julia 1.1
+import Base:@kwdef
+
 import ..AbstractModel
 import ..energy, ..potential, ..wavefunction, ..radial_function, ..laguerre_polynomial, ..spherical_harmonic, ..legendre_polynomial
 
@@ -9,24 +12,10 @@ export SphericalOscillator, energy, potential, wavefunction, radial_function, la
 using SpecialFunctions
 
 # parameters
-struct SphericalOscillator <: AbstractModel
-  k::Real
-  mu::Real
-  hbar::Real
-end
-
-function SphericalOscillator(;
-  k=1.0,
-  mu=1.0, μ=mu,
-  hbar=1.0, ℏ=hbar,
-)
-  return SphericalOscillator(k, μ, ℏ)
-end
-
-function Base.getproperty(model::SphericalOscillator, sym::Symbol)
-  sym === :μ && return getfield(model, :mu)
-  sym === :ℏ && return getfield(model, :hbar)
-  return getfield(model, sym)
+@kwdef struct SphericalOscillator <: AbstractModel
+  k::Real = 1.0
+  mu::Real = 1.0
+  hbar::Real = 1.0
 end
 
 # potential

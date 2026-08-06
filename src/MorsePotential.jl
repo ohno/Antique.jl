@@ -1,5 +1,8 @@
 module MorsePotentials
 
+# for Julia 1.1
+import Base:@kwdef
+
 import ..AbstractModel
 import ..energy, ..potential, ..wavefunction, ..n_max, ..laguerre_polynomial
 
@@ -9,33 +12,12 @@ export MorsePotential, energy, potential, wavefunction, n_max, laguerre_polynomi
 using SpecialFunctions
 
 # parameters
-struct MorsePotential <: AbstractModel
-  r_e::Real
-  D_e::Real
-  k::Real
-  mu::Real
-  hbar::Real
-end
-
-function MorsePotential(;
-  # The simplified parameters for H2+
-  # F. M. Fernandez, J. Garcia, ChemistrySelect, 6, 9527-9534(2021) https://doi.org/10.1002/slct.202102509
-  # CODATA recommended values of the fundamental physical constants: 2018 https://physics.nist.gov/cgi-bin/cuu/Value?mpsme
-  r_e=2.0, rₑ=r_e,
-  D_e=0.1, Dₑ=D_e,
-  k=0.1,
-  mu=918.1, μ=mu,
-  hbar=1.0, ℏ=hbar,
-)
-  return MorsePotential(rₑ, Dₑ, k, μ, ℏ)
-end
-
-function Base.getproperty(model::MorsePotential, sym::Symbol)
-  sym === :rₑ && return getfield(model, :r_e)
-  sym === :Dₑ && return getfield(model, :D_e)
-  sym === :μ && return getfield(model, :mu)
-  sym === :ℏ && return getfield(model, :hbar)
-  return getfield(model, sym)
+@kwdef struct MorsePotential <: AbstractModel
+  r_e::Real = 2.0
+  D_e::Real = 0.1
+  k::Real = 0.1
+  mu::Real = 918.1
+  hbar::Real = 1.0
 end
 
 # potential

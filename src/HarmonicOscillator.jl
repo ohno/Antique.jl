@@ -1,28 +1,18 @@
 module HarmonicOscillators
 
+# for Julia 1.1
+import Base:@kwdef
+
 import ..AbstractModel
 import ..energy, ..potential, ..wavefunction, ..laguerre_polynomial
 
 export HarmonicOscillator, energy, potential, wavefunction, laguerre_polynomial
 
 # parameters
-struct HarmonicOscillator <: AbstractModel
-  k::Real
-  m::Real
-  hbar::Real
-end
-
-function HarmonicOscillator(;
-  k=1.0,
-  m=1.0,
-  hbar=1.0, ℏ=hbar,
-)
-  return HarmonicOscillator(k, m, ℏ)
-end
-
-function Base.getproperty(model::HarmonicOscillator, sym::Symbol)
-  sym === :ℏ && return getfield(model, :hbar)
-  return getfield(model, sym)
+@kwdef struct HarmonicOscillator <: AbstractModel
+  k::Real = 1.0
+  m::Real = 1.0
+  hbar::Real = 1.0
 end
 
 # potential

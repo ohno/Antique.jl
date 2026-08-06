@@ -1,5 +1,8 @@
 module Antique
 
+  # for Julia 1.1
+  import Base:@kwdef
+
   # Export public functions
   export energy
   export potential

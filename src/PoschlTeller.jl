@@ -1,5 +1,8 @@
 module PoschlTellers
 
+# for Julia 1.1
+import Base:@kwdef
+
 import ..AbstractModel
 import ..energy, ..potential, ..wavefunction, ..n_max, ..legendre_polynomial
 
@@ -9,30 +12,11 @@ export PoschlTeller, energy, potential, wavefunction, n_max, legendre_polynomial
 using SpecialFunctions
 
 # parameters
-struct PoschlTeller <: AbstractModel
-  lambda::Integer
-  m::Real
-  hbar::Real
-  x_0::Real
-end
-
-function PoschlTeller(;
-  lambda=1, λ=lambda,
-  m=1.0,
-  hbar=1.0, ℏ=hbar,
-  x_0=1.0, x₀=x_0,
-)
-  if !isinteger(λ)
-    throw(DomainError("λ = $λ", "λ must be an integer."))
-  end
-  return PoschlTeller(Int(λ), m, ℏ, x₀)
-end
-
-function Base.getproperty(model::PoschlTeller, sym::Symbol)
-  sym === :λ && return getfield(model, :lambda)
-  sym === :x₀ && return getfield(model, :x_0)
-  sym === :ℏ && return getfield(model, :hbar)
-  return getfield(model, sym)
+@kwdef struct PoschlTeller <: AbstractModel
+  lambda::Integer = 1
+  m::Real = 1.0
+  hbar::Real = 1.0
+  x_0::Real = 1.0
 end
 
 # potential

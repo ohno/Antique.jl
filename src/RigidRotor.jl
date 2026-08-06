@@ -1,32 +1,19 @@
 module RigidRotors
 
+# for Julia 1.1
+import Base:@kwdef
+
 import ..AbstractModel
 import ..energy, ..potential, ..wavefunction, ..spherical_harmonic, ..legendre_polynomial
 
 export RigidRotor, energy, potential, wavefunction, spherical_harmonic, legendre_polynomial
 
 # parameters
-struct RigidRotor <: AbstractModel
-  m_1::Real
-  m_2::Real
-  R::Real
-  hbar::Real
-end
-
-function RigidRotor(;
-  m_1=1.0, m₁=m_1,
-  m_2=1.0, m₂=m_2,
-  R=1.0,
-  hbar=1.0, ℏ=hbar,
-)
-  return RigidRotor(m₁, m₂, R, ℏ)
-end
-
-function Base.getproperty(model::RigidRotor, sym::Symbol)
-  sym === :m₁ && return getfield(model, :m_1)
-  sym === :m₂ && return getfield(model, :m_2)
-  sym === :ℏ && return getfield(model, :hbar)
-  return getfield(model, sym)
+@kwdef struct RigidRotor <: AbstractModel
+  m_1::Real = 1.0
+  m_2::Real = 1.0
+  R::Real = 1.0
+  hbar::Real = 1.0
 end
 
 # potential

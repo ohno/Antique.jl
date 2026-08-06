@@ -1,45 +1,23 @@
 module CoulombTwoBodies
 
+# for Julia 1.1
+import Base:@kwdef
+
 import ..AbstractModel
 import ..energy, ..potential, ..wavefunction, ..radial_function, ..laguerre_polynomial, ..spherical_harmonic, ..legendre_polynomial
 
 export CoulombTwoBody, energy, potential, wavefunction, radial_function, laguerre_polynomial, spherical_harmonic, legendre_polynomial
 
 # parameters
-struct CoulombTwoBody <: AbstractModel
-  z_1::Integer
-  z_2::Integer
-  m_1::Real
-  m_2::Real
-  m_e::Real
-  a_0::Real
-  E_h::Real
-  hbar::Real
-end
-
-function CoulombTwoBody(;
-  z_1::Integer=-1, z₁=z_1,
-  z_2::Integer=1, z₂=z_2,
-  m_1=1.0, m₁=m_1,
-  m_2=1.0, m₂=m_2,
-  m_e=1.0, mₑ=m_e,
-  a_0=1.0, a₀=a_0,
-  E_h=1.0, Eₕ=E_h,
-  hbar=1.0, ℏ=hbar,
-)
-  return CoulombTwoBody(z₁, z₂, m₁, m₂, mₑ, a₀, Eₕ, ℏ)
-end
-
-function Base.getproperty(model::CoulombTwoBody, sym::Symbol)
-  sym === :z₁ && return getfield(model, :z_1)
-  sym === :z₂ && return getfield(model, :z_2)
-  sym === :m₁ && return getfield(model, :m_1)
-  sym === :m₂ && return getfield(model, :m_2)
-  sym === :mₑ && return getfield(model, :m_e)
-  sym === :a₀ && return getfield(model, :a_0)
-  sym === :Eₕ && return getfield(model, :E_h)
-  sym === :ℏ && return getfield(model, :hbar)
-  return getfield(model, sym)
+@kwdef struct CoulombTwoBody <: AbstractModel
+  z_1::Integer = -1
+  z_2::Integer = 1
+  m_1::Real = 1.0
+  m_2::Real = 1.0
+  m_e::Real = 1.0
+  a_0::Real = 1.0
+  E_h::Real = 1.0
+  hbar::Real = 1.0
 end
 
 # potential

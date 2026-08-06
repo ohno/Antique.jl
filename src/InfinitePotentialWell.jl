@@ -1,28 +1,18 @@
 module InfinitePotentialWells
 
+# for Julia 1.1
+import Base:@kwdef
+
 import ..AbstractModel
 import ..energy, ..potential, ..wavefunction
 
 export InfinitePotentialWell, energy, potential, wavefunction
 
 # parameters
-struct InfinitePotentialWell <: AbstractModel
-  L::Real
-  m::Real
-  hbar::Real
-end
-
-function InfinitePotentialWell(;
-  L=1.0,
-  m=1.0,
-  hbar=1.0, ℏ=hbar,
-)
-  return InfinitePotentialWell(L, m, ℏ)
-end
-
-function Base.getproperty(model::InfinitePotentialWell, sym::Symbol)
-  sym === :ℏ && return getfield(model, :hbar)
-  return getfield(model, sym)
+@kwdef struct InfinitePotentialWell <: AbstractModel
+  L::Real = 1.0
+  m::Real = 1.0
+  hbar::Real = 1.0
 end
 
 # potential
