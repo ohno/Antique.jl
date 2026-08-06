@@ -124,10 +124,7 @@ module Antique
   using .InfinitePotentialWell3Ds: InfinitePotentialWell3D
   using .CoulombTwoBodies: CoulombTwoBody
 
-  # override Base.string and Base.show
-  for model in Antique.models
-    Base.string(t::eval(Symbol(model))) = "Antique.$(typeof(t))(" * join(["$(symbol)=$(getproperty(t,symbol))" for symbol in fieldnames(typeof(t))], ", ") * ")"
-    Base.show(io::IO, t::eval(Symbol(model))) = print(io, Base.string(t))
-  end
+  # Define the display representation for all models.
+  Base.show(io::IO, model::AbstractModel) = print(io, "Antique.", nameof(typeof(model)), "(", join(("$(name)=$(getfield(model, name))" for name in fieldnames(typeof(model))), ", "), ")")
 
 end
