@@ -5,7 +5,7 @@
 ```
 
 ```
-IPW3D = Antique.InfinitePotentialWell3D(L=[1.0, 1.0, 1.0], m=1.0, hbar=1.0)
+IPW3D = Antique.InfinitePotentialWell3D(L=Real[1.0, 1.0, 1.0], m=1.0, hbar=1.0)
 ix | iy | iz | jx | jy | jz |     analytical |      numerical 
 -- | -- | -- | -- | -- | -- | -------------- | -------------- 
  1 |  1 |  1 |  1 |  1 |  1 |    1.000000000 |    0.999960857 ✔
@@ -73,7 +73,7 @@ ix | iy | iz | jx | jy | jz |     analytical |      numerical
  2 |  2 |  2 |  2 |  2 |  1 |    0.000000000 |   -0.000001072 ✔
  2 |  2 |  2 |  2 |  2 |  2 |    1.000000000 |    1.003329100 ✔
 
-IPW3D = Antique.InfinitePotentialWell3D(L=[1.2, 3.4, 4.5], m=2.0, hbar=3.0)
+IPW3D = Antique.InfinitePotentialWell3D(L=Real[1.2, 3.4, 4.5], m=2.0, hbar=3.0)
 ix | iy | iz | jx | jy | jz |     analytical |      numerical 
 -- | -- | -- | -- | -- | -- | -------------- | -------------- 
  1 |  1 |  1 |  1 |  1 |  1 |    1.000000000 |    0.999991924 ✔
@@ -205,7 +205,7 @@ are given by the sum of 2 Taylor series:
 \end{aligned}
 ```
 ```
-IPW3D = Antique.InfinitePotentialWell3D(L=[1.0, 1.0, 1.0], m=1.0, hbar=1.0)
+IPW3D = Antique.InfinitePotentialWell3D(L=Real[1.0, 1.0, 1.0], m=1.0, hbar=1.0)
  nx | ny | nz |     analytical |      numerical 
  -- | -- | -- | -------------- | -------------- 
   1 |  1 |  1 |   14.803827112 |   14.804406602 ✔
@@ -217,7 +217,7 @@ IPW3D = Antique.InfinitePotentialWell3D(L=[1.0, 1.0, 1.0], m=1.0, hbar=1.0)
   2 |  2 |  1 |   44.411710033 |   44.413219805 ✔
   2 |  2 |  2 |   59.414767779 |   59.217626407 ✔
 
-IPW3D = Antique.InfinitePotentialWell3D(L=[1.2, 3.4, 4.5], m=2.0, hbar=3.0)
+IPW3D = Antique.InfinitePotentialWell3D(L=Real[1.2, 3.4, 4.5], m=2.0, hbar=3.0)
  nx | ny | nz |     analytical |      numerical 
  -- | -- | -- | -------------- | -------------- 
   1 |  1 |  1 |   18.438717690 |   18.438866604 ✔
