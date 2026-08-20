@@ -1,7 +1,7 @@
 using Pkg
 
 Pkg.activate(@__DIR__)
-Pkg.develop(path=joinpath(@__DIR__, ".."))
+Pkg.develop(path = joinpath(@__DIR__, ".."))
 Pkg.instantiate()
 
 using Antique
@@ -12,46 +12,46 @@ using DocumenterCitations
 
 bib = CitationBibliography(joinpath(@__DIR__, "src", "refs.bib"));
 
-DocMeta.setdocmeta!(Antique, :DocTestSetup, :(using Antique); recursive=true)
+DocMeta.setdocmeta!(Antique, :DocTestSetup, :(using Antique); recursive = true)
 
 makedocs(;
-  modules=[Antique],
-  authors="Shuhei Ohno",
-  repo="https://github.com/ohno/Antique.jl/blob/{commit}{path}#{line}",
-  sitename="Antique.jl",
-  format=Documenter.HTML(;
-    prettyurls=get(ENV, "CI", "false") == "true",
-    canonical="https://ohno.github.io/Antique.jl",
-    edit_link="main",
-    repolink="https://github.com/ohno/Antique.jl",
-    assets=String[
-      "./assets/fig/logo.ico",
-      "./assets/css/catalog.css",
+    modules = [Antique],
+    authors = "Shuhei Ohno",
+    repo = "https://github.com/ohno/Antique.jl/blob/{commit}{path}#{line}",
+    sitename = "Antique.jl",
+    format = Documenter.HTML(;
+        prettyurls = get(ENV, "CI", "false") == "true",
+        canonical = "https://ohno.github.io/Antique.jl",
+        edit_link = "main",
+        repolink = "https://github.com/ohno/Antique.jl",
+        assets = String[
+            "./assets/fig/logo.ico",
+            "./assets/css/catalog.css",
+        ],
+    ),
+    pages = [
+        "Home" => "index.md",
+        "User Guide" => [
+            "Delta Potential" => "DeltaPotential.md",
+            "Infinite Potential Well" => "InfinitePotentialWell.md",
+            "Harmonic Oscillator" => "HarmonicOscillator.md",
+            "Morse Potential" => "MorsePotential.md",
+            "Pöschl-Teller Potential" => "PoschlTeller.md",
+            "Rigid Rotor" => "RigidRotor.md",
+            "Infinite Potential Well 3D" => "InfinitePotentialWell3D.md",
+            "Spherical Oscillator" => "SphericalOscillator.md",
+            "Hydrogen Atom" => "HydrogenAtom.md",
+            "Coulomb 2-Body System" => "CoulombTwoBody.md",
+            "References" => "references.md",
+            "API Reference" => "API.md",
+        ],
+        "Developer Guide" => "developer.md",
     ],
-  ),
-  pages=[
-    "Home" => "index.md",
-    "User Guide" => [
-      "Delta Potential"            => "DeltaPotential.md"         ,
-      "Infinite Potential Well"    => "InfinitePotentialWell.md"  ,
-      "Harmonic Oscillator"        => "HarmonicOscillator.md"     ,
-      "Morse Potential"            => "MorsePotential.md"         ,
-      "Pöschl-Teller Potential"    => "PoschlTeller.md"           ,
-      "Rigid Rotor"                => "RigidRotor.md"             ,
-      "Infinite Potential Well 3D" => "InfinitePotentialWell3D.md",
-      "Spherical Oscillator"       => "SphericalOscillator.md"    ,
-      "Hydrogen Atom"              => "HydrogenAtom.md"           ,
-      "Coulomb 2-Body System"      => "CoulombTwoBody.md"         ,
-      "References"                 => "references.md"             ,
-      "API Reference"              => "API.md"                    ,
-    ],
-    "Developer Guide" => "developer.md",
-  ],
-  plugins=[bib],
+    plugins = [bib],
 )
 
 deploydocs(;
-  repo="github.com/ohno/Antique.jl",
-  devbranch="main",
-  push_preview=true,
+    repo = "github.com/ohno/Antique.jl",
+    devbranch = "main",
+    push_preview = true,
 )

@@ -1,7 +1,7 @@
 module InfinitePotentialWells
 
 # for Julia 1.1
-import Base:@kwdef
+import Base: @kwdef
 
 import ..AbstractModel
 import ..energy, ..potential, ..wavefunction
@@ -10,35 +10,35 @@ export InfinitePotentialWell, energy, potential, wavefunction
 
 # parameters
 @kwdef struct InfinitePotentialWell <: AbstractModel
-  L::Real = 1.0
-  m::Real = 1.0
-  hbar::Real = 1.0
+    L::Real = 1.0
+    m::Real = 1.0
+    hbar::Real = 1.0
 end
 
 # potential
 function potential(model::InfinitePotentialWell, x)
-  L = model.L
-  return 0<x<L ? 0 : Inf
+    L = model.L
+    return 0 < x < L ? 0 : Inf
 end
 
 # eigenvalues
-function energy(model::InfinitePotentialWell; n::Integer=1)
-  if !(1 ≤ n)
-    throw(DomainError("n = $n", "n must be 1 or more: 1 ≤ n."))
-  end
-  L = model.L
-  m = model.m
-  ℏ = model.hbar
-  return (ℏ^2*n^2*π^2) / (2*m*L^2)
+function energy(model::InfinitePotentialWell; n::Integer = 1)
+    if !(1 ≤ n)
+        throw(DomainError("n = $n", "n must be 1 or more: 1 ≤ n."))
+    end
+    L = model.L
+    m = model.m
+    ℏ = model.hbar
+    return (ℏ^2 * n^2 * π^2) / (2 * m * L^2)
 end
 
 # eigenfunctions
-function wavefunction(model::InfinitePotentialWell, x; n::Integer=1)
-  if !(1 ≤ n)
-    throw(DomainError("n = $n", "n must be 1 or more: 1 ≤ n."))
-  end
-  L = model.L
-  return 0<x<L ? sqrt(2/L) * sin(n*π*x/L) : 0
+function wavefunction(model::InfinitePotentialWell, x; n::Integer = 1)
+    if !(1 ≤ n)
+        throw(DomainError("n = $n", "n must be 1 or more: 1 ≤ n."))
+    end
+    L = model.L
+    return 0 < x < L ? sqrt(2 / L) * sin(n * π * x / L) : 0
 end
 
 # docstrings
@@ -92,7 +92,7 @@ V(x) =
 ```math
 E_n = \frac{\hbar^2 n^2 \pi^2}{2 m L^2}
 ```
-""" energy(model::InfinitePotentialWell; n::Integer=1)
+""" energy(model::InfinitePotentialWell; n::Integer = 1)
 
 @doc raw"""
 `wavefunction(model::InfinitePotentialWell, x; n::Integer=1)`
@@ -100,6 +100,6 @@ E_n = \frac{\hbar^2 n^2 \pi^2}{2 m L^2}
 ```math
 \psi_n(x) = \sqrt{\frac{2}{L}} \sin \frac{n\pi x}{L}
 ```
-""" wavefunction(model::InfinitePotentialWell, x; n::Integer=1)
+""" wavefunction(model::InfinitePotentialWell, x; n::Integer = 1)
 
 end # module InfinitePotentialWells

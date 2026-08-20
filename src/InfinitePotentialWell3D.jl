@@ -1,7 +1,7 @@
 module InfinitePotentialWell3Ds
 
 # for Julia 1.1
-import Base:@kwdef
+import Base: @kwdef
 
 import ..AbstractModel
 import ..energy, ..potential, ..wavefunction
@@ -10,35 +10,35 @@ export InfinitePotentialWell3D, energy, potential, wavefunction
 
 # parameters
 @kwdef struct InfinitePotentialWell3D <: AbstractModel
-  L::Vector{Real} = [1.0, 1.0, 1.0]
-  m::Real = 1.0
-  hbar::Real = 1.0
+    L::Vector{Real} = [1.0, 1.0, 1.0]
+    m::Real = 1.0
+    hbar::Real = 1.0
 end
 
 # potential
 function potential(model::InfinitePotentialWell3D, x)
-  L = model.L
-  return prod(@. 0<x<L) ? 0 : Inf
+    L = model.L
+    return prod(@. 0 < x < L) ? 0 : Inf
 end
 
 # eigenvalues
-function energy(model::InfinitePotentialWell3D; n::Vector{Int}=[1,1,1])
-  if !(prod(1 .≤ n))
-    throw(DomainError("n = $n", "This function is defined for 1 .≤ n."))
-  end
-  L = model.L
-  m = model.m
-  ℏ = model.hbar
-  return sum(@. (ℏ^2*n^2*π^2) / (2*m*L^2))
+function energy(model::InfinitePotentialWell3D; n::Vector{Int} = [1, 1, 1])
+    if !(prod(1 .≤ n))
+        throw(DomainError("n = $n", "This function is defined for 1 .≤ n."))
+    end
+    L = model.L
+    m = model.m
+    ℏ = model.hbar
+    return sum(@. (ℏ^2 * n^2 * π^2) / (2 * m * L^2))
 end
 
 # eigenfunctions
-function wavefunction(model::InfinitePotentialWell3D, x; n::Vector{Int}=[1,1,1])
-  if !(prod(1 .≤ n))
-    throw(DomainError("n = $n", "This function is defined for 1 .≤ n."))
-  end
-  L = model.L
-  return prod(@. 0<x<L) ? prod(@. sqrt(2/L) * sin(n*π*x/L)) : 0
+function wavefunction(model::InfinitePotentialWell3D, x; n::Vector{Int} = [1, 1, 1])
+    if !(prod(1 .≤ n))
+        throw(DomainError("n = $n", "This function is defined for 1 .≤ n."))
+    end
+    L = model.L
+    return prod(@. 0 < x < L) ? prod(@. sqrt(2 / L) * sin(n * π * x / L)) : 0
 end
 
 # docstrings

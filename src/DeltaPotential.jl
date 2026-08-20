@@ -1,7 +1,7 @@
 module DeltaPotentials
 
 # for Julia 1.1
-import Base:@kwdef
+import Base: @kwdef
 
 import ..AbstractModel
 import ..energy, ..potential, ..wavefunction
@@ -10,30 +10,30 @@ export DeltaPotential, energy, potential, wavefunction
 
 # parameters
 @kwdef struct DeltaPotential <: AbstractModel
-  alpha::Real = 1.0
-  m::Real = 1.0
-  hbar::Real = 1.0
+    alpha::Real = 1.0
+    m::Real = 1.0
+    hbar::Real = 1.0
 end
 
 # potential
 function potential(model::DeltaPotential, x)
-  return x==0 ? -Inf : 0
+    return x == 0 ? -Inf : 0
 end
 
 # eigenvalues
 function energy(model::DeltaPotential)
-  α = model.alpha
-  m = model.m
-  ℏ = model.hbar
-  return -(m*α^2)/(2*ℏ^2)
+    α = model.alpha
+    m = model.m
+    ℏ = model.hbar
+    return -(m * α^2) / (2 * ℏ^2)
 end
 
 # eigenfunctions
 function wavefunction(model::DeltaPotential, x)
-  α = model.alpha
-  m = model.m
-  ℏ = model.hbar
-  return sqrt(m*α)/ℏ * exp.(-m*α*abs.(x)/ℏ^2)
+    α = model.alpha
+    m = model.m
+    ℏ = model.hbar
+    return sqrt(m * α) / ℏ * exp.(-m * α * abs.(x) / ℏ^2)
 end
 
 # docstrings
@@ -69,7 +69,7 @@ DP = DeltaPotential(alpha=1.0, m=1.0, hbar=1.0)
 ```math
 V(x) = -\alpha \delta(x).
 ```
-""" potential(model::DeltaPotential, x) 
+""" potential(model::DeltaPotential, x)
 
 @doc raw"""
 `energy(model::DeltaPotential)`
