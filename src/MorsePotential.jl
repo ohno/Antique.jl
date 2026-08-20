@@ -1,7 +1,7 @@
 module MorsePotentials
 
 # for Julia 1.1
-import Base:@kwdef
+import Base: @kwdef
 
 import ..AbstractModel
 import ..energy, ..potential, ..wavefunction, ..n_max, ..laguerre_polynomial
@@ -13,78 +13,78 @@ using SpecialFunctions
 
 # parameters
 @kwdef struct MorsePotential <: AbstractModel
-  r_e::Real = 2.0
-  D_e::Real = 0.1
-  k::Real = 0.1
-  mu::Real = 918.1
-  hbar::Real = 1.0
+    r_e::Real = 2.0
+    D_e::Real = 0.1
+    k::Real = 0.1
+    mu::Real = 918.1
+    hbar::Real = 1.0
 end
 
 # potential
 function potential(model::MorsePotential, r)
-  if !(0 ≤ r)
-    throw(DomainError("r = $r", "r must be non-negative: 0 ≤ r."))
-  end
-  r_e = model.r_e
-  D_e = model.D_e
-  k = model.k
-  a = sqrt(k/(2*D_e))
-  return D_e*( exp(-2*a*(r-r_e)) -2*exp(-a*(r-r_e)) )
+    if !(0 ≤ r)
+        throw(DomainError("r = $r", "r must be non-negative: 0 ≤ r."))
+    end
+    r_e = model.r_e
+    D_e = model.D_e
+    k = model.k
+    a = sqrt(k / (2 * D_e))
+    return D_e * (exp(-2 * a * (r - r_e)) - 2 * exp(-a * (r - r_e)))
 end
 
 # eigenvalues
-function energy(model::MorsePotential; n::Integer=0, nocheck=false)
-  if !(0 ≤ n ≤ n_max(model) || nocheck)
-    throw(DomainError("(n,n_max(model)) = ($n,$(n_max(model)))", "This function is defined for 0 ≤ n ≤ n_max(model)."))
-  end
-  Dₑ = model.D_e
-  k = model.k
-  µ = model.mu
-  ℏ = model.hbar
-  ω = sqrt(k/µ)
-  χ = ℏ*ω/(4*Dₑ)
-  return - Dₑ + ℏ*ω*(n+1/2) - χ*ℏ*ω*(n+1/2)^2
+function energy(model::MorsePotential; n::Integer = 0, nocheck = false)
+    if !(0 ≤ n ≤ n_max(model) || nocheck)
+        throw(DomainError("(n,n_max(model)) = ($n,$(n_max(model)))", "This function is defined for 0 ≤ n ≤ n_max(model)."))
+    end
+    Dₑ = model.D_e
+    k = model.k
+    µ = model.mu
+    ℏ = model.hbar
+    ω = sqrt(k / µ)
+    χ = ℏ * ω / (4 * Dₑ)
+    return - Dₑ + ℏ * ω * (n + 1 / 2) - χ * ℏ * ω * (n + 1 / 2)^2
 end
 
 # maximum quantum number
 function n_max(model::MorsePotential)
-  Dₑ = model.D_e
-  k = model.k
-  µ = model.mu
-  ω = sqrt(k/µ)
-  return Int(floor((2*Dₑ - ω)/ω))
+    Dₑ = model.D_e
+    k = model.k
+    µ = model.mu
+    ω = sqrt(k / µ)
+    return Int(floor((2 * Dₑ - ω) / ω))
 end
 
 # eigenfunctions
-function wavefunction(model::MorsePotential, r; n::Integer=0)
-  if !(0 ≤ n ≤ n_max(model))
-    throw(DomainError("(n,n_max(model)) = ($n,$(n_max(model)))", "This function is defined for 0 ≤ n ≤ n_max(model)."))
-  end
-  if !(0 ≤ r)
-    throw(DomainError("r = $r", "r must be non-negative: 0 ≤ r."))
-  end
-  rₑ = model.r_e
-  Dₑ = model.D_e
-  k = model.k
-  µ = model.mu
-  ℏ = model.hbar
-  a = sqrt(k/(2*Dₑ))
-  λ = sqrt(2*µ*Dₑ) / (a*ℏ)
-  ξ = 2*λ*exp(-a*(r-rₑ))
-  s  = 2*λ - 2*n - 1
-  N  = sqrt(factorial(n) * s * a / gamma(s+n+1))
-  return N * ξ^(s/2) * exp(-ξ/2) * laguerre_polynomial(model, ξ, n=n, α=s)
+function wavefunction(model::MorsePotential, r; n::Integer = 0)
+    if !(0 ≤ n ≤ n_max(model))
+        throw(DomainError("(n,n_max(model)) = ($n,$(n_max(model)))", "This function is defined for 0 ≤ n ≤ n_max(model)."))
+    end
+    if !(0 ≤ r)
+        throw(DomainError("r = $r", "r must be non-negative: 0 ≤ r."))
+    end
+    rₑ = model.r_e
+    Dₑ = model.D_e
+    k = model.k
+    µ = model.mu
+    ℏ = model.hbar
+    a = sqrt(k / (2 * Dₑ))
+    λ = sqrt(2 * µ * Dₑ) / (a * ℏ)
+    ξ = 2 * λ * exp(-a * (r - rₑ))
+    s = 2 * λ - 2 * n - 1
+    N = sqrt(factorial(n) * s * a / gamma(s + n + 1))
+    return N * ξ^(s / 2) * exp(-ξ / 2) * laguerre_polynomial(model, ξ, n = n, α = s)
 end
 
 # generalized Laguerre polynomials
-function laguerre_polynomial(model::MorsePotential, x; n=0, α=0)
-  return laguerre_polynomial(model, n, α, x)
+function laguerre_polynomial(model::MorsePotential, x; n = 0, α = 0)
+    return laguerre_polynomial(model, n, α, x)
 end
 function laguerre_polynomial(model::MorsePotential, n::Integer, α::Integer, x)
-  return sum((-1)^(k) * (Int(gamma(α+n+1)) // Int((gamma(α+1+k)*gamma(n-k+1)))) * x^k * 1 // factorial(k) for k ∈ 0:n)
+    return sum((-1)^(k) * (Int(gamma(α + n + 1)) // Int((gamma(α + 1 + k) * gamma(n - k + 1)))) * x^k * 1 // factorial(k) for k in 0:n)
 end
 function laguerre_polynomial(model::MorsePotential, n::Integer, α::Real, x)
-  return sum((-1)^(k) * (gamma(α+n+1) / (gamma(α+1+k)*gamma(n-k+1))) * x^k / factorial(k) for k ∈ 0:n)
+    return sum((-1)^(k) * (gamma(α + n + 1) / (gamma(α + 1 + k) * gamma(n - k + 1))) * x^k / factorial(k) for k in 0:n)
 end
 
 # docstrings
@@ -132,7 +132,7 @@ where ``a = \sqrt{\frac{k}{2Dₑ}}`` is defined. The domain is $0\leq r \lt \inf
 E_n = - D_\mathrm{e} + \hbar \omega \left( n + \frac{1}{2} \right) - \chi \hbar \omega \left( n + \frac{1}{2} \right)^2,
 ```
 where ``\omega = \sqrt{k/µ}`` and ``\chi = \frac{\hbar\omega}{4D_\mathrm{e}}`` are defined.
-""" energy(model::MorsePotential; n::Integer=0, nocheck=false)
+""" energy(model::MorsePotential; n::Integer = 0, nocheck = false)
 
 @doc raw"""
 `n_max(model::MorsePotential)`
@@ -155,7 +155,7 @@ where ``\omega = \sqrt{k/µ}`` is defined.
 
 ``N_n = \sqrt{\frac{n!(2\lambda-2n-1)a}{\Gamma(2\lambda-n)}}``,
 ``\lambda = \frac{\sqrt{2\mu D_\mathrm{e}}}{a\hbar}``, ``a = \sqrt{\frac{k}{2Dₑ}}``, ``L_n^{(\alpha)}(x) = \frac{x^{-\alpha} \mathrm{e}^x}{n !} \frac{\mathrm{d}^n}{\mathrm{d} x^n}\left(\mathrm{e}^{-x} x^{n+\alpha}\right)``, ``\xi := 2\lambda\mathrm{e}^{-a(r-r_e)}`` are defined. The domain is $0\leq r \lt \infty$.
-""" wavefunction(model::MorsePotential, r; n::Integer=0)
+""" wavefunction(model::MorsePotential, r; n::Integer = 0)
 
 @doc raw"""
 `laguerre_polynomial(model::MorsePotential, x; n=0, α=0)`
@@ -196,6 +196,6 @@ Examples:
   \vdots
 \end{aligned}
 ```
-""" laguerre_polynomial(model::MorsePotential, x; n=0, α=0)
+""" laguerre_polynomial(model::MorsePotential, x; n = 0, α = 0)
 
 end # module MorsePotentials

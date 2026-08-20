@@ -1,7 +1,7 @@
 module HarmonicOscillators
 
 # for Julia 1.1
-import Base:@kwdef
+import Base: @kwdef
 
 import ..AbstractModel
 import ..energy, ..potential, ..wavefunction, ..laguerre_polynomial
@@ -10,46 +10,46 @@ export HarmonicOscillator, energy, potential, wavefunction, laguerre_polynomial
 
 # parameters
 @kwdef struct HarmonicOscillator <: AbstractModel
-  k::Real = 1.0
-  m::Real = 1.0
-  hbar::Real = 1.0
+    k::Real = 1.0
+    m::Real = 1.0
+    hbar::Real = 1.0
 end
 
 # potential
 function potential(model::HarmonicOscillator, x)
-  k = model.k
-  return 1//2 * k * x^2
+    k = model.k
+    return 1 // 2 * k * x^2
 end
 
 # eigenvalues
-function energy(model::HarmonicOscillator; n::Integer=0)
-  if !(0 ≤ n)
-    throw(DomainError("n = $n", "n must be non-negative: 0 ≤ n."))
-  end
-  k = model.k
-  m = model.m
-  hbar = model.hbar
-  ω = sqrt(k/m)
-  return hbar * ω * (n+1//2)
+function energy(model::HarmonicOscillator; n::Integer = 0)
+    if !(0 ≤ n)
+        throw(DomainError("n = $n", "n must be non-negative: 0 ≤ n."))
+    end
+    k = model.k
+    m = model.m
+    hbar = model.hbar
+    ω = sqrt(k / m)
+    return hbar * ω * (n + 1 // 2)
 end
 
 # eigenfunctions
-function wavefunction(model::HarmonicOscillator, x; n::Integer=0)
-  if !(0 ≤ n)
-    throw(DomainError("n = $n", "n must be non-negative: 0 ≤ n."))
-  end
-  k = model.k
-  m = model.m
-  hbar = model.hbar
-  ω = sqrt(k/m)
-  A = sqrt(1//(factorial(n)*2^n)*sqrt(m*ω/(π*hbar)))
-  ξ = sqrt(m*ω/hbar) * x
-  return A * laguerre_polynomial(model,ξ,n=n) * exp(-ξ^2/2)
+function wavefunction(model::HarmonicOscillator, x; n::Integer = 0)
+    if !(0 ≤ n)
+        throw(DomainError("n = $n", "n must be non-negative: 0 ≤ n."))
+    end
+    k = model.k
+    m = model.m
+    hbar = model.hbar
+    ω = sqrt(k / m)
+    A = sqrt(1 // (factorial(n) * 2^n) * sqrt(m * ω / (π * hbar)))
+    ξ = sqrt(m * ω / hbar) * x
+    return A * laguerre_polynomial(model, ξ, n = n) * exp(-ξ^2 / 2)
 end
 
 # Hermite polynomials
-function laguerre_polynomial(model::HarmonicOscillator, x; n=0)
-  return factorial(n) * sum((-1)^i // (factorial(i)  * factorial(n-2*i)) * (2*x)^(n-2*i) for i ∈ 0:Int(floor(n/2)))
+function laguerre_polynomial(model::HarmonicOscillator, x; n = 0)
+    return factorial(n) * sum((-1)^i // (factorial(i) * factorial(n - 2 * i)) * (2 * x)^(n - 2 * i) for i in 0:Int(floor(n / 2)))
 end
 
 # docstrings
@@ -111,7 +111,7 @@ where ``\omega = \sqrt{k/m}`` is the angular frequency and ``\xi = \sqrt{\frac{m
 E_n = \hbar \omega \left( n + \frac{1}{2} \right),
 ```
 where ``\omega = \sqrt{k/m}`` is the angular frequency.
-""" energy(model::HarmonicOscillator; n::Integer=0)
+""" energy(model::HarmonicOscillator; n::Integer = 0)
 
 @doc raw"""
 `wavefunction(model::HarmonicOscillator, x; n::Integer=0)`
@@ -120,7 +120,7 @@ where ``\omega = \sqrt{k/m}`` is the angular frequency.
 \psi_n(x) = A_n H_n(\xi) \exp{\left( -\frac{\xi^2}{2} \right)},
 ```
 where ``\omega = \sqrt{k/m}``, ``\xi = \sqrt{\frac{m\omega}{\hbar}}x``, ``A_n = \sqrt{\frac{1}{n! 2^n} \sqrt{\frac{m\omega}{\pi\hbar}}}``, ``H_n(x) = (-1)^n \mathrm{e}^{x^2} \frac{\mathrm{d}^n}{\mathrm{d}x^n} \mathrm{e}^{-x^2}`` are defined.
-""" wavefunction(model::HarmonicOscillator, x; n::Integer=0)
+""" wavefunction(model::HarmonicOscillator, x; n::Integer = 0)
 
 @doc raw"""
 `laguerre_polynomial(model::HarmonicOscillator, x; n=0)`
@@ -152,6 +152,6 @@ Examples:
   &\vdots
 \end{aligned}
 ```
-""" laguerre_polynomial(model::HarmonicOscillator, x; n=0)
+""" laguerre_polynomial(model::HarmonicOscillator, x; n = 0)
 
 end # module HarmonicOscillators

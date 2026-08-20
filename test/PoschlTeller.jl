@@ -1,92 +1,98 @@
-﻿io = open("./result/PoschlTeller.md", "w")
-PT = PoschlTeller(lambda=4)
+io = open("./result/PoschlTeller.md", "w")
+PT = PoschlTeller(lambda = 4)
 
 
 # Pₙᵐ(x) = √(1-x²)ᵐ dᵐ/dxᵐ Pₙ(x); Pₙ(x) = 1/(2ⁿn!) dⁿ/dxⁿ (x²-1)ⁿ
 
 
-println(io, raw"""
-#### Associated Legendre Polynomials $P_n^m(x)$
+println(
+    io, raw"""
+    #### Associated Legendre Polynomials $P_n^m(x)$
 
-```math
-  \begin{aligned}
-    P_n^m(x)
-    &= \left( 1-x^2 \right)^{m/2} \frac{\mathrm{d}^m}{\mathrm{d}x^m} P_n(x) \\
-    &= \left( 1-x^2 \right)^{m/2} \frac{\mathrm{d}^m}{\mathrm{d}x^m} \frac{1}{2^n n!} \frac{\mathrm{d}^n}{\mathrm{d}x ^n} \left[ \left( x^2-1 \right)^n \right] \\
-    &= \frac{1}{2^n} (1-x^2)^{m/2} \sum_{j=0}^{\left\lfloor\frac{n-m}{2}\right\rfloor} (-1)^j \frac{(2n-2j)!}{j! (n-j)! (n-2j-m)!} x^{(n-2j-m)}.
-  \end{aligned}
-```
-""")
+    ```math
+      \begin{aligned}
+        P_n^m(x)
+        &= \left( 1-x^2 \right)^{m/2} \frac{\mathrm{d}^m}{\mathrm{d}x^m} P_n(x) \\
+        &= \left( 1-x^2 \right)^{m/2} \frac{\mathrm{d}^m}{\mathrm{d}x^m} \frac{1}{2^n n!} \frac{\mathrm{d}^n}{\mathrm{d}x ^n} \left[ \left( x^2-1 \right)^n \right] \\
+        &= \frac{1}{2^n} (1-x^2)^{m/2} \sum_{j=0}^{\left\lfloor\frac{n-m}{2}\right\rfloor} (-1)^j \frac{(2n-2j)!}{j! (n-j)! (n-2j-m)!} x^{(n-2j-m)}.
+      \end{aligned}
+    ```
+    """
+)
 
 @testset "PT: Pₙᵐ(x) = √(1-x²)ᵐ dᵐ/dxᵐ Pₙ(x); Pₙ(x) = 1/(2ⁿn!) dⁿ/dxⁿ (x²-1)ⁿ" begin
-  @variables x
-  for n in 0:4
-  for m in 0:n
-    # Rodrigues' formula
-    Dn = n==0 ? x->x : Differential(x)^n                  # dⁿ/dxⁿ
-    Dm = m==0 ? x->x : Differential(x)^m                  # dᵐ/dxᵐ
-    a = 1 // (2^n * factorial(n))                         # left
-    b = (x^2 - 1)^n                                       # right
-    c = (1 - x^2)^(m//2) * Dm(a * Dn(b))                  # Rodrigues' formula
-    d = expand_derivatives(c)                             # expand dⁿ/dxⁿ and dᵐ/dxᵐ
-    e = simplify(d, expand=true)                          # simplify
-    f = simplify(Antique.legendre_polynomial(PT, x, n=n, m=m), expand=true) # closed-form
-    # latexify
-    eq1 = latexify(e, env=:raw)
-    eq2 = latexify(f, env=:raw)
-    # judge
-    acceptance = isequal(e, f)
-    println(io, "``n=$n, m=$m:`` ", acceptance ? "✔" : "✗")
-    # show LaTeX
-    println(io, """```math
-    \\begin{aligned}
-      P_{$n}^{$m}(x)
-        = $(latexify(c, env=:raw))
-      &= $(eq1) \\\\
-      &= $(eq2)
-    \\end{aligned}
-    ```
-    """)
-    # result
-    @test acceptance
-  end
-  end
+    @variables x
+    for n in 0:4
+        for m in 0:n
+            # Rodrigues' formula
+            Dn = n == 0 ? x -> x : Differential(x)^n                  # dⁿ/dxⁿ
+            Dm = m == 0 ? x -> x : Differential(x)^m                  # dᵐ/dxᵐ
+            a = 1 // (2^n * factorial(n))                         # left
+            b = (x^2 - 1)^n                                       # right
+            c = (1 - x^2)^(m // 2) * Dm(a * Dn(b))                  # Rodrigues' formula
+            d = expand_derivatives(c)                             # expand dⁿ/dxⁿ and dᵐ/dxᵐ
+            e = simplify(d, expand = true)                          # simplify
+            f = simplify(Antique.legendre_polynomial(PT, x, n = n, m = m), expand = true) # closed-form
+            # latexify
+            eq1 = latexify(e, env = :raw)
+            eq2 = latexify(f, env = :raw)
+            # judge
+            acceptance = isequal(e, f)
+            println(io, "``n=$n, m=$m:`` ", acceptance ? "✔" : "✗")
+            # show LaTeX
+            println(
+                io, """```math
+                \\begin{aligned}
+                  P_{$n}^{$m}(x)
+                    = $(latexify(c, env = :raw))
+                  &= $(eq1) \\\\
+                  &= $(eq2)
+                \\end{aligned}
+                ```
+                """
+            )
+            # result
+            @test acceptance
+        end
+    end
 end
 
 
 # <ψᵢ|ψⱼ> = δᵢⱼ
 
 
-println(io, raw"""
-#### Normalization & Orthogonality of $\psi_n(x)$
+println(
+    io, raw"""
+    #### Normalization & Orthogonality of $\psi_n(x)$
 
-```math
-\int \psi_i^\ast(x) \psi_j(x) \mathrm{d}x = \delta_{ij}
-```
+    ```math
+    \int \psi_i^\ast(x) \psi_j(x) \mathrm{d}x = \delta_{ij}
+    ```
 
-```""")
+    ```"""
+)
 
 @testset "PT: <ψᵢ|ψⱼ> = δᵢⱼ" begin
-  println(io, "  λ |   m |   ℏ |  x0 |  i |  j |     analytical |      numerical ")
-  println(io, "--- | --- | --- | --- | -- | -- | -------------- | -------------- ")
-  for λ in [1,2,3]
-  for m in [1.0,2.0,exp(1)]
-  for ℏ in [1.0,2.0,exp(1)]
-  for x₀ in [1.0,2.0,exp(1)]
-    PT = PoschlTeller(lambda=λ, m=m, hbar=ℏ, x_0=x₀)
-    for i in 0:n_max(PT)
-    for j in 0:n_max(PT)
-      analytical = (i == j ? 1 : 0)
-      numerical  = quadgk(x -> conj(wavefunction(PT, x, n=i)) * wavefunction(PT, x, n=j), -Inf, Inf, maxevals=10^3)[1]
-      acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-5) : isapprox(analytical, numerical, rtol=1e-5)
-      @test acceptance
-      @printf(io, "%.1f | %.1f | %.1f | %.1f | %2d | %2d | %14.9f | %14.9f %s\n", λ, m, ℏ, x₀, i, j, analytical, numerical, acceptance ? "✔" : "✗")
+    println(io, "  λ |   m |   ℏ |  x0 |  i |  j |     analytical |      numerical ")
+    println(io, "--- | --- | --- | --- | -- | -- | -------------- | -------------- ")
+    for λ in [1, 2, 3]
+        for m in [1.0, 2.0, exp(1)]
+            for ℏ in [1.0, 2.0, exp(1)]
+                for x₀ in [1.0, 2.0, exp(1)]
+                    PT = PoschlTeller(lambda = λ, m = m, hbar = ℏ, x_0 = x₀)
+                    for i in 0:n_max(PT)
+                        for j in 0:n_max(PT)
+                            analytical = (i == j ? 1 : 0)
+                            numerical = quadgk(x -> conj(wavefunction(PT, x, n = i)) * wavefunction(PT, x, n = j), -Inf, Inf, maxevals = 10^3)[1]
+                            acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol = 1.0e-5) : isapprox(analytical, numerical, rtol = 1.0e-5)
+                            @test acceptance
+                            @printf(io, "%.1f | %.1f | %.1f | %.1f | %2d | %2d | %14.9f | %14.9f %s\n", λ, m, ℏ, x₀, i, j, analytical, numerical, acceptance ? "✔" : "✗")
+                        end
+                    end
+                end
+            end
+        end
     end
-    end
-  end
-  end
-  end
-  end
 end
 
 println(io, """```\n""")
@@ -95,93 +101,95 @@ println(io, """```\n""")
 # ∫ψₙ*Hψₙdx = <ψₙ|H|ψₙ> = Eₙ
 
 
-println(io, raw"""
-#### Eigenvalues
+println(
+    io, raw"""
+    #### Eigenvalues
 
-```math
-  \begin{aligned}
-    E_n
-    &=      \int \psi^\ast_n(x) \hat{H} \psi_n(x) \mathrm{d}x \\
-    &=      \int \psi^\ast_n(x) \left[ \hat{V} + \hat{T} \right] \psi(x) \mathrm{d}x \\
-    &=      \int \psi^\ast_n(x) \left[ potential(x) - \frac{\hbar^2}{2m} \frac{\mathrm{d}^{2}}{\mathrm{d} x^{2}} \right] \psi(x) \mathrm{d}x \\
-    &\simeq \int \psi^\ast_n(x) \left[ potential(x)\psi(x) -\frac{\hbar^2}{2m} \frac{\psi(x+\Delta x) - 2\psi(x) + \psi(x-\Delta x)}{\Delta x^{2}} \right] \mathrm{d}x.
-  \end{aligned}
-```
+    ```math
+      \begin{aligned}
+        E_n
+        &=      \int \psi^\ast_n(x) \hat{H} \psi_n(x) \mathrm{d}x \\
+        &=      \int \psi^\ast_n(x) \left[ \hat{V} + \hat{T} \right] \psi(x) \mathrm{d}x \\
+        &=      \int \psi^\ast_n(x) \left[ potential(x) - \frac{\hbar^2}{2m} \frac{\mathrm{d}^{2}}{\mathrm{d} x^{2}} \right] \psi(x) \mathrm{d}x \\
+        &\simeq \int \psi^\ast_n(x) \left[ potential(x)\psi(x) -\frac{\hbar^2}{2m} \frac{\psi(x+\Delta x) - 2\psi(x) + \psi(x-\Delta x)}{\Delta x^{2}} \right] \mathrm{d}x.
+      \end{aligned}
+    ```
 
-Where, the difference formula for the 2nd-order derivative:
+    Where, the difference formula for the 2nd-order derivative:
 
-```math
-\begin{aligned}
-  % 2\psi(x)
-  % + \frac{\mathrm{d}^{2} \psi(x)}{\mathrm{d} x^{2}} \Delta x^{2}
-  % + O\left(\Delta x^{4}\right)
-  % &=
-  % \psi(x+\Delta x)
-  % + \psi(x-\Delta x)
-  % \\
-  % \frac{\mathrm{d}^{2} \psi(x)}{\mathrm{d} x^{2}} \Delta x^{2}
-  % &=
-  % \psi(x+\Delta x)
-  % - 2\psi(x)
-  % + \psi(x-\Delta x)
-  % - O\left(\Delta x^{4}\right)
-  % \\
-  % \frac{\mathrm{d}^{2} \psi(x)}{\mathrm{d} x^{2}}
-  % &=
-  % \frac{\psi(x+\Delta x) - 2\psi(x) + \psi(x-\Delta x)}{\Delta x^{2}}
-  % - \frac{O\left(\Delta x^{4}\right)}{\Delta x^{2}}
-  % \\
-  \frac{\mathrm{d}^{2} \psi(x)}{\mathrm{d} x^{2}}
-  &=
-  \frac{\psi(x+\Delta x) - 2\psi(x) + \psi(x-\Delta x)}{\Delta x^{2}}
-  + O\left(\Delta x^{2}\right)
-\end{aligned}
-```
+    ```math
+    \begin{aligned}
+      % 2\psi(x)
+      % + \frac{\mathrm{d}^{2} \psi(x)}{\mathrm{d} x^{2}} \Delta x^{2}
+      % + O\left(\Delta x^{4}\right)
+      % &=
+      % \psi(x+\Delta x)
+      % + \psi(x-\Delta x)
+      % \\
+      % \frac{\mathrm{d}^{2} \psi(x)}{\mathrm{d} x^{2}} \Delta x^{2}
+      % &=
+      % \psi(x+\Delta x)
+      % - 2\psi(x)
+      % + \psi(x-\Delta x)
+      % - O\left(\Delta x^{4}\right)
+      % \\
+      % \frac{\mathrm{d}^{2} \psi(x)}{\mathrm{d} x^{2}}
+      % &=
+      % \frac{\psi(x+\Delta x) - 2\psi(x) + \psi(x-\Delta x)}{\Delta x^{2}}
+      % - \frac{O\left(\Delta x^{4}\right)}{\Delta x^{2}}
+      % \\
+      \frac{\mathrm{d}^{2} \psi(x)}{\mathrm{d} x^{2}}
+      &=
+      \frac{\psi(x+\Delta x) - 2\psi(x) + \psi(x-\Delta x)}{\Delta x^{2}}
+      + O\left(\Delta x^{2}\right)
+    \end{aligned}
+    ```
 
-are given by the sum of 2 Taylor series:
+    are given by the sum of 2 Taylor series:
 
-```math
-\begin{aligned}
-\psi(x+\Delta x)
-&= \psi(x)
-+ \frac{\mathrm{d} \psi(x)}{\mathrm{d} x} \Delta x
-+ \frac{1}{2!} \frac{\mathrm{d}^{2} \psi(x)}{\mathrm{d} x^{2}} \Delta x^{2}
-+ \frac{1}{3!} \frac{\mathrm{d}^{3} \psi(x)}{\mathrm{d} x^{3}} \Delta x^{3}
-+ O\left(\Delta x^{4}\right),
-\\
-\psi(x-\Delta x)
-&= \psi(x)
-- \frac{\mathrm{d} \psi(x)}{\mathrm{d} x} \Delta x
-+ \frac{1}{2!} \frac{\mathrm{d}^{2} \psi(x)}{\mathrm{d} x^{2}} \Delta x^{2}
-- \frac{1}{3!} \frac{\mathrm{d}^{3} \psi(x)}{\mathrm{d} x^{3}} \Delta x^{3}
-+ O\left(\Delta x^{4}\right).
-\end{aligned}
-```
+    ```math
+    \begin{aligned}
+    \psi(x+\Delta x)
+    &= \psi(x)
+    + \frac{\mathrm{d} \psi(x)}{\mathrm{d} x} \Delta x
+    + \frac{1}{2!} \frac{\mathrm{d}^{2} \psi(x)}{\mathrm{d} x^{2}} \Delta x^{2}
+    + \frac{1}{3!} \frac{\mathrm{d}^{3} \psi(x)}{\mathrm{d} x^{3}} \Delta x^{3}
+    + O\left(\Delta x^{4}\right),
+    \\
+    \psi(x-\Delta x)
+    &= \psi(x)
+    - \frac{\mathrm{d} \psi(x)}{\mathrm{d} x} \Delta x
+    + \frac{1}{2!} \frac{\mathrm{d}^{2} \psi(x)}{\mathrm{d} x^{2}} \Delta x^{2}
+    - \frac{1}{3!} \frac{\mathrm{d}^{3} \psi(x)}{\mathrm{d} x^{3}} \Delta x^{3}
+    + O\left(\Delta x^{4}\right).
+    \end{aligned}
+    ```
 
-```""")
+    ```"""
+)
 
 @testset "PT: ∫ψₙ*Hψₙdx = <ψₙ|H|ψₙ> = Eₙ" begin
-  ψHwavefunction(PT, x; n=0, Δx=0.005) = potential(PT,x)*wavefunction(PT,x,n=n)^2 - PT.hbar^2/(2*PT.m)*conj(wavefunction(PT,x,n=n))*(wavefunction(PT,x+Δx,n=n)-2*wavefunction(PT,x,n=n)+wavefunction(PT,x-Δx,n=n))/Δx^2
-  println(io, "  λ |   m |   ℏ |  x₀ |  n |     analytical |      numerical ")
-  println(io, "--- | --- | --- | --- | -- | -------------- | -------------- ")
-  for λ in [1,2,3]
-  for m in [1.0,2.0,exp(1)]
-  for ℏ in [1.0,2.0,exp(1)]
-  for x₀ in [1.0,2.0,exp(1)]
-    PT = PoschlTeller(lambda=λ, m=m, hbar=ℏ, x_0=x₀)
-    for n in 0:λ-1
-      analytical = energy(PT, n=n)
-      numerical  = quadgk(x -> ψHwavefunction(PT, x, n=n, Δx=0.001), -Inf, Inf, atol=1e-5)[1]
-      acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol=1e-3) : isapprox(analytical, numerical, rtol=1e-5)
-      @test acceptance
-      @printf(io, "%.1f | %.1f | %.1f | %.1f | %2d | %14.9f | %14.9f %s\n", λ, m, ℏ, x₀, n, analytical, numerical, acceptance ? "✔" : "✗")
+    ψHwavefunction(PT, x; n = 0, Δx = 0.005) = potential(PT, x) * wavefunction(PT, x, n = n)^2 - PT.hbar^2 / (2 * PT.m) * conj(wavefunction(PT, x, n = n)) * (wavefunction(PT, x + Δx, n = n) - 2 * wavefunction(PT, x, n = n) + wavefunction(PT, x - Δx, n = n)) / Δx^2
+    println(io, "  λ |   m |   ℏ |  x₀ |  n |     analytical |      numerical ")
+    println(io, "--- | --- | --- | --- | -- | -------------- | -------------- ")
+    for λ in [1, 2, 3]
+        for m in [1.0, 2.0, exp(1)]
+            for ℏ in [1.0, 2.0, exp(1)]
+                for x₀ in [1.0, 2.0, exp(1)]
+                    PT = PoschlTeller(lambda = λ, m = m, hbar = ℏ, x_0 = x₀)
+                    for n in 0:(λ - 1)
+                        analytical = energy(PT, n = n)
+                        numerical = quadgk(x -> ψHwavefunction(PT, x, n = n, Δx = 0.001), -Inf, Inf, atol = 1.0e-5)[1]
+                        acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol = 1.0e-3) : isapprox(analytical, numerical, rtol = 1.0e-5)
+                        @test acceptance
+                        @printf(io, "%.1f | %.1f | %.1f | %.1f | %2d | %14.9f | %14.9f %s\n", λ, m, ℏ, x₀, n, analytical, numerical, acceptance ? "✔" : "✗")
+                    end
+                end
+            end
+        end
     end
-  end
-  end
-  end
-  end
 end
-PT = PoschlTeller(lambda=1, m=1.0, hbar=1.0)
+PT = PoschlTeller(lambda = 1, m = 1.0, hbar = 1.0)
 
 println(io, """```\n""")
 
@@ -189,59 +197,61 @@ println(io, """```\n""")
 # 0 < Eₙ₊₁ - Eₙ for 0 ≤ n ≤ nₘₐₓ
 
 
-println(io, raw"""
-#### Recurrence Relation between $E_{n+1}$ and $E_n$
+println(
+    io, raw"""
+    #### Recurrence Relation between $E_{n+1}$ and $E_n$
 
-```math
-\begin{equation}
-\left\{ \,
-  \begin{aligned}
-    0 < \Delta E && 0 \leq n \leq n_\mathrm{max} \\
-    \Delta E < 0 && \mathrm{otherwise}
-  \end{aligned}
-\right.
-\end{equation}
-```
+    ```math
+    \begin{equation}
+    \left\{ \,
+      \begin{aligned}
+        0 < \Delta E && 0 \leq n \leq n_\mathrm{max} \\
+        \Delta E < 0 && \mathrm{otherwise}
+      \end{aligned}
+    \right.
+    \end{equation}
+    ```
 
-```math
-\Delta E =  E_{n+1} - E_n
-```
+    ```math
+    \Delta E =  E_{n+1} - E_n
+    ```
 
-```math
-n_\mathrm{max} = \left\lfloor \lambda \right\rfloor - 1
-```
+    ```math
+    n_\mathrm{max} = \left\lfloor \lambda \right\rfloor - 1
+    ```
 
-```""")
+    ```"""
+)
 
 @testset "PT: 0 < Eₙ₊₁ - Eₙ for 0 ≤ n ≤ nₘₐₓ" begin
-  for PT in [
-    PoschlTeller(lambda=2, m=1.0, hbar=1.0, x_0=1.0),
-    PoschlTeller(lambda=3, m=1.0, hbar=1.0, x_0=1.0),
-    PoschlTeller(lambda=4, m=1.0, hbar=1.0, x_0=1.0),
-    PoschlTeller(lambda=10, m=1.0, hbar=1.0, x_0=1.0),
-  ]
-    println(io, "PT = $PT")
-    println(io, " n  Eₙ          ΔE")
-    for n in 0:n_max(PT)+5
-      Eₙ₊₁ = energy(PT, n=n+1, nocheck=true)
-      Eₙ   = energy(PT, n=n, nocheck=true)
-      ΔE  = Eₙ₊₁ - Eₙ
-      @printf(io, "%2d  %+9.6f  %+9.6f  ", n, Eₙ, ΔE)
-      if n ≤ n_max(PT)
-        print(io, "0 < ΔE  ")
-        acceptance = 0 < ΔE
-      else
-        print(io, "ΔE < 0  ")
-        acceptance = ΔE < 0
-      end
-      @test acceptance
-      println(io, acceptance ? "✔" : "✗")
-      if n == n_max(PT)
-        println(io, "-----------------------------  n_max(PT) = ", n_max(PT))
-      end
+    for PT in [
+            PoschlTeller(lambda = 2, m = 1.0, hbar = 1.0, x_0 = 1.0),
+            PoschlTeller(lambda = 3, m = 1.0, hbar = 1.0, x_0 = 1.0),
+            PoschlTeller(lambda = 4, m = 1.0, hbar = 1.0, x_0 = 1.0),
+            PoschlTeller(lambda = 10, m = 1.0, hbar = 1.0, x_0 = 1.0),
+        ]
+        println(io, "PT = $PT")
+        println(io, " n  Eₙ          ΔE")
+        for n in 0:(n_max(PT) + 5)
+            Eₙ₊₁ = energy(PT, n = n + 1, nocheck = true)
+            Eₙ = energy(PT, n = n, nocheck = true)
+            ΔE = Eₙ₊₁ - Eₙ
+            @printf(io, "%2d  %+9.6f  %+9.6f  ", n, Eₙ, ΔE)
+            if n ≤ n_max(PT)
+                print(io, "0 < ΔE  ")
+                acceptance = 0 < ΔE
+            else
+                print(io, "ΔE < 0  ")
+                acceptance = ΔE < 0
+            end
+            @test acceptance
+            println(io, acceptance ? "✔" : "✗")
+            if n == n_max(PT)
+                println(io, "-----------------------------  n_max(PT) = ", n_max(PT))
+            end
+        end
+        println(io, "")
     end
-    println(io, "")
-  end
 end
 
 println(io, """```\n""")

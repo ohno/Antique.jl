@@ -1,7 +1,7 @@
 module SphericalOscillators
 
 # for Julia 1.1
-import Base:@kwdef
+import Base: @kwdef
 
 import ..AbstractModel
 import ..energy, ..potential, ..wavefunction, ..radial_function, ..laguerre_polynomial, ..spherical_harmonic, ..legendre_polynomial
@@ -13,81 +13,81 @@ using SpecialFunctions
 
 # parameters
 @kwdef struct SphericalOscillator <: AbstractModel
-  k::Real = 1.0
-  mu::Real = 1.0
-  hbar::Real = 1.0
+    k::Real = 1.0
+    mu::Real = 1.0
+    hbar::Real = 1.0
 end
 
 # potential
 function potential(model::SphericalOscillator, r)
-  if !(0 ≤ r)
-    throw(DomainError("r = $r", "r must be non-negative: 0 ≤ r."))
-  end
-  k = model.k
-  return 1/2 * k * r^2
+    if !(0 ≤ r)
+        throw(DomainError("r = $r", "r must be non-negative: 0 ≤ r."))
+    end
+    k = model.k
+    return 1 / 2 * k * r^2
 end
 
 # eigenvalues
-function energy(model::SphericalOscillator; n::Integer=0, l::Integer=0)
-  if !(0 ≤ n && 0 ≤ l)
-    throw(DomainError("(n,l) = ($n,$l)", "This function is defined for 0 ≤ n and 0 ≤ l"))
-  end
-  ℏ = model.hbar
-  μ = model.mu
-  k = model.k 
-  ω = sqrt(k/μ)
-  return (2*n + l + 3/2) * ℏ * ω
+function energy(model::SphericalOscillator; n::Integer = 0, l::Integer = 0)
+    if !(0 ≤ n && 0 ≤ l)
+        throw(DomainError("(n,l) = ($n,$l)", "This function is defined for 0 ≤ n and 0 ≤ l"))
+    end
+    ℏ = model.hbar
+    μ = model.mu
+    k = model.k
+    ω = sqrt(k / μ)
+    return (2 * n + l + 3 / 2) * ℏ * ω
 end
 
 # eigenfunctions
-function wavefunction(model::SphericalOscillator, r, θ, φ; n::Integer=0, l::Integer=0, m::Integer=0)
-  if !(0 ≤ n && 0 ≤ l && -l ≤ m ≤ l)
-    throw(DomainError("(n,l,m) = ($n,$l,$m)", "This function is defined for 0 ≤ n, 0 ≤ l and -l ≤ m ≤ l."))
-  end
-  if !(0 ≤ r && 0 ≤ θ < π && 0 ≤ φ < 2π)
-    throw(DomainError("(r,θ,φ) = ($r,$θ,$φ)", "This function is defined for 0 ≤ r, 0 ≤ θ < π, 0 ≤ φ < 2π."))
-  end
-  return radial_function(model, r, n=n, l=l) * spherical_harmonic(model, θ, φ, l=l, m=m)
+function wavefunction(model::SphericalOscillator, r, θ, φ; n::Integer = 0, l::Integer = 0, m::Integer = 0)
+    if !(0 ≤ n && 0 ≤ l && -l ≤ m ≤ l)
+        throw(DomainError("(n,l,m) = ($n,$l,$m)", "This function is defined for 0 ≤ n, 0 ≤ l and -l ≤ m ≤ l."))
+    end
+    if !(0 ≤ r && 0 ≤ θ < π && 0 ≤ φ < 2π)
+        throw(DomainError("(r,θ,φ) = ($r,$θ,$φ)", "This function is defined for 0 ≤ r, 0 ≤ θ < π, 0 ≤ φ < 2π."))
+    end
+    return radial_function(model, r, n = n, l = l) * spherical_harmonic(model, θ, φ, l = l, m = m)
 end
 
 # n!
-fact(n) = n>0 ? n*fact(n-1) : 1
+fact(n) = n > 0 ? n * fact(n - 1) : 1
 
 # n!!
-ffact(n) = n>0 ? n*ffact(n-2) : 1
+ffact(n) = n > 0 ? n * ffact(n - 2) : 1
 
 # radial function
-function radial_function(model::SphericalOscillator, r; n=0, l=0)
-  ℏ = model.hbar
-  μ = model.mu
-  k = model.k 
-  ω = sqrt(k/μ)
-  γ = μ*ω/ℏ
-  ξ = sqrt(γ)*abs(r)
-  N = sqrt(γ^(3/2)/(2*sqrt(π))) * sqrt( 2^(n+l+3) * fact(n)/ffact(2n+2l+1))
-  return N * ξ^l * exp(-ξ^2/2) * laguerre_polynomial(model, ξ^2, n=n, α=l+1/2)
+function radial_function(model::SphericalOscillator, r; n = 0, l = 0)
+    ℏ = model.hbar
+    μ = model.mu
+    k = model.k
+    ω = sqrt(k / μ)
+    γ = μ * ω / ℏ
+    ξ = sqrt(γ) * abs(r)
+    N = sqrt(γ^(3 / 2) / (2 * sqrt(π))) * sqrt(2^(n + l + 3) * fact(n) / ffact(2n + 2l + 1))
+    return N * ξ^l * exp(-ξ^2 / 2) * laguerre_polynomial(model, ξ^2, n = n, α = l + 1 / 2)
 end
 
 # generalized Laguerre polynomials
-function laguerre_polynomial(model::SphericalOscillator, x; n=0, α=0)
-  return laguerre_polynomial(model, n, α, x)
+function laguerre_polynomial(model::SphericalOscillator, x; n = 0, α = 0)
+    return laguerre_polynomial(model, n, α, x)
 end
 function laguerre_polynomial(model::SphericalOscillator, n::Integer, α::Integer, x)
-  return sum((-1)^(k) * (Int(gamma(α+n+1)) // Int((gamma(α+1+k)*gamma(n-k+1)))) * x^k * 1 // factorial(k) for k ∈ 0:n)
+    return sum((-1)^(k) * (Int(gamma(α + n + 1)) // Int((gamma(α + 1 + k) * gamma(n - k + 1)))) * x^k * 1 // factorial(k) for k in 0:n)
 end
 function laguerre_polynomial(model::SphericalOscillator, n::Integer, α::Real, x)
-  return sum((-1)^(k) * (gamma(α+n+1) / (gamma(α+1+k)*gamma(n-k+1))) * x^k / factorial(k) for k ∈ 0:n)
+    return sum((-1)^(k) * (gamma(α + n + 1) / (gamma(α + 1 + k) * gamma(n - k + 1))) * x^k / factorial(k) for k in 0:n)
 end
 
 # spherical harmonics
-function spherical_harmonic(model::SphericalOscillator, θ, φ; l=0, m=0)
-  N = (-1)^((abs(m)+m)/2) * sqrt( (2*l+1)*factorial(l-Int(abs(m))) / (2*factorial(l+Int(abs(m)))) )
-  return N * legendre_polynomial(model,cos(θ), n=l, m=Int(abs(m))) * exp(im*m*φ) / sqrt(2*π)
+function spherical_harmonic(model::SphericalOscillator, θ, φ; l = 0, m = 0)
+    N = (-1)^((abs(m) + m) / 2) * sqrt((2 * l + 1) * factorial(l - Int(abs(m))) / (2 * factorial(l + Int(abs(m)))))
+    return N * legendre_polynomial(model, cos(θ), n = l, m = Int(abs(m))) * exp(im * m * φ) / sqrt(2 * π)
 end
 
 # associated Legendre polynomials
-function legendre_polynomial(model::SphericalOscillator, x; n=0, m=0)
-  return (1//2)^n * (1-x^2)^(m//2) * sum((-1)^j * factorial(2*n-2*j) // (factorial(j) * factorial(n-j) * factorial(n-2*j-m)) * x^(n-2*j-m) for j ∈ 0:Int(floor((n-m)/2)))
+function legendre_polynomial(model::SphericalOscillator, x; n = 0, m = 0)
+    return (1 // 2)^n * (1 - x^2)^(m // 2) * sum((-1)^j * factorial(2 * n - 2 * j) // (factorial(j) * factorial(n - j) * factorial(n - 2 * j - m)) * x^(n - 2 * j - m) for j in 0:Int(floor((n - m) / 2)))
 end
 
 # docstrings
@@ -137,7 +137,7 @@ E_{nl}
 = \left(2n + l + \frac{3}{2}\right)\hbar \omega,
 ```
 where ``\omega = \sqrt{k/\mu}``.
-""" energy(model::SphericalOscillator; n::Integer=0, l::Integer=0)
+""" energy(model::SphericalOscillator; n::Integer = 0, l::Integer = 0)
 
 @doc raw"""
 `wavefunction(model::SphericalOscillator, r, θ, φ; n::Integer=0, l::Integer=0, m::Integer=0)`
@@ -146,7 +146,7 @@ where ``\omega = \sqrt{k/\mu}``.
 \psi_{nlm}(\pmb{r}) = R_{nl}(r) Y_{lm}(\theta,\varphi)
 ```
 The domain is $0\leq r \lt \infty, 0\leq \theta \lt \pi, 0\leq \varphi \lt 2\pi$.
-""" wavefunction(model::SphericalOscillator, r, θ, φ; n::Integer=0, l::Integer=0, m::Integer=0)
+""" wavefunction(model::SphericalOscillator, r, θ, φ; n::Integer = 0, l::Integer = 0, m::Integer = 0)
 
 @doc raw"""
 `radial_function(model::SphericalOscillator, r; n=0, l=0)`
@@ -155,7 +155,7 @@ The domain is $0\leq r \lt \infty, 0\leq \theta \lt \pi, 0\leq \varphi \lt 2\pi$
 R_{nl}(r) = \sqrt{ \frac{\gamma^{3/2}}{2\sqrt{\pi}}} \sqrt{\frac{2^{n+l+3} n!}{(2n+2l+1)!!}} \xi^l \exp\left(-\xi^2/2\right)L_{n}^{(l+\frac{1}{2})} \left(\xi^2\right),
 ```
 where ``\gamma = \mu\omega/\hbar`` and ``\xi = \sqrt{\gamma}r = \sqrt{\mu\omega/\hbar}r`` are defined. The generalized Laguerre polynomials are defined as ``L_n^{(\alpha)}(x) = \frac{x^{-\alpha} \mathrm{e}^x}{n !} \frac{\mathrm{d}^n}{\mathrm{d} x^n}\left(\mathrm{e}^{-x} x^{n+\alpha}\right)``. The domain is $0\leq r \lt \infty$.
-""" radial_function(model::SphericalOscillator, r; n=0, l=0)
+""" radial_function(model::SphericalOscillator, r; n = 0, l = 0)
 
 @doc raw"""
 `laguerre_polynomial(model::SphericalOscillator, x; n=0, α=0)`
@@ -196,7 +196,7 @@ Examples:
   \vdots
 \end{aligned}
 ```
-""" laguerre_polynomial(model::SphericalOscillator, x; n=0, α=0)
+""" laguerre_polynomial(model::SphericalOscillator, x; n = 0, α = 0)
 
 @doc raw"""
 `spherical_harmonic(model::SphericalOscillator, θ, φ; l=0, m=0)`
@@ -209,7 +209,7 @@ The domain is $0\leq \theta \lt \pi, 0\leq \varphi \lt 2\pi$. Note that some var
 i^{|m|+m} \sqrt{\frac{(l-|m|)!}{(l+|m|)!}} P_l^{|m|} = (-1)^{\frac{|m|+m}{2}} \sqrt{\frac{(l-|m|)!}{(l+|m|)!}} P_l^{|m|} = (-1)^m \sqrt{\frac{(l-m)!}{(l+m)!}} P_l^{m}.
 ```
 
-""" spherical_harmonic(model::SphericalOscillator, θ, φ; l=0, m=0)
+""" spherical_harmonic(model::SphericalOscillator, θ, φ; l = 0, m = 0)
 
 @doc raw"""
 `legendre_polynomial(model::SphericalOscillator, x; n=0, m=0)`
@@ -249,6 +249,6 @@ Examples:
   & \vdots
 \end{aligned}
 ```
-""" legendre_polynomial(model::SphericalOscillator, x; n=0, m=0)
+""" legendre_polynomial(model::SphericalOscillator, x; n = 0, m = 0)
 
 end # module SphericalOscillators

@@ -14,9 +14,10 @@ This procedure is required only once. Install Git and Julia on your local machin
    git clone https://github.com/xxxxxx/Antique.jl.git
    cd Antique.jl
    ```
-3. Install [Revise.jl](https://github.com/timholy/Revise.jl).
+3. Install development tools: [Revise.jl](https://github.com/timholy/Revise.jl) and [Runic.jl](https://github.com/fredrikekre/Runic.jl).
    ```sh
    julia --startup-file=no -e 'import Pkg; Pkg.add("Revise")'
+   julia --project=@runic --startup-file=no -e 'using Pkg; Pkg.add(Pkg.PackageSpec(name = "Runic", version = "1"))'
    ```
 
 ## Development Flow
@@ -33,22 +34,27 @@ This is the typical workflow for making changes.
    ```
 3. Change the source code. When making new functions or updating docstrings, refer to [Documenter: Adding docstrings](https://documenter.juliadocs.org/stable/man/guide/#Adding-Some-Docstrings).
 4. If you need a new dependency, use `julia --project=. --startup-file=no -e 'import Pkg; Pkg.add("SomePackage"); Pkg.resolve(); Pkg.instantiate()'`. Replace `SomePackage` with the actual package name.
-5. Run the tests. It will take a few minutes.
+5. Format the source code with [Runic.jl](https://github.com/fredrikekre/Runic.jl).
+   ```sh
+   julia --project=@runic --startup-file=no -e 'using Runic; exit(Runic.main(ARGS))' -- --inplace .
+   julia --project=@runic --startup-file=no -e 'using Runic; exit(Runic.main(ARGS))' -- --check .
+   ```
+6. Run the tests. It will take a few minutes.
    ```sh
    julia --project=. --startup-file=no -e 'using Pkg; Pkg.test()'
    ```
-6. Build the documentation locally. HTML files (docs/build/*.html) will be generated. Please check them with Chrome or any other web browsers.
+7. Build the documentation locally. HTML files (docs/build/*.html) will be generated. Please check them with Chrome or any other web browsers.
    ```sh
    julia --project=docs --startup-file=no -e 'using Pkg; Pkg.develop(PackageSpec(path=pwd())); Pkg.instantiate();'
    julia --project=docs --startup-file=no -e 'include("docs/make.jl")'
    ```
-7. Commit and Push the codes (after steps 3–6 succeed).
+8. Commit and Push the codes (after steps 5–7 succeed).
    ```sh
    git add "path/to/changed/file"
    git commit -m "commit message"
    git push origin issue/xxx
    ```
-8. Submit a pull request on GitHub.
+9. Submit a pull request on GitHub.
 
 ## Adding New Models
 

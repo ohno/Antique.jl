@@ -1,7 +1,7 @@
 module PoschlTellers
 
 # for Julia 1.1
-import Base:@kwdef
+import Base: @kwdef
 
 import ..AbstractModel
 import ..energy, ..potential, ..wavefunction, ..n_max, ..legendre_polynomial
@@ -13,56 +13,56 @@ using SpecialFunctions
 
 # parameters
 @kwdef struct PoschlTeller <: AbstractModel
-  lambda::Integer = 1
-  m::Real = 1.0
-  hbar::Real = 1.0
-  x_0::Real = 1.0
+    lambda::Integer = 1
+    m::Real = 1.0
+    hbar::Real = 1.0
+    x_0::Real = 1.0
 end
 
 # potential
 function potential(model::PoschlTeller, x)
-  λ  = model.lambda
-  m  = model.m
-  ℏ  = model.hbar
-  x₀ = model.x_0
-  return -ℏ^2/(m*x₀^2) * λ*(λ+1)/2 / cosh(x/x₀)^2
+    λ = model.lambda
+    m = model.m
+    ℏ = model.hbar
+    x₀ = model.x_0
+    return -ℏ^2 / (m * x₀^2) * λ * (λ + 1) / 2 / cosh(x / x₀)^2
 end
 
 # maximum quantum number
 function n_max(model::PoschlTeller)
-  λ = model.lambda
-  return Int(floor(λ-1)) # if counting n from zero
+    λ = model.lambda
+    return Int(floor(λ - 1)) # if counting n from zero
 end
 
 # eigenvalues
-function energy(model::PoschlTeller; n::Integer=0, nocheck=false)
-  max_n = n_max(model)
-  if !(0 ≤ n ≤ n_max(model) || nocheck)
-    throw(DomainError("(n,n_max(model)) = ($n,$(n_max(model)))", "This function is defined for 0 ≤ n ≤ n_max(model)."))
-  end
-  λ  = model.lambda
-  m  = model.m
-  ℏ  = model.hbar
-  x₀ = model.x_0
-  μ  = max_n - n + 1
-  return -ℏ^2/(m*x₀^2) * μ^2/2
+function energy(model::PoschlTeller; n::Integer = 0, nocheck = false)
+    max_n = n_max(model)
+    if !(0 ≤ n ≤ n_max(model) || nocheck)
+        throw(DomainError("(n,n_max(model)) = ($n,$(n_max(model)))", "This function is defined for 0 ≤ n ≤ n_max(model)."))
+    end
+    λ = model.lambda
+    m = model.m
+    ℏ = model.hbar
+    x₀ = model.x_0
+    μ = max_n - n + 1
+    return -ℏ^2 / (m * x₀^2) * μ^2 / 2
 end
 
 # eigenfunctions
-function wavefunction(model::PoschlTeller, x; n::Integer=0)
-  max_n = n_max(model)
-  if !(0 ≤ n ≤ n_max(model))
-    throw(DomainError("(n,n_max(model)) = ($n,$(n_max(model)))", "This function is defined for 0 ≤ n ≤ n_max(model)."))
-  end
-  λ  = model.lambda
-  x₀ = model.x_0
-  μ  = max_n - n + 1
-  return (-1)^μ / sqrt(x₀) * legendre_polynomial(model,tanh(x/x₀),n=Int64(λ),m=μ) * sqrt(μ*gamma(λ-μ+1)/gamma(λ+μ+1))
+function wavefunction(model::PoschlTeller, x; n::Integer = 0)
+    max_n = n_max(model)
+    if !(0 ≤ n ≤ n_max(model))
+        throw(DomainError("(n,n_max(model)) = ($n,$(n_max(model)))", "This function is defined for 0 ≤ n ≤ n_max(model)."))
+    end
+    λ = model.lambda
+    x₀ = model.x_0
+    μ = max_n - n + 1
+    return (-1)^μ / sqrt(x₀) * legendre_polynomial(model, tanh(x / x₀), n = Int64(λ), m = μ) * sqrt(μ * gamma(λ - μ + 1) / gamma(λ + μ + 1))
 end
 
 # associated Legendre polynomials
-function legendre_polynomial(model::PoschlTeller, x; n=0, m=0) # same definition as in hydrogen atom: additional factor (-1)^m taken out
-  return (1//2)^n * (1-x^2)^(m//2) * sum((-1)^j * factorial(2*n-2*j) // (factorial(j) * factorial(n-j) * factorial(n-2*j-m)) * x^(n-2*j-m) for j ∈ 0:Int(floor((n-m)/2)))
+function legendre_polynomial(model::PoschlTeller, x; n = 0, m = 0) # same definition as in hydrogen atom: additional factor (-1)^m taken out
+    return (1 // 2)^n * (1 - x^2)^(m // 2) * sum((-1)^j * factorial(2 * n - 2 * j) // (factorial(j) * factorial(n - j) * factorial(n - 2 * j - m)) * x^(n - 2 * j - m) for j in 0:Int(floor((n - m) / 2)))
 end
 
 # docstrings
@@ -137,7 +137,7 @@ n_\mathrm{max} = \left\lfloor \lambda \right\rfloor - 1.
 E_n = -\frac{\hbar^2}{m x_0^2}\frac{\mu^2}{2},
 ```
 where ``\mu = \mu(n) = n_\mathrm{max}-n+1``, and ``n_\mathrm{max} = \left\lfloor \lambda \right\rfloor - 1``.
-""" energy(model::PoschlTeller; n::Integer=0, nocheck=false)
+""" energy(model::PoschlTeller; n::Integer = 0, nocheck = false)
 
 @doc raw"""
 `wavefunction(model::PoschlTeller, x; n::Integer=0)`
@@ -146,7 +146,7 @@ where ``\mu = \mu(n) = n_\mathrm{max}-n+1``, and ``n_\mathrm{max} = \left\lfloor
 \psi_n(x) = \frac{(-1)^μ}{\sqrt{x_0}} P_\lambda^{\mu}(\mathrm{tanh}(x/x_0)) \sqrt{\mu\frac{\Gamma(\lambda-\mu+1)}{\Gamma(\lambda+\mu+1)}},
 ```
 where ``\mu = \mu(n) = n_\mathrm{max}-n+1``, and ``n_\mathrm{max} = \left\lfloor \lambda \right\rfloor - 1`` and ``P_\lambda^{\mu}`` are the associated Legendre functions.
-""" wavefunction(model::PoschlTeller, x; n::Integer=0)
+""" wavefunction(model::PoschlTeller, x; n::Integer = 0)
 
 @doc raw"""
 `legendre_polynomial(model::PoschlTeller, x; n=0, m=0)`
@@ -165,6 +165,6 @@ P_n^m(x)
 \end{aligned}
 ```
 
-""" legendre_polynomial(model::PoschlTeller, x; n=0, m=0)
+""" legendre_polynomial(model::PoschlTeller, x; n = 0, m = 0)
 
 end # module PoschlTellers
