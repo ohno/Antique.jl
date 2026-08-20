@@ -17,7 +17,7 @@ This procedure is required only once. Install Git and Julia on your local machin
 3. Install development tools: [Revise.jl](https://github.com/timholy/Revise.jl) and [Runic.jl](https://github.com/fredrikekre/Runic.jl).
    ```sh
    julia --startup-file=no -e 'import Pkg; Pkg.add("Revise")'
-   julia --project=@runic --startup-file=no -e 'using Pkg; Pkg.add("Runic")'
+   julia --project=@runic --startup-file=no -e 'using Pkg; Pkg.add(Pkg.PackageSpec(name = "Runic", version = "1"))'
    ```
 
 ## Development Flow
@@ -37,6 +37,7 @@ This is the typical workflow for making changes.
 5. Format the source code with [Runic.jl](https://github.com/fredrikekre/Runic.jl).
    ```sh
    julia --project=@runic --startup-file=no -e 'using Runic; exit(Runic.main(ARGS))' -- --inplace .
+   julia --project=@runic --startup-file=no -e 'using Runic; exit(Runic.main(ARGS))' -- --check .
    ```
 6. Run the tests. It will take a few minutes.
    ```sh
