@@ -8,7 +8,7 @@ RR = RigidRotor(m_1 = 1.0, m_2 = 1.0, R = 1.0, hbar = 1.0)
 println(
     io, raw"""
     #### Associated Legendre Polynomials $P_n^m(x)$
-    
+
     ```math
       \begin{aligned}
         P_n^m(x)
@@ -64,11 +64,11 @@ end
 println(
     io, raw"""
     #### Normalization & Orthogonality of $P_n^m(x)$
-    
+
     ```math
     \int_{-1}^{1} P_i^m(x) P_j^m(x) \mathrm{d}x = \frac{2(j+m)!}{(2j+1)(j-m)!} \delta_{ij}
     ```
-    
+
     ```"""
 )
 
@@ -97,7 +97,7 @@ println(io, """```\n""")
 println(
     io, raw"""
     #### Normalization & Orthogonality of $Y_{lm}(\theta,\varphi)$
-    
+
     ```math
     \int_0^{2\pi}
     \int_0^\pi
@@ -105,7 +105,7 @@ println(
     ~\mathrm{d}\theta \mathrm{d}\varphi
     = \delta_{ll'} \delta_{mm'}
     ```
-    
+
     ```"""
 )
 
@@ -146,7 +146,7 @@ println(io, """```\n""")
 println(
     io, raw"""
     #### Eigenvalues
-    
+
     ```math
       \begin{aligned}
         E_n

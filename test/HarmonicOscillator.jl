@@ -8,7 +8,7 @@ HO = HarmonicOscillator(k = 1.0, m = 1.0, hbar = 1.0)
 println(
     io, raw"""
     #### Hermite Polynomials $H_n(x)$
-    
+
     ```math
       \begin{aligned}
         H_{n}(x)
@@ -60,11 +60,11 @@ end
 println(
     io, raw"""
     #### Normalization & Orthogonality of $H_n(x)$
-    
+
     ```math
     \int_{-\infty}^\infty H_j(x) H_i(x) \mathrm{e}^{-x^2} \mathrm{d}x = \sqrt{\pi} 2^j j! \delta_{ij}
     ```
-    
+
     ```"""
 )
 
@@ -91,11 +91,11 @@ println(io, """```\n""")
 println(
     io, raw"""
     #### Normalization & Orthogonality of $\psi_n(x)$
-    
+
     ```math
     \int \psi_i^\ast(x) \psi_j(x) \mathrm{d}x = \delta_{ij}
     ```
-    
+
     ```"""
 )
 
@@ -122,13 +122,13 @@ println(io, """```\n""")
 println(
     io, raw"""
     #### Virial Theorem
-    
+
     The virial theorem $\langle T \rangle = \langle V \rangle$ and the definition of Hamiltonian $\langle H \rangle = \langle T \rangle + \langle V \rangle$ derive $\langle H \rangle = 2 \langle V \rangle = 2 \langle T \rangle$.
-    
+
     ```math
     2 \int \psi_n^\ast(x) potential(x) \psi_n(x) \mathrm{d}x = E_n
     ```
-    
+
     ```"""
 )
 
@@ -155,7 +155,7 @@ println(io, """```\n""")
 println(
     io, raw"""
     #### Eigenvalues
-    
+
     ```math
       \begin{aligned}
         E_n
@@ -165,9 +165,9 @@ println(
         &\simeq \int \psi^\ast_n(x) \left[ potential(x)\psi(x) -\frac{\hbar^2}{2m} \frac{\psi(x+\Delta x) - 2\psi(x) + \psi(x-\Delta x)}{\Delta x^{2}} \right] \mathrm{d}x.
       \end{aligned}
     ```
-    
+
     Where, the difference formula for the 2nd-order derivative:
-    
+
     ```math
     \begin{aligned}
       % 2\psi(x)
@@ -195,9 +195,9 @@ println(
       + O\left(\Delta x^{2}\right)
     \end{aligned}
     ```
-    
+
     are given by the sum of 2 Taylor series:
-    
+
     ```math
     \begin{aligned}
     \psi(x+\Delta x)
@@ -215,7 +215,7 @@ println(
     + O\left(\Delta x^{4}\right).
     \end{aligned}
     ```
-    
+
     ```"""
 )
 

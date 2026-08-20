@@ -10,7 +10,7 @@ println(
     ```math
     \int_{0}^{L} \psi_i^\ast(x) \psi_j(x) ~\mathrm{d}x = \delta_{ij}
     ```
-    
+
     ```"""
 )
 @testset "IPW: <ψᵢ|ψⱼ> = ∫ψₙ*ψₙdx = δᵢⱼ" begin
@@ -43,7 +43,7 @@ println(io, """```\n""")
 println(
     io, raw"""
     #### Eigenvalues
-    
+
     ```math
     \begin{aligned}
       E_n
@@ -53,9 +53,9 @@ println(
       &\simeq \int_0^L \psi^\ast_n(x) \left[ -\frac{\hbar^2}{2m} \frac{\psi(x+\Delta x) - 2\psi(x) + \psi(x-\Delta x)}{\Delta x^{2}} \right] ~\mathrm{d}x.
     \end{aligned}
     ```
-    
+
     Where, the difference formula for the 2nd-order derivative:
-    
+
     ```math
     \begin{aligned}
       % 2\psi(x)
@@ -83,9 +83,9 @@ println(
       + O\left(\Delta x^{2}\right)
     \end{aligned}
     ```
-    
+
     are given by the sum of 2 Taylor series:
-    
+
     ```math
     \begin{aligned}
     \psi(x+\Delta x)
@@ -103,7 +103,7 @@ println(
     + O\left(\Delta x^{4}\right).
     \end{aligned}
     ```
-    
+
     ```"""
 )
 
@@ -139,14 +139,14 @@ println(io, """```\n""")
 println(
     io, raw"""
     #### Expected Value of $x$
-    
+
     ```math
     \langle x \rangle_{n=1}
     = \int_{0}^{L} \psi_1^\ast(x) \hat{x} \psi_1(x) ~\mathrm{d}x
     = \frac{2(2a)^2}{\pi^3} \left( \frac{\pi^3}{6} - \frac{\pi}{4} \right)
     ```
     for only $n=1$.
-    
+
     Reference:
     - [LibreTexts PHYSICS, 6.4: Expectation Values, Observables, and Uncertainty](https://phys.libretexts.org/Bookshelves/Modern_Physics/Book%3A_Spiral_Modern_Physics_(D'Alessandris)/6%3A_The_Schrodinger_Equation/6.4%3A_Expectation_Values_Observables_and_Uncertainty)
     ```"""
@@ -176,13 +176,13 @@ println(io, """```\n""")
 println(
     io, raw"""
     #### Expected Value of $x^2$
-    
+
     ```math
     \langle x^2 \rangle_{n=1}
     = \int_{0}^{L} \psi_1^\ast(x) \hat{x}^2 \psi_1(x) ~\mathrm{d}x
     = \frac{2(2a)^2}{\pi^3} \left( \frac{\pi^3}{6} - \frac{\pi}{4} \right)
     ```
-    
+
     Reference:
     - [LibreTexts PHYSICS, 6.4: Expectation Values, Observables, and Uncertainty](https://phys.libretexts.org/Bookshelves/Modern_Physics/Book%3A_Spiral_Modern_Physics_(D'Alessandris)/6%3A_The_Schrodinger_Equation/6.4%3A_Expectation_Values_Observables_and_Uncertainty)
     ```"""
@@ -211,19 +211,19 @@ println(io, """```\n""")
 
 println(
     io, raw"""
-    
+
     #### Expected Value of $p$
     ```math
     \langle p \rangle_{n=1}
     = \int_{0}^{L} \psi_1^\ast(x) \hat{p} \psi_1(x) ~\mathrm{d}x
     = 0
     ```
-    
+
     Reference:
     - [LibreTexts PHYSICS, 6.4: Expectation Values, Observables, and Uncertainty](https://phys.libretexts.org/Bookshelves/Modern_Physics/Book%3A_Spiral_Modern_Physics_(D'Alessandris)/6%3A_The_Schrodinger_Equation/6.4%3A_Expectation_Values_Observables_and_Uncertainty)
-    
+
     ---
-    
+
     ```math
       \begin{aligned}
         \langle p \rangle_{n=1}
@@ -232,9 +232,9 @@ println(
         &\simeq \int_0^L \psi^\ast_n(x) \left[ -i\hbar \frac{\psi(x+\Delta x) - \psi(x-\Delta x)}{2\Delta x} \right] ~\mathrm{d}x.
       \end{aligned}
     ```
-    
+
     Where, the difference formula for the 2nd-order derivative:
-    
+
     ```math
     \begin{aligned}
       % 2\frac{\mathrm{d} \psi(x)}{\mathrm{d}x} \Delta x
@@ -260,9 +260,9 @@ println(
       + O\left(\Delta x^{2}\right),
     \end{aligned}
     ```
-    
+
     are given by the sum of 2 Taylor series:
-    
+
     ```math
     \begin{aligned}
       \psi(x+\Delta x)
@@ -280,7 +280,7 @@ println(
       + O\left(\Delta x^{3}\right).
     \end{aligned}
     ```
-    
+
     ```"""
 )
 
@@ -309,18 +309,18 @@ println(io, """```\n""")
 println(
     io, raw"""
     #### Expected Value of $p^2$
-    
+
     ```math
     \langle p^2 \rangle
     = \int_{0}^{L} \psi_1^\ast(x) \hat{p}^2 \psi_1(x) ~\mathrm{d}x
     = \frac{\pi^2\hbar^2}{L^2}
     ```
-    
+
     Reference:
     - [LibreTexts PHYSICS, 6.4: Expectation Values, Observables, and Uncertainty](https://phys.libretexts.org/Bookshelves/Modern_Physics/Book%3A_Spiral_Modern_Physics_(D'Alessandris)/6%3A_The_Schrodinger_Equation/6.4%3A_Expectation_Values_Observables_and_Uncertainty)
-    
+
     ---
-    
+
     ```math
       \begin{aligned}
         \langle p^2 \rangle
@@ -329,9 +329,9 @@ println(
         &\simeq \int_0^L \psi^\ast_n(x) \left[ -\hbar^2 \frac{\psi(x+\Delta x) - 2\psi(x) + \psi(x-\Delta x)}{\Delta x^{2}} \right] ~\mathrm{d}x.
       \end{aligned}
     ```
-    
+
     Where, the difference formula for the 2nd-order derivative:
-    
+
     ```math
     \begin{aligned}
       % 2\psi(x)
@@ -359,9 +359,9 @@ println(
       + O\left(\Delta x^{2}\right)
     \end{aligned}
     ```
-    
+
     are given by the sum of 2 Taylor series:
-    
+
     ```math
     \begin{aligned}
     \psi(x+\Delta x)
@@ -379,7 +379,7 @@ println(
     + O\left(\Delta x^{4}\right).
     \end{aligned}
     ```
-    
+
     ```"""
 )
 

@@ -8,7 +8,7 @@ SO = SphericalOscillator(k = 1.0, mu = 1.0, hbar = 1.0)
 println(
     io, raw"""
     #### Associated Legendre Polynomials $P_n^m(x)$
-    
+
     ```math
       \begin{aligned}
         P_n^m(x)
@@ -64,11 +64,11 @@ end
 println(
     io, raw"""
     #### Normalization & Orthogonality of $P_n^m(x)$
-    
+
     ```math
     \int_{-1}^{1} P_i^m(x) P_j^m(x) \mathrm{d}x = \frac{2(j+m)!}{(2j+1)(j-m)!} \delta_{ij}
     ```
-    
+
     ```"""
 )
 
@@ -97,7 +97,7 @@ println(io, """```\n""")
 println(
     io, raw"""
     #### Normalization & Orthogonality of $Y_{lm}(\theta,\varphi)$
-    
+
     ```math
     \int_0^{2\pi}
     \int_0^\pi
@@ -105,7 +105,7 @@ println(
     ~\mathrm{d}\theta \mathrm{d}\varphi
     = \delta_{ll'} \delta_{mm'}
     ```
-    
+
     ```"""
 )
 
@@ -146,7 +146,7 @@ println(io, """```\n""")
 println(
     io, raw"""
     #### Generalized Laguerre Polynomials $L_n^{(\alpha)}(x)$
-    
+
     ```math
       \begin{aligned}
         L_n^{(\alpha)}(x)
@@ -200,11 +200,11 @@ end
 println(
     io, raw"""
     #### Normalization & Orthogonality of $L_n^{(\alpha)}(x)$
-    
+
     ```math
     \int_0^\infty L_i^{(\alpha)}(x) L_j^{(\alpha)}(x) x^\alpha \mathrm{e}^{-x} \mathrm{d}x = \frac{\Gamma(n+\alpha+1)}{n!} \delta_{ij}
     ```
-    
+
     ```"""
 )
 
@@ -233,11 +233,11 @@ println(io, """```\n""")
 println(
     io, raw"""
     #### Normalization of $R_{nl}(r)$
-    
+
     ```math
     \int |R_{nl}(r)|^2 r^2 \mathrm{d}r = 1
     ```
-    
+
     ```"""
 )
 
@@ -264,13 +264,13 @@ println(io, """```\n""")
 println(
     io, raw"""
     #### Virial Theorem
-    
+
     The virial theorem $\langle T \rangle = \langle V \rangle$ and the definition of Hamiltonian $\langle H \rangle = \langle T \rangle + \langle V \rangle$ derive $\langle H \rangle = 2 \langle V \rangle$.
-    
+
     ```math
     2 \langle V \rangle = 2 \times \int \psi_i^\ast(r,\theta,\varphi) potential(r) \psi_j(r,\theta,\varphi) r^2 \sin(\theta) \mathrm{d}r \mathrm{d}\theta \mathrm{d}\varphi = 2 \times \int potential(r) |R_{nl}(r)|^2 r^2 \mathrm{d}r = E_n
     ```
-    
+
     ```"""
 )
 
@@ -301,7 +301,7 @@ end
 
 println(
     io, """```
-    
+
     ```"""
 )
 
@@ -328,11 +328,11 @@ println(io, """```\n""")
 println(
     io, raw"""
     #### Normalization & Orthogonality of $\psi_n(r,\theta,\varphi)$
-    
+
     ```math
     \int \psi_i^\ast(r,\theta,\varphi) \psi_j(r,\theta,\varphi) r^2 \sin(\theta) \mathrm{d}r \mathrm{d}\theta \mathrm{d}\varphi = \delta_{ij}
     ```
-    
+
     ```"""
 )
 

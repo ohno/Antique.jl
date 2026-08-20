@@ -7,11 +7,11 @@ io = open("./result/DeltaPotential.md", "w")
 println(
     io, raw"""
     #### Normalization of $\psi(x)$
-    
+
     ```math
     \int_{-\infty}^{\infty} \psi^\ast(x) \psi(x) ~\mathrm{d}x = 1
     ```
-    
+
     ```"""
 )
 
@@ -41,7 +41,7 @@ println(io, """```\n""")
 println(
     io, raw"""
     #### Eigenvalues
-    
+
     ```math
     \begin{aligned}
       E_n

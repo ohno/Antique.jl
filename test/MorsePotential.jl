@@ -8,7 +8,7 @@ MP = MorsePotential()
 println(
     io, raw"""
     #### Generalized Laguerre Polynomials $L_n^{(\alpha)}(x)$
-    
+
     ```math
       \begin{aligned}
         L_n^{(\alpha)}(x)
@@ -62,11 +62,11 @@ end
 println(
     io, raw"""
     #### Normalization & Orthogonality of $L_n^{(\alpha)}(x)$
-    
+
     ```math
     \int_0^\infty L_i^{(\alpha)}(x) L_j^{(\alpha)}(x) x^\alpha \mathrm{e}^{-x} \mathrm{d}x = \frac{\Gamma(n+\alpha+1)}{n!} \delta_{ij}
     ```
-    
+
     ```"""
 )
 
@@ -95,11 +95,11 @@ println(io, """```\n""")
 println(
     io, raw"""
     #### Normalization & Orthogonality of $\psi_n(r)$
-    
+
     ```math
     \int_0^\infty \psi_i^\ast(r) \psi_j(r) \mathrm{d}r = \delta_{ij}
     ```
-    
+
     ```"""
 )
 
@@ -126,7 +126,7 @@ println(io, """```\n""")
 println(
     io, raw"""
     #### Eigenvalues
-    
+
     ```math
       \begin{aligned}
         E_n
@@ -136,9 +136,9 @@ println(
         &\simeq \int \psi^\ast_n(r) \left[ potential(r)\psi(r) -\frac{\hbar^2}{2m} \frac{\psi(r+\Delta r) - 2\psi(r) + \psi(r-\Delta r)}{\Delta r^{2}} \right] \mathrm{d}r.
       \end{aligned}
     ```
-    
+
     Where, the difference formula for the 2nd-order derivative:
-    
+
     ```math
     \begin{aligned}
       % 2\psi(r)
@@ -166,9 +166,9 @@ println(
       + O\left(\Delta r^{2}\right)
     \end{aligned}
     ```
-    
+
     are given by the sum of 2 Taylor series:
-    
+
     ```math
     \begin{aligned}
     \psi(r+\Delta r)
@@ -186,7 +186,7 @@ println(
     + O\left(\Delta r^{4}\right).
     \end{aligned}
     ```
-    
+
     ```"""
 )
 
@@ -215,7 +215,7 @@ println(io, """```\n""")
 println(
     io, raw"""
     #### Recurrence Relation between $E_{n+1}$ and $E_n$
-    
+
     ```math
     \begin{equation}
     \left\{ \,
@@ -226,15 +226,15 @@ println(
     \right.
     \end{equation}
     ```
-    
+
     ```math
     \Delta E =  E_{n+1} - E_n
     ```
-    
+
     ```math
     n_\mathrm{max} = \left\lfloor\frac{2 D_{\mathrm{e}}-h \nu_0}{h \nu_0}\right\rfloor
     ```
-    
+
     ```"""
 )
 

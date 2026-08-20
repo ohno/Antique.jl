@@ -8,7 +8,7 @@ PT = PoschlTeller(lambda = 4)
 println(
     io, raw"""
     #### Associated Legendre Polynomials $P_n^m(x)$
-    
+
     ```math
       \begin{aligned}
         P_n^m(x)
@@ -64,11 +64,11 @@ end
 println(
     io, raw"""
     #### Normalization & Orthogonality of $\psi_n(x)$
-    
+
     ```math
     \int \psi_i^\ast(x) \psi_j(x) \mathrm{d}x = \delta_{ij}
     ```
-    
+
     ```"""
 )
 
@@ -104,7 +104,7 @@ println(io, """```\n""")
 println(
     io, raw"""
     #### Eigenvalues
-    
+
     ```math
       \begin{aligned}
         E_n
@@ -114,9 +114,9 @@ println(
         &\simeq \int \psi^\ast_n(x) \left[ potential(x)\psi(x) -\frac{\hbar^2}{2m} \frac{\psi(x+\Delta x) - 2\psi(x) + \psi(x-\Delta x)}{\Delta x^{2}} \right] \mathrm{d}x.
       \end{aligned}
     ```
-    
+
     Where, the difference formula for the 2nd-order derivative:
-    
+
     ```math
     \begin{aligned}
       % 2\psi(x)
@@ -144,9 +144,9 @@ println(
       + O\left(\Delta x^{2}\right)
     \end{aligned}
     ```
-    
+
     are given by the sum of 2 Taylor series:
-    
+
     ```math
     \begin{aligned}
     \psi(x+\Delta x)
@@ -164,7 +164,7 @@ println(
     + O\left(\Delta x^{4}\right).
     \end{aligned}
     ```
-    
+
     ```"""
 )
 
@@ -200,7 +200,7 @@ println(io, """```\n""")
 println(
     io, raw"""
     #### Recurrence Relation between $E_{n+1}$ and $E_n$
-    
+
     ```math
     \begin{equation}
     \left\{ \,
@@ -211,15 +211,15 @@ println(
     \right.
     \end{equation}
     ```
-    
+
     ```math
     \Delta E =  E_{n+1} - E_n
     ```
-    
+
     ```math
     n_\mathrm{max} = \left\lfloor \lambda \right\rfloor - 1
     ```
-    
+
     ```"""
 )
 
