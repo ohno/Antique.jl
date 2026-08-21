@@ -168,7 +168,7 @@ println(
             c = a * D(b)                                          # Rodrigues' formula
             d = expand_derivatives(c)                             # expand dⁿ/dxⁿ
             e = simplify(d, expand = true)                          # simplify
-            f = simplify(Antique.laguerre_polynomial(SO, x, n = n, α = α), expand = true) # closed-form
+            f = simplify(Antique.laguerre_polynomial(SO, x, n = n, alpha = α), expand = true) # closed-form
             # latexify
             eq1 = latexify(e, env = :raw)
             eq2 = latexify(f, env = :raw)
@@ -215,7 +215,7 @@ println(
         for i in 0:9
             for j in 0:9
                 analytical = gamma(i + α + 1) / factorial(i) * (i == j ? 1 : 0)
-                numerical = quadgk(x -> real(Antique.laguerre_polynomial(SO, x, n = i, α = α)) * real(Antique.laguerre_polynomial(SO, x, n = j, α = α)) * x^α * exp(-x), 0, Inf, maxevals = 10^3)[1]
+                numerical = quadgk(x -> real(Antique.laguerre_polynomial(SO, x, n = i, alpha = α)) * real(Antique.laguerre_polynomial(SO, x, n = j, alpha = α)) * x^α * exp(-x), 0, Inf, maxevals = 10^3)[1]
                 acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol = 1.0e-5) : isapprox(analytical, numerical, rtol = 1.0e-5)
                 @test acceptance
                 @printf(io, "%4.2f | %2d | %2d | %14.9f | %14.9f %s\n", α, i, j, analytical, numerical, acceptance ? "✔" : "✗")
