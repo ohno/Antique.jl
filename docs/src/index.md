@@ -45,7 +45,7 @@ HO.m
 HO.hbar
 ```
 
-Use [`energy`](@ref Harmonic-Oscillator-Potential) to calculate the energy of each state specified by the quantum number `n`.
+Use [`energy`](@ref Harmonic-Oscillator-Eigenvalues) to calculate the energy of each state specified by the quantum number `n`.
 
 ```@repl usage
 energy(HO, n=0)
@@ -53,7 +53,7 @@ energy(HO, n=1)
 energy(HO, n=2)
 ```
 
-Use [`potential`](@ref Harmonic-Oscillator-Eigenvalues) to evaluate the harmonic potential at a position `x`.
+Use [`potential`](@ref Harmonic-Oscillator-Potential) to evaluate the harmonic potential at a position `x`.
 
 ```@repl usage
 potential(HO, 0.0)
@@ -112,7 +112,7 @@ There are more examples on each model page.
 - [Infinite PotentialWell 3D](https://ohno.github.io/Antique.jl/stable/InfinitePotentialWell3D/) `InfinitePotentialWell3D`
 - [Spherical Oscillator](https://ohno.github.io/Antique.jl/stable/SphericalOscillator/) `SphericalOscillator`
 - [Hydrogen Atom](https://ohno.github.io/Antique.jl/stable/HydrogenAtom/) `HydrogenAtom`
-- [Coulomb 2-Body System](https://ohno.github.io/Antique.jl/stable/HydrogenAtom/) `CoulombTwoBody`
+- [Coulomb 2-Body System](https://ohno.github.io/Antique.jl/stable/CoulombTwoBody/) `CoulombTwoBody`
 
 ## Demonstration
 

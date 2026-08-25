@@ -71,14 +71,14 @@ function spherical_harmonic end
 """
   legendre_polynomial(model, args...; kwargs...)
 
-Evaluate a Rodrigues-form polynomial/function for a given `model`.
+Evaluate an associated Legendre polynomial for a given `model`.
 """
 function legendre_polynomial end
 
 """
   laguerre_polynomial(model, args...; kwargs...)
 
-Evaluate a Laguerre polynomial for a given `model`.
+Evaluate an associated or generalized Laguerre polynomial for a given `model`.
 """
 function laguerre_polynomial end
 
