@@ -92,7 +92,7 @@ function n_max end
 abstract type AbstractModel end
 
 # Update this list when you add a model.
-models = [
+const models = [
     :InfinitePotentialWell,
     :HarmonicOscillator,
     :MorsePotential,
