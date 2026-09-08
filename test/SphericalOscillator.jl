@@ -163,11 +163,12 @@ println(
         for α in 0:n
             # Rodrigues' formula
             D = n == 0 ? x -> x : Differential(x)^n                   # dⁿ/dxⁿ
-            a = exp(x) * x^(-α) / factorial(n)                    # left
+            a = (1 // factorial(n)) * exp(x) * x^(-α)                    # left
             b = exp(-x) * x^(n + α)                                 # right
             c = a * D(b)                                          # Rodrigues' formula
             d = expand_derivatives(c)                             # expand dⁿ/dxⁿ
-            e = simplify(d, expand = true)                          # simplify
+            # Cancel exponentials exactly to preserve rational coefficients.
+            e = simplify(substitute(d, Dict(exp(-x) => 1 / exp(x))), expand = true)
             f = simplify(Antique.laguerre_polynomial(SO, x, n = n, alpha = α), expand = true) # closed-form
             # latexify
             eq1 = latexify(e, env = :raw)

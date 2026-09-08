@@ -34,8 +34,8 @@
 \begin{aligned}
   P_{1}^{1}(x)
     = \left( 1 - x^{2} \right)^{\frac{1}{2}} \frac{\mathrm{d}}{\mathrm{d}x} \frac{1}{2} \frac{\mathrm{d}}{\mathrm{d}x} \left( -1 + x^{2} \right)
-  &= \left( 1 - x^{2} \right)^{\frac{1}{2}} \\
-  &= \left( 1 - x^{2} \right)^{\frac{1}{2}}
+  &= \sqrt{1 - x^{2}} \\
+  &= \sqrt{1 - x^{2}}
 \end{aligned}
 ```
 
@@ -54,8 +54,8 @@
 \begin{aligned}
   P_{2}^{1}(x)
     = \left( 1 - x^{2} \right)^{\frac{1}{2}} \frac{\mathrm{d}}{\mathrm{d}x} \frac{1}{8} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \left( -1 + x^{2} \right)^{2}
-  &= 3 \left( 1 - x^{2} \right)^{\frac{1}{2}} x \\
-  &= 3 \left( 1 - x^{2} \right)^{\frac{1}{2}} x
+  &= 3 x \sqrt{1 - x^{2}} \\
+  &= 3 x \sqrt{1 - x^{2}}
 \end{aligned}
 ```
 
@@ -84,8 +84,8 @@
 \begin{aligned}
   P_{3}^{1}(x)
     = \left( 1 - x^{2} \right)^{\frac{1}{2}} \frac{\mathrm{d}}{\mathrm{d}x} \frac{1}{48} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \left( -1 + x^{2} \right)^{3}
-  &=  - \frac{3}{2} \left( 1 - x^{2} \right)^{\frac{1}{2}} + \frac{15}{2} x^{2} \left( 1 - x^{2} \right)^{\frac{1}{2}} \\
-  &=  - \frac{3}{2} \left( 1 - x^{2} \right)^{\frac{1}{2}} + \frac{15}{2} x^{2} \left( 1 - x^{2} \right)^{\frac{1}{2}}
+  &=  - \frac{3}{2} \sqrt{1 - x^{2}} + \frac{15}{2} x^{2} \sqrt{1 - x^{2}} \\
+  &=  - \frac{3}{2} \sqrt{1 - x^{2}} + \frac{15}{2} x^{2} \sqrt{1 - x^{2}}
 \end{aligned}
 ```
 
@@ -124,8 +124,8 @@
 \begin{aligned}
   P_{4}^{1}(x)
     = \left( 1 - x^{2} \right)^{\frac{1}{2}} \frac{\mathrm{d}}{\mathrm{d}x} \frac{1}{384} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} \left( -1 + x^{2} \right)^{4}
-  &=  - \frac{15}{2} \left( 1 - x^{2} \right)^{\frac{1}{2}} x + \frac{35}{2} x^{3} \left( 1 - x^{2} \right)^{\frac{1}{2}} \\
-  &=  - \frac{15}{2} \left( 1 - x^{2} \right)^{\frac{1}{2}} x + \frac{35}{2} x^{3} \left( 1 - x^{2} \right)^{\frac{1}{2}}
+  &=  - \frac{15}{2} x \sqrt{1 - x^{2}} + \frac{35}{2} x^{3} \sqrt{1 - x^{2}} \\
+  &=  - \frac{15}{2} x \sqrt{1 - x^{2}} + \frac{35}{2} x^{3} \sqrt{1 - x^{2}}
 \end{aligned}
 ```
 
