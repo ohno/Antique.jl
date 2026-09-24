@@ -17,8 +17,8 @@ println(
 
 @testset "IPW3D: <ψᵢ|ψⱼ> = ∫ψₙ*ψₙdx = δᵢⱼ" begin
     IPW3D = InfinitePotentialWell3D(L = [1.0, 1.0, 1.0], m = 1.0, hbar = 1.0)
-    @show IPW3D
-    @show wavefunction(IPW3D, [0.5, 0.5, 0.5])
+    # @show IPW3D
+    # @show wavefunction(IPW3D, [0.5, 0.5, 0.5])
     for IPW3D in [
             InfinitePotentialWell3D(L = [1.0, 1.0, 1.0], m = 1.0, hbar = 1.0)
             InfinitePotentialWell3D(L = [1.2, 3.4, 4.5], m = 2.0, hbar = 3.0)
@@ -124,10 +124,10 @@ println(
     IPW3D = InfinitePotentialWell3D(L = [1.0, 1.0, 1.0], m = 1.0, hbar = 1.0)
     ∇²wavefunction(model, r; n = [1, 1, 1]) = sum(first(Zygote.diaghessian(x -> wavefunction(model, x, n = n), r)))
     ψTwavefunction(model, r; n = [1, 1, 1]) = -model.hbar^2 / (2 * model.m) * conj(wavefunction(model, r, n = n)) * ∇²wavefunction(model, r, n = n)
-    @show IPW3D
-    @show wavefunction(IPW3D, [0.5, 0.5, 0.5])
-    @show ∇²wavefunction(IPW3D, [0.5, 0.5, 0.5])
-    @show ψTwavefunction(IPW3D, [0.5, 0.5, 0.5])
+    # @show IPW3D
+    # @show wavefunction(IPW3D, [0.5, 0.5, 0.5])
+    # @show ∇²wavefunction(IPW3D, [0.5, 0.5, 0.5])
+    # @show ψTwavefunction(IPW3D, [0.5, 0.5, 0.5])
     for IPW3D in [
             InfinitePotentialWell3D(L = [1.0, 1.0, 1.0], m = 1.0, hbar = 1.0)
             InfinitePotentialWell3D(L = [1.2, 3.4, 4.5], m = 2.0, hbar = 3.0)
