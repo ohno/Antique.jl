@@ -1,4 +1,5 @@
 using Antique
+using Aqua
 using ForwardDiff
 using HCubature
 using Latexify
@@ -10,6 +11,10 @@ using Test
 using Printf
 using QuadGK
 using Zygote
+
+@testset "Aqua.jl" begin
+    Aqua.test_all(Antique)
+end
 
 @testset verbose = true "Antique.jl" begin
 

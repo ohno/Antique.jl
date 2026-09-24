@@ -167,11 +167,12 @@ println(
             # Rodrigues' formula
             Dn = n == 0 ? x -> x : Differential(x)^n                         # dⁿ/dxⁿ
             Dk = k == 0 ? x -> x : Differential(x)^k                         # dᵐ/dxᵐ
-            a = exp(x) / factorial(n)                                    # left
+            a = (1 // factorial(n)) * exp(x)                                    # left
             b = exp(-x) * x^n                                            # right
             c = Dk(a * Dn(b))                                            # Rodrigues' formula
             d = expand_derivatives(c)                                    # expand dⁿ/dxⁿ and dᵐ/dxᵐ
-            e = simplify(d, expand = true)                                 # simplify
+            # Cancel exponentials exactly to preserve rational coefficients.
+            e = simplify(substitute(d, Dict(exp(-x) => 1 / exp(x))), expand = true)
             f = simplify(Antique.laguerre_polynomial(CTB, x, n = n, k = k), expand = true)       # closed-form
             g = simplify((-1)^k * Antique.laguerre_polynomial(MP, n - k, k, x), expand = true) # closed-form
             # latexify
