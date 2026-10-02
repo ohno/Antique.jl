@@ -29,7 +29,7 @@ println(
         c = a * D(b)                                     # Rodrigues' formula
         d = expand_derivatives(c)                        # expand dⁿ/dxⁿ
         e = simplify(d, expand = true)                     # simplify
-        f = simplify(Antique.laguerre_polynomial(HO, x, n = n), expand = true) # closed-form
+        f = simplify(Antique.hermite_polynomial(HO, x, n = n), expand = true) # closed-form
         # latexify
         eq1 = latexify(e, env = :raw)
         eq2 = latexify(f, env = :raw)
@@ -74,7 +74,7 @@ println(
     for i in 0:9
         for j in 0:9
             analytical = sqrt(π) * 2^j * factorial(j) * (i == j ? 1 : 0)
-            numerical = quadgk(x -> Antique.laguerre_polynomial(HO, x, n = j) * Antique.laguerre_polynomial(HO, x, n = i) * exp(-x^2), -Inf, Inf, maxevals = 10^3)[1]
+            numerical = quadgk(x -> Antique.hermite_polynomial(HO, x, n = j) * Antique.hermite_polynomial(HO, x, n = i) * exp(-x^2), -Inf, Inf, maxevals = 10^3)[1]
             acceptance = iszero(analytical) ? isapprox(analytical, numerical, atol = 1.0e-5) : isapprox(analytical, numerical, rtol = 1.0e-5)
             @test acceptance
             @printf(io, "%2d | %2d | %14.9f | %14.9f %s\n", i, j, analytical, numerical, acceptance ? "✔" : "✗")

@@ -4,9 +4,9 @@ module HarmonicOscillators
 import Base: @kwdef
 
 import ..AbstractModel
-import ..energy, ..potential, ..wavefunction, ..laguerre_polynomial
+import ..energy, ..potential, ..wavefunction, ..hermite_polynomial
 
-export HarmonicOscillator, energy, potential, wavefunction, laguerre_polynomial
+export HarmonicOscillator, energy, potential, wavefunction, hermite_polynomial
 
 # parameters
 @kwdef struct HarmonicOscillator <: AbstractModel
@@ -44,11 +44,11 @@ function wavefunction(model::HarmonicOscillator, x; n::Integer = 0)
     ω = sqrt(k / m)
     A = sqrt(1 // (factorial(n) * 2^n) * sqrt(m * ω / (π * hbar)))
     ξ = sqrt(m * ω / hbar) * x
-    return A * laguerre_polynomial(model, ξ, n = n) * exp(-ξ^2 / 2)
+    return A * hermite_polynomial(model, ξ, n = n) * exp(-ξ^2 / 2)
 end
 
 # Hermite polynomials
-function laguerre_polynomial(model::HarmonicOscillator, x; n = 0)
+function hermite_polynomial(model::HarmonicOscillator, x; n = 0)
     return factorial(n) * sum((-1)^i // (factorial(i) * factorial(n - 2 * i)) * (2 * x)^(n - 2 * i) for i in 0:Int(floor(n / 2)))
 end
 
@@ -77,7 +77,7 @@ HO = HarmonicOscillator(k=1.0, m=1.0, hbar=1.0)
 
 Main:
 * [DLMF](@cite) _The Digital Library of Mathematical Functions_ (DLMF) [18.5.18](https://dlmf.nist.gov/18.5#E18)
-* [cpprefjp](@cite) C++ Japanese Reference _cpprefjp_, [laguerre_polynomial](https://cpprefjp.github.io/reference/cmath/laguerre_polynomial.html)
+* [cpprefjp](@cite) C++ Japanese Reference _cpprefjp_, [hermite_polynomial](https://cpprefjp.github.io/reference/cmath/hermite_polynomial.html)
 * [Griffiths2018](@cite) D. J. Griffiths, D. F. Schroeter, _Introduction to Quantum Mechanics_ **Third Edition** (Cambridge University Press, 2018) p.48, 2.3.2 Analytic Method
 
 Supplemental:
@@ -123,7 +123,7 @@ where ``\omega = \sqrt{k/m}``, ``\xi = \sqrt{\frac{m\omega}{\hbar}}x``, ``A_n = 
 """ wavefunction(model::HarmonicOscillator, x; n::Integer = 0)
 
 @doc raw"""
-`laguerre_polynomial(model::HarmonicOscillator, x; n=0)`
+`hermite_polynomial(model::HarmonicOscillator, x; n=0)`
 
 !!! note
     The closed-form expression has been verified to be numerically stable up to $n=10$. For larger $n$, numerical instabilities may arise; a recurrence-relation implementation will address this limitation.
@@ -152,6 +152,6 @@ Examples:
   &\vdots
 \end{aligned}
 ```
-""" laguerre_polynomial(model::HarmonicOscillator, x; n = 0)
+""" hermite_polynomial(model::HarmonicOscillator, x; n = 0)
 
 end # module HarmonicOscillators

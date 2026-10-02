@@ -73,12 +73,12 @@ function wavefunction(model::MorsePotential, r; n::Integer = 0)
     ξ = 2 * λ * exp(-a * (r - rₑ))
     s = 2 * λ - 2 * n - 1
     N = sqrt(factorial(n) * s * a / gamma(s + n + 1))
-    return N * ξ^(s / 2) * exp(-ξ / 2) * laguerre_polynomial(model, ξ, n = n, α = s)
+    return N * ξ^(s / 2) * exp(-ξ / 2) * laguerre_polynomial(model, ξ, n = n, alpha = s)
 end
 
 # generalized Laguerre polynomials
-function laguerre_polynomial(model::MorsePotential, x; n = 0, α = 0)
-    return laguerre_polynomial(model, n, α, x)
+function laguerre_polynomial(model::MorsePotential, x; n = 0, alpha = 0)
+    return laguerre_polynomial(model, n, alpha, x)
 end
 function laguerre_polynomial(model::MorsePotential, n::Integer, α::Integer, x)
     return sum((-1)^(k) * (Int(gamma(α + n + 1)) // Int((gamma(α + 1 + k) * gamma(n - k + 1)))) * x^k * 1 // factorial(k) for k in 0:n)
@@ -158,7 +158,7 @@ where ``\omega = \sqrt{k/µ}`` is defined.
 """ wavefunction(model::MorsePotential, r; n::Integer = 0)
 
 @doc raw"""
-`laguerre_polynomial(model::MorsePotential, x; n=0, α=0)`
+`laguerre_polynomial(model::MorsePotential, x; n=0, alpha=0)`
 
 !!! note
     The generalized Laguerre polynomials $L_n^{(\alpha)}(x)$, not the associated Laguerre polynomials $L_n^{k}(x)$, are used in this model.
@@ -196,6 +196,6 @@ Examples:
   \vdots
 \end{aligned}
 ```
-""" laguerre_polynomial(model::MorsePotential, x; n = 0, α = 0)
+""" laguerre_polynomial(model::MorsePotential, x; n = 0, alpha = 0)
 
 end # module MorsePotentials
