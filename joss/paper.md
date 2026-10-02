@@ -9,23 +9,29 @@ authors:
   - name: Shuhei Ohno
     orcid: 0009-0001-5222-9726
     equal-contrib: false
-    affiliation: "1, 2"
+    affiliation: "1, 2, 3"
   - name: Ahmad Jafar Arifi
     orcid: 0000-0002-9530-8993
     equal-contrib: false
-    affiliation: "1, 3"
+    affiliation: "1, 4, 5"
   - name: Lucas Happ
     orcid: 0000-0002-3893-279X
     equal-contrib: false
-    affiliation: "1"
+    affiliation: "1, 6"
 affiliations:
- - name: Few-body Systems in Physics Laboratory, RIKEN Nishina Center, Wako 351-0198, Japan
+ - name: RIKEN Nishina Center for Accelerator-Based Science, Wako 351-0198, Japan
    index: 1
- - name: Graduate School of Nanobioscience, Yokohama City University, Yokohama 236-0027, Japan
+ - name: RIKEN Information R&D and Strategy Headquarters (R-IH), Wako 351-0198, Japan
    index: 2
- - name: Research Center for Nuclear Physics, Osaka University, Ibaraki 567-0047, Japan
+ - name: Graduate School of Nanobioscience, Yokohama City University, Yokohama 236-0027, Japan
    index: 3
-date: 25 April 2025
+ - name: Research Center for Nuclear Physics, Osaka University, Ibaraki 567-0047, Japan
+   index: 4
+ - name: Advanced Science Research Center, Japan Atomic Energy Agency, Tokai 319-1195, Japan
+   index: 5
+ - name: Institut für Quantenphysik and Center for Integrated Quantum Science and Technology (IQST), Universität Ulm, D-89069 Ulm, Germany
+   index: 6
+date: 2 October 2026
 bibliography: paper.bib
 ---
 
