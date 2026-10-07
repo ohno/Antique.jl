@@ -9,7 +9,7 @@ S = res.S
 
 # benchmark
 using Antique: Antique
-HA = Antique.HydrogenAtom(; Z = 1, Eₕ = 1.0, a₀ = 1.0, mₑ = 1.0, ℏ = 1.0)
+HA = Antique.HydrogenAtom(; Z = 1, E_h = 1.0, a_0 = 1.0, m_e = 1.0, hbar = 1.0)
 
 # print
 for n in 1:length(BS)
@@ -19,7 +19,7 @@ for n in 1:length(BS)
     println("  analytical: ", 1)
     println("Energy")
     println("  numerical : ", E[n])
-    println("  analytical: ", Antique.E(HA; n = n))
+    println("  analytical: ", Antique.energy(HA; n = n))
 end
 
 # plot
@@ -28,10 +28,10 @@ fig = Figure(; size = (840, 600), fontsize = 11, backgroundcolor = :transparent)
 for i in 1:4
     n = [1, 2, 6, 8][i]
     xₘₐₓ = [6, 18, 120, 200][i]
-    yₘₐₓ = 1.06 * maximum(4π * r^2 * abs(Antique.ψ(HA, r, 0, 0; n = n))^2 for r in 0:0.1:xₘₐₓ)
+    yₘₐₓ = 1.06 * maximum(4π * r^2 * abs(Antique.wavefunction(HA, r, 0, 0; n = n))^2 for r in 0:0.1:xₘₐₓ)
     axis = Axis(fig[div(i - 1, 2) + 1, rem(i - 1, 2) + 1]; backgroundcolor = :transparent, xlabel = L"$r~/~a_0$", ylabel = L"$4\pi r^2|\psi(r)|^2~ /~{a_0}^{-1}$", xlabelsize = 16.5, ylabelsize = 16.5, limits = (0, xₘₐₓ, 0, yₘₐₓ))
     lines!(axis, 0 .. 250, r -> 4π * r^2 * abs(res.ψ[n](r))^2; label = "Numerical")
-    lines!(axis, 0 .. 250, r -> 4π * r^2 * abs(Antique.ψ(HA, r, 0, 0; n = n))^2; label = "Analytical", color = :black, linestyle = :dash)
+    lines!(axis, 0 .. 250, r -> 4π * r^2 * abs(Antique.wavefunction(HA, r, 0, 0; n = n))^2; label = "Analytical", color = :black, linestyle = :dash)
     axislegend(axis, "n = $n"; position = :rt, framevisible = false)
 end
 file = String(@__FILE__)
