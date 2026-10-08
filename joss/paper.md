@@ -61,7 +61,7 @@ The quantum mechanical models with analytical solutions are useful for software 
 
 # AI Usage Disclosure
 
-Generative AI tools were used in the development of this software. GitHub Copilot (automatic model selection, predominantly GPT-5.3-Codex) assisted with code refactoring, including renaming API functions and restructuring the codebase into per-model submodules. In each case, the authors created examples of the desired changes for the internal logic and notation, which Copilot then applied consistently across the remaining files, along with corresponding updates to documentation, docstrings, and tests. All AI-generated code was reviewed, tested, and validated by the authors, who made all architectural and design decisions and take full responsibility for the accuracy and originality of the submitted work.
+Generative AI tools were used in the development of this software. OpenAI Codex (GPT-5.6 Sol and GPT-6 Astra, High reasoning effort) and GitHub Copilot (automatic model selection, predominantly GPT-5.3-Codex) assisted with manuscript proofreading and code refactoring, including renaming API functions and restructuring the codebase into per-model submodules. In each case, the authors created examples of the desired changes for the internal logic and notation, which Copilot then applied consistently across the remaining files, along with corresponding updates to documentation, docstrings, and tests. All AI-generated code was reviewed, tested, and validated by the authors, who made all architectural and design decisions and take full responsibility for the accuracy and originality of the submitted work.
 
 # Acknowledgement
 
