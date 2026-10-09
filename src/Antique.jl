@@ -1,8 +1,5 @@
 module Antique
 
-# for Julia 1.1
-import Base: @kwdef
-
 # Export public functions
 export energy
 export potential
@@ -21,6 +18,7 @@ export RigidRotor
 export InfinitePotentialWell3D
 export CoulombTwoBody
 
+# Define interface functions and abstract type
 """
   energy(model; numbers..., parameters...)
 
