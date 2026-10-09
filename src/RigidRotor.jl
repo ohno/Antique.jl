@@ -6,7 +6,7 @@ import Base: @kwdef
 import ..AbstractModel
 import ..energy, ..potential, ..wavefunction, ..spherical_harmonic, ..legendre_polynomial
 
-export RigidRotor, energy, potential, wavefunction, spherical_harmonic, legendre_polynomial
+export RigidRotor, energy, potential, wavefunction
 
 # parameters
 @kwdef struct RigidRotor <: AbstractModel

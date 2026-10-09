@@ -6,7 +6,7 @@ import Base: @kwdef
 import ..AbstractModel
 import ..energy, ..potential, ..wavefunction, ..hermite_polynomial
 
-export HarmonicOscillator, energy, potential, wavefunction, hermite_polynomial
+export HarmonicOscillator, energy, potential, wavefunction
 
 # parameters
 @kwdef struct HarmonicOscillator <: AbstractModel

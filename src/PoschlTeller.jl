@@ -6,7 +6,7 @@ import Base: @kwdef
 import ..AbstractModel
 import ..energy, ..potential, ..wavefunction, ..n_max, ..legendre_polynomial
 
-export PoschlTeller, energy, potential, wavefunction, n_max, legendre_polynomial
+export PoschlTeller, energy, potential, wavefunction, n_max
 
 # packages
 using SpecialFunctions

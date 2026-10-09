@@ -6,7 +6,7 @@ import Base: @kwdef
 import ..AbstractModel
 import ..energy, ..potential, ..wavefunction, ..n_max, ..laguerre_polynomial
 
-export MorsePotential, energy, potential, wavefunction, n_max, laguerre_polynomial
+export MorsePotential, energy, potential, wavefunction, n_max
 
 # packages
 using SpecialFunctions
