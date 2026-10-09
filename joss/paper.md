@@ -47,7 +47,7 @@ Antique.jl was developed for researchers, lecturers, students, and any person wh
 
 # State of the field
 
-To our knowledge, there is no dedicated package on analytical solutions; only a few implementations are available [@Velieva2020; @RodrguezGmez2020]. However, there are several packages on the special polynomials contained in the analytical solutions, such as associated Laguerre polynomials and associated Legendre polynomials, which appear in the wave functions of hydrogen-like atoms.
+To our knowledge, there is no dedicated package on analytical solutions; only a few implementations are available [@Velieva2020; @RodriguezGomez2020]. However, there are several packages on the special polynomials contained in the analytical solutions, such as associated Laguerre polynomials and associated Legendre polynomials, which appear in the wave functions of hydrogen-like atoms.
 
 The special polynomials are usually defined by Rodrigues' formula, but their closed form is better for direct implementation. The correspondence between a Rodrigues' formula and a closed form is not usually provided in textbooks. Therefore, a closed form or an implementation corresponding to the Rodrigues' formula is needed. However, the definitions vary from textbook to textbook [@Greiner2001; @Griffiths2018], and package to package [@SciPy2020; @Cpp]. The time and effort to survey, implement, and test the special polynomials is a barrier to implementing analytical solutions.
 
