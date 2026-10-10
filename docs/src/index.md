@@ -159,6 +159,14 @@ The candidate models are listed on the Wikipedia page of [List of quantum-mechan
 
 [Here](@ref developer-guide) is the guideline for adding new models.
 
+## Citation
+
+Use [CITATION.bib](https://github.com/ohno/Antique.jl/blob/main/CITATION.bib) to cite this package.
+
+```@example
+println(Base.read("../../CITATION.bib", String)) # hide
+```
+
 ## Acknowledgment
 
 Thanks to all contributors. This package was named by [@KB-satou](https://github.com/KB-satou) and [@ultimatile](https://github.com/ultimatile). [@MartinMikkelsen](https://github.com/MartinMikkelsen) contributed to writing docstrings. Special thanks to [@hyrodium](https://github.com/hyrodium) for his help with managing the documentation and advice on coding style. [@lhapp27](https://github.com/lhapp27) implemented 2 models, and [@ajarifi](https://github.com/ajarifi) implemented 3 models.
