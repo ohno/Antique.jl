@@ -1,11 +1,9 @@
 module DeltaPotentials
 
-# for Julia 1.1
-import Base: @kwdef
-
+# imports and exports
+import Base: @kwdef # for Julia < v1.9
 import ..AbstractModel
 import ..energy, ..potential, ..wavefunction
-
 export DeltaPotential, energy, potential, wavefunction
 
 # parameters

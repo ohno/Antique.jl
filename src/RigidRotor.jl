@@ -1,12 +1,10 @@
 module RigidRotors
 
-# for Julia 1.1
-import Base: @kwdef
-
+# imports and exports
+import Base: @kwdef # for Julia < v1.9
 import ..AbstractModel
 import ..energy, ..potential, ..wavefunction, ..spherical_harmonic, ..legendre_polynomial
-
-export RigidRotor, energy, potential, wavefunction, spherical_harmonic, legendre_polynomial
+export RigidRotor, energy, potential, wavefunction
 
 # parameters
 @kwdef struct RigidRotor <: AbstractModel
