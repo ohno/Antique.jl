@@ -221,10 +221,10 @@ Rodrigues' formula & closed-form:
   P_n^m(x)
   &= \left( 1-x^2 \right)^{m/2} \frac{\mathrm{d}^m}{\mathrm{d}x^m} P_n(x) \\
   &= \left( 1-x^2 \right)^{m/2} \frac{\mathrm{d}^m}{\mathrm{d}x^m} \frac{1}{2^n n!} \frac{\mathrm{d}^n}{\mathrm{d}x ^n} \left[ \left( x^2-1 \right)^n \right] \\
-  &= \frac{1}{2^n} (1-x^2)^{m/2} \sum_{j=0}^{\left\lfloor\frac{n-m}{2}\right\rfloor} (-1)^j \frac{(2n-2j)!}{j! (n-j)! (n-2j-m)!} x^{(n-2j-m)}.
-\end{aligned},
+  &= \frac{1}{2^n} (1-x^2)^{m/2} \sum_{j=0}^{\left\lfloor\frac{n-m}{2}\right\rfloor} (-1)^j \frac{(2n-2j)!}{j! (n-j)! (n-2j-m)!} x^{(n-2j-m)},
+\end{aligned}
 ```
-where Legendre polynomials are defined as ``P_n(x) = \frac{1}{2^n n!} \frac{\mathrm{d}^n}{\mathrm{d}x ^n} \left[ \left( x^2-1 \right)^n \right]``. Note that ``P_l^{-m} = (-1)^m \frac{(l-m)!}{(l+m)!} P_l^m`` for ``m<0``. (It is not compatible with ``P_k^m(t) = (-1)^m\left( 1-t^2 \right)^{m/2} \frac{\mathrm{d}^m P_k(t)}{\mathrm{d}t^m}`` caused by ``(-1)^m``.) The specific formulae are given below.
+where Legendre polynomials are defined as ``P_n(x) = \frac{1}{2^n n!} \frac{\mathrm{d}^n}{\mathrm{d}x ^n} \left[ \left( x^2-1 \right)^n \right]``. Note that ``P_l^{-m} = (-1)^m \frac{(l-m)!}{(l+m)!} P_l^m`` for ``0 \leq m \leq l``. (The Condon-Shortley phase ``(-1)^m`` is not included here, i.e., it is not compatible with ``P_k^m(t) = (-1)^m\left( 1-t^2 \right)^{m/2} \frac{\mathrm{d}^m P_k(t)}{\mathrm{d}t^m}``.) The specific formulae are given below.
 
 Examples:
 ```math
@@ -233,17 +233,17 @@ Examples:
   P_{1}^{0}(x) &= x, \\
   P_{1}^{1}(x) &= \left(+1\right)\sqrt{1-x^2}, \\
   P_{2}^{0}(x) &= -1/2 + 3/2 x^{2}, \\
-  P_{2}^{1}(x) &= \left(-3 x\right)\sqrt{1-x^2}, \\
-  P_{2}^{2}(x) &= 3 - 6 x, \\
+  P_{2}^{1}(x) &= \left(3 x\right)\sqrt{1-x^2}, \\
+  P_{2}^{2}(x) &= 3 - 3 x^{2}, \\
   P_{3}^{0}(x) &= -3/2 x + 5/2 x^{3}, \\
-  P_{3}^{1}(x) &= \left(3/2 - 15/2 x^{2}\right)\sqrt{1-x^2}, \\
-  P_{3}^{2}(x) &= 15 x - 30 x^{2}, \\
-  P_{3}^{3}(x) &= \left(15 - 30 x\right)\sqrt{1-x^2}, \\
+  P_{3}^{1}(x) &= \left(-3/2 + 15/2 x^{2}\right)\sqrt{1-x^2}, \\
+  P_{3}^{2}(x) &= 15 x - 15 x^{3}, \\
+  P_{3}^{3}(x) &= \left(15 - 15 x^{2}\right)\sqrt{1-x^2}, \\
   P_{4}^{0}(x) &= 3/8 - 15/4 x^{2} + 35/8 x^{4}, \\
   P_{4}^{1}(x) &= \left(- 15/2 x + 35/2 x^{3}\right)\sqrt{1-x^2}, \\
-  P_{4}^{2}(x) &= -15/2 + 15 x + 105/2 x^{2} - 105 x^{3}, \\
-  P_{4}^{3}(x) &= \left(105 x - 210 x^{2}\right)\sqrt{1-x^2}, \\
-  P_{4}^{4}(x) &= 105 - 420 x + 420 x^{2}, \\
+  P_{4}^{2}(x) &= -15/2 + 60 x^{2} - 105/2 x^{4}, \\
+  P_{4}^{3}(x) &= \left(105 x - 105 x^{3}\right)\sqrt{1-x^2}, \\
+  P_{4}^{4}(x) &= 105 - 210 x^{2} + 105 x^{4}, \\
   & \vdots
 \end{aligned}
 ```
