@@ -180,7 +180,7 @@ The domain is $0\leq r \lt \infty, 0\leq \theta \lt \pi, 0\leq \varphi \lt 2\pi$
 ```math
 R_{nl}(r) = -\sqrt{\frac{(n-l-1)!}{2n(n+l)!} \left(\frac{2Z}{n a_\mu}\right)^3} \left(\frac{2Zr}{n a_\mu}\right)^l \exp \left(-\frac{Zr}{n a_\mu}\right) L_{n+l}^{2l+1} \left(\frac{2Zr}{n a_\mu}\right),
 ```
-where ``\frac{1}{\mu} = \frac{1}{m_1}+\frac{1}{m_2}``, ``a_\mu = a_0 \frac{m_\mathrm{e}}{\mu}``, ``Z = - z_1 z_2``, the Laguerre polynomials are defined as ``L_n(x) = \frac{1}{n!} \mathrm{e}^x \frac{\mathrm{d}^n}{\mathrm{d}x ^n} \left( \mathrm{e}^{-x} x^n \right)``, and the associated Laguerre polynomials are defined as ``L_n^{k}(x) = \frac{\mathrm{d}^k}{\mathrm{d}x^k} L_n(x)``. Note that replace ``2n(n+l)!`` with ``2n[(n+l)!]^3`` if the Laguerre polynomials are defined as ``L_n(x) = \mathrm{e}^x \frac{\mathrm{d}^n}{\mathrm{d}x ^n} \left( \mathrm{e}^{-x} x^n \right)``. Note that replace ``L_{n+l}^{2l+1}(x)`` with ``- L_{n-l-1}^{2l+1}(x)`` if the associated Laguerre polynomials are defined as ``L_n^{k}(x) = (-1)^k \frac{\mathrm{d}^k}{\mathrm{d}x^k} L_{n+k}(x)``, which we call the generalized Laguerre polynomials. The domain is $0\leq r \lt \infty$.
+where ``\frac{1}{\mu} = \frac{1}{m_1}+\frac{1}{m_2}``, ``a_\mu = a_0 \frac{m_\mathrm{e}}{\mu}``, ``Z = - z_1 z_2``, the Laguerre polynomials are defined as ``L_n(x) = \frac{1}{n!} \mathrm{e}^x \frac{\mathrm{d}^n}{\mathrm{d}x ^n} \left( \mathrm{e}^{-x} x^n \right)``, and the associated Laguerre polynomials are defined as ``L_n^{k}(x) = \frac{\mathrm{d}^k}{\mathrm{d}x^k} L_n(x)``. Note that replace ``2n(n+l)!`` with ``2n[(n+l)!]^3`` if the Laguerre polynomials are defined as ``L_n(x) = \mathrm{e}^x \frac{\mathrm{d}^n}{\mathrm{d}x ^n} \left( \mathrm{e}^{-x} x^n \right)``. Note that replace ``L_{n+l}^{2l+1}(x)`` with ``- L_{n-l-1}^{(2l+1)}(x)`` if the associated Laguerre polynomials are defined as ``L_n^{(k)}(x) = (-1)^k \frac{\mathrm{d}^k}{\mathrm{d}x^k} L_{n+k}(x)``, which we call the generalized Laguerre polynomials. The domain is $0\leq r \lt \infty$.
 """ radial_function(model::CoulombTwoBody, r; n = 1, l = 0)
 
 @doc raw"""
@@ -209,18 +209,18 @@ Examples:
 \begin{aligned}
   L_0^0(x) &= 1, \\
   L_1^0(x) &= 1 - x, \\
-  L_1^1(x) &= 1, \\
+  L_1^1(x) &= -1, \\
   L_2^0(x) &= 1 - 2 x + 1/2 x^2, \\
-  L_2^1(x) &= 2 - x, \\
+  L_2^1(x) &= -2 + x, \\
   L_2^2(x) &= 1, \\
   L_3^0(x) &= 1 - 3 x + 3/2 x^2 - 1/6 x^3, \\
-  L_3^1(x) &= 3 - 3 x + 1/2 x^2, \\
+  L_3^1(x) &= -3 + 3 x - 1/2 x^2, \\
   L_3^2(x) &= 3 - x, \\
-  L_3^3(x) &= 1, \\
-  L_4^0(x) &= 1 - 4 x + 3 x^2 - 2/3 x^3 + 5/12 x^4, \\
-  L_4^1(x) &= 4 - 6 x + 2 x^2 - 1/6 x^3, \\
+  L_3^3(x) &= -1, \\
+  L_4^0(x) &= 1 - 4 x + 3 x^2 - 2/3 x^3 + 1/24 x^4, \\
+  L_4^1(x) &= -4 + 6 x - 2 x^2 + 1/6 x^3, \\
   L_4^2(x) &= 6 - 4 x + 1/2 x^2, \\
-  L_4^3(x) &= 4 - x, \\
+  L_4^3(x) &= -4 + x, \\
   L_4^4(x) &= 1, \\
   \vdots
 \end{aligned}
@@ -252,10 +252,10 @@ Rodrigues' formula & closed-form:
   P_n^m(x)
   &= \left( 1-x^2 \right)^{m/2} \frac{\mathrm{d}^m}{\mathrm{d}x^m} P_n(x) \\
   &= \left( 1-x^2 \right)^{m/2} \frac{\mathrm{d}^m}{\mathrm{d}x^m} \frac{1}{2^n n!} \frac{\mathrm{d}^n}{\mathrm{d}x ^n} \left[ \left( x^2-1 \right)^n \right] \\
-  &= \frac{1}{2^n} (1-x^2)^{m/2} \sum_{j=0}^{\left\lfloor\frac{n-m}{2}\right\rfloor} (-1)^j \frac{(2n-2j)!}{j! (n-j)! (n-2j-m)!} x^{(n-2j-m)}.
-\end{aligned},
+  &= \frac{1}{2^n} (1-x^2)^{m/2} \sum_{j=0}^{\left\lfloor\frac{n-m}{2}\right\rfloor} (-1)^j \frac{(2n-2j)!}{j! (n-j)! (n-2j-m)!} x^{(n-2j-m)},
+\end{aligned}
 ```
-where Legendre polynomials are defined as ``P_n(x) = \frac{1}{2^n n!} \frac{\mathrm{d}^n}{\mathrm{d}x ^n} \left[ \left( x^2-1 \right)^n \right]``. Note that ``P_l^{-m} = (-1)^m \frac{(l-m)!}{(l+m)!} P_l^m`` for ``m<0``. (It is not compatible with ``P_k^m(t) = (-1)^m\left( 1-t^2 \right)^{m/2} \frac{\mathrm{d}^m P_k(t)}{\mathrm{d}t^m}`` caused by ``(-1)^m``.) The specific formulae are given below.
+where Legendre polynomials are defined as ``P_n(x) = \frac{1}{2^n n!} \frac{\mathrm{d}^n}{\mathrm{d}x ^n} \left[ \left( x^2-1 \right)^n \right]``. Note that ``P_l^{-m} = (-1)^m \frac{(l-m)!}{(l+m)!} P_l^m`` for ``0 \leq m \leq l``. (The Condon-Shortley phase ``(-1)^m`` is not included here, i.e., it is not compatible with ``P_k^m(t) = (-1)^m\left( 1-t^2 \right)^{m/2} \frac{\mathrm{d}^m P_k(t)}{\mathrm{d}t^m}``.) The specific formulae are given below.
 
 Examples:
 ```math
@@ -264,17 +264,17 @@ Examples:
   P_{1}^{0}(x) &= x, \\
   P_{1}^{1}(x) &= \left(+1\right)\sqrt{1-x^2}, \\
   P_{2}^{0}(x) &= -1/2 + 3/2 x^{2}, \\
-  P_{2}^{1}(x) &= \left(-3 x\right)\sqrt{1-x^2}, \\
-  P_{2}^{2}(x) &= 3 - 6 x, \\
+  P_{2}^{1}(x) &= \left(3 x\right)\sqrt{1-x^2}, \\
+  P_{2}^{2}(x) &= 3 - 3 x^{2}, \\
   P_{3}^{0}(x) &= -3/2 x + 5/2 x^{3}, \\
-  P_{3}^{1}(x) &= \left(3/2 - 15/2 x^{2}\right)\sqrt{1-x^2}, \\
-  P_{3}^{2}(x) &= 15 x - 30 x^{2}, \\
-  P_{3}^{3}(x) &= \left(15 - 30 x\right)\sqrt{1-x^2}, \\
+  P_{3}^{1}(x) &= \left(-3/2 + 15/2 x^{2}\right)\sqrt{1-x^2}, \\
+  P_{3}^{2}(x) &= 15 x - 15 x^{3}, \\
+  P_{3}^{3}(x) &= \left(15 - 15 x^{2}\right)\sqrt{1-x^2}, \\
   P_{4}^{0}(x) &= 3/8 - 15/4 x^{2} + 35/8 x^{4}, \\
   P_{4}^{1}(x) &= \left(- 15/2 x + 35/2 x^{3}\right)\sqrt{1-x^2}, \\
-  P_{4}^{2}(x) &= -15/2 + 15 x + 105/2 x^{2} - 105 x^{3}, \\
-  P_{4}^{3}(x) &= \left(105 x - 210 x^{2}\right)\sqrt{1-x^2}, \\
-  P_{4}^{4}(x) &= 105 - 420 x + 420 x^{2}, \\
+  P_{4}^{2}(x) &= -15/2 + 60 x^{2} - 105/2 x^{4}, \\
+  P_{4}^{3}(x) &= \left(105 x - 105 x^{3}\right)\sqrt{1-x^2}, \\
+  P_{4}^{4}(x) &= 105 - 210 x^{2} + 105 x^{4}, \\
   & \vdots
 \end{aligned}
 ```

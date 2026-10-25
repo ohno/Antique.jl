@@ -96,20 +96,18 @@ HA = HydrogenAtom(Z=1, m_e=1.0, a_0=1.0, E_h=1.0, hbar=1.0)
 ## References
 
 Main:
-* [DLMF](@cite) _The Digital Library of Mathematical Functions_ (DLMF), [18.3 Table1](https://dlmf.nist.gov/18.3#T1), [18.5 Table1](https://dlmf.nist.gov/18.5#T1), [18.5.16](https://dlmf.nist.gov/18.5#E16), [18.5.17](https://dlmf.nist.gov/18.5#E17)
-* [cpprefjp](@cite) C++ Japanese Reference _cpprefjp_, [assoc_legendre](https://cpprefjp.github.io/reference/cmath/assoc_legendre.html), [assoc_laguerre](https://cpprefjp.github.io/reference/cmath/assoc_laguerre.html)
+* [DLMF](@cite) _The Digital Library of Mathematical Functions_ (DLMF), [18.3 Table1](https://dlmf.nist.gov/18.3#T1), [18.5 Table1](https://dlmf.nist.gov/18.5#T1), [18.5.12](https://dlmf.nist.gov/18.5#E12), [18.5.16](https://dlmf.nist.gov/18.5#E16), [18.5.17](https://dlmf.nist.gov/18.5#E17)
+* [cpprefjp](@cite) C++ Japanese Reference _cpprefjp_, [legendre](https://cpprefjp.github.io/reference/cmath/legendre.html), [assoc_legendre](https://cpprefjp.github.io/reference/cmath/assoc_legendre.html), [laguerre_polynomial](https://cpprefjp.github.io/reference/cmath/laguerre_polynomial.html), [assoc_laguerre](https://cpprefjp.github.io/reference/cmath/assoc_laguerre.html)
 * [Messiah1961](@cite) A. Messiah, _Quantum Mechanics_ **VOLUME Ⅰ** (North-Holland Publishing Company, 1961), p.412 (XI.3), p.419 (XI.18) (XI.18a) (XI.18b), p.483 (B.12), p.493 (B.71) (B.72), p.494 (B.81), p495 (B.93)
 
 Supplemental:
-* [cpprefjp](@cite) C++ Japanese Reference [legendre](https://cpprefjp.github.io/reference/cmath/legendre.html), [assoc_legendre](https://cpprefjp.github.io/reference/cmath/assoc_legendre.html), [laguerre_polynomial](https://cpprefjp.github.io/reference/cmath/laguerre_polynomial.html), [assoc_laguerre](https://cpprefjp.github.io/reference/cmath/assoc_laguerre.html)
-* [DLMF](@cite) The Digital Library of Mathematical Functions (DLMF), [18.3 Table1](https://dlmf.nist.gov/18.3#T1), [18.5 Table1](https://dlmf.nist.gov/18.5#T1), [18.5.16](https://dlmf.nist.gov/18.5#E16), [18.5.17](https://dlmf.nist.gov/18.5#E17), [18.5.12](https://dlmf.nist.gov/18.5#E12)
-* [Landau1965](@cite) L. D. Landau, E. M. Lifshitz, Quantum Mechanics (Pergamon Press, 1965), [p.598 (c.1)](https://archive.org/details/ost-physics-landaulifshitz-quantummechanics/page/n611/mode/2up), [p.598 (c.4)](https://archive.org/details/ost-physics-landaulifshitz-quantummechanics/page/n611/mode/2up), [p.603 (d.13)](https://archive.org/details/ost-physics-landaulifshitz-quantummechanics/page/n615/mode/2up)
-* [Schiff1968](@cite) L. I. Schiff, Quantum Mechanics (McGraw-Hill Book Company, 1968), [p.79 (14.12)](https://archive.org/details/ost-physics-schiff-quantummechanics/page/n95/mode/1up), [p.93 (16.19)](https://archive.org/details/ost-physics-schiff-quantummechanics/page/n109/mode/1up)
-* [Messiah1999](@cite) A. Messiah, Quanfum Mechanics (Dover Publications, 1999), [p.493 (B.72)](https://archive.org/details/quantummechanics0000mess/page/491/mode/1up), [p.494 Table](https://archive.org/details/quantummechanics0000mess/page/494/mode/1up), [p.493 (B.72)](https://archive.org/details/quantummechanics0000mess/page/491/mode/1up), [p.483 (B.12)](https://archive.org/details/quantummechanics0000mess/page/483/mode/1up), [p.483 (B.１２)](https://archive.org/details/quantummechanics0000mess/page/483/mode/１up)
-* [Griffiths1995](@cite) D. J. Griffiths, Introduction to Quantum Mechanics (Prentice Hall, 1995), [p.126 (4.28)](https://archive.org/details/griffiths-introduction-to-quantum-mechanics/page/126/mode/1up), [p.96 Table3.1](https://archive.org/details/griffiths-introduction-to-quantum-mechanics/page/95/mode/1up), [p.126 (4.27)](https://archive.org/details/griffiths-introduction-to-quantum-mechanics/page/126/mode/1up), [p.139 (4.88)](https://archive.org/details/griffiths-introduction-to-quantum-mechanics/page/139/mode/1up), [p.140 Table4.4](https://archive.org/details/griffiths-introduction-to-quantum-mechanics/page/140/mode/1up), [p.139 (4.87)](https://archive.org/details/griffiths-introduction-to-quantum-mechanics/page/139/mode/1up), [p.140 Table4.5](https://archive.org/details/griffiths-introduction-to-quantum-mechanics/page/140/mode/1up)
-* [McQuarrie1997](@cite) D. A. McQuarrie, J. D. Simon, Physical Chemistry: A Molecular Approach (University Science Books, 1997), [p.195 Table6.1](https://archive.org/details/McQuarrieSimonPhysicalChemistrySolutions/McQuarrie_Simon_Physical_Chemistry1997/page/n218/mode/1up), [p.196 (6.26)](https://archive.org/details/McQuarrieSimonPhysicalChemistrySolutions/McQuarrie_Simon_Physical_Chemistry1997/page/n219/mode/1up), [p.196 Table6.2](https://archive.org/details/McQuarrieSimonPhysicalChemistrySolutions/McQuarrie_Simon_Physical_Chemistry1997/page/n220/mode/1up), [p.207 Table6.4](https://archive.org/details/McQuarrieSimonPhysicalChemistrySolutions/McQuarrie_Simon_Physical_Chemistry1997/page/n230/mode/1up)
-* [Atkins2008](@cite) P. W. Atkins, J. De Paula, Atkins' Physical Chemistry, 8th edition (W. H. Freeman, 2008), [p.234](https://archive.org/details/atkinsphysicalch00pwat/page/324/mode/2up?q=Laguerre)
-* [Sakurai2021](@cite) J. J. Sakurai, J. Napolitano, Modern Quantum Mechanics Third Edition (Cambridge University Press, 2021), [p.245 Problem 3.30.b](https://doi.org/10.1017/9781108587280) 
+* [Landau1965](@cite) L. D. Landau, E. M. Lifshitz, _Quantum Mechanics_ (Pergamon Press, 1965), p.598 (c.1), (c.4), p.603 (d.13)
+* [Schiff1968](@cite) L. I. Schiff, _Quantum Mechanics_ (McGraw-Hill Book Company, 1968), p.79 (14.12), p.93 (16.19)
+* [Messiah1999](@cite) A. Messiah, _Quantum Mechanics_ (Dover Publications, 1999), p.483 (B.12), p.493 (B.72), p.494 Table
+* [Griffiths1995](@cite) D. J. Griffiths, _Introduction to Quantum Mechanics_ (Prentice Hall, 1995), p.96 Table 3.1, p.126 (4.27), (4.28), p.139 (4.87), (4.88), p.140 Table 4.4, Table 4.5
+* [McQuarrie1997](@cite) D. A. McQuarrie, J. D. Simon, _Physical Chemistry: A Molecular Approach_ (University Science Books, 1997), p.195 Table 6.1, p.196 (6.26), Table 6.2, p.207 Table 6.4
+* [Atkins2008](@cite) P. W. Atkins, J. De Paula, _Atkins' Physical Chemistry_ **8th edition** (W. H. Freeman, 2008), p.324
+* [Sakurai2021](@cite) J. J. Sakurai, J. Napolitano, _Modern Quantum Mechanics_ **Third Edition** (Cambridge University Press, 2021), p.245 Problem 3.30.b
 """ HydrogenAtom
 
 @doc raw"""
@@ -152,7 +150,7 @@ The domain is $0\leq r \lt \infty, 0\leq \theta \lt \pi, 0\leq \varphi \lt 2\pi$
 ```math
 R_{nl}(r) = -\sqrt{\frac{(n-l-1)!}{2n(n+l)!} \left(\frac{2Z}{n a_0}\right)^3} \left(\frac{2Zr}{n a_0}\right)^l \exp \left(-\frac{Zr}{n a_0}\right) L_{n+l}^{2l+1} \left(\frac{2Zr}{n a_0}\right),
 ```
-where the Laguerre polynomials are defined as ``L_n(x) = \frac{1}{n!} \mathrm{e}^x \frac{\mathrm{d}^n}{\mathrm{d}x ^n} \left( \mathrm{e}^{-x} x^n \right)``, and the associated Laguerre polynomials are defined as ``L_n^{k}(x) = \frac{\mathrm{d}^k}{\mathrm{d}x^k} L_n(x)``. Note that replace ``2n(n+l)!`` with ``2n[(n+l)!]^3`` if the Laguerre polynomials are defined as ``L_n(x) = \mathrm{e}^x \frac{\mathrm{d}^n}{\mathrm{d}x ^n} \left( \mathrm{e}^{-x} x^n \right)``. Note that replace ``L_{n+l}^{2l+1}(x)`` with ``- L_{n-l-1}^{2l+1}(x)`` if the associated Laguerre polynomials are defined as ``L_n^{k}(x) = (-1)^k \frac{\mathrm{d}^k}{\mathrm{d}x^k} L_{n+k}(x)``, which we call the generalized Laguerre polynomials. The domain is $0\leq r \lt \infty$.
+where the Laguerre polynomials are defined as ``L_n(x) = \frac{1}{n!} \mathrm{e}^x \frac{\mathrm{d}^n}{\mathrm{d}x ^n} \left( \mathrm{e}^{-x} x^n \right)``, and the associated Laguerre polynomials are defined as ``L_n^{k}(x) = \frac{\mathrm{d}^k}{\mathrm{d}x^k} L_n(x)``. Note that replace ``2n(n+l)!`` with ``2n[(n+l)!]^3`` if the Laguerre polynomials are defined as ``L_n(x) = \mathrm{e}^x \frac{\mathrm{d}^n}{\mathrm{d}x ^n} \left( \mathrm{e}^{-x} x^n \right)``. Note that replace ``L_{n+l}^{2l+1}(x)`` with ``- L_{n-l-1}^{(2l+1)}(x)`` if the associated Laguerre polynomials are defined as ``L_n^{(k)}(x) = (-1)^k \frac{\mathrm{d}^k}{\mathrm{d}x^k} L_{n+k}(x)``, which we call the generalized Laguerre polynomials. The domain is $0\leq r \lt \infty$.
 """ radial_function(model::HydrogenAtom, r; n = 1, l = 0)
 
 @doc raw"""
@@ -181,18 +179,18 @@ Examples:
 \begin{aligned}
   L_0^0(x) &= 1, \\
   L_1^0(x) &= 1 - x, \\
-  L_1^1(x) &= 1, \\
+  L_1^1(x) &= -1, \\
   L_2^0(x) &= 1 - 2 x + 1/2 x^2, \\
-  L_2^1(x) &= 2 - x, \\
+  L_2^1(x) &= -2 + x, \\
   L_2^2(x) &= 1, \\
   L_3^0(x) &= 1 - 3 x + 3/2 x^2 - 1/6 x^3, \\
-  L_3^1(x) &= 3 - 3 x + 1/2 x^2, \\
+  L_3^1(x) &= -3 + 3 x - 1/2 x^2, \\
   L_3^2(x) &= 3 - x, \\
-  L_3^3(x) &= 1, \\
-  L_4^0(x) &= 1 - 4 x + 3 x^2 - 2/3 x^3 + 5/12 x^4, \\
-  L_4^1(x) &= 4 - 6 x + 2 x^2 - 1/6 x^3, \\
+  L_3^3(x) &= -1, \\
+  L_4^0(x) &= 1 - 4 x + 3 x^2 - 2/3 x^3 + 1/24 x^4, \\
+  L_4^1(x) &= -4 + 6 x - 2 x^2 + 1/6 x^3, \\
   L_4^2(x) &= 6 - 4 x + 1/2 x^2, \\
-  L_4^3(x) &= 4 - x, \\
+  L_4^3(x) &= -4 + x, \\
   L_4^4(x) &= 1, \\
   \vdots
 \end{aligned}
@@ -224,10 +222,10 @@ Rodrigues' formula & closed-form:
   P_n^m(x)
   &= \left( 1-x^2 \right)^{m/2} \frac{\mathrm{d}^m}{\mathrm{d}x^m} P_n(x) \\
   &= \left( 1-x^2 \right)^{m/2} \frac{\mathrm{d}^m}{\mathrm{d}x^m} \frac{1}{2^n n!} \frac{\mathrm{d}^n}{\mathrm{d}x ^n} \left[ \left( x^2-1 \right)^n \right] \\
-  &= \frac{1}{2^n} (1-x^2)^{m/2} \sum_{j=0}^{\left\lfloor\frac{n-m}{2}\right\rfloor} (-1)^j \frac{(2n-2j)!}{j! (n-j)! (n-2j-m)!} x^{(n-2j-m)}.
-\end{aligned},
+  &= \frac{1}{2^n} (1-x^2)^{m/2} \sum_{j=0}^{\left\lfloor\frac{n-m}{2}\right\rfloor} (-1)^j \frac{(2n-2j)!}{j! (n-j)! (n-2j-m)!} x^{(n-2j-m)},
+\end{aligned}
 ```
-where Legendre polynomials are defined as ``P_n(x) = \frac{1}{2^n n!} \frac{\mathrm{d}^n}{\mathrm{d}x ^n} \left[ \left( x^2-1 \right)^n \right]``. Note that ``P_l^{-m} = (-1)^m \frac{(l-m)!}{(l+m)!} P_l^m`` for ``m<0``. (It is not compatible with ``P_k^m(t) = (-1)^m\left( 1-t^2 \right)^{m/2} \frac{\mathrm{d}^m P_k(t)}{\mathrm{d}t^m}`` caused by ``(-1)^m``.) The specific formulae are given below.
+where Legendre polynomials are defined as ``P_n(x) = \frac{1}{2^n n!} \frac{\mathrm{d}^n}{\mathrm{d}x ^n} \left[ \left( x^2-1 \right)^n \right]``. Note that ``P_l^{-m} = (-1)^m \frac{(l-m)!}{(l+m)!} P_l^m`` for ``0 \leq m \leq l``. (The Condon-Shortley phase ``(-1)^m`` is not included here, i.e., it is not compatible with ``P_k^m(t) = (-1)^m\left( 1-t^2 \right)^{m/2} \frac{\mathrm{d}^m P_k(t)}{\mathrm{d}t^m}``.) The specific formulae are given below.
 
 Examples:
 ```math
@@ -236,17 +234,17 @@ Examples:
   P_{1}^{0}(x) &= x, \\
   P_{1}^{1}(x) &= \left(+1\right)\sqrt{1-x^2}, \\
   P_{2}^{0}(x) &= -1/2 + 3/2 x^{2}, \\
-  P_{2}^{1}(x) &= \left(-3 x\right)\sqrt{1-x^2}, \\
-  P_{2}^{2}(x) &= 3 - 6 x, \\
+  P_{2}^{1}(x) &= \left(3 x\right)\sqrt{1-x^2}, \\
+  P_{2}^{2}(x) &= 3 - 3 x^{2}, \\
   P_{3}^{0}(x) &= -3/2 x + 5/2 x^{3}, \\
-  P_{3}^{1}(x) &= \left(3/2 - 15/2 x^{2}\right)\sqrt{1-x^2}, \\
-  P_{3}^{2}(x) &= 15 x - 30 x^{2}, \\
-  P_{3}^{3}(x) &= \left(15 - 30 x\right)\sqrt{1-x^2}, \\
+  P_{3}^{1}(x) &= \left(-3/2 + 15/2 x^{2}\right)\sqrt{1-x^2}, \\
+  P_{3}^{2}(x) &= 15 x - 15 x^{3}, \\
+  P_{3}^{3}(x) &= \left(15 - 15 x^{2}\right)\sqrt{1-x^2}, \\
   P_{4}^{0}(x) &= 3/8 - 15/4 x^{2} + 35/8 x^{4}, \\
   P_{4}^{1}(x) &= \left(- 15/2 x + 35/2 x^{3}\right)\sqrt{1-x^2}, \\
-  P_{4}^{2}(x) &= -15/2 + 15 x + 105/2 x^{2} - 105 x^{3}, \\
-  P_{4}^{3}(x) &= \left(105 x - 210 x^{2}\right)\sqrt{1-x^2}, \\
-  P_{4}^{4}(x) &= 105 - 420 x + 420 x^{2}, \\
+  P_{4}^{2}(x) &= -15/2 + 60 x^{2} - 105/2 x^{4}, \\
+  P_{4}^{3}(x) &= \left(105 x - 105 x^{3}\right)\sqrt{1-x^2}, \\
+  P_{4}^{4}(x) &= 105 - 210 x^{2} + 105 x^{4}, \\
   & \vdots
 \end{aligned}
 ```
